@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { z } from "zod";
 import { generateStoryWithMistral } from "../services/mistral.service";
 import { prisma } from "../services/prisma.service";
+import { authenticateToken } from "../middleware/auth.middleware";
 
 export const storiesRouter = Router();
 
@@ -11,7 +12,6 @@ const GenerateSchema = z.object({
   theme:     z.string().min(1).max(100),
   moral:     z.string().max(100).optional(),
   language:  z.enum(["ar", "en", "fr"]).default("ar"),
-  userId:    z.string().min(1),
   childId:   z.string().optional(),
 });
 
@@ -33,9 +33,14 @@ storiesRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-storiesRouter.post("/generate", async (req: Request, res: Response) => {
+storiesRouter.post("/generate", authenticateToken, async (req: Request, res: Response) => {
   try {
     const input = GenerateSchema.parse(req.body);
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: "رمز الوصول مطلوب" });
+      return;
+    }
     console.log(`[Stories] توليد قصة لـ ${input.childName} (${input.language})`);
     const generated = await generateStoryWithMistral(input);
     const story = await prisma.story.create({
@@ -47,7 +52,7 @@ storiesRouter.post("/generate", async (req: Request, res: Response) => {
         language:  input.language,
         childName: input.childName,
         childAge:  input.childAge,
-        userId:    input.userId,
+        userId,
         childId:   input.childId,
       },
     });
