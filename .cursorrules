@@ -1,0 +1,32 @@
+﻿# قواعد مشروع "قصص بلا نهاية"
+
+## المشروع
+- تطبيق قصص نوم للأطفال مدعوم بالذكاء الاصطناعي
+- Monorepo: Next.js (web) + Flutter (mobile) + Node.js (backend)
+- اللغات المدعومة: العربية، الإنجليزية، الفرنسية
+
+## قواعد الكود
+- استخدم TypeScript دائماً — لا JavaScript أبداً
+- نمط الاستيراد: `import type` للأنواع فقط
+- تسمية الملفات: kebab-case للملفات، PascalCase للمكوّنات
+- لا توجد any types — استخدم generics أو unknown
+- كل function تُصدَّر يجب أن تحتوي JSDoc
+
+## البنية
+- services/ = backend Node.js
+- apps/web  = Next.js 14 App Router
+- packages/ = مكتبات مشتركة
+
+## الذكاء الاصطناعي
+- Mistral AI = المزوّد الأساسي لتوليد القصص
+- Claude API = الاحتياطي عند فشل Mistral
+- كل prompt يدعم ثلاث لغات: ar / en / fr
+
+## قاعدة البيانات
+- Prisma ORM حصراً — لا raw SQL مباشر
+- كل migration لها تعليق يشرح التغيير
+
+## الأمان
+- لا secrets في الكود — .env فقط
+- كل endpoint يحتاج auth ما لم يُصرَّح بخلافه
+- Rate limiting إلزامي على endpoints توليد القصص
