@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import type { Language, Story } from "@qisas/types";
 import { ApiError, generateStory } from "@/lib/api";
-import { isAuthenticated } from "@/lib/storage";
+import { clearAuth, isAuthenticated } from "@/lib/storage";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export default function GeneratePage() {
@@ -43,6 +43,11 @@ export default function GeneratePage() {
       });
       setStory(data.story);
     } catch (err) {
+      if (err instanceof ApiError && err.status === 401) {
+        clearAuth();
+        router.replace("/login");
+        return;
+      }
       setError(
         err instanceof ApiError ? err.message : "فشل توليد القصة، حاول مرة أخرى"
       );
