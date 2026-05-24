@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String?
+  name          String?
+  avatarUrl     String?
+  language      String    @default("ar")
+  plan          Plan      @default(FREE)
+  stripeId      String?   @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  children      Child[]
+  stories       Story[]
+  subscription  Subscription?
+
+  @@map("users")
+}
+
+model Child {
+  id        String   @id @default(cuid())
+  name      String
+  age       Int
+  avatarUrl String?
+  userId    String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stories   Story[]
+
+  @@map("children")
+}
+
+model Story {
+  id          String   @id @default(cuid())
+  title       String
+  content     String   @db.Text
+  language    String   @default("ar")
+  theme       String
+  moral       String?
+  childName   String
+  childAge    Int
+  audioUrl    String?
+  imageUrl    String?
+  userId      String
+  childId     String?
+  isFavorite  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  child       Child?   @relation(fields: [childId], references: [id])
+
+  @@map("stories")
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  userId               String             @unique
+  stripeSubscriptionId String             @unique
+  stripePriceId        String
+  status               SubscriptionStatus
+  plan                 Plan
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  cancelAtPeriodEnd    Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+enum Plan {
+  FREE
+  INDIVIDUAL
+  FAMILY
+  SCHOOL
+}
+
+enum SubscriptionStatus {
+  active
+  canceled
+  past_due
+  trialing
+}
