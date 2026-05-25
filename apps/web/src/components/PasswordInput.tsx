@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { IconEye, IconEyeOff } from "./icons";
 
 const INPUT_CLASS =
@@ -24,6 +25,7 @@ export function PasswordInput({
   required = true,
 }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
+  const t = useTranslations("auth");
 
   return (
     <div className="relative">
@@ -42,7 +44,7 @@ export function PasswordInput({
         type="button"
         onClick={() => setVisible((v) => !v)}
         className="absolute left-3 top-1/2 -translate-y-1/2 rounded-xl p-2 text-slate-500 transition hover:bg-violet-50 hover:text-violet-700"
-        aria-label={visible ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+        aria-label={visible ? t("hidePassword") : t("showPassword")}
       >
         {visible ? <IconEyeOff /> : <IconEye />}
       </button>

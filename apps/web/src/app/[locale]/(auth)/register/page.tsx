@@ -1,23 +1,27 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import type { Language } from "@dreemi/types";
-import { ApiError, register } from "../../../lib/api";
-import { saveAuth } from "../../../lib/storage";
-import { AuthShell } from "../../../components/AuthShell";
-import { FormError } from "../../../components/FormError";
-import { INPUT_CLASS, PasswordInput } from "../../../components/PasswordInput";
+import { useRouter } from "../../../../i18n/routing";
+import { ApiError, register } from "../../../../lib/api";
+import { saveAuth } from "../../../../lib/storage";
+import { AuthShell } from "../../../../components/AuthShell";
+import { FormError } from "../../../../components/FormError";
+import { INPUT_CLASS, PasswordInput } from "../../../../components/PasswordInput";
 
 const BTN_PRIMARY =
   "w-full rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("auth");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [language, setLanguage] = useState<Language>("ar");
+  const [language, setLanguage] = useState<Language>(locale as Language);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -28,13 +32,10 @@ export default function RegisterPage() {
     try {
       const data = await register({ name, email, password, language });
       saveAuth(data.accessToken, data.refreshToken, data.user);
-
       const pending = localStorage.getItem("pendingPlanPriceId");
       router.push(pending ? "/pricing" : "/dashboard");
     } catch (err) {
-      setError(
-        err instanceof ApiError ? err.message : "فشل إنشاء الحساب، حاول مرة أخرى"
-      );
+      setError(err instanceof ApiError ? err.message : t("registerError"));
     } finally {
       setLoading(false);
     }
@@ -42,16 +43,16 @@ export default function RegisterPage() {
 
   return (
     <AuthShell
-      title="إنشاء حساب جديد"
-      subtitle="انضم إلى آلاف العائلات التي تثق بنا لقصص ما قبل النوم"
-      footerText="لديك حساب؟"
+      title={t("registerTitle")}
+      subtitle={t("registerSubtitle")}
+      footerText={t("haveAccount")}
       footerLink="/login"
-      footerLinkLabel="تسجيل الدخول"
+      footerLinkLabel={t("loginButton")}
     >
       <form onSubmit={handleSubmit} className="mt-8 space-y-5">
         <div>
           <label htmlFor="name" className="mb-2 block text-sm font-semibold text-slate-900">
-            الاسم
+            {t("name")}
           </label>
           <input
             id="name"
@@ -60,13 +61,13 @@ export default function RegisterPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className={INPUT_CLASS}
-            placeholder="مثال: هادن"
+            placeholder={t("namePlaceholder")}
           />
         </div>
 
         <div>
           <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-900">
-            البريد الإلكتروني
+            {t("email")}
           </label>
           <input
             id="email"
@@ -82,20 +83,20 @@ export default function RegisterPage() {
 
         <div>
           <label htmlFor="password" className="mb-2 block text-sm font-semibold text-slate-900">
-            كلمة المرور
+            {t("password")}
           </label>
           <PasswordInput
             id="password"
             value={password}
             onChange={setPassword}
-            placeholder="8 أحرف على الأقل"
+            placeholder={t("passwordMinLength")}
             minLength={8}
           />
         </div>
 
         <div>
           <label htmlFor="language" className="mb-2 block text-sm font-semibold text-slate-900">
-            اللغة المفضلة
+            {t("preferredLanguage")}
           </label>
           <select
             id="language"
@@ -103,16 +104,16 @@ export default function RegisterPage() {
             onChange={(e) => setLanguage(e.target.value as Language)}
             className={INPUT_CLASS}
           >
-            <option value="ar">العربية</option>
-            <option value="en">English</option>
-            <option value="fr">Français</option>
+            <option value="ar">{t("arabic")}</option>
+            <option value="en">{t("english")}</option>
+            <option value="fr">{t("french")}</option>
           </select>
         </div>
 
         {error && <FormError message={error} />}
 
         <button type="submit" disabled={loading} className={BTN_PRIMARY}>
-          {loading ? "جاري الإنشاء..." : "إنشاء الحساب"}
+          {loading ? t("creating") : t("createAccount")}
         </button>
       </form>
     </AuthShell>

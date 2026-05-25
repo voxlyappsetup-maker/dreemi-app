@@ -1,23 +1,10 @@
 "use client";
 
 import type { Story } from "@dreemi/types";
+import { useLocale, useTranslations } from "next-intl";
 import { IconHeart } from "./icons";
 import { isFavorite, toggleFavorite } from "../lib/favorites";
 import { useState, type MouseEvent } from "react";
-
-const LANGUAGE_LABELS: Record<string, string> = {
-  ar: "عربي",
-  en: "EN",
-  fr: "FR",
-};
-
-function formatDate(dateStr: string): string {
-  return new Intl.DateTimeFormat("ar", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(dateStr));
-}
 
 function excerpt(content: string, max = 100): string {
   const trimmed = content.replace(/\s+/g, " ").trim();
@@ -31,7 +18,23 @@ interface StoryCardProps {
 }
 
 export function StoryCard({ story, onFavoriteChange }: StoryCardProps) {
+  const locale = useLocale();
+  const t = useTranslations("storyCard");
   const [fav, setFav] = useState(() => isFavorite(story.id) || story.isFavorite);
+
+  const LANGUAGE_LABELS: Record<string, string> = {
+    ar: t("langAr"),
+    en: t("langEn"),
+    fr: t("langFr"),
+  };
+
+  function formatDate(dateStr: string): string {
+    return new Intl.DateTimeFormat(locale, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }).format(new Date(dateStr));
+  }
 
   function handleFavorite(e: MouseEvent) {
     e.preventDefault();
@@ -55,7 +58,7 @@ export function StoryCard({ story, onFavoriteChange }: StoryCardProps) {
             <button
               type="button"
               onClick={handleFavorite}
-              aria-label={fav ? "إزالة من المفضلة" : "إضافة للمفضلة"}
+              aria-label={fav ? t("removeFavorite") : t("addFavorite")}
               className={`rounded-xl p-2 transition ${
                 fav
                   ? "bg-red-50 text-red-500"
