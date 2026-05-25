@@ -13,7 +13,17 @@ const app = express();
 const PORT = process.env.API_PORT || 3001;
 
 app.use(helmet());
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://dreemi.app",
+      "https://www.dreemi.app",
+      "https://dreemi-app-web.vercel.app",
+    ],
+    credentials: true,
+  }),
+);
 
 // Stripe webhooks need the raw body for signature verification.
 // Mount it BEFORE the global express.json() parser.
