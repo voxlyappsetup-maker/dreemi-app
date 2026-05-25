@@ -35,7 +35,7 @@ const PLANS = [
     period: "/شهر",
     features: ["قصص غير محدودة", "٣ لغات", "تصدير PDF"],
     cta: "اختر الفردي",
-    href: "/register",
+    href: "/pricing",
     highlighted: true,
   },
   {
@@ -44,7 +44,7 @@ const PLANS = [
     period: "/شهر",
     features: ["حتى ٣ أطفال", "قصص غير محدودة", "مكتبة عائلية"],
     cta: "اختر العائلي",
-    href: "/register",
+    href: "/pricing",
     highlighted: false,
   },
 ] as const;

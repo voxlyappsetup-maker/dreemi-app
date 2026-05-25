@@ -28,7 +28,9 @@ export default function RegisterPage() {
     try {
       const data = await register({ name, email, password, language });
       saveAuth(data.accessToken, data.refreshToken, data.user);
-      router.push("/dashboard");
+
+      const pending = localStorage.getItem("pendingPlanPriceId");
+      router.push(pending ? "/pricing" : "/dashboard");
     } catch (err) {
       setError(
         err instanceof ApiError ? err.message : "فشل إنشاء الحساب، حاول مرة أخرى"

@@ -102,3 +102,23 @@ export async function fetchStories(userId: string): Promise<Story[]> {
   );
   return data.stories;
 }
+
+/** Create a Stripe Checkout session and return the redirect URL. */
+export async function createCheckout(priceId: string): Promise<string> {
+  const data = await apiFetch<{ success: boolean; url: string }>(
+    "/api/payments/create-checkout",
+    { method: "POST", body: JSON.stringify({ priceId }) },
+    true,
+  );
+  return data.url;
+}
+
+/** Create a Stripe Customer Portal session and return the redirect URL. */
+export async function createPortal(): Promise<string> {
+  const data = await apiFetch<{ success: boolean; url: string }>(
+    "/api/payments/create-portal",
+    { method: "POST" },
+    true,
+  );
+  return data.url;
+}

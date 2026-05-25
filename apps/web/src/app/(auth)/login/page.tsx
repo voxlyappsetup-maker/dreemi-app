@@ -25,7 +25,9 @@ export default function LoginPage() {
     try {
       const data = await login({ email, password });
       saveAuth(data.accessToken, data.refreshToken, data.user);
-      router.push("/dashboard");
+
+      const pending = localStorage.getItem("pendingPlanPriceId");
+      router.push(pending ? "/pricing" : "/dashboard");
     } catch (err) {
       setError(
         err instanceof ApiError ? err.message : "فشل تسجيل الدخول، حاول مرة أخرى"

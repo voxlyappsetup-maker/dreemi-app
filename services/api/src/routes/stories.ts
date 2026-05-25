@@ -3,6 +3,7 @@ import { z } from "zod";
 import { generateStoryWithMistral } from "../services/mistral.service";
 import { prisma } from "../services/prisma.service";
 import { authenticateToken } from "../middleware/auth.middleware";
+import { checkStoryLimit } from "../middleware/plans.middleware";
 
 export const storiesRouter = Router();
 
@@ -33,7 +34,7 @@ storiesRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-storiesRouter.post("/generate", authenticateToken, async (req: Request, res: Response) => {
+storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: Request, res: Response) => {
   try {
     const input = GenerateSchema.parse(req.body);
     const userId = req.userId;

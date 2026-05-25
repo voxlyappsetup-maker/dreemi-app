@@ -4,6 +4,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import { storiesRouter } from "./routes/stories";
 import { authRouter } from "./routes/auth";
+import { paymentsRouter } from "./routes/payments";
 import { errorHandler } from "./middleware/errorHandler";
 
 dotenv.config({ path: "../../.env" });
@@ -13,6 +14,13 @@ const PORT = process.env.API_PORT || 3001;
 
 app.use(helmet());
 app.use(cors({ origin: "*" }));
+
+// Stripe webhooks need the raw body for signature verification.
+// Mount it BEFORE the global express.json() parser.
+app.use(
+  "/api/payments/webhook",
+  express.raw({ type: "application/json" }),
+);
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
@@ -21,6 +29,7 @@ app.get("/health", (_req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/stories", storiesRouter);
+app.use("/api/payments", paymentsRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
