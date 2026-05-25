@@ -1,6 +1,6 @@
 "use client";
 
-import type { Story } from "@qisas/types";
+import type { Story } from "@dreemi/types";
 import { IconHeart } from "./icons";
 import { isFavorite, toggleFavorite } from "@/lib/favorites";
 import { useState, type MouseEvent } from "react";

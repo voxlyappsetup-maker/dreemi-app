@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { readFileSync } from "fs";
 
 // قراءة .env يدوياً
-const env = readFileSync("C:/Projects/qisas-app/.env", "utf8");
+const env = readFileSync("C:/Projects/dreemi-app/.env", "utf8");
 const apiKey = env.match(/MISTRAL_API_KEY="?([^"\n]+)"?/)?.[1];
 
 console.log("API Key موجود:", !!apiKey);

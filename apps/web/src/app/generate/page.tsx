@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { Language, Story } from "@qisas/types";
+import type { Language, Story } from "@dreemi/types";
 import { ApiError, generateStory } from "@/lib/api";
 import { toggleFavorite, isFavorite } from "@/lib/favorites";
 import { clearAuth, isAuthenticated } from "@/lib/storage";

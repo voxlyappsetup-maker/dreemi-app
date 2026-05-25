@@ -24,7 +24,7 @@ app.use(
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok", service: "qisas-api", timestamp: new Date() });
+  res.json({ status: "ok", service: "dreemi-api", timestamp: new Date() });
 });
 
 app.use("/api/auth", authRouter);
@@ -33,5 +33,5 @@ app.use("/api/payments", paymentsRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`✓ قصص بلا نهاية API يعمل على http://localhost:${PORT}`);
+  console.log(`✓ Dreemi API يعمل على http://localhost:${PORT}`);
 });

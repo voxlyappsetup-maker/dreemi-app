@@ -1,5 +1,5 @@
 {
-  "name": "qisas-app",
+  "name": "dreemi-app",
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
@@ -7,8 +7,8 @@
     "build": "turbo build",
     "test": "turbo test",
     "lint": "turbo lint",
-    "db:migrate": "pnpm --filter @qisas/api db:migrate",
-    "db:studio": "pnpm --filter @qisas/api db:studio"
+    "db:migrate": "pnpm --filter @dreemi/api db:migrate",
+    "db:studio": "pnpm --filter @dreemi/api db:studio"
   },
   "devDependencies": {
     "turbo": "^2.0.0",

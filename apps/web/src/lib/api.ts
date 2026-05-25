@@ -5,7 +5,7 @@ import type {
   RegisterInput,
   Story,
   StoryResponse,
-} from "@qisas/types";
+} from "@dreemi/types";
 
 export interface StoriesListResponse {
   success: boolean;

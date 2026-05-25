@@ -20,7 +20,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@qisas/types':
+      '@dreemi/types':
         specifier: workspace:*
         version: link:../../packages/types
       next:

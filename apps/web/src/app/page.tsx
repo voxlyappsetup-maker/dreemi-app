@@ -87,7 +87,7 @@ export default function HomePage() {
               href="/"
               className="text-xl font-bold text-violet-700 transition hover:text-violet-800"
             >
-              قصص بلا نهاية
+              Dreemi
             </Link>
 
             <nav className="flex flex-row flex-nowrap items-center gap-2 sm:gap-3">
@@ -248,7 +248,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="relative z-20 w-full border-t border-violet-200 bg-white py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 text-center sm:flex-row sm:justify-between sm:text-right">
-          <p className="text-sm text-slate-500">© 2025 قصص بلا نهاية</p>
+          <p className="text-sm text-slate-500">© 2025 Dreemi</p>
           <div className="flex flex-row flex-wrap items-center justify-center gap-4 text-sm text-slate-600">
             <Link href="#" className="hover:text-violet-600">
               الخصوصية

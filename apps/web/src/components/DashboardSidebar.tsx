@@ -22,7 +22,7 @@ export function DashboardSidebar({ onLogout }: DashboardSidebarProps) {
         <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-600 text-white shadow-md">
           <IconBook className="h-5 w-5" />
         </span>
-        <span className="text-lg font-bold text-slate-900">قصص بلا نهاية</span>
+        <span className="text-lg font-bold text-slate-900">Dreemi</span>
       </Link>
 
       <nav className="flex flex-1 flex-col gap-1">

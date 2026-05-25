@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import type { Language } from "@qisas/types";
+import type { Language } from "@dreemi/types";
 import { ApiError, register } from "@/lib/api";
 import { saveAuth } from "@/lib/storage";
 import { AuthShell } from "@/components/AuthShell";

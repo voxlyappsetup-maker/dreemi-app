@@ -19,7 +19,7 @@ async function main() {
     // 1. Landing
     await page.goto(WEB, { waitUntil: "networkidle" });
     const title = await page.locator("h1").first().textContent();
-    record("1. Open http://localhost:3000", title?.includes("قصص بلا نهاية") ?? false, title ?? "");
+    record("1. Open http://localhost:3000", title?.includes("Dreemi") ?? false, title ?? "");
 
     // 2. CTA to register
     await page.getByRole("link", { name: "ابدأ مجاناً" }).click();

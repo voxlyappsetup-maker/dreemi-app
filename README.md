@@ -1,11 +1,11 @@
-﻿# قصص بلا نهاية
+﻿# Dreemi
 
 تطبيق يولّد قصص نوم للأطفال بالذكاء الاصطناعي — فريدة، لا تتكرر أبداً.
 
 ## هيكل المشروع
 
 ```
-qisas-app/
+dreemi-app/
 ├── apps/web/          → Next.js 14 — الموقع الإلكتروني
 ├── services/api/      → Node.js + Express — واجهة برمجية
 ├── packages/types/    → أنواع TypeScript المشتركة
@@ -24,8 +24,8 @@ qisas-app/
 ## التثبيت
 
 ```bash
-git clone <repo-url> qisas-app
-cd qisas-app
+git clone <repo-url> dreemi-app
+cd dreemi-app
 pnpm install
 ```
 

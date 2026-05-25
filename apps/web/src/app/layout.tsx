@@ -9,7 +9,7 @@ const notoArabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "قصص بلا نهاية",
+  title: "Dreemi",
   description: "قصص نوم مخصصة لأطفالك بالذكاء الاصطناعي",
 };
 

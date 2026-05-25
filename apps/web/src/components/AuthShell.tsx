@@ -55,7 +55,7 @@ export function AuthShell({
                 📖
               </span>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900">قصص بلا نهاية</h2>
+            <h2 className="text-3xl font-bold text-slate-900">Dreemi</h2>
             <p className="mt-4 text-lg leading-relaxed text-slate-600">
               قصص نوم مخصصة تبعث على الطمأنينة — مصممة للآباء الذين يهتمون
               بخيال أطفالهم.

@@ -1,4 +1,4 @@
-import type { User } from "@qisas/types";
+import type { User } from "@dreemi/types";
 
 const ACCESS_TOKEN_KEY = "accessToken";
 const REFRESH_TOKEN_KEY = "refreshToken";

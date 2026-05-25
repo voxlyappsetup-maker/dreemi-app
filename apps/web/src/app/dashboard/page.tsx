@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { Story, User } from "@qisas/types";
+import type { Story, User } from "@dreemi/types";
 import { fetchStories } from "@/lib/api";
 import { getFavoriteIds } from "@/lib/favorites";
 import { clearAuth, getStoredUser, isAuthenticated } from "@/lib/storage";
