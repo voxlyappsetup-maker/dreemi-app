@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import type { Story, User } from "@dreemi/types";
-import { fetchStories } from "../../lib/api";
+import { fetchStories, getMe } from "../../lib/api";
 import { getFavoriteIds } from "../../lib/favorites";
-import { clearAuth, getStoredUser, isAuthenticated } from "../../lib/storage";
+import { clearAuth, getStoredUser, isAuthenticated, saveUser } from "../../lib/storage";
 import { DashboardSidebar } from "../../components/DashboardSidebar";
 import { StoryCard } from "../../components/StoryCard";
 import { IconSparkle } from "../../components/icons";
@@ -17,11 +17,27 @@ const BTN_PRIMARY =
 const PAGE_BG = "min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white";
 
 export default function DashboardPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className={`flex items-center justify-center ${PAGE_BG}`}>
+          <p className="text-slate-600">جاري التحميل...</p>
+        </main>
+      }
+    >
+      <DashboardContent />
+    </Suspense>
+  );
+}
+
+function DashboardContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [user, setUser] = useState<User | null>(null);
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
   const [favTick, setFavTick] = useState(0);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
   const loadStories = useCallback(async (userId: string) => {
     try {
@@ -37,14 +53,31 @@ export default function DashboardPage() {
       router.replace("/login");
       return;
     }
+
     const u = getStoredUser();
     setUser(u);
+
+    const isPaymentSuccess = searchParams.get("success") === "true";
+
+    if (isPaymentSuccess) {
+      getMe()
+        .then((freshUser) => {
+          saveUser(freshUser);
+          setUser(freshUser);
+          setSuccessMsg("تم الاشتراك بنجاح! مرحباً بك في Dreemi");
+          router.replace("/dashboard", { scroll: false });
+          setTimeout(() => setSuccessMsg(null), 6000);
+        })
+        .catch(() => {});
+    }
+
     if (u?.id) {
       loadStories(u.id).finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [router, loadStories]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const stats = useMemo(() => {
     void favTick;
@@ -87,6 +120,12 @@ export default function DashboardPage() {
       />
 
       <main className="px-4 py-8 sm:px-8 lg:py-10">
+        {successMsg && (
+          <div className="mb-6 rounded-2xl border border-green-200 bg-green-50 px-5 py-4 text-center text-sm font-medium text-green-800 shadow-sm">
+            {successMsg}
+          </div>
+        )}
+
         {isFree && (
           <div className="mb-6 flex flex-col items-start gap-3 rounded-2xl border border-violet-200 bg-gradient-to-l from-violet-50 to-white px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm font-medium text-slate-700">

@@ -7,6 +7,7 @@ import {
   signTokenPair,
   verifyRefreshToken,
 } from "../services/jwt.service";
+import { authenticateToken } from "../middleware/auth.middleware";
 
 export const authRouter = Router();
 
@@ -214,5 +215,22 @@ authRouter.post("/refresh", async (req: Request, res: Response) => {
       return;
     }
     res.status(500).json({ success: false, error: "فشل تحديث الرمز" });
+  }
+});
+
+authRouter.get("/me", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.userId },
+    });
+
+    if (!user) {
+      res.status(404).json({ success: false, error: "المستخدم غير موجود" });
+      return;
+    }
+
+    res.json({ success: true, user: toPublicUser(user) });
+  } catch {
+    res.status(500).json({ success: false, error: "فشل جلب بيانات المستخدم" });
   }
 });

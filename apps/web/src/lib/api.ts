@@ -5,6 +5,7 @@ import type {
   RegisterInput,
   Story,
   StoryResponse,
+  User,
 } from "@dreemi/types";
 
 export interface StoriesListResponse {
@@ -121,4 +122,14 @@ export async function createPortal(): Promise<string> {
     true,
   );
   return data.url;
+}
+
+/** Fetch the current user's profile from the API (fresh from database). */
+export async function getMe(): Promise<User> {
+  const data = await apiFetch<{ success: boolean; user: User }>(
+    "/api/auth/me",
+    {},
+    true,
+  );
+  return data.user;
 }
