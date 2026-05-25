@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${notoArabic.variable} font-arabic antialiased`}>
+      <body className={`${notoArabic.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

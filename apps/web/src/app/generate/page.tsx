@@ -2,15 +2,31 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { Language, Story } from "@qisas/types";
 import { ApiError, generateStory } from "@/lib/api";
+import { toggleFavorite, isFavorite } from "@/lib/favorites";
 import { clearAuth, isAuthenticated } from "@/lib/storage";
+import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { FormError } from "@/components/FormError";
+import { INPUT_CLASS } from "@/components/PasswordInput";
+import { IconHeart, IconShare, IconSparkle } from "@/components/icons";
+
+const STEPS = ["معلومات الطفل", "إعدادات القصة", "القصة جاهزة"] as const;
+
+const PAGE_BG = "min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white";
+
+const BTN_PRIMARY =
+  "inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60";
+
+const BTN_SECONDARY =
+  "inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-violet-200 bg-white px-6 py-3 font-semibold text-violet-700 shadow-md transition hover:border-violet-300 hover:bg-violet-50";
 
 export default function GeneratePage() {
   const router = useRouter();
   const [ready, setReady] = useState(false);
+  const [step, setStep] = useState(1);
   const [childName, setChildName] = useState("");
   const [childAge, setChildAge] = useState(5);
   const [theme, setTheme] = useState("");
@@ -19,6 +35,8 @@ export default function GeneratePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [story, setStory] = useState<Story | null>(null);
+  const [fav, setFav] = useState(false);
+  const [shareMsg, setShareMsg] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -28,20 +46,41 @@ export default function GeneratePage() {
     setReady(true);
   }, [router]);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function validateStep1(): boolean {
+    if (!childName.trim()) {
+      setError("يرجى إدخال اسم الطفل");
+      return false;
+    }
+    if (childAge < 2 || childAge > 12) {
+      setError("العمر يجب أن يكون بين ٢ و ١٢");
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep2(): boolean {
+    if (!theme.trim()) {
+      setError("يرجى إدخال موضوع القصة");
+      return false;
+    }
+    return true;
+  }
+
+  async function runGenerate() {
     setError(null);
     setStory(null);
+    setStep(3);
     setLoading(true);
     try {
       const data = await generateStory({
-        childName,
+        childName: childName.trim(),
         childAge,
-        theme,
+        theme: theme.trim(),
         moral: moral.trim() || undefined,
         language,
       });
       setStory(data.story);
+      setFav(isFavorite(data.story.id) || data.story.isFavorite);
     } catch (err) {
       if (err instanceof ApiError && err.status === 401) {
         clearAuth();
@@ -51,171 +90,297 @@ export default function GeneratePage() {
       setError(
         err instanceof ApiError ? err.message : "فشل توليد القصة، حاول مرة أخرى"
       );
+      setStep(2);
     } finally {
       setLoading(false);
     }
   }
 
+  function handleNext() {
+    setError(null);
+    if (step === 1 && validateStep1()) setStep(2);
+    else if (step === 2 && validateStep2()) runGenerate();
+  }
+
+  function handleBack() {
+    setError(null);
+    if (step === 2) setStep(1);
+    else if (step === 3 && !loading) setStep(2);
+  }
+
+  async function handleShare() {
+    if (!story) return;
+    const text = `${story.title}\n\n${story.content.slice(0, 500)}…`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: story.title, text });
+        return;
+      } catch {
+        /* fall through to copy */
+      }
+    }
+    await navigator.clipboard.writeText(text);
+    setShareMsg("تم نسخ القصة");
+    setTimeout(() => setShareMsg(null), 2500);
+  }
+
+  function handleFavorite() {
+    if (!story) return;
+    setFav(toggleFavorite(story.id));
+  }
+
+  function startOver() {
+    setStep(1);
+    setStory(null);
+    setError(null);
+    setShareMsg(null);
+  }
+
   if (!ready) {
     return (
-      <main className="flex min-h-screen items-center justify-center">
-        <p className="text-muted">جاري التحميل...</p>
+      <main className={`flex items-center justify-center ${PAGE_BG}`}>
+        <p className="text-slate-600">جاري التحميل...</p>
       </main>
     );
   }
 
+  const displayStep = loading ? 3 : step;
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-indigo-50 to-[#faf8ff]">
-      <header className="border-b border-white/60 bg-white/70 backdrop-blur">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
-          <Link href="/dashboard" className="text-sm text-primary hover:underline">
-            ← العودة للوحة التحكم
-          </Link>
-          <span className="font-bold text-primary">قصة جديدة</span>
+    <div className={`${PAGE_BG} lg:pr-64`}>
+      <DashboardSidebar
+        onLogout={() => {
+          clearAuth();
+          router.replace("/login");
+        }}
+      />
+
+      <main className="mx-auto max-w-2xl px-4 py-8 sm:px-8 lg:py-10">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-slate-900">توليد قصة نوم</h1>
+          <p className="mt-1 text-sm text-slate-600">٣ خطوات بسيطة — قصة مخصصة لطفلك.</p>
         </div>
-      </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10">
-        <h1 className="text-2xl font-bold text-foreground">توليد قصة نوم</h1>
-        <p className="mt-2 text-muted">
-          املأ التفاصيل وسنكتب قصة مخصصة لطفلك خلال لحظات.
-        </p>
-
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 space-y-5 rounded-3xl bg-card p-6 shadow-card sm:p-8"
-        >
-          <div>
-            <label htmlFor="childName" className="mb-1 block text-sm font-medium">
-              اسم الطفل
-            </label>
-            <input
-              id="childName"
-              type="text"
-              required
-              maxLength={50}
-              value={childName}
-              onChange={(e) => setChildName(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-              placeholder="مثال: سارة"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="childAge" className="mb-1 block text-sm font-medium">
-              العمر (٢–١٢)
-            </label>
-            <input
-              id="childAge"
-              type="number"
-              required
-              min={2}
-              max={12}
-              value={childAge}
-              onChange={(e) => setChildAge(Number(e.target.value))}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="theme" className="mb-1 block text-sm font-medium">
-              موضوع القصة
-            </label>
-            <input
-              id="theme"
-              type="text"
-              required
-              maxLength={100}
-              value={theme}
-              onChange={(e) => setTheme(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-              placeholder="مثال: الصداقة، المغامرة، الحيوانات"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="moral" className="mb-1 block text-sm font-medium">
-              القيمة التربوية (اختياري)
-            </label>
-            <input
-              id="moral"
-              type="text"
-              maxLength={100}
-              value={moral}
-              onChange={(e) => setMoral(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-              placeholder="مثال: الصدق، التعاون"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="language" className="mb-1 block text-sm font-medium">
-              لغة القصة
-            </label>
-            <select
-              id="language"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value as Language)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-            >
-              <option value="ar">العربية</option>
-              <option value="en">English</option>
-              <option value="fr">Français</option>
-            </select>
-          </div>
-
-          {error && (
-            <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-xl bg-primary py-3 font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
-          >
-            {loading ? "جاري التوليد..." : "توليد القصة"}
-          </button>
-        </form>
-
-        {loading && (
-          <LoadingSpinner label="نكتب قصة سحرية لطفلك، انتظر قليلاً..." />
-        )}
-
-        {story && !loading && (
-          <article className="mt-10 overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-violet-700 p-1 shadow-soft">
-            <div className="rounded-[1.35rem] bg-card p-6 sm:p-8">
-              <div className="mb-4 flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-sm text-primary">قصة لـ {story.childName}</p>
-                  <h2 className="mt-1 text-2xl font-bold text-foreground">
-                    {story.title}
-                  </h2>
+        <div className="mb-10 flex items-center justify-between gap-2">
+          {STEPS.map((label, i) => {
+            const n = i + 1;
+            const active = displayStep === n;
+            const done = displayStep > n;
+            return (
+              <div key={label} className="flex flex-1 flex-col items-center gap-2">
+                <div
+                  className={`flex h-10 w-10 items-center justify-center rounded-2xl text-sm font-bold transition ${
+                    active
+                      ? "bg-violet-600 text-white shadow-md"
+                      : done
+                        ? "bg-violet-100 text-violet-700"
+                        : "bg-violet-50 text-slate-500"
+                  }`}
+                >
+                  {done ? "✓" : n}
                 </div>
-                <span className="shrink-0 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
-                  {story.language === "ar"
-                    ? "عربي"
-                    : story.language === "en"
-                      ? "EN"
-                      : "FR"}
+                <span
+                  className={`hidden text-center text-xs sm:block ${
+                    active ? "font-semibold text-violet-700" : "text-slate-500"
+                  }`}
+                >
+                  {label}
                 </span>
               </div>
+            );
+          })}
+        </div>
 
-              <div className="prose prose-sm max-w-none whitespace-pre-wrap leading-relaxed text-foreground/90">
-                {story.content}
+        <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md sm:p-8">
+          {step === 1 && (
+            <div className="space-y-5">
+              <h2 className="text-lg font-bold text-slate-900">من بطل القصة؟</h2>
+              <div>
+                <label htmlFor="childName" className="mb-2 block text-sm font-semibold text-slate-900">
+                  اسم الطفل
+                </label>
+                <input
+                  id="childName"
+                  type="text"
+                  required
+                  maxLength={50}
+                  value={childName}
+                  onChange={(e) => setChildName(e.target.value)}
+                  className={INPUT_CLASS}
+                  placeholder="مثال: يوسف"
+                />
               </div>
+              <div>
+                <label htmlFor="childAge" className="mb-2 block text-sm font-semibold text-slate-900">
+                  العمر (٢–١٢)
+                </label>
+                <input
+                  id="childAge"
+                  type="number"
+                  min={2}
+                  max={12}
+                  value={childAge}
+                  onChange={(e) => setChildAge(Number(e.target.value))}
+                  className={INPUT_CLASS}
+                />
+              </div>
+            </div>
+          )}
 
-              {story.moral && (
-                <div className="mt-6 rounded-2xl border border-primary/10 bg-indigo-50 px-4 py-4">
-                  <p className="text-sm font-semibold text-primary">القيمة المستفادة</p>
-                  <p className="mt-1 text-foreground/80">{story.moral}</p>
-                </div>
+          {step === 2 && (
+            <div className="space-y-5">
+              <h2 className="text-lg font-bold text-slate-900">تفاصيل القصة</h2>
+              <div>
+                <label htmlFor="theme" className="mb-2 block text-sm font-semibold text-slate-900">
+                  موضوع القصة
+                </label>
+                <input
+                  id="theme"
+                  type="text"
+                  required
+                  maxLength={100}
+                  value={theme}
+                  onChange={(e) => setTheme(e.target.value)}
+                  className={INPUT_CLASS}
+                  placeholder="مثال: الفضاء والنجوم"
+                />
+              </div>
+              <div>
+                <label htmlFor="moral" className="mb-2 block text-sm font-semibold text-slate-900">
+                  القيمة التربوية (اختياري)
+                </label>
+                <input
+                  id="moral"
+                  type="text"
+                  maxLength={100}
+                  value={moral}
+                  onChange={(e) => setMoral(e.target.value)}
+                  className={INPUT_CLASS}
+                  placeholder="مثال: الشجاعة"
+                />
+              </div>
+              <div>
+                <label htmlFor="language" className="mb-2 block text-sm font-semibold text-slate-900">
+                  لغة القصة
+                </label>
+                <select
+                  id="language"
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value as Language)}
+                  className={INPUT_CLASS}
+                >
+                  <option value="ar">العربية</option>
+                  <option value="en">English</option>
+                  <option value="fr">Français</option>
+                </select>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div>
+              {loading && (
+                <LoadingSpinner label="نكتب قصة سحرية لطفلك، انتظر قليلاً..." />
+              )}
+              {story && !loading && (
+                <article className="overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 to-white">
+                  <div className="border-b border-violet-100 bg-white/80 px-6 py-5">
+                    <p className="text-sm font-medium text-violet-700">
+                      قصة لـ {story.childName}
+                    </p>
+                    <h2 className="mt-1 text-2xl font-bold text-slate-900">
+                      {story.title}
+                    </h2>
+                  </div>
+                  <div className="max-h-[50vh] overflow-y-auto px-6 py-6">
+                    <p className="whitespace-pre-wrap leading-loose text-slate-800">
+                      {story.content}
+                    </p>
+                    {story.moral && (
+                      <div className="mt-6 rounded-2xl bg-violet-50 px-4 py-4">
+                        <p className="text-sm font-semibold text-violet-700">
+                          القيمة المستفادة
+                        </p>
+                        <p className="mt-1 text-slate-700">{story.moral}</p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-3 border-t border-violet-100 bg-white/90 px-6 py-4">
+                    <button
+                      type="button"
+                      onClick={handleShare}
+                      className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none`}
+                    >
+                      <IconShare />
+                      مشاركة
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleFavorite}
+                      className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none ${
+                        fav ? "border-red-200 bg-red-50 text-red-600" : ""
+                      }`}
+                    >
+                      <IconHeart filled={fav} />
+                      {fav ? "في المفضلة" : "حفظ في المفضلة"}
+                    </button>
+                    {shareMsg && (
+                      <span className="w-full text-center text-sm text-violet-700">
+                        {shareMsg}
+                      </span>
+                    )}
+                  </div>
+                </article>
               )}
             </div>
-          </article>
-        )}
-      </div>
-    </main>
+          )}
+
+          {error && step !== 3 && (
+            <div className="mt-4">
+              <FormError message={error} />
+            </div>
+          )}
+          {error && step === 3 && !loading && (
+            <div className="mt-4">
+              <FormError message={error} />
+            </div>
+          )}
+
+          {step < 3 && (
+            <div className="mt-8 flex gap-3">
+              {step > 1 && (
+                <button type="button" onClick={handleBack} className={BTN_SECONDARY}>
+                  السابق
+                </button>
+              )}
+              <button type="button" onClick={handleNext} className={BTN_PRIMARY}>
+                {step === 2 ? (
+                  <>
+                    <IconSparkle className="h-5 w-5" />
+                    توليد القصة
+                  </>
+                ) : (
+                  "التالي"
+                )}
+              </button>
+            </div>
+          )}
+
+          {step === 3 && story && !loading && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button type="button" onClick={startOver} className={BTN_SECONDARY}>
+                قصة جديدة
+              </button>
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center justify-center rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700"
+              >
+                العودة للوحة التحكم
+              </Link>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
   );
 }

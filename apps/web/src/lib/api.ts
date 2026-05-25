@@ -3,8 +3,14 @@ import type {
   GenerateStoryInput,
   LoginInput,
   RegisterInput,
+  Story,
   StoryResponse,
 } from "@qisas/types";
+
+export interface StoriesListResponse {
+  success: boolean;
+  stories: Story[];
+}
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
@@ -88,4 +94,11 @@ export async function generateStory(
     },
     true
   );
+}
+
+export async function fetchStories(userId: string): Promise<Story[]> {
+  const data = await apiFetch<StoriesListResponse>(
+    `/api/stories?userId=${encodeURIComponent(userId)}`
+  );
+  return data.stories;
 }
