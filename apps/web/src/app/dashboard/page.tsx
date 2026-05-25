@@ -73,6 +73,8 @@ export default function DashboardPage() {
   }
 
   const displayName = user?.name ?? user?.email ?? "صديقنا";
+  const plan = user?.plan ?? "FREE";
+  const isFree = plan === "FREE";
 
   return (
     <div className={`${PAGE_BG} lg:pr-64`}>
@@ -81,9 +83,24 @@ export default function DashboardPage() {
           clearAuth();
           router.replace("/login");
         }}
+        plan={plan}
       />
 
       <main className="px-4 py-8 sm:px-8 lg:py-10">
+        {isFree && (
+          <div className="mb-6 flex flex-col items-start gap-3 rounded-2xl border border-violet-200 bg-gradient-to-l from-violet-50 to-white px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm font-medium text-slate-700">
+              لديك ٣ قصص مجانية هذا الشهر — قم بالترقية للحصول على قصص غير محدودة
+            </p>
+            <Link
+              href="/pricing"
+              className="shrink-0 rounded-2xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-violet-700"
+            >
+              ترقية الخطة
+            </Link>
+          </div>
+        )}
+
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">

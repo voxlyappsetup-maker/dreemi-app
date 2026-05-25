@@ -2,19 +2,29 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { Plan } from "@dreemi/types";
 import { IconBook, IconSparkle } from "./icons";
 
 interface DashboardSidebarProps {
   onLogout: () => void;
+  plan?: Plan;
 }
+
+const PLAN_LABELS: Record<Plan, string> = {
+  FREE: "مجاني",
+  INDIVIDUAL: "فردي",
+  FAMILY: "عائلي",
+  SCHOOL: "مدرسي",
+};
 
 const NAV = [
   { href: "/dashboard", label: "لوحة التحكم", icon: "home" },
   { href: "/generate", label: "قصة جديدة", icon: "sparkle" },
 ] as const;
 
-export function DashboardSidebar({ onLogout }: DashboardSidebarProps) {
+export function DashboardSidebar({ onLogout, plan = "FREE" }: DashboardSidebarProps) {
   const pathname = usePathname();
+  const isFree = plan === "FREE";
 
   return (
     <aside className="flex w-full flex-col border-b border-violet-200 bg-white/90 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:right-0 lg:z-40 lg:w-64 lg:border-b-0 lg:border-l lg:px-5 lg:py-8">
@@ -23,6 +33,15 @@ export function DashboardSidebar({ onLogout }: DashboardSidebarProps) {
           <IconBook className="h-5 w-5" />
         </span>
         <span className="text-lg font-bold text-slate-900">Dreemi</span>
+        <span
+          className={`mr-auto rounded-xl px-2 py-0.5 text-[11px] font-bold ${
+            isFree
+              ? "bg-slate-100 text-slate-600"
+              : "bg-violet-100 text-violet-700"
+          }`}
+        >
+          {PLAN_LABELS[plan]}
+        </span>
       </Link>
 
       <nav className="flex flex-1 flex-col gap-1">
@@ -51,10 +70,20 @@ export function DashboardSidebar({ onLogout }: DashboardSidebarProps) {
         })}
       </nav>
 
+      {isFree && (
+        <Link
+          href="/pricing"
+          className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-l from-violet-600 to-purple-600 px-4 py-3 text-sm font-semibold text-white shadow-md transition hover:from-violet-700 hover:to-purple-700"
+        >
+          <span aria-hidden>✦</span>
+          ترقية الخطة
+        </Link>
+      )}
+
       <button
         type="button"
         onClick={onLogout}
-        className="mt-6 rounded-2xl px-4 py-3 text-right text-sm text-slate-600 transition hover:bg-violet-50 hover:text-slate-900"
+        className="mt-3 rounded-2xl px-4 py-3 text-right text-sm text-slate-600 transition hover:bg-violet-50 hover:text-slate-900"
       >
         تسجيل الخروج
       </button>

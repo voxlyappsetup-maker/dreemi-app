@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import type { Language, Story } from "@dreemi/types";
 import { ApiError, generateStory } from "../../lib/api";
 import { toggleFavorite, isFavorite } from "../../lib/favorites";
-import { clearAuth, isAuthenticated } from "../../lib/storage";
+import { clearAuth, getStoredUser, isAuthenticated } from "../../lib/storage";
 import { DashboardSidebar } from "../../components/DashboardSidebar";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { FormError } from "../../components/FormError";
@@ -37,12 +37,15 @@ export default function GeneratePage() {
   const [story, setStory] = useState<Story | null>(null);
   const [fav, setFav] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
+  const [userPlan, setUserPlan] = useState<"FREE" | "INDIVIDUAL" | "FAMILY" | "SCHOOL">("FREE");
 
   useEffect(() => {
     if (!isAuthenticated()) {
       router.replace("/login");
       return;
     }
+    const u = getStoredUser();
+    if (u?.plan) setUserPlan(u.plan);
     setReady(true);
   }, [router]);
 
@@ -153,6 +156,7 @@ export default function GeneratePage() {
           clearAuth();
           router.replace("/login");
         }}
+        plan={userPlan}
       />
 
       <main className="mx-auto max-w-2xl px-4 py-8 sm:px-8 lg:py-10">
@@ -367,17 +371,33 @@ export default function GeneratePage() {
           )}
 
           {step === 3 && story && !loading && (
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button type="button" onClick={startOver} className={BTN_SECONDARY}>
-                قصة جديدة
-              </button>
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center justify-center rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700"
-              >
-                العودة للوحة التحكم
-              </Link>
-            </div>
+            <>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <button type="button" onClick={startOver} className={BTN_SECONDARY}>
+                  قصة جديدة
+                </button>
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center justify-center rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700"
+                >
+                  العودة للوحة التحكم
+                </Link>
+              </div>
+
+              {userPlan === "FREE" && (
+                <div className="mt-6 flex flex-col items-start gap-3 rounded-2xl border border-violet-200 bg-gradient-to-l from-violet-50 to-white px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-sm font-medium text-slate-700">
+                    هل أعجبتك القصة؟ اشترك للحصول على قصص غير محدودة
+                  </p>
+                  <Link
+                    href="/pricing"
+                    className="shrink-0 rounded-2xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-violet-700"
+                  >
+                    ترقية الخطة
+                  </Link>
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>
