@@ -23,6 +23,15 @@ importers:
       '@dreemi/types':
         specifier: workspace:*
         version: link:../../packages/types
+      '@types/node':
+        specifier: ^20
+        version: 20.19.41
+      '@types/react':
+        specifier: ^18
+        version: 18.3.29
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.3.7(@types/react@18.3.29)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.5.0(postcss@8.5.15)
@@ -45,15 +54,6 @@ importers:
         specifier: ^5
         version: 5.9.3
     devDependencies:
-      '@types/node':
-        specifier: ^20
-        version: 20.19.41
-      '@types/react':
-        specifier: ^18
-        version: 18.3.29
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.3.7(@types/react@18.3.29)
       eslint:
         specifier: ^8
         version: 8.57.1
