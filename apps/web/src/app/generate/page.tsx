@@ -4,14 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Language, Story } from "@dreemi/types";
-import { ApiError, generateStory } from "@/lib/api";
-import { toggleFavorite, isFavorite } from "@/lib/favorites";
-import { clearAuth, isAuthenticated } from "@/lib/storage";
-import { DashboardSidebar } from "@/components/DashboardSidebar";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { FormError } from "@/components/FormError";
-import { INPUT_CLASS } from "@/components/PasswordInput";
-import { IconHeart, IconShare, IconSparkle } from "@/components/icons";
+import { ApiError, generateStory } from "../../lib/api";
+import { toggleFavorite, isFavorite } from "../../lib/favorites";
+import { clearAuth, isAuthenticated } from "../../lib/storage";
+import { DashboardSidebar } from "../../components/DashboardSidebar";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+import { FormError } from "../../components/FormError";
+import { INPUT_CLASS } from "../../components/PasswordInput";
+import { IconHeart, IconShare, IconSparkle } from "../../components/icons";
 
 const STEPS = ["معلومات الطفل", "إعدادات القصة", "القصة جاهزة"] as const;
 

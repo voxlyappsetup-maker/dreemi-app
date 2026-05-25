@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Story, User } from "@dreemi/types";
-import { fetchStories } from "@/lib/api";
-import { getFavoriteIds } from "@/lib/favorites";
-import { clearAuth, getStoredUser, isAuthenticated } from "@/lib/storage";
-import { DashboardSidebar } from "@/components/DashboardSidebar";
-import { StoryCard } from "@/components/StoryCard";
-import { IconSparkle } from "@/components/icons";
+import { fetchStories } from "../../lib/api";
+import { getFavoriteIds } from "../../lib/favorites";
+import { clearAuth, getStoredUser, isAuthenticated } from "../../lib/storage";
+import { DashboardSidebar } from "../../components/DashboardSidebar";
+import { StoryCard } from "../../components/StoryCard";
+import { IconSparkle } from "../../components/icons";
 
 const BTN_PRIMARY =
   "inline-flex items-center justify-center gap-2 rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700";

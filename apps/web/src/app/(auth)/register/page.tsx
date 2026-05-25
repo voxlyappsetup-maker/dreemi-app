@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import type { Language } from "@dreemi/types";
-import { ApiError, register } from "@/lib/api";
-import { saveAuth } from "@/lib/storage";
-import { AuthShell } from "@/components/AuthShell";
-import { FormError } from "@/components/FormError";
-import { INPUT_CLASS, PasswordInput } from "@/components/PasswordInput";
+import { ApiError, register } from "../../../lib/api";
+import { saveAuth } from "../../../lib/storage";
+import { AuthShell } from "../../../components/AuthShell";
+import { FormError } from "../../../components/FormError";
+import { INPUT_CLASS, PasswordInput } from "../../../components/PasswordInput";
 
 const BTN_PRIMARY =
   "w-full rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IconBook, IconGlobe, IconSparkle } from "@/components/icons";
+import { IconBook, IconGlobe, IconSparkle } from "../components/icons";
 
 const FEATURES = [
   {

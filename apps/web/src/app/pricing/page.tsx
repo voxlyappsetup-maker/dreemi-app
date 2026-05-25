@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { createCheckout, ApiError } from "@/lib/api";
-import { isAuthenticated } from "@/lib/storage";
+import { createCheckout, ApiError } from "../../lib/api";
+import { isAuthenticated } from "../../lib/storage";
 
 const PENDING_PLAN_KEY = "pendingPlanPriceId";
 

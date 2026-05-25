@@ -2,7 +2,7 @@
 
 import type { Story } from "@dreemi/types";
 import { IconHeart } from "./icons";
-import { isFavorite, toggleFavorite } from "@/lib/favorites";
+import { isFavorite, toggleFavorite } from "../lib/favorites";
 import { useState, type MouseEvent } from "react";
 
 const LANGUAGE_LABELS: Record<string, string> = {
