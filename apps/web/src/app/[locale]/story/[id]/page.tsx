@@ -102,6 +102,16 @@ export default function StoryViewPage({
           data-story-print
           className="overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-lg"
         >
+          {story.imageUrl && (
+            <div className="relative aspect-square w-full overflow-hidden bg-violet-100" data-story-print>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={story.imageUrl}
+                alt={story.title}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          )}
           <div className="border-b border-violet-100 bg-gradient-to-r from-violet-50 to-white px-6 py-6 sm:px-8">
             <p className="text-sm font-medium text-violet-600">
               {t("storyBy", { name: story.childName })}

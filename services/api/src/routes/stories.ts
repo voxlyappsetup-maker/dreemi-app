@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { z } from "zod";
 import { generateStoryWithMistral } from "../services/mistral.service";
+import { generateStoryImage } from "../services/image.service";
 import { prisma } from "../services/prisma.service";
 import { authenticateToken } from "../middleware/auth.middleware";
 import { checkStoryLimit } from "../middleware/plans.middleware";
@@ -14,6 +15,9 @@ const GenerateSchema = z.object({
   moral:     z.string().max(100).optional(),
   language:  z.enum(["ar", "en", "fr"]).default("ar"),
   duration:  z.number().int().min(3).max(15).default(5),
+  gender:    z.enum(["boy", "girl"]).default("boy"),
+  skinTone:  z.enum(["light", "medium", "dark"]).default("medium"),
+  hairColor: z.enum(["black", "brown", "blonde", "red"]).default("black"),
   childId:   z.string().optional(),
 });
 
@@ -44,7 +48,21 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
       return;
     }
     console.log(`[Stories] توليد قصة لـ ${input.childName} (${input.language})`);
-    const generated = await generateStoryWithMistral(input);
+
+    // Generate text and image in parallel; image failure doesn't block the story
+    const [generated, imageUrl] = await Promise.all([
+      generateStoryWithMistral(input),
+      generateStoryImage({
+        childName: input.childName,
+        childAge: input.childAge,
+        theme: input.theme,
+        storyTitle: input.theme,
+        gender: input.gender,
+        skinTone: input.skinTone,
+        hairColor: input.hairColor,
+      }).catch(() => null),
+    ]);
+
     const story = await prisma.story.create({
       data: {
         title:     generated.title,
@@ -54,11 +72,12 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
         language:  input.language,
         childName: input.childName,
         childAge:  input.childAge,
+        imageUrl:  imageUrl ?? undefined,
         userId,
         childId:   input.childId,
       },
     });
-    console.log(`[Stories] تم حفظ القصة: ${story.id}`);
+    console.log(`[Stories] تم حفظ القصة: ${story.id} (image: ${imageUrl ? "✓" : "—"})`);
     res.status(201).json({ success: true, story });
   } catch (error) {
     if (error instanceof z.ZodError) {

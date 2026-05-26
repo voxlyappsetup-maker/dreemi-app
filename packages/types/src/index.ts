@@ -39,6 +39,9 @@ export interface GenerateStoryInput {
   moral?: string;
   language: Language;
   duration?: number;
+  gender?: string;
+  skinTone?: string;
+  hairColor?: string;
 }
 
 export interface Story {

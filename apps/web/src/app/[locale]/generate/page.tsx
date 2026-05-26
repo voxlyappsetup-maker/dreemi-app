@@ -32,6 +32,10 @@ export default function GeneratePage() {
   const [step, setStep] = useState(1);
   const [childName, setChildName] = useState("");
   const [childAge, setChildAge] = useState(5);
+  const [gender, setGender] = useState("boy");
+  const [skinTone, setSkinTone] = useState("medium");
+  const [hairColor, setHairColor] = useState("black");
+  const [showAppearance, setShowAppearance] = useState(false);
   const [theme, setTheme] = useState("");
   const [moral, setMoral] = useState("");
   const [language, setLanguage] = useState<Language>(locale as Language);
@@ -79,6 +83,9 @@ export default function GeneratePage() {
         moral: moral.trim() || undefined,
         language,
         duration,
+        gender,
+        skinTone,
+        hairColor,
       });
       setStory(data.story);
       setFav(isFavorite(data.story.id) || data.story.isFavorite);
@@ -210,6 +217,96 @@ export default function GeneratePage() {
                 <label htmlFor="childAge" className="mb-2 block text-sm font-semibold text-slate-900">{t("childAge")}</label>
                 <input id="childAge" type="number" min={2} max={12} value={childAge} onChange={(e) => setChildAge(Number(e.target.value))} className={INPUT_CLASS} />
               </div>
+
+              {/* Collapsible appearance section */}
+              <div className="rounded-2xl border border-violet-100 bg-violet-50/50">
+                <button
+                  type="button"
+                  onClick={() => setShowAppearance((v) => !v)}
+                  className="flex w-full items-center justify-between px-4 py-3 text-sm font-semibold text-slate-700"
+                >
+                  <span>{t("appearanceTitle")}</span>
+                  <span className="text-xs text-slate-500">{showAppearance ? "▲" : "▼"}</span>
+                </button>
+                {!showAppearance && (
+                  <p className="px-4 pb-3 text-xs text-slate-500">{t("appearanceHint")}</p>
+                )}
+                {showAppearance && (
+                  <div className="space-y-4 px-4 pb-4">
+                    {/* Gender */}
+                    <div>
+                      <span className="mb-2 block text-xs font-semibold text-slate-700">{t("genderLabel")}</span>
+                      <div className="flex gap-2">
+                        {(["boy", "girl"] as const).map((g) => (
+                          <button
+                            key={g}
+                            type="button"
+                            onClick={() => setGender(g)}
+                            className={`flex-1 rounded-xl border px-3 py-2 text-sm font-medium transition ${
+                              gender === g
+                                ? "border-violet-400 bg-violet-100 text-violet-700"
+                                : "border-violet-100 bg-white text-slate-600 hover:bg-violet-50"
+                            }`}
+                          >
+                            {g === "boy" ? t("genderBoy") : t("genderGirl")}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Skin tone */}
+                    <div>
+                      <span className="mb-2 block text-xs font-semibold text-slate-700">{t("skinToneLabel")}</span>
+                      <div className="flex gap-3">
+                        {([
+                          { value: "light", color: "#FDDCB5", label: t("skinLight") },
+                          { value: "medium", color: "#C68642", label: t("skinMedium") },
+                          { value: "dark", color: "#8D5524", label: t("skinDark") },
+                        ] as const).map((s) => (
+                          <button
+                            key={s.value}
+                            type="button"
+                            onClick={() => setSkinTone(s.value)}
+                            className={`flex flex-col items-center gap-1 rounded-xl border px-3 py-2 transition ${
+                              skinTone === s.value
+                                ? "border-violet-400 ring-2 ring-violet-200"
+                                : "border-transparent hover:border-violet-200"
+                            }`}
+                          >
+                            <span className="block h-7 w-7 rounded-full border border-slate-200" style={{ backgroundColor: s.color }} />
+                            <span className="text-[10px] text-slate-600">{s.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Hair color */}
+                    <div>
+                      <span className="mb-2 block text-xs font-semibold text-slate-700">{t("hairColorLabel")}</span>
+                      <div className="flex gap-3">
+                        {([
+                          { value: "black", color: "#1a1a1a", label: t("hairBlack") },
+                          { value: "brown", color: "#6B3A2A", label: t("hairBrown") },
+                          { value: "blonde", color: "#E8D44D", label: t("hairBlonde") },
+                          { value: "red", color: "#C0392B", label: t("hairRed") },
+                        ] as const).map((h) => (
+                          <button
+                            key={h.value}
+                            type="button"
+                            onClick={() => setHairColor(h.value)}
+                            className={`flex flex-col items-center gap-1 rounded-xl border px-3 py-2 transition ${
+                              hairColor === h.value
+                                ? "border-violet-400 ring-2 ring-violet-200"
+                                : "border-transparent hover:border-violet-200"
+                            }`}
+                          >
+                            <span className="block h-7 w-7 rounded-full border border-slate-200" style={{ backgroundColor: h.color }} />
+                            <span className="text-[10px] text-slate-600">{h.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
@@ -268,6 +365,16 @@ export default function GeneratePage() {
               {loading && <LoadingSpinner label={t("generating")} />}
               {story && !loading && (
                 <article data-story-print className="overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 to-white">
+                  {story.imageUrl && (
+                    <div className="relative aspect-square w-full overflow-hidden bg-violet-100" data-story-print>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={story.imageUrl}
+                        alt={story.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  )}
                   <div className="border-b border-violet-100 bg-white/80 px-6 py-5">
                     <p className="text-sm font-medium text-violet-700">{t("storyFor", { name: story.childName })}</p>
                     <h2 className="mt-1 text-2xl font-bold text-slate-900">{story.title}</h2>
