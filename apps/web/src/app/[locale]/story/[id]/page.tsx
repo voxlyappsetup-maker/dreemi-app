@@ -153,7 +153,6 @@ export default function StoryViewPage({
       pdf.setDrawColor(196, 181, 253);
       pdf.setLineWidth(0.3);
       pdf.line(M, cursorY, W - M, cursorY);
-      cursorY += 8;
 
       // --- Image (102mm wide, aspect-ratio preserved, child-friendly frame) ---
       if (story.imageUrl) {
@@ -172,13 +171,12 @@ export default function StoryViewPage({
           ctx.drawImage(img, 0, 0);
           const imgData = canvas.toDataURL("image/jpeg", 0.85);
 
-          const TARGET_W = 102;
+          const imgWidth = 102;
           const aspect = img.naturalHeight / img.naturalWidth;
-          const imgW = TARGET_W;
-          const imgH = TARGET_W * aspect;
+          const imgH = imgWidth * aspect;
           const PAD = 3;
           const RADIUS = 5;
-          const frameW = imgW + PAD * 2;
+          const frameW = imgWidth + PAD * 2;
           const frameH = imgH + PAD * 2;
           const frameX = M + (contentW - frameW) / 2;
 
@@ -192,11 +190,13 @@ export default function StoryViewPage({
 
           const imgX = frameX + PAD;
           const imgY = cursorY + PAD;
-          pdf.addImage(imgData, "JPEG", imgX, imgY, imgW, imgH);
+          pdf.addImage(imgData, "JPEG", imgX, imgY, imgWidth, imgH);
           cursorY += frameH + 10;
         } catch {
           // skip if image fails
         }
+      } else {
+        cursorY += 8;
       }
 
       // --- Title ---
