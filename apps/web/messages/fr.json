@@ -91,7 +91,9 @@
     "addFirstChild": "Ajoutez votre premier enfant",
     "noChildrenYet": "Aucun enfant ajouté",
     "noChildrenDesc": "Ajoutez vos enfants pour obtenir des histoires personnalisées pour chacun",
-    "addChild": "Ajouter un enfant"
+    "addChild": "Ajouter un enfant",
+    "childLimitReached": "Limite atteinte. Passez à la version supérieure pour ajouter plus d'enfants.",
+    "upgrade": "Améliorer le plan"
   },
   "generate": {
     "title": "Générer une histoire",

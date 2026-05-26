@@ -91,7 +91,9 @@
     "addFirstChild": "Add Your First Child",
     "noChildrenYet": "No children added yet",
     "noChildrenDesc": "Add your children to get personalized stories for each one",
-    "addChild": "Add Child"
+    "addChild": "Add Child",
+    "childLimitReached": "You've reached the child limit. Upgrade to add more.",
+    "upgrade": "Upgrade Plan"
   },
   "generate": {
     "title": "Generate a Bedtime Story",

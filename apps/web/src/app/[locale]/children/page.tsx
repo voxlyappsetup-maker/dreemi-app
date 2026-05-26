@@ -226,9 +226,14 @@ export default function ChildrenPage() {
         </div>
 
         {!canAdd && children.length > 0 && (
-          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-800">
-            <p className="font-semibold">{t("limitReached")}</p>
-            <p className="mt-1">{t("limitReachedDesc", { limit })}</p>
+          <div className="mb-6 flex flex-col items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-800 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-semibold">{t("limitReached")}</p>
+              <p className="mt-1">{t("limitReachedDesc", { limit })}</p>
+            </div>
+            <Link href="/pricing" className="shrink-0 rounded-2xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-violet-700">
+              {tc("upgradePlan")}
+            </Link>
           </div>
         )}
 

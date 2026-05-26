@@ -112,6 +112,8 @@ function DashboardContent() {
   const displayName = user?.name ?? user?.email ?? "";
   const plan = user?.plan ?? "FREE";
   const isFree = plan === "FREE";
+  const MAX_CHILDREN: Record<string, number> = { FREE: 1, INDIVIDUAL: 1, FAMILY: 4, SCHOOL: Infinity };
+  const canAddChild = children.length < (MAX_CHILDREN[plan] ?? 1);
 
   return (
     <div className={`${PAGE_BG} lg:pe-64`}>
@@ -174,9 +176,15 @@ function DashboardContent() {
         <section className="mb-10">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-bold text-slate-900">{t("myChildren")}</h2>
-            <Link href="/children" className="text-sm font-medium text-violet-700 hover:text-violet-800 hover:underline">
-              {t("addChild")}
-            </Link>
+            {canAddChild ? (
+              <Link href="/children" className="text-sm font-medium text-violet-700 hover:text-violet-800 hover:underline">
+                {t("addChild")}
+              </Link>
+            ) : (
+              <Link href="/pricing" className="text-sm font-medium text-amber-600 hover:text-amber-700 hover:underline">
+                {t("upgrade")}
+              </Link>
+            )}
           </div>
           {children.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-violet-200 bg-white px-6 py-8 text-center shadow-sm">
@@ -216,15 +224,27 @@ function DashboardContent() {
                   </Link>
                 );
               })}
-              <Link
-                href="/children"
-                className="flex w-32 shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-violet-200 bg-white/60 px-3 py-5 text-violet-400 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-600"
-              >
-                <div className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-violet-100 text-3xl font-light">
-                  +
-                </div>
-                <p className="mt-3 text-xs font-semibold">{t("addChild")}</p>
-              </Link>
+              {canAddChild ? (
+                <Link
+                  href="/children"
+                  className="flex w-32 shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-violet-200 bg-white/60 px-3 py-5 text-violet-400 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-600"
+                >
+                  <div className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-violet-100 text-3xl font-light">
+                    +
+                  </div>
+                  <p className="mt-3 text-xs font-semibold">{t("addChild")}</p>
+                </Link>
+              ) : (
+                <Link
+                  href="/pricing"
+                  className="flex w-32 shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-amber-200 bg-amber-50/60 px-3 py-5 text-amber-500 transition hover:border-amber-400 hover:bg-amber-50 hover:text-amber-600"
+                >
+                  <div className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-amber-100 text-2xl">
+                    ⬆
+                  </div>
+                  <p className="mt-3 text-center text-[10px] font-semibold leading-tight">{t("upgrade")}</p>
+                </Link>
+              )}
             </div>
           )}
         </section>
