@@ -154,8 +154,8 @@ export default function ChildProfilePage({
         <div className="mb-10 overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-lg">
           <div className="bg-gradient-to-l from-violet-100 via-purple-50 to-violet-50 px-6 py-8 sm:px-8">
             <div className="flex items-center gap-5">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-md">
-                <span className="text-4xl">{child.gender === "girl" ? "👧" : "👦"}</span>
+              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg ring-4 ring-white">
+                <span className="text-5xl">{child.gender === "girl" ? "👧" : "👦"}</span>
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-slate-900">{child.name}</h1>

@@ -204,8 +204,8 @@ function DashboardContent() {
                     href={`/children/${child.id}`}
                     className="flex w-32 shrink-0 flex-col items-center rounded-2xl border border-violet-100 bg-white px-3 py-5 shadow-md transition hover:-translate-y-1 hover:shadow-xl"
                   >
-                    <div className={`flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-gradient-to-br text-3xl font-extrabold text-white shadow-lg ring-4 ring-white ${palettes[palIdx]}`}>
-                      {child.name.charAt(0)}
+                    <div className={`flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-gradient-to-br shadow-lg ring-4 ring-white ${palettes[palIdx]}`}>
+                      <span className="text-4xl">{child.gender === "girl" ? "👧" : "👦"}</span>
                     </div>
                     <p className="mt-3 w-full truncate text-center text-sm font-bold text-slate-900">
                       {child.name}
