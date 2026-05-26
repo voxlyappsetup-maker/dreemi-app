@@ -278,6 +278,22 @@
     "errorSave": "Échec de l'enregistrement, veuillez réessayer",
     "errorDelete": "Échec de la suppression, veuillez réessayer"
   },
+  "childProfile": {
+    "back": "Retour aux enfants",
+    "newStoryFor": "Nouvelle histoire pour {name}",
+    "storiesTitle": "Histoires de {name}",
+    "storiesCount": "{count} histoires",
+    "noStories": "Pas encore d'histoires pour {name}",
+    "noStoriesDesc": "Créez la première histoire personnalisée pour cet enfant",
+    "createFirst": "Créer la première histoire",
+    "age": "{age} ans",
+    "personality": "Personnalité",
+    "hobbies": "Loisirs",
+    "favAnimal": "Animal préféré",
+    "notFound": "Enfant introuvable",
+    "notFoundDesc": "Nous n'avons pas pu trouver cet enfant",
+    "loadError": "Échec du chargement des données"
+  },
   "storyCard": {
     "langAr": "AR",
     "langEn": "EN",

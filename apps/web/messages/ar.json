@@ -278,6 +278,22 @@
     "errorSave": "فشل حفظ الطفل، حاول مرة أخرى",
     "errorDelete": "فشل حذف الطفل، حاول مرة أخرى"
   },
+  "childProfile": {
+    "back": "العودة لقائمة الأطفال",
+    "newStoryFor": "قصة جديدة لـ {name}",
+    "storiesTitle": "قصص {name}",
+    "storiesCount": "{count} قصة",
+    "noStories": "لا توجد قصص بعد لـ {name}",
+    "noStoriesDesc": "أنشئ أول قصة مخصصة لهذا الطفل",
+    "createFirst": "أنشئ أول قصة",
+    "age": "{age} سنة",
+    "personality": "الشخصية",
+    "hobbies": "الهوايات",
+    "favAnimal": "الحيوان المفضل",
+    "notFound": "الطفل غير موجود",
+    "notFoundDesc": "لم نتمكن من العثور على هذا الطفل",
+    "loadError": "فشل تحميل البيانات"
+  },
   "storyCard": {
     "langAr": "عربي",
     "langEn": "EN",

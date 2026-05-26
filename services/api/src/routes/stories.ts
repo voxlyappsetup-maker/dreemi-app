@@ -26,15 +26,19 @@ const GenerateSchema = z.object({
 
 storiesRouter.get("/", async (req: Request, res: Response) => {
   try {
-    const { userId } = req.query;
+    const { userId, childId } = req.query;
     if (!userId || typeof userId !== "string") {
       res.status(400).json({ success: false, error: "userId required" });
       return;
     }
+    const where: { userId: string; childId?: string } = { userId };
+    if (childId && typeof childId === "string") {
+      where.childId = childId;
+    }
     const stories = await prisma.story.findMany({
-      where: { userId },
+      where,
       orderBy: { createdAt: "desc" },
-      take: 20,
+      take: 50,
     });
     res.json({ success: true, stories });
   } catch (error) {

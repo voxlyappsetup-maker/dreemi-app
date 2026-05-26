@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Language, Story } from "@dreemi/types";
 import { Link, useRouter } from "../../../i18n/routing";
@@ -23,7 +24,23 @@ const BTN_SECONDARY =
   "inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border border-violet-200 bg-white px-6 py-3 font-semibold text-violet-700 shadow-md transition hover:border-violet-300 hover:bg-violet-50";
 
 export default function GeneratePage() {
+  const tc = useTranslations("common");
+  return (
+    <Suspense
+      fallback={
+        <main className={`flex items-center justify-center ${PAGE_BG}`}>
+          <p className="text-slate-600">{tc("loading")}</p>
+        </main>
+      }
+    >
+      <GenerateContent />
+    </Suspense>
+  );
+}
+
+function GenerateContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const locale = useLocale();
   const t = useTranslations("generate");
   const tc = useTranslations("common");
@@ -59,8 +76,22 @@ export default function GeneratePage() {
     const u = getStoredUser();
     if (u?.plan) setUserPlan(u.plan);
     setReady(true);
-    fetchChildren().then(setChildrenList).catch(() => {});
-  }, [router]);
+    const preselect = searchParams.get("childId");
+    fetchChildren().then((list) => {
+      setChildrenList(list);
+      if (preselect) {
+        const match = list.find((c) => c.id === preselect);
+        if (match) {
+          setSelectedChildId(match.id);
+          setChildName(match.name);
+          setChildAge(match.age);
+          setGender(match.gender === "girl" ? "girl" : "boy");
+          setSkinTone(["light", "medium", "dark"].includes(match.skinTone) ? match.skinTone : "medium");
+          setHairColor(["black", "brown", "blonde", "red"].includes(match.hairColor) ? match.hairColor : "black");
+        }
+      }
+    }).catch(() => {});
+  }, [router, searchParams]);
 
   function handleSelectChild(id: string | null) {
     setSelectedChildId(id);

@@ -104,6 +104,24 @@ export async function fetchStories(userId: string): Promise<Story[]> {
   return data.stories;
 }
 
+export async function fetchChildStories(userId: string, childId: string): Promise<Story[]> {
+  const data = await apiFetch<StoriesListResponse>(
+    `/api/stories?userId=${encodeURIComponent(userId)}&childId=${encodeURIComponent(childId)}`
+  );
+  return data.stories;
+}
+
+export async function getChild(id: string): Promise<Child> {
+  const data = await apiFetch<{ success: boolean; children: Child[] }>(
+    "/api/children",
+    {},
+    true,
+  );
+  const child = data.children.find((c) => c.id === id);
+  if (!child) throw new ApiError(404, "Child not found");
+  return child;
+}
+
 /** Create a Stripe Checkout session and return the redirect URL. */
 export async function createCheckout(priceId: string): Promise<string> {
   const data = await apiFetch<{ success: boolean; url: string }>(

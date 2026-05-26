@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import type { Plan } from "@dreemi/types";
-import { useRouter } from "../../../i18n/routing";
+import { Link, useRouter } from "../../../i18n/routing";
 import {
   type Child,
   ApiError,
@@ -278,7 +278,7 @@ export default function ChildrenPage() {
                 ) : (
                   <>
                     <div className="mb-3 flex items-start justify-between">
-                      <div className="flex items-center gap-3">
+                      <Link href={`/children/${child.id}`} className="flex items-center gap-3 transition hover:opacity-80">
                         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-100">
                           <span className="text-xl">{child.gender === "girl" ? "👧" : "👦"}</span>
                         </div>
@@ -286,7 +286,7 @@ export default function ChildrenPage() {
                           <h3 className="text-lg font-bold text-slate-900">{child.name}</h3>
                           <p className="text-sm text-slate-500">{child.age} {child.age === 1 ? "year" : "years"}</p>
                         </div>
-                      </div>
+                      </Link>
                       <div className="flex gap-1">
                         <button
                           type="button"
