@@ -11,7 +11,7 @@ import { errorHandler } from "./middleware/errorHandler";
 dotenv.config({ path: "../../.env" });
 
 const app = express();
-const PORT = process.env.API_PORT || 3001;
+const PORT = process.env.PORT || process.env.API_PORT || 3001;
 
 app.use(helmet());
 app.use(
@@ -44,6 +44,6 @@ app.use("/api/payments", paymentsRouter);
 app.use("/api/children", childrenRouter);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`✓ Dreemi API يعمل على http://localhost:${PORT}`);
+app.listen(Number(PORT), "0.0.0.0", () => {
+  console.log(`✓ Dreemi API يعمل على http://0.0.0.0:${PORT}`);
 });
