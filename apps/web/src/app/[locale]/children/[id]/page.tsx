@@ -127,12 +127,20 @@ export default function ChildProfilePage({
       <main className="mx-auto max-w-4xl px-4 py-8 sm:px-8 lg:py-10">
         {/* Back + Action buttons */}
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <Link
-            href="/children"
-            className="inline-flex items-center gap-2 rounded-xl border border-violet-200 bg-white px-4 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50"
-          >
-            ← {t("back")}
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-2 rounded-xl border border-violet-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-violet-50 hover:text-violet-700"
+            >
+              ←
+            </Link>
+            <Link
+              href="/children"
+              className="inline-flex items-center gap-2 rounded-xl border border-violet-200 bg-white px-4 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50"
+            >
+              {t("back")}
+            </Link>
+          </div>
           <Link
             href={`/generate?childId=${child.id}`}
             className="inline-flex items-center gap-2 rounded-2xl bg-violet-600 px-5 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700"

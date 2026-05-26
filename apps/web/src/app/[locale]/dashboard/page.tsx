@@ -187,26 +187,30 @@ function DashboardContent() {
               </Link>
             </div>
           ) : (
-            <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin">
+            <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-thin">
               {children.map((child) => {
-                const colors = [
-                  "bg-violet-500", "bg-purple-500", "bg-fuchsia-500",
-                  "bg-pink-500", "bg-indigo-500", "bg-sky-500",
+                const palettes = [
+                  "from-violet-500 to-purple-600",
+                  "from-fuchsia-500 to-pink-600",
+                  "from-sky-500 to-indigo-600",
+                  "from-emerald-500 to-teal-600",
+                  "from-amber-500 to-orange-600",
+                  "from-rose-500 to-red-600",
                 ];
-                const colorIdx = child.name.charCodeAt(0) % colors.length;
+                const palIdx = child.name.charCodeAt(0) % palettes.length;
                 return (
                   <Link
                     key={child.id}
                     href={`/children/${child.id}`}
-                    className="flex w-28 shrink-0 flex-col items-center rounded-2xl border border-violet-100 bg-white p-4 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
+                    className="flex w-32 shrink-0 flex-col items-center rounded-2xl border border-violet-100 bg-white px-3 py-5 shadow-md transition hover:-translate-y-1 hover:shadow-xl"
                   >
-                    <div className={`flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold text-white shadow-md ${colors[colorIdx]}`}>
+                    <div className={`flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-gradient-to-br text-3xl font-extrabold text-white shadow-lg ring-4 ring-white ${palettes[palIdx]}`}>
                       {child.name.charAt(0)}
                     </div>
-                    <p className="mt-3 w-full truncate text-center text-sm font-semibold text-slate-900">
+                    <p className="mt-3 w-full truncate text-center text-sm font-bold text-slate-900">
                       {child.name}
                     </p>
-                    <p className="mt-0.5 text-xs text-slate-500">
+                    <p className="mt-1 text-xs font-medium text-slate-500">
                       {t("childStories", { count: child._count?.stories ?? 0 })}
                     </p>
                   </Link>
@@ -214,12 +218,12 @@ function DashboardContent() {
               })}
               <Link
                 href="/children"
-                className="flex w-28 shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-violet-200 bg-white/60 p-4 text-violet-400 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-600"
+                className="flex w-32 shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-violet-200 bg-white/60 px-3 py-5 text-violet-400 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-600"
               >
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-violet-100 text-3xl font-light">
+                <div className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-violet-100 text-3xl font-light">
                   +
                 </div>
-                <p className="mt-3 text-xs font-medium">{t("addChild")}</p>
+                <p className="mt-3 text-xs font-semibold">{t("addChild")}</p>
               </Link>
             </div>
           )}
