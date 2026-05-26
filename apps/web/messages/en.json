@@ -227,7 +227,11 @@
     "backHome": "Back to Home",
     "createYourOwn": "Create your own story",
     "poweredBy": "Custom bedtime stories by Dreemi",
-    "loadError": "Failed to load story"
+    "loadError": "Failed to load story",
+    "listen": "Listen to Story",
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop"
   },
   "children": {
     "title": "My Children",

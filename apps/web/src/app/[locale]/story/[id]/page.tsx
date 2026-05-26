@@ -7,6 +7,7 @@ import { Link } from "../../../../i18n/routing";
 import { getStoryById, ApiError } from "../../../../lib/api";
 import { isAuthenticated } from "../../../../lib/storage";
 import { StoryContent } from "../../../../components/StoryContent";
+import { StoryPlayer } from "../../../../components/StoryPlayer";
 import { IconBook } from "../../../../components/icons";
 
 export default function StoryViewPage({
@@ -148,6 +149,9 @@ export default function StoryViewPage({
           </div>
 
           <div className="px-6 py-8 sm:px-8" data-story-print>
+            <div className="mb-6 print:hidden">
+              <StoryPlayer text={story.content} language={story.language} />
+            </div>
             <StoryContent text={story.content} />
 
             {story.moral && (

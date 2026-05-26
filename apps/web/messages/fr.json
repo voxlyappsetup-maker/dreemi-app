@@ -227,7 +227,11 @@
     "backHome": "Retour à l'accueil",
     "createYourOwn": "Créez votre propre histoire",
     "poweredBy": "Histoires personnalisées par Dreemi",
-    "loadError": "Échec du chargement de l'histoire"
+    "loadError": "Échec du chargement de l'histoire",
+    "listen": "Écouter l'histoire",
+    "pause": "Pause",
+    "resume": "Reprendre",
+    "stop": "Arrêter"
   },
   "children": {
     "title": "Mes enfants",

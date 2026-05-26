@@ -227,7 +227,11 @@
     "backHome": "العودة للرئيسية",
     "createYourOwn": "أنشئ قصتك الخاصة",
     "poweredBy": "قصص نوم مخصصة من Dreemi",
-    "loadError": "فشل تحميل القصة"
+    "loadError": "فشل تحميل القصة",
+    "listen": "استمع للقصة",
+    "pause": "إيقاف مؤقت",
+    "resume": "استئناف",
+    "stop": "إيقاف"
   },
   "children": {
     "title": "أطفالي",
