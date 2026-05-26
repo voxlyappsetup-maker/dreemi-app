@@ -95,8 +95,9 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
     generateStoryImage({
       childName,
       childAge,
-      theme:      input.theme,
-      storyTitle: generated.title,
+      theme:        input.theme,
+      storyTitle:   generated.title,
+      storyContent: generated.content,
       gender,
       skinTone,
       hairColor,
