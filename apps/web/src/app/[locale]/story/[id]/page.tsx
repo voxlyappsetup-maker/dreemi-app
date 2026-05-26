@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Story } from "@dreemi/types";
 import { Link } from "../../../../i18n/routing";
@@ -21,6 +21,8 @@ export default function StoryViewPage({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [exporting, setExporting] = useState(false);
+  const storyRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,6 +48,207 @@ export default function StoryViewPage({
     setLoggedIn(isAuthenticated());
     return () => { cancelled = true; };
   }, [params.id]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if ((e.ctrlKey || e.metaKey) && (e.key === "c" || e.key === "a" || e.key === "C" || e.key === "A")) {
+      e.preventDefault();
+    }
+  }, []);
+
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+  }, []);
+
+  async function exportPdf() {
+    if (!story || exporting) return;
+    setExporting(true);
+    try {
+      const { default: jsPDF } = await import("jspdf");
+
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const W = 210;
+      const H = 297;
+      const M = 20;
+      const contentW = W - M * 2;
+      const isRtl = story.language === "ar";
+
+      const drawWatermark = () => {
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(48);
+        pdf.setTextColor(139, 92, 246);
+        pdf.saveGraphicsState();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        pdf.setGState(new (pdf as Record<string, any>).GState({ opacity: 0.06 }));
+        for (let y = 30; y < H; y += 50) {
+          for (let x = -20; x < W + 20; x += 80) {
+            const xr = x + ((y / 50) % 2 === 0 ? 0 : 40);
+            pdf.text("Dreemi", xr, y, { angle: 45 });
+          }
+        }
+        pdf.restoreGraphicsState();
+      }
+
+      const drawGradientBg = () => {
+        for (let i = 0; i < H; i++) {
+          const ratio = i / H;
+          const r = Math.round(237 + (255 - 237) * ratio);
+          const g = Math.round(233 + (255 - 233) * ratio);
+          const b = Math.round(254 + (255 - 254) * ratio);
+          pdf.setFillColor(r, g, b);
+          pdf.rect(0, i, W, 1.1, "F");
+        }
+      }
+
+      const drawFooter = () => {
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(8);
+        pdf.setTextColor(139, 92, 246);
+        const date = new Date(story!.createdAt).toLocaleDateString(
+          locale === "ar" ? "ar-SA" : locale === "fr" ? "fr-FR" : "en-US"
+        );
+        pdf.text("dreemi.app", W / 2, H - 10, { align: "center" });
+        pdf.setTextColor(148, 163, 184);
+        pdf.text(date, W / 2, H - 6, { align: "center" });
+      }
+
+      drawGradientBg();
+      drawWatermark();
+
+      let cursorY = M;
+
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(22);
+      pdf.setTextColor(109, 40, 217);
+      pdf.text("Dreemi", W / 2, cursorY, { align: "center" });
+      cursorY += 4;
+
+      pdf.setDrawColor(196, 181, 253);
+      pdf.setLineWidth(0.3);
+      pdf.line(M, cursorY, W - M, cursorY);
+      cursorY += 8;
+
+      if (story.imageUrl) {
+        try {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          await new Promise<void>((resolve, reject) => {
+            img.onload = () => resolve();
+            img.onerror = () => reject();
+            img.src = story.imageUrl!;
+          });
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext("2d")!;
+          ctx.drawImage(img, 0, 0);
+          const imgData = canvas.toDataURL("image/jpeg", 0.85);
+
+          const imgW = contentW;
+          const imgH = (img.naturalHeight / img.naturalWidth) * imgW;
+          const cappedH = Math.min(imgH, 80);
+          pdf.addImage(imgData, "JPEG", M, cursorY, imgW, cappedH);
+          cursorY += cappedH + 6;
+        } catch {
+          // image failed to load, skip
+        }
+      }
+
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(18);
+      pdf.setTextColor(30, 41, 59);
+      const titleLines = pdf.splitTextToSize(story.title, contentW);
+      if (isRtl) {
+        titleLines.forEach((line: string) => {
+          pdf.text(line, W - M, cursorY, { align: "right" });
+          cursorY += 8;
+        });
+      } else {
+        pdf.text(titleLines, M, cursorY);
+        cursorY += titleLines.length * 8;
+      }
+
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(9);
+      pdf.setTextColor(139, 92, 246);
+      const byLine = t("storyBy", { name: story.childName });
+      pdf.text(byLine, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
+      cursorY += 8;
+
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(11);
+      pdf.setTextColor(51, 65, 85);
+
+      const paragraphs = story.content.split(/\n\n+/);
+      for (const para of paragraphs) {
+        const cleanPara = para.replace(/\n/g, " ").trim();
+        if (!cleanPara) continue;
+        const lines: string[] = pdf.splitTextToSize(cleanPara, contentW);
+        const blockH = lines.length * 5.5;
+
+        if (cursorY + blockH > H - 22) {
+          drawFooter();
+          pdf.addPage();
+          drawGradientBg();
+          drawWatermark();
+          cursorY = M;
+        }
+
+        if (isRtl) {
+          lines.forEach((line: string) => {
+            pdf.text(line, W - M, cursorY, { align: "right" });
+            cursorY += 5.5;
+          });
+        } else {
+          pdf.text(lines, M, cursorY);
+          cursorY += blockH;
+        }
+        cursorY += 3;
+      }
+
+      if (story.moral) {
+        const moralLabel = t("moralLearned");
+        const moralLines: string[] = pdf.splitTextToSize(story.moral, contentW - 10);
+        const moralBlockH = 12 + moralLines.length * 5.5;
+
+        if (cursorY + moralBlockH > H - 22) {
+          drawFooter();
+          pdf.addPage();
+          drawGradientBg();
+          drawWatermark();
+          cursorY = M;
+        }
+
+        pdf.setFillColor(245, 243, 255);
+        pdf.setDrawColor(196, 181, 253);
+        pdf.roundedRect(M, cursorY - 2, contentW, moralBlockH + 6, 3, 3, "FD");
+
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(10);
+        pdf.setTextColor(109, 40, 217);
+        pdf.text(moralLabel, isRtl ? W - M - 5 : M + 5, cursorY + 6, { align: isRtl ? "right" : "left" });
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(10);
+        pdf.setTextColor(51, 65, 85);
+        const moralX = isRtl ? W - M - 5 : M + 5;
+        let moralY = cursorY + 13;
+        moralLines.forEach((line: string) => {
+          pdf.text(line, moralX, moralY, { align: isRtl ? "right" : "left" });
+          moralY += 5.5;
+        });
+        cursorY += moralBlockH + 8;
+      }
+
+      drawFooter();
+
+      const safeTitle = story.title.replace(/[^a-zA-Z0-9\u0600-\u06FF ]/g, "").slice(0, 40);
+      pdf.save(`Dreemi - ${safeTitle}.pdf`);
+    } catch (err) {
+      console.error("[PDF export]", err);
+    } finally {
+      setExporting(false);
+    }
+  }
 
   const dir = locale === "ar" ? "rtl" : "ltr";
 
@@ -102,28 +305,42 @@ export default function StoryViewPage({
               </Link>
             )}
           </div>
-          {loggedIn ? (
-            <Link
-              href="/generate"
-              className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={exportPdf}
+              disabled={exporting}
+              className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50 disabled:opacity-50"
             >
-              {t("createYourOwn")}
-            </Link>
-          ) : (
-            <Link
-              href="/register"
-              className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
-            >
-              {t("createYourOwn")}
-            </Link>
-          )}
+              {exporting ? t("exportingPdf") : t("exportPdf")}
+            </button>
+            {loggedIn ? (
+              <Link
+                href="/generate"
+                className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
+              >
+                {t("createYourOwn")}
+              </Link>
+            ) : (
+              <Link
+                href="/register"
+                className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
+              >
+                {t("createYourOwn")}
+              </Link>
+            )}
+          </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-8 sm:py-12">
         <article
+          ref={storyRef}
           data-story-print
-          className="overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-lg"
+          className="story-protected overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-lg"
+          onContextMenu={handleContextMenu}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
         >
           {story.imageUrl ? (
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-violet-100" data-story-print>
@@ -132,6 +349,7 @@ export default function StoryViewPage({
                 src={story.imageUrl}
                 alt={story.title}
                 className="h-full w-full object-cover"
+                draggable={false}
               />
             </div>
           ) : (
@@ -178,6 +396,20 @@ export default function StoryViewPage({
           </Link>
         </div>
       </main>
+
+      <style jsx global>{`
+        .story-protected {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          -webkit-touch-callout: none;
+        }
+        .story-protected img {
+          pointer-events: none;
+          -webkit-user-drag: none;
+        }
+      `}</style>
     </div>
   );
 }

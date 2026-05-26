@@ -269,7 +269,9 @@
     "stop": "Arrêter",
     "voiceMale": "Voix masculine",
     "voiceFemale": "Voix féminine",
-    "voiceNotOptimized": "Voix non optimisée pour cette langue"
+    "voiceNotOptimized": "Voix non optimisée pour cette langue",
+    "exportPdf": "Exporter PDF",
+    "exportingPdf": "Exportation..."
   },
   "children": {
     "title": "Mes enfants",

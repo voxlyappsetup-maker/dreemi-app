@@ -269,7 +269,9 @@
     "stop": "إيقاف",
     "voiceMale": "صوت رجل",
     "voiceFemale": "صوت امرأة",
-    "voiceNotOptimized": "الصوت غير محسّن لهذه اللغة"
+    "voiceNotOptimized": "الصوت غير محسّن لهذه اللغة",
+    "exportPdf": "تصدير PDF",
+    "exportingPdf": "جاري التصدير..."
   },
   "children": {
     "title": "أطفالي",
