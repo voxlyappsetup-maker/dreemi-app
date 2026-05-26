@@ -9,6 +9,7 @@ import { isAuthenticated } from "../../../../lib/storage";
 import { StoryContent } from "../../../../components/StoryContent";
 import { StoryPlayer } from "../../../../components/StoryPlayer";
 import { IconBook } from "../../../../components/icons";
+import { DreemiLogo } from "../../../../components/DreemiLogo";
 
 export default function StoryViewPage({
   params,
@@ -293,8 +294,8 @@ export default function StoryViewPage({
       <header className="border-b border-violet-100 bg-white/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
-            <Link href={loggedIn ? "/dashboard" : "/"} className="text-xl font-bold text-violet-700">
-              Dreemi
+            <Link href={loggedIn ? "/dashboard" : "/"} className="transition hover:opacity-80">
+              <DreemiLogo size="md" />
             </Link>
             {loggedIn && (
               <Link

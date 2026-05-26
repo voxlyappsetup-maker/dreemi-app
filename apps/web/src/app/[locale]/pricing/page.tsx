@@ -6,6 +6,7 @@ import { Link, useRouter } from "../../../i18n/routing";
 import { createCheckout, ApiError } from "../../../lib/api";
 import { getStoredUser, isAuthenticated } from "../../../lib/storage";
 import { LanguageSwitcher } from "../../../components/LanguageSwitcher";
+import { DreemiLogo } from "../../../components/DreemiLogo";
 
 const PENDING_PLAN_KEY = "pendingPlanPriceId";
 
@@ -157,7 +158,7 @@ export default function PricingPage() {
     <div className="min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white">
       <div className="mx-auto max-w-7xl px-6">
         <header className="flex items-center justify-between py-6">
-          <Link href="/" className="text-xl font-bold text-violet-700 transition hover:text-violet-800">Dreemi</Link>
+          <Link href="/" className="transition hover:opacity-80"><DreemiLogo size="md" /></Link>
           <nav className="flex items-center gap-2 sm:gap-3">
             <LanguageSwitcher />
             {loggedIn ? (

@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import type { Plan } from "@dreemi/types";
 import { Link } from "../i18n/routing";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { IconBook, IconSettings, IconSparkle, IconUsers } from "./icons";
+import { IconSettings, IconSparkle, IconUsers } from "./icons";
+import { DreemiLogo } from "./DreemiLogo";
 
 interface DashboardSidebarProps {
   onLogout: () => void;
@@ -35,10 +36,7 @@ export function DashboardSidebar({ onLogout, plan = "FREE" }: DashboardSidebarPr
   return (
     <aside className="flex w-full flex-col border-b border-violet-200 bg-white/90 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:end-0 lg:z-40 lg:w-64 lg:border-b-0 lg:border-s lg:px-5 lg:py-8">
       <Link href="/dashboard" className="mb-10 flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-600 text-white shadow-md">
-          <IconBook className="h-5 w-5" />
-        </span>
-        <span className="text-lg font-bold text-slate-900">Dreemi</span>
+        <DreemiLogo size="sm" />
         <span
           className={`ms-auto rounded-xl px-2 py-0.5 text-[11px] font-bold ${
             isFree ? "bg-slate-100 text-slate-600" : "bg-violet-100 text-violet-700"

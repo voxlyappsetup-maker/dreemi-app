@@ -23,8 +23,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Dreemi",
-  description: "Custom bedtime stories for your children",
+  title: "Dreemi — Magical Bedtime Stories",
+  description: "Magical bedtime stories for your child — personalized, AI-powered, in Arabic, English & French.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export function generateStaticParams() {

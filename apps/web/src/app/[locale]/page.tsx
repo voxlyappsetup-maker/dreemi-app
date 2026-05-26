@@ -4,6 +4,7 @@ import { Link } from "../../i18n/routing";
 import { LanguageSwitcher } from "../../components/LanguageSwitcher";
 import { IconBook, IconGlobe, IconSparkle } from "../../components/icons";
 import { LandingPricing } from "../../components/LandingPricing";
+import { DreemiLogo } from "../../components/DreemiLogo";
 
 const STAR_POSITIONS = [
   "top-[12%] right-[18%]",
@@ -52,8 +53,8 @@ export default function HomePage({
 
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
           <header className="flex flex-row items-center justify-between gap-4 py-6">
-            <Link href="/" className="text-xl font-bold text-violet-700 transition hover:text-violet-800">
-              Dreemi
+            <Link href="/" className="transition hover:opacity-80">
+              <DreemiLogo size="md" />
             </Link>
             <nav className="flex flex-row flex-nowrap items-center gap-2 sm:gap-3">
               <LanguageSwitcher />

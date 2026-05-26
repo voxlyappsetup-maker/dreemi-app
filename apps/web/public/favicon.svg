@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+    <linearGradient id="star" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="moon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="256" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="230" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="8"/>
+  <!-- Crescent moon -->
+  <path d="M290 120c-75 0-136 61-136 136s61 136 136 136c25 0 48-7 68-19-20 15-45 24-72 24-66 0-120-54-120-120s54-120 120-120c27 0 52 9 72 24-20-12-43-19-68-19z" fill="url(#moon)" opacity="0.95"/>
+  <!-- Stars -->
+  <g fill="url(#star)">
+    <path d="M350 150l8 16 18 3-13 13 3 18-16-8-16 8 3-18-13-13 18-3z"/>
+    <path d="M390 220l5 11 12 2-9 8 2 12-10-6-11 6 2-12-8-8 12-2z"/>
+    <path d="M370 290l4 8 9 1-7 6 2 9-8-4-8 4 2-9-7-6 9-1z"/>
+  </g>
+</svg>

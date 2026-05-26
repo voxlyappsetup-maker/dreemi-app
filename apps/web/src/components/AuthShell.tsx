@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "../i18n/routing";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { StarsBackground } from "./StarsBackground";
+import { DreemiLogo } from "./DreemiLogo";
 
 interface AuthShellProps {
   children: ReactNode;
@@ -63,7 +64,7 @@ export function AuthShell({
             <div className="mx-auto mb-8 flex h-32 w-32 items-center justify-center rounded-3xl bg-violet-600 shadow-lg">
               <span className="text-6xl" aria-hidden>📖</span>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900">Dreemi</h2>
+            <DreemiLogo size="lg" />
             <p className="mt-4 text-lg leading-relaxed text-slate-600">
               {t("shellDescription")}
             </p>
