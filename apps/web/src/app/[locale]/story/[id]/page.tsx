@@ -155,7 +155,7 @@ export default function StoryViewPage({
       pdf.line(M, cursorY, W - M, cursorY);
       cursorY += 8;
 
-      // --- Image (120mm wide, aspect-ratio preserved, child-friendly frame) ---
+      // --- Image (102mm wide, aspect-ratio preserved, child-friendly frame) ---
       if (story.imageUrl) {
         try {
           const img = new Image();
@@ -172,7 +172,7 @@ export default function StoryViewPage({
           ctx.drawImage(img, 0, 0);
           const imgData = canvas.toDataURL("image/jpeg", 0.85);
 
-          const TARGET_W = 120;
+          const TARGET_W = 102;
           const aspect = img.naturalHeight / img.naturalWidth;
           const imgW = TARGET_W;
           const imgH = TARGET_W * aspect;
@@ -182,8 +182,8 @@ export default function StoryViewPage({
           const frameH = imgH + PAD * 2;
           const frameX = M + (contentW - frameW) / 2;
 
-          cursorY += 8;
-          ensureSpace(frameH + 16);
+          cursorY += 10;
+          ensureSpace(frameH + 20);
 
           pdf.setDrawColor(221, 214, 254);
           pdf.setLineWidth(0.7);
@@ -193,7 +193,7 @@ export default function StoryViewPage({
           const imgX = frameX + PAD;
           const imgY = cursorY + PAD;
           pdf.addImage(imgData, "JPEG", imgX, imgY, imgW, imgH);
-          cursorY += frameH + 8;
+          cursorY += frameH + 10;
         } catch {
           // skip if image fails
         }
