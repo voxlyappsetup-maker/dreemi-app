@@ -9,8 +9,8 @@ import { checkStoryLimit } from "../middleware/plans.middleware";
 export const storiesRouter = Router();
 
 const GenerateSchema = z.object({
-  childName: z.string().min(1).max(50),
-  childAge:  z.number().int().min(2).max(12),
+  childName: z.string().min(1).max(50).optional(),
+  childAge:  z.number().int().min(2).max(12).optional(),
   theme:     z.string().min(1).max(100),
   moral:     z.string().max(100).optional(),
   language:  z.enum(["ar", "en", "fr"]).default("ar"),
@@ -19,7 +19,10 @@ const GenerateSchema = z.object({
   skinTone:  z.enum(["light", "medium", "dark"]).default("medium"),
   hairColor: z.enum(["black", "brown", "blonde", "red"]).default("black"),
   childId:   z.string().optional(),
-});
+}).refine(
+  (data) => data.childId || (data.childName && data.childAge !== undefined),
+  { message: "Either childId or both childName and childAge are required" },
+);
 
 storiesRouter.get("/", async (req: Request, res: Response) => {
   try {
@@ -48,8 +51,8 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
       return;
     }
 
-    let childName = input.childName;
-    let childAge = input.childAge;
+    let childName = input.childName ?? "";
+    let childAge = input.childAge ?? 5;
     let gender = input.gender;
     let skinTone = input.skinTone;
     let hairColor = input.hairColor;
@@ -57,13 +60,15 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
 
     if (childId) {
       const child = await prisma.child.findUnique({ where: { id: childId } });
-      if (child && child.userId === userId) {
-        childName = child.name;
-        childAge = child.age;
-        gender = (child.gender as "boy" | "girl") || gender;
-        skinTone = (child.skinTone as "light" | "medium" | "dark") || skinTone;
-        hairColor = (child.hairColor as "black" | "brown" | "blonde" | "red") || hairColor;
+      if (!child || child.userId !== userId) {
+        res.status(404).json({ success: false, error: "Child not found" });
+        return;
       }
+      childName = child.name;
+      childAge = child.age;
+      gender = (child.gender as "boy" | "girl") || gender;
+      skinTone = (child.skinTone as "light" | "medium" | "dark") || skinTone;
+      hairColor = (child.hairColor as "black" | "brown" | "blonde" | "red") || hairColor;
     }
 
     const storyInput = { ...input, childName, childAge, gender, skinTone, hairColor };
