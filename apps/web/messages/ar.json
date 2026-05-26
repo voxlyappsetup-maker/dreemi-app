@@ -233,7 +233,8 @@
     "resume": "استئناف",
     "stop": "إيقاف",
     "voiceMale": "صوت رجل",
-    "voiceFemale": "صوت امرأة"
+    "voiceFemale": "صوت امرأة",
+    "voiceNotOptimized": "الصوت غير محسّن لهذه اللغة"
   },
   "children": {
     "title": "أطفالي",

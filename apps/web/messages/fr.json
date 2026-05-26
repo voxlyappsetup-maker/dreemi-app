@@ -233,7 +233,8 @@
     "resume": "Reprendre",
     "stop": "Arrêter",
     "voiceMale": "Voix masculine",
-    "voiceFemale": "Voix féminine"
+    "voiceFemale": "Voix féminine",
+    "voiceNotOptimized": "Voix non optimisée pour cette langue"
   },
   "children": {
     "title": "Mes enfants",

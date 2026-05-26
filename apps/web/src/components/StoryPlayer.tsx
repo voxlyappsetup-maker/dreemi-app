@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
-const LANG_MAP: Record<string, string> = {
-  ar: "ar-SA",
-  en: "en-US",
-  fr: "fr-FR",
+const LANG_CODES: Record<string, string[]> = {
+  ar: ["ar-SA", "ar-EG", "ar-AE", "ar"],
+  en: ["en-US", "en-GB", "en"],
+  fr: ["fr-FR", "fr-CA", "fr"],
 };
 
 const FEMALE_HINTS = [
@@ -54,6 +54,7 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
   const [maleVoices, setMaleVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [femaleVoices, setFemaleVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [selectedGender, setSelectedGender] = useState<VoiceGender | null>(null);
+  const [langNative, setLangNative] = useState(true);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const totalCharsRef = useRef(0);
 
@@ -63,12 +64,14 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
 
     function loadVoices() {
       const all = window.speechSynthesis.getVoices();
-      const target = LANG_MAP[language] ?? language;
-      const prefix = target.split("-")[0];
+      const codes = LANG_CODES[language] ?? [language];
+      const prefix = language;
       const langVoices = all.filter(
-        (v) => v.lang === target || v.lang.startsWith(prefix + "-") || v.lang === prefix,
+        (v) => codes.includes(v.lang) || v.lang.startsWith(prefix + "-"),
       );
-      const usable = langVoices.length > 0 ? langVoices : all;
+      const native = langVoices.length > 0;
+      setLangNative(native);
+      const usable = native ? langVoices : all;
       setVoices(usable);
 
       const males: SpeechSynthesisVoice[] = [];
@@ -141,7 +144,7 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
       const utter = new SpeechSynthesisUtterance(chunks[idx]);
       const voice = pickVoice();
       if (voice) utter.voice = voice;
-      utter.lang = LANG_MAP[language] ?? language;
+      utter.lang = (LANG_CODES[language] ?? [language])[0];
       utter.rate = 0.95;
       utter.pitch = 1.05;
 
@@ -188,9 +191,7 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
 
   if (!supported) return null;
 
-  const hasMale = maleVoices.length > 0;
-  const hasFemale = femaleVoices.length > 0;
-  const showGenderPicker = hasMale || hasFemale;
+  const hasBoth = maleVoices.length > 0 && femaleVoices.length > 0;
 
   const genderBtnBase = "inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-semibold transition active:scale-95";
   const genderActive = "bg-violet-600 text-white shadow-md";
@@ -198,28 +199,27 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
 
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-violet-100 bg-gradient-to-r from-violet-50 to-purple-50 p-4">
-      {showGenderPicker && (
+      {!langNative && (
+        <p className="text-xs text-amber-600">{t("voiceNotOptimized")}</p>
+      )}
+      {hasBoth && (
         <div className="flex items-center gap-2">
-          {hasFemale && (
-            <button
-              type="button"
-              onClick={() => selectGender("female")}
-              className={`${genderBtnBase} ${selectedGender === "female" ? genderActive : genderInactive}`}
-            >
-              <span className="text-base">👩</span>
-              {t("voiceFemale")}
-            </button>
-          )}
-          {hasMale && (
-            <button
-              type="button"
-              onClick={() => selectGender("male")}
-              className={`${genderBtnBase} ${selectedGender === "male" ? genderActive : genderInactive}`}
-            >
-              <span className="text-base">👨</span>
-              {t("voiceMale")}
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => selectGender("female")}
+            className={`${genderBtnBase} ${selectedGender === "female" ? genderActive : genderInactive}`}
+          >
+            <span className="text-base">👩</span>
+            {t("voiceFemale")}
+          </button>
+          <button
+            type="button"
+            onClick={() => selectGender("male")}
+            className={`${genderBtnBase} ${selectedGender === "male" ? genderActive : genderInactive}`}
+          >
+            <span className="text-base">👨</span>
+            {t("voiceMale")}
+          </button>
         </div>
       )}
 
