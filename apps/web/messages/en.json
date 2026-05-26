@@ -158,13 +158,16 @@
   },
   "pricing": {
     "title": "Plans That Fit Your Family",
-    "description": "Start for free — upgrade when you need more stories and languages.",
+    "description": "Start for free — upgrade when you need more stories.",
     "monthly": "Monthly",
     "yearly": "Yearly",
-    "save33": "Save 33%",
+    "save20": "Save 20%",
     "mostPopular": "Most Popular",
     "redirecting": "Redirecting...",
     "startFree": "Start for Free",
+    "startNow": "Start Now",
+    "contactUs": "Contact Us",
+    "currentPlan": "Your Current Plan",
     "subscribeNow": "Subscribe Now",
     "checkoutError": "Failed to start payment, please try again",
     "priceNotConfigured": "Price ID is not configured. Contact support.",
@@ -173,9 +176,11 @@
     "planFree": "Free",
     "planIndividual": "Individual",
     "planFamily": "Family",
-    "planFreeFeatures": ["3 stories per month", "One language", "Arabic stories"],
-    "planIndFeatures": ["Unlimited stories", "3 languages", "PDF export", "Save 33% yearly"],
-    "planFamilyFeatures": ["Up to 3 children", "Unlimited stories", "Family library"]
+    "planSchool": "School",
+    "planFreeFeatures": ["3 stories per month", "1 child", "Standard images", "Limited audio"],
+    "planIndFeatures": ["30 stories per month", "1 child", "Enhanced images", "Voice narration", "3 languages", "PDF export"],
+    "planFamilyFeatures": ["Unlimited stories", "Up to 4 children", "All features", "Priority generation"],
+    "planSchoolFeatures": ["Unlimited stories", "Unlimited children", "Teacher dashboard", "Dedicated support"]
   },
   "settings": {
     "title": "Settings",
