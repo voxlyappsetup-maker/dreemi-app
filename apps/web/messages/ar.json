@@ -85,7 +85,13 @@
     "loadingStories": "جاري تحميل القصص...",
     "noStoriesYet": "لا توجد قصص بعد",
     "noStoriesDesc": "أنشئ أول قصة نوم مخصصة لطفلك الليلة.",
-    "startNow": "ابدأ الآن"
+    "startNow": "ابدأ الآن",
+    "myChildren": "أطفالي",
+    "childStories": "{count} قصة",
+    "addFirstChild": "أضف طفلك الأول",
+    "noChildrenYet": "لم تضف أي طفل بعد",
+    "noChildrenDesc": "أضف أطفالك للحصول على قصص مخصصة لكل واحد منهم",
+    "addChild": "إضافة طفل"
   },
   "generate": {
     "title": "توليد قصة نوم",

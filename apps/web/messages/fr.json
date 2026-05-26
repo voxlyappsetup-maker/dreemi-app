@@ -85,7 +85,13 @@
     "loadingStories": "Chargement des histoires...",
     "noStoriesYet": "Pas encore d'histoires",
     "noStoriesDesc": "Créez la première histoire personnalisée pour votre enfant ce soir.",
-    "startNow": "Commencer maintenant"
+    "startNow": "Commencer maintenant",
+    "myChildren": "Mes enfants",
+    "childStories": "{count} histoires",
+    "addFirstChild": "Ajoutez votre premier enfant",
+    "noChildrenYet": "Aucun enfant ajouté",
+    "noChildrenDesc": "Ajoutez vos enfants pour obtenir des histoires personnalisées pour chacun",
+    "addChild": "Ajouter un enfant"
   },
   "generate": {
     "title": "Générer une histoire",

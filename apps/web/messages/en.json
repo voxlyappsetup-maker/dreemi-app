@@ -85,7 +85,13 @@
     "loadingStories": "Loading stories...",
     "noStoriesYet": "No stories yet",
     "noStoriesDesc": "Create your first custom bedtime story for your child tonight.",
-    "startNow": "Start Now"
+    "startNow": "Start Now",
+    "myChildren": "My Children",
+    "childStories": "{count} stories",
+    "addFirstChild": "Add Your First Child",
+    "noChildrenYet": "No children added yet",
+    "noChildrenDesc": "Add your children to get personalized stories for each one",
+    "addChild": "Add Child"
   },
   "generate": {
     "title": "Generate a Bedtime Story",
