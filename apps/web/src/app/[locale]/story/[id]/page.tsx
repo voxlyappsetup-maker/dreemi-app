@@ -106,7 +106,7 @@ export default function StoryViewPage({
 
       const drawFooter = () => {
         pdf.setFont("helvetica", "normal");
-        pdf.setFontSize(8);
+        pdf.setFontSize(9);
         pdf.setTextColor(139, 92, 246);
         pdf.text(`dreemi.app  |  ${pageNum}`, W / 2, H - 8, { align: "center" });
       };
@@ -119,7 +119,7 @@ export default function StoryViewPage({
         drawWatermark();
         cursorY = M;
         pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(11);
+        pdf.setFontSize(13);
         pdf.setTextColor(109, 40, 217);
         pdf.text("Dreemi", W / 2, cursorY, { align: "center" });
         cursorY += 3;
@@ -137,7 +137,7 @@ export default function StoryViewPage({
 
       const setBodyFont = () => {
         pdf.setFont("helvetica", "normal");
-        pdf.setFontSize(11);
+        pdf.setFontSize(13);
         pdf.setTextColor(51, 65, 85);
       };
 
@@ -146,7 +146,7 @@ export default function StoryViewPage({
       drawWatermark();
 
       pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(22);
+      pdf.setFontSize(25);
       pdf.setTextColor(109, 40, 217);
       pdf.text("Dreemi", W / 2, cursorY, { align: "center" });
       cursorY += 4;
@@ -201,22 +201,22 @@ export default function StoryViewPage({
 
       // --- Title ---
       pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(16);
+      pdf.setFontSize(18);
       pdf.setTextColor(30, 41, 59);
       const titleLines: string[] = pdf.splitTextToSize(story.title, contentW);
       for (const line of titleLines) {
-        ensureSpace(7);
+        ensureSpace(8);
         pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(16);
+        pdf.setFontSize(18);
         pdf.setTextColor(30, 41, 59);
         pdf.text(line, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
-        cursorY += 7;
+        cursorY += 8;
       }
 
       // --- By line ---
       ensureSpace(7);
       pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(9);
+      pdf.setFontSize(10);
       pdf.setTextColor(139, 92, 246);
       const byLine = t("storyBy", { name: story.childName });
       pdf.text(byLine, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
@@ -243,7 +243,7 @@ export default function StoryViewPage({
       if (story.moral) {
         const moralLabel = t("moralLearned");
         pdf.setFont("helvetica", "normal");
-        pdf.setFontSize(10);
+        pdf.setFontSize(12);
         const moralLines: string[] = pdf.splitTextToSize(story.moral, contentW - 12);
         const moralBoxH = 14 + moralLines.length * LINE_H;
 
@@ -256,12 +256,12 @@ export default function StoryViewPage({
         pdf.roundedRect(M, cursorY, contentW, moralBoxH, 3, 3, "FD");
 
         pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(10);
+        pdf.setFontSize(12);
         pdf.setTextColor(109, 40, 217);
         pdf.text(moralLabel, isRtl ? W - M - 6 : M + 6, cursorY + 8, { align: isRtl ? "right" : "left" });
 
         pdf.setFont("helvetica", "normal");
-        pdf.setFontSize(10);
+        pdf.setFontSize(12);
         pdf.setTextColor(51, 65, 85);
         const mx = isRtl ? W - M - 6 : M + 6;
         let my = cursorY + 15;
