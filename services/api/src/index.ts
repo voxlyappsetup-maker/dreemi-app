@@ -8,10 +8,17 @@ import { paymentsRouter } from "./routes/payments";
 import { childrenRouter } from "./routes/children";
 import { errorHandler } from "./middleware/errorHandler";
 
-dotenv.config({ path: "../../.env" });
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled rejection:", err);
+});
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught exception:", err);
+});
+
+try { dotenv.config({ path: "../../.env" }); } catch { /* ignore if .env missing */ }
 
 const app = express();
-const PORT = process.env.PORT || process.env.API_PORT || 3001;
+const PORT = Number(process.env.PORT) || Number(process.env.API_PORT) || 3001;
 
 app.use(helmet());
 app.use(
@@ -44,6 +51,12 @@ app.use("/api/payments", paymentsRouter);
 app.use("/api/children", childrenRouter);
 app.use(errorHandler);
 
-app.listen(Number(PORT), "0.0.0.0", () => {
-  console.log(`✓ Dreemi API يعمل على http://0.0.0.0:${PORT}`);
+const server = app.listen(PORT, "0.0.0.0", () => {
+  const addr = server.address();
+  console.log(`✓ Dreemi API listening on port ${PORT} (${JSON.stringify(addr)})`);
+});
+
+server.on("error", (err) => {
+  console.error("Server error:", err);
+  process.exit(1);
 });

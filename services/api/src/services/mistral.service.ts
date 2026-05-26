@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config({ path: "../../.env" });
+try { dotenv.config({ path: "../../.env" }); } catch { /* ignore */ }
 
 const MISTRAL_API_URL = "https://api.mistral.ai/v1/chat/completions";
 const MISTRAL_MODEL = "mistral-large-latest";

@@ -4,8 +4,8 @@ if (!process.env.STRIPE_SECRET_KEY) {
   console.warn("[Stripe] STRIPE_SECRET_KEY not set — Stripe calls will fail");
 }
 
-/** Shared Stripe client (lazily safe if env var missing at import time). */
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
+/** Shared Stripe client. Uses a dummy key if env var is missing to avoid crash at import. */
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_missing_key_placeholder");
 
 /** Access the underlying Stripe namespace for type references. */
 export type { Stripe };
