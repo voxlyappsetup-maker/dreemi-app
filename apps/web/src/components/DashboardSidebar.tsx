@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import type { Plan } from "@dreemi/types";
 import { Link } from "../i18n/routing";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { IconBook, IconSparkle } from "./icons";
+import { IconBook, IconSettings, IconSparkle } from "./icons";
 
 interface DashboardSidebarProps {
   onLogout: () => void;
@@ -28,6 +28,7 @@ export function DashboardSidebar({ onLogout, plan = "FREE" }: DashboardSidebarPr
   const NAV = [
     { href: "/dashboard" as const, label: t("dashboard"), icon: "home" },
     { href: "/generate" as const, label: t("newStory"), icon: "sparkle" },
+    { href: "/settings" as const, label: t("settings"), icon: "settings" },
   ];
 
   return (
@@ -61,6 +62,8 @@ export function DashboardSidebar({ onLogout, plan = "FREE" }: DashboardSidebarPr
             >
               {item.icon === "sparkle" ? (
                 <IconSparkle className="h-5 w-5" />
+              ) : item.icon === "settings" ? (
+                <IconSettings className="h-5 w-5" />
               ) : (
                 <span className="text-lg" aria-hidden>🏠</span>
               )}

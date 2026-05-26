@@ -8,6 +8,7 @@ import {
   verifyRefreshToken,
 } from "../services/jwt.service";
 import { authenticateToken } from "../middleware/auth.middleware";
+import { stripe } from "../services/stripe.service";
 
 export const authRouter = Router();
 
@@ -232,5 +233,123 @@ authRouter.get("/me", authenticateToken, async (req: Request, res: Response) => 
     res.json({ success: true, user: toPublicUser(user) });
   } catch {
     res.status(500).json({ success: false, error: "فشل جلب بيانات المستخدم" });
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/*  GET /api/auth/export-data  (GDPR Article 20 — data portability)   */
+/* ------------------------------------------------------------------ */
+
+authRouter.get("/export-data", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.userId },
+      include: {
+        stories: { orderBy: { createdAt: "desc" } },
+        subscription: true,
+        children: true,
+      },
+    });
+
+    if (!user) {
+      res.status(404).json({ success: false, error: "المستخدم غير موجود" });
+      return;
+    }
+
+    const exportData = {
+      exportDate: new Date().toISOString(),
+      profile: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        language: user.language,
+        plan: user.plan,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+      children: user.children.map((c) => ({
+        id: c.id,
+        name: c.name,
+        age: c.age,
+        createdAt: c.createdAt,
+      })),
+      stories: user.stories.map((s) => ({
+        id: s.id,
+        title: s.title,
+        content: s.content,
+        language: s.language,
+        theme: s.theme,
+        moral: s.moral,
+        childName: s.childName,
+        childAge: s.childAge,
+        isFavorite: s.isFavorite,
+        createdAt: s.createdAt,
+      })),
+      subscription: user.subscription
+        ? {
+            plan: user.subscription.plan,
+            status: user.subscription.status,
+            currentPeriodStart: user.subscription.currentPeriodStart,
+            currentPeriodEnd: user.subscription.currentPeriodEnd,
+            cancelAtPeriodEnd: user.subscription.cancelAtPeriodEnd,
+          }
+        : null,
+    };
+
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Disposition", 'attachment; filename="dreemi-data-export.json"');
+    res.send(JSON.stringify(exportData, null, 2));
+  } catch (err) {
+    console.error("[Auth] export-data error:", err);
+    res.status(500).json({ success: false, error: "فشل تصدير البيانات" });
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/*  DELETE /api/auth/delete-account  (GDPR Article 17 — right to erasure) */
+/* ------------------------------------------------------------------ */
+
+const deleteSchema = z.object({
+  confirm: z.literal("DELETE", {
+    errorMap: () => ({ message: 'يجب كتابة "DELETE" للتأكيد' }),
+  }),
+});
+
+authRouter.delete("/delete-account", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    deleteSchema.parse(req.body);
+
+    const user = await prisma.user.findUnique({
+      where: { id: req.userId },
+      include: { subscription: true },
+    });
+
+    if (!user) {
+      res.status(404).json({ success: false, error: "المستخدم غير موجود" });
+      return;
+    }
+
+    // Cancel active Stripe subscription if exists
+    if (user.subscription?.stripeSubscriptionId) {
+      try {
+        await stripe.subscriptions.cancel(user.subscription.stripeSubscriptionId);
+        console.log(`[Auth] cancelled Stripe sub ${user.subscription.stripeSubscriptionId}`);
+      } catch (err) {
+        console.warn("[Auth] failed to cancel Stripe subscription:", err);
+      }
+    }
+
+    // Prisma cascades will delete stories, children, and subscription
+    await prisma.user.delete({ where: { id: req.userId } });
+
+    console.log(`[Auth] ✓ account deleted: user=${req.userId} email=${user.email}`);
+    res.json({ success: true, message: "Account deleted" });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      res.status(400).json({ success: false, error: formatZodError(err) });
+      return;
+    }
+    console.error("[Auth] delete-account error:", err);
+    res.status(500).json({ success: false, error: "فشل حذف الحساب" });
   }
 });

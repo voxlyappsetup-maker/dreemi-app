@@ -141,3 +141,40 @@ export async function getMe(): Promise<User> {
   );
   return data.user;
 }
+
+/** GDPR: Export all user data as JSON download. */
+export async function exportUserData(): Promise<void> {
+  const token = getAccessToken();
+  const res = await fetch(`${API_URL}/api/auth/export-data`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  if (!res.ok) throw new ApiError(res.status, "Failed to export data");
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "dreemi-data-export.json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/** GDPR: Delete user account permanently. */
+export async function deleteAccount(): Promise<void> {
+  await apiFetch(
+    "/api/auth/delete-account",
+    { method: "DELETE", body: JSON.stringify({ confirm: "DELETE" }) },
+    true,
+  );
+}
+
+/** Cancel subscription at period end. Returns the date access ends. */
+export async function cancelSubscription(): Promise<string> {
+  const data = await apiFetch<{ success: boolean; periodEnd: string }>(
+    "/api/payments/cancel-subscription",
+    { method: "POST" },
+    true,
+  );
+  return data.periodEnd;
+}

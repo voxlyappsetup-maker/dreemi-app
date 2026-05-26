@@ -81,6 +81,57 @@ paymentsRouter.post(
 );
 
 /* ------------------------------------------------------------------ */
+/*  POST /api/payments/cancel-subscription  (protected)               */
+/* ------------------------------------------------------------------ */
+
+paymentsRouter.post(
+  "/cancel-subscription",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    try {
+      const userId = req.userId!;
+      const subscription = await prisma.subscription.findUnique({
+        where: { userId },
+      });
+
+      if (!subscription || subscription.status === "canceled") {
+        res.status(400).json({ success: false, error: "لا يوجد اشتراك نشط" });
+        return;
+      }
+
+      // Cancel at period end — user keeps access until billing cycle ends
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const updated: any = await stripe.subscriptions.update(
+        subscription.stripeSubscriptionId,
+        { cancel_at_period_end: true },
+      );
+
+      await prisma.subscription.update({
+        where: { userId },
+        data: { cancelAtPeriodEnd: true },
+      });
+
+      const periodEnd = new Date(
+        (updated.current_period_end ?? 0) * 1000,
+      );
+
+      console.log(
+        `[Payments] ✓ subscription cancel scheduled: user=${userId} ends=${periodEnd.toISOString()}`,
+      );
+
+      res.json({
+        success: true,
+        message: "سيتم إلغاء الاشتراك في نهاية الفترة الحالية",
+        periodEnd: periodEnd.toISOString(),
+      });
+    } catch (err) {
+      console.error("[Payments] cancel-subscription error:", err);
+      res.status(500).json({ success: false, error: "فشل إلغاء الاشتراك" });
+    }
+  },
+);
+
+/* ------------------------------------------------------------------ */
 /*  POST /api/payments/webhook  (NOT protected — called by Stripe)    */
 /* ------------------------------------------------------------------ */
 
