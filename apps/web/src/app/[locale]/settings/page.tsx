@@ -25,9 +25,9 @@ const BTN_PRIMARY = `${BTN} bg-violet-600 text-white shadow-lg hover:bg-violet-7
 const BTN_OUTLINE = `${BTN} border border-violet-200 bg-white text-violet-700 hover:bg-violet-50`;
 
 const LANG_OPTIONS = [
-  { code: "ar", flag: "🇸🇦", name: "العربية" },
-  { code: "en", flag: "🇬🇧", name: "English" },
-  { code: "fr", flag: "🇫🇷", name: "Français" },
+  { code: "ar", flag: "https://flagcdn.com/w40/sa.png", name: "العربية" },
+  { code: "en", flag: "https://flagcdn.com/w40/gb.png", name: "English" },
+  { code: "fr", flag: "https://flagcdn.com/w40/fr.png", name: "Français" },
 ];
 
 export default function SettingsPage() {
@@ -255,7 +255,8 @@ export default function SettingsPage() {
                   locale={l.code as "ar" | "en" | "fr"}
                   className={`${langBtnBase} ${locale === l.code ? langActive : langInactive}`}
                 >
-                  <span className="text-xl">{l.flag}</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={l.flag} alt={l.name} className="h-5 w-7 rounded-sm object-cover" />
                   {l.name}
                 </Link>
               ))}
@@ -272,7 +273,8 @@ export default function SettingsPage() {
                   onClick={() => handleStoryLang(l.code)}
                   className={`${langBtnBase} ${storyLang === l.code ? langActive : langInactive}`}
                 >
-                  <span className="text-xl">{l.flag}</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={l.flag} alt={l.name} className="h-5 w-7 rounded-sm object-cover" />
                   {l.name}
                 </button>
               ))}
