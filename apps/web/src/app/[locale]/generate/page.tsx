@@ -106,7 +106,7 @@ export default function GeneratePage() {
   }
 
   function storyUrl() {
-    return `https://dreemi.app/story/${story?.id ?? ""}`;
+    return `https://dreemi.app/${locale}/story/${story?.id ?? ""}`;
   }
 
   async function handleShare() {

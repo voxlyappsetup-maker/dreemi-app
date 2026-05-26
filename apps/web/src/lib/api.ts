@@ -124,6 +124,14 @@ export async function createPortal(): Promise<string> {
   return data.url;
 }
 
+/** Fetch a single story by ID (public, no auth required). */
+export async function getStoryById(id: string): Promise<Story> {
+  const data = await apiFetch<{ success: boolean; story: Story }>(
+    `/api/stories/${encodeURIComponent(id)}`,
+  );
+  return data.story;
+}
+
 /** Fetch the current user's profile from the API (fresh from database). */
 export async function getMe(): Promise<User> {
   const data = await apiFetch<{ success: boolean; user: User }>(

@@ -154,6 +154,16 @@
     "planFamily": "Family",
     "planSchool": "School"
   },
+  "storyView": {
+    "storyBy": "A story for {name}",
+    "moralLearned": "Moral of the Story",
+    "notFound": "Story not found",
+    "notFoundDesc": "We couldn't find this story. It may have been deleted or the link is incorrect.",
+    "backHome": "Back to Home",
+    "createYourOwn": "Create your own story",
+    "poweredBy": "Custom bedtime stories by Dreemi",
+    "loadError": "Failed to load story"
+  },
   "storyCard": {
     "langAr": "AR",
     "langEn": "EN",

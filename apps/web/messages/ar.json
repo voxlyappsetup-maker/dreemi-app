@@ -154,6 +154,16 @@
     "planFamily": "عائلي",
     "planSchool": "مدرسي"
   },
+  "storyView": {
+    "storyBy": "قصة لـ {name}",
+    "moralLearned": "القيمة المستفادة",
+    "notFound": "القصة غير موجودة",
+    "notFoundDesc": "لم نتمكن من العثور على هذه القصة. ربما تم حذفها أو أن الرابط غير صحيح.",
+    "backHome": "العودة للرئيسية",
+    "createYourOwn": "أنشئ قصتك الخاصة",
+    "poweredBy": "قصص نوم مخصصة من Dreemi",
+    "loadError": "فشل تحميل القصة"
+  },
   "storyCard": {
     "langAr": "عربي",
     "langEn": "EN",

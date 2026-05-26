@@ -154,6 +154,16 @@
     "planFamily": "Famille",
     "planSchool": "École"
   },
+  "storyView": {
+    "storyBy": "Une histoire pour {name}",
+    "moralLearned": "Valeur apprise",
+    "notFound": "Histoire introuvable",
+    "notFoundDesc": "Nous n'avons pas pu trouver cette histoire. Elle a peut-être été supprimée ou le lien est incorrect.",
+    "backHome": "Retour à l'accueil",
+    "createYourOwn": "Créez votre propre histoire",
+    "poweredBy": "Histoires personnalisées par Dreemi",
+    "loadError": "Échec du chargement de l'histoire"
+  },
   "storyCard": {
     "langAr": "AR",
     "langEn": "EN",
