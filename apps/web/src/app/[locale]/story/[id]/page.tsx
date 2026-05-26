@@ -155,7 +155,7 @@ export default function StoryViewPage({
       pdf.line(M, cursorY, W - M, cursorY);
       cursorY += 8;
 
-      // --- Image (aspect-ratio preserved) ---
+      // --- Image (120mm wide, aspect-ratio preserved, child-friendly frame) ---
       if (story.imageUrl) {
         try {
           const img = new Image();
@@ -172,19 +172,28 @@ export default function StoryViewPage({
           ctx.drawImage(img, 0, 0);
           const imgData = canvas.toDataURL("image/jpeg", 0.85);
 
-          let imgW = img.naturalWidth;
-          let imgH = img.naturalHeight;
-          if (imgW > 160) { const s = 160 / imgW; imgW = 160; imgH *= s; }
-          if (imgH > 80) { const s = 80 / imgH; imgH = 80; imgW *= s; }
-          const pxToMm = 0.264583;
-          imgW *= pxToMm;
-          imgH *= pxToMm;
-          if (imgW > 160) { const s = 160 / imgW; imgW = 160; imgH *= s; }
-          if (imgH > 80) { const s = 80 / imgH; imgH = 80; imgW *= s; }
+          const TARGET_W = 120;
+          const aspect = img.naturalHeight / img.naturalWidth;
+          const imgW = TARGET_W;
+          const imgH = TARGET_W * aspect;
+          const PAD = 3;
+          const RADIUS = 5;
+          const frameW = imgW + PAD * 2;
+          const frameH = imgH + PAD * 2;
+          const frameX = M + (contentW - frameW) / 2;
 
-          const imgX = M + (contentW - imgW) / 2;
-          pdf.addImage(imgData, "JPEG", imgX, cursorY, imgW, imgH);
-          cursorY += imgH + 6;
+          cursorY += 8;
+          ensureSpace(frameH + 16);
+
+          pdf.setDrawColor(221, 214, 254);
+          pdf.setLineWidth(0.7);
+          pdf.setFillColor(255, 255, 255);
+          pdf.roundedRect(frameX, cursorY, frameW, frameH, RADIUS, RADIUS, "FD");
+
+          const imgX = frameX + PAD;
+          const imgY = cursorY + PAD;
+          pdf.addImage(imgData, "JPEG", imgX, imgY, imgW, imgH);
+          cursorY += frameH + 8;
         } catch {
           // skip if image fails
         }
