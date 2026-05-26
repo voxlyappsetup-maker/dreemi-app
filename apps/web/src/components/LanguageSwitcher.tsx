@@ -6,9 +6,9 @@ import { routing, type Locale } from "../i18n/routing";
 import { useTransition } from "react";
 
 const LOCALE_LABELS: Record<Locale, string> = {
-  ar: "AR",
-  en: "EN",
-  fr: "FR",
+  ar: "🇸🇦",
+  en: "🇬🇧",
+  fr: "🇫🇷",
 };
 
 export function LanguageSwitcher() {
@@ -31,10 +31,10 @@ export function LanguageSwitcher() {
           type="button"
           onClick={() => switchLocale(loc)}
           disabled={isPending}
-          className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition ${
+          className={`rounded-xl px-3 py-2 text-base transition ${
             currentLocale === loc
-              ? "bg-violet-600 text-white shadow-sm"
-              : "text-slate-500 hover:bg-violet-50 hover:text-violet-700"
+              ? "bg-violet-600 shadow-sm ring-2 ring-violet-300"
+              : "hover:bg-violet-50"
           }`}
         >
           {LOCALE_LABELS[loc]}
