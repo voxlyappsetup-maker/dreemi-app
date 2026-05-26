@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Noto_Sans_Arabic } from "next/font/google";
-import { Inter } from "next/font/google";
+import { Noto_Sans_Arabic, Inter, Nunito } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { hasLocale } from "next-intl";
@@ -20,6 +19,12 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--font-nunito",
+  weight: ["700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +61,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
       <body
-        className={`${notoArabic.variable} ${inter.variable} font-sans antialiased`}
+        className={`${notoArabic.variable} ${inter.variable} ${nunito.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           <KeepAlive />
