@@ -112,6 +112,34 @@ export default function StoryViewPage({
         pdf.text(date, W / 2, H - 6, { align: "center" });
       }
 
+      const LINE_H = 5.5;
+      const BOTTOM_MARGIN = 22;
+
+      const newPage = (withHeader: boolean) => {
+        drawFooter();
+        pdf.addPage();
+        drawGradientBg();
+        drawWatermark();
+        cursorY = M;
+        if (withHeader) {
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(12);
+          pdf.setTextColor(109, 40, 217);
+          pdf.text("Dreemi", W / 2, cursorY, { align: "center" });
+          cursorY += 4;
+          pdf.setDrawColor(196, 181, 253);
+          pdf.setLineWidth(0.2);
+          pdf.line(M, cursorY, W - M, cursorY);
+          cursorY += 6;
+        }
+      };
+
+      const ensureSpace = (needed: number) => {
+        if (cursorY + needed > H - BOTTOM_MARGIN) {
+          newPage(true);
+        }
+      };
+
       drawGradientBg();
       drawWatermark();
 
@@ -144,11 +172,18 @@ export default function StoryViewPage({
           ctx.drawImage(img, 0, 0);
           const imgData = canvas.toDataURL("image/jpeg", 0.85);
 
-          const imgW = contentW;
-          const imgH = (img.naturalHeight / img.naturalWidth) * imgW;
-          const cappedH = Math.min(imgH, 80);
-          pdf.addImage(imgData, "JPEG", M, cursorY, imgW, cappedH);
-          cursorY += cappedH + 6;
+          const maxImgW = 160;
+          const maxImgH = 90;
+          const aspect = img.naturalWidth / img.naturalHeight;
+          let imgW = Math.min(maxImgW, contentW);
+          let imgH = imgW / aspect;
+          if (imgH > maxImgH) {
+            imgH = maxImgH;
+            imgW = imgH * aspect;
+          }
+          const imgX = M + (contentW - imgW) / 2;
+          pdf.addImage(imgData, "JPEG", imgX, cursorY, imgW, imgH);
+          cursorY += imgH + 6;
         } catch {
           // image failed to load, skip
         }
@@ -158,16 +193,16 @@ export default function StoryViewPage({
       pdf.setFontSize(18);
       pdf.setTextColor(30, 41, 59);
       const titleLines = pdf.splitTextToSize(story.title, contentW);
-      if (isRtl) {
-        titleLines.forEach((line: string) => {
-          pdf.text(line, W - M, cursorY, { align: "right" });
-          cursorY += 8;
-        });
-      } else {
-        pdf.text(titleLines, M, cursorY);
-        cursorY += titleLines.length * 8;
+      for (const line of titleLines) {
+        ensureSpace(8);
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(18);
+        pdf.setTextColor(30, 41, 59);
+        pdf.text(line, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
+        cursorY += 8;
       }
 
+      ensureSpace(8);
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(9);
       pdf.setTextColor(139, 92, 246);
@@ -179,45 +214,36 @@ export default function StoryViewPage({
       pdf.setFontSize(11);
       pdf.setTextColor(51, 65, 85);
 
+      const printLine = (line: string) => {
+        ensureSpace(LINE_H);
+        pdf.text(line, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
+        cursorY += LINE_H;
+      };
+
       const paragraphs = story.content.split(/\n\n+/);
       for (const para of paragraphs) {
         const cleanPara = para.replace(/\n/g, " ").trim();
         if (!cleanPara) continue;
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(11);
+        pdf.setTextColor(51, 65, 85);
+
         const lines: string[] = pdf.splitTextToSize(cleanPara, contentW);
-        const blockH = lines.length * 5.5;
-
-        if (cursorY + blockH > H - 22) {
-          drawFooter();
-          pdf.addPage();
-          drawGradientBg();
-          drawWatermark();
-          cursorY = M;
-        }
-
-        if (isRtl) {
-          lines.forEach((line: string) => {
-            pdf.text(line, W - M, cursorY, { align: "right" });
-            cursorY += 5.5;
-          });
-        } else {
-          pdf.text(lines, M, cursorY);
-          cursorY += blockH;
+        for (const line of lines) {
+          printLine(line);
         }
         cursorY += 3;
       }
 
       if (story.moral) {
         const moralLabel = t("moralLearned");
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(10);
         const moralLines: string[] = pdf.splitTextToSize(story.moral, contentW - 10);
-        const moralBlockH = 12 + moralLines.length * 5.5;
+        const moralBlockH = 12 + moralLines.length * LINE_H;
 
-        if (cursorY + moralBlockH > H - 22) {
-          drawFooter();
-          pdf.addPage();
-          drawGradientBg();
-          drawWatermark();
-          cursorY = M;
-        }
+        ensureSpace(moralBlockH + 8);
 
         pdf.setFillColor(245, 243, 255);
         pdf.setDrawColor(196, 181, 253);
@@ -235,7 +261,7 @@ export default function StoryViewPage({
         let moralY = cursorY + 13;
         moralLines.forEach((line: string) => {
           pdf.text(line, moralX, moralY, { align: isRtl ? "right" : "left" });
-          moralY += 5.5;
+          moralY += LINE_H;
         });
         cursorY += moralBlockH + 8;
       }
