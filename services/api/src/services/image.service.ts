@@ -1,8 +1,4 @@
 import OpenAI from "openai";
-import dotenv from "dotenv";
-dotenv.config({ path: "../../.env" });
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export interface ImageRequest {
   childName: string;
@@ -14,9 +10,16 @@ export interface ImageRequest {
   hairColor?: string;
 }
 
+function getOpenAIClient(): OpenAI | null {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) return null;
+  return new OpenAI({ apiKey });
+}
+
 export async function generateStoryImage(req: ImageRequest): Promise<string | null> {
-  if (!process.env.OPENAI_API_KEY) {
-    console.warn("[Image] OPENAI_API_KEY not set, skipping image generation");
+  const openai = getOpenAIClient();
+  if (!openai) {
+    console.log("[Image] OPENAI_API_KEY not set, skipping image generation");
     return null;
   }
 
