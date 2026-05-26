@@ -7,6 +7,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "../../i18n/routing";
+import { KeepAlive } from "../../components/KeepAlive";
 import "../globals.css";
 
 const notoArabic = Noto_Sans_Arabic({
@@ -53,6 +54,7 @@ export default async function LocaleLayout({
         className={`${notoArabic.variable} ${inter.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
+          <KeepAlive />
           {children}
         </NextIntlClientProvider>
       </body>

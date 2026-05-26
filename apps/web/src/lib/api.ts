@@ -16,6 +16,10 @@ export interface StoriesListResponse {
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "https://dreemi-app.onrender.com";
 
+export function pingBackend() {
+  return fetch(`${API_URL}/health`, { method: "GET" }).catch(() => {});
+}
+
 export class ApiError extends Error {
   constructor(
     public status: number,
