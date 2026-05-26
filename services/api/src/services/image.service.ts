@@ -40,7 +40,6 @@ export async function generateStoryImage(req: ImageRequest): Promise<string | nu
       prompt,
       n: 1,
       size: "1024x1024",
-      quality: "standard",
     });
 
     const url = response.data?.[0]?.url ?? null;
@@ -51,4 +50,5 @@ export async function generateStoryImage(req: ImageRequest): Promise<string | nu
     return null;
   }
 }
+
 
