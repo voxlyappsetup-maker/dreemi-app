@@ -38,6 +38,7 @@ export interface GenerateStoryInput {
   theme: string;
   moral?: string;
   language: Language;
+  duration?: number;
 }
 
 export interface Story {

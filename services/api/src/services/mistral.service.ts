@@ -10,6 +10,7 @@ export interface StoryRequest {
   theme: string;
   moral?: string;
   language: "ar" | "en" | "fr";
+  duration?: number;
 }
 
 export interface GeneratedStory {
@@ -19,10 +20,11 @@ export interface GeneratedStory {
 }
 
 function buildPrompt(req: StoryRequest): string {
+  const wordCount = (req.duration ?? 5) * 120;
   const prompts: Record<string, string> = {
-    ar: `انت كاتب قصص اطفال محترف. اكتب قصة نوم جميلة باللغة العربية الفصحى البسيطة. الاسم: ${req.childName}، العمر: ${req.childAge} سنوات، الموضوع: ${req.theme}${req.moral ? `، القيمة التربوية: ${req.moral}` : ""}. اشترط ان يكون البطل اسمه ${req.childName}، والقصة بين 300 و400 كلمة، مع نهاية سعيدة تبعث على النوم. يجب ان تعيد JSON فقط بهذا الشكل بالضبط بدون اي نص اضافي: {"title": "عنوان القصة", "content": "نص القصة كاملا", "moral": "القيمة المستفادة"}`,
-    en: `You are a professional children story writer. Write a beautiful bedtime story in English. Name: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Moral: ${req.moral}` : ""}. The hero must be named ${req.childName}, 300-400 words, happy ending. Separate each paragraph with a blank line (double newline \\n\\n). Return JSON only: {"title": "...", "content": "full story text with \\n\\n between paragraphs", "moral": "..."}`,
-    fr: `Vous etes un auteur de contes pour enfants. Ecrivez une belle histoire en francais. Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Morale: ${req.moral}` : ""}. Le heros doit s appeler ${req.childName}, 300-400 mots, fin heureuse. Separez chaque paragraphe par une ligne vide (double retour a la ligne \\n\\n). Retournez JSON uniquement: {"title": "...", "content": "texte complet avec \\n\\n entre les paragraphes", "moral": "..."}`
+    ar: `انت كاتب قصص اطفال محترف. اكتب قصة نوم جميلة باللغة العربية الفصحى البسيطة. الاسم: ${req.childName}، العمر: ${req.childAge} سنوات، الموضوع: ${req.theme}${req.moral ? `، القيمة التربوية: ${req.moral}` : ""}. اشترط ان يكون البطل اسمه ${req.childName}، يجب ان تكون القصة ${wordCount} كلمة تقريبا، مع نهاية سعيدة تبعث على النوم. يجب ان تعيد JSON فقط بهذا الشكل بالضبط بدون اي نص اضافي: {"title": "عنوان القصة", "content": "نص القصة كاملا", "moral": "القيمة المستفادة"}`,
+    en: `You are a professional children story writer. Write a beautiful bedtime story in English. Name: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Moral: ${req.moral}` : ""}. The hero must be named ${req.childName}. The story must be approximately ${wordCount} words long. Happy ending. Separate each paragraph with a blank line (double newline \\n\\n). Return JSON only: {"title": "...", "content": "full story text with \\n\\n between paragraphs", "moral": "..."}`,
+    fr: `Vous etes un auteur de contes pour enfants. Ecrivez une belle histoire en francais. Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Morale: ${req.moral}` : ""}. Le heros doit s appeler ${req.childName}. L histoire doit faire environ ${wordCount} mots. Fin heureuse. Separez chaque paragraphe par une ligne vide (double retour a la ligne \\n\\n). Retournez JSON uniquement: {"title": "...", "content": "texte complet avec \\n\\n entre les paragraphes", "moral": "..."}`
   };
   return prompts[req.language] || prompts.ar;
 }
@@ -40,7 +42,7 @@ export async function generateStoryWithMistral(req: StoryRequest): Promise<Gener
     body: JSON.stringify({
       model: MISTRAL_MODEL,
       temperature: 0.9,
-      max_tokens: 1500,
+      max_tokens: Math.max(1500, ((req.duration ?? 5) * 120 * 2)),
       response_format: { type: "json_object" },
       messages: [{ role: "user", content: buildPrompt(req) }],
     }),

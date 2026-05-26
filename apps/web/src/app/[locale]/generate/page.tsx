@@ -35,6 +35,7 @@ export default function GeneratePage() {
   const [theme, setTheme] = useState("");
   const [moral, setMoral] = useState("");
   const [language, setLanguage] = useState<Language>(locale as Language);
+  const [duration, setDuration] = useState(5);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [story, setStory] = useState<Story | null>(null);
@@ -77,6 +78,7 @@ export default function GeneratePage() {
         theme: theme.trim(),
         moral: moral.trim() || undefined,
         language,
+        duration,
       });
       setStory(data.story);
       setFav(isFavorite(data.story.id) || data.story.isFavorite);
@@ -229,6 +231,34 @@ export default function GeneratePage() {
                   <option value="en">{ta("english")}</option>
                   <option value="fr">{ta("french")}</option>
                 </select>
+              </div>
+              <div>
+                <span className="mb-2 block text-sm font-semibold text-slate-900">{t("storyDuration")}</span>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  {([3, 5, 10, 15] as const).map((d) => {
+                    const labels: Record<number, string> = { 3: t("duration3"), 5: t("duration5"), 10: t("duration10"), 15: t("duration15") };
+                    const active = duration === d;
+                    return (
+                      <button
+                        key={d}
+                        type="button"
+                        onClick={() => setDuration(d)}
+                        className={`flex flex-col items-center gap-1 rounded-2xl border px-3 py-3 text-center transition ${
+                          active
+                            ? "border-violet-400 bg-violet-50 shadow-sm ring-2 ring-violet-200"
+                            : "border-violet-100 bg-white hover:border-violet-300 hover:bg-violet-50"
+                        }`}
+                      >
+                        <span className={`text-lg font-bold ${active ? "text-violet-700" : "text-slate-700"}`}>
+                          {t("durationMin", { min: d })}
+                        </span>
+                        <span className={`text-xs ${active ? "text-violet-600" : "text-slate-500"}`}>
+                          {labels[d]}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
