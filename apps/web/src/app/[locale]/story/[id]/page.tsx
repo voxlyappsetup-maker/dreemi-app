@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import type { Story } from "@dreemi/types";
 import { Link } from "../../../../i18n/routing";
 import { getStoryById, ApiError } from "../../../../lib/api";
+import { isAuthenticated } from "../../../../lib/storage";
 import { StoryContent } from "../../../../components/StoryContent";
 import { IconBook } from "../../../../components/icons";
 
@@ -18,6 +19,7 @@ export default function StoryViewPage({
   const [story, setStory] = useState<Story | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -40,6 +42,7 @@ export default function StoryViewPage({
     }
 
     load();
+    setLoggedIn(isAuthenticated());
     return () => { cancelled = true; };
   }, [params.id]);
 
@@ -85,15 +88,34 @@ export default function StoryViewPage({
     <div className="min-h-screen bg-gradient-to-b from-violet-100 via-violet-50 to-white" dir={dir}>
       <header className="border-b border-violet-100 bg-white/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
-          <Link href="/" className="text-xl font-bold text-violet-700">
-            Dreemi
-          </Link>
-          <Link
-            href="/register"
-            className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
-          >
-            {t("createYourOwn")}
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href={loggedIn ? "/dashboard" : "/"} className="text-xl font-bold text-violet-700">
+              Dreemi
+            </Link>
+            {loggedIn && (
+              <Link
+                href="/dashboard"
+                className="rounded-xl border border-violet-200 bg-white px-3 py-1.5 text-xs font-semibold text-violet-700 transition hover:bg-violet-50"
+              >
+                ← {t("backHome")}
+              </Link>
+            )}
+          </div>
+          {loggedIn ? (
+            <Link
+              href="/generate"
+              className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
+            >
+              {t("createYourOwn")}
+            </Link>
+          ) : (
+            <Link
+              href="/register"
+              className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
+            >
+              {t("createYourOwn")}
+            </Link>
+          )}
         </div>
       </header>
 
