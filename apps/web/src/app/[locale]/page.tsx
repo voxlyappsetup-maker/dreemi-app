@@ -32,10 +32,11 @@ export default function HomePage({
     { emoji: "🛡️", title: t("feat6Title"), desc: t("feat6Desc") },
   ];
 
+  const AVATAR_COLORS = ["bg-violet-500", "bg-purple-500", "bg-fuchsia-500"];
   const TESTIMONIALS = [
-    { name: t("test1Name"), text: t("test1Text"), stars: 5 },
-    { name: t("test2Name"), text: t("test2Text"), stars: 5 },
-    { name: t("test3Name"), text: t("test3Text"), stars: 5 },
+    { name: t("test1Name"), text: t("test1Text"), initial: t("test1Initial"), stars: 5 },
+    { name: t("test2Name"), text: t("test2Text"), initial: t("test2Initial"), stars: 5 },
+    { name: t("test3Name"), text: t("test3Text"), initial: t("test3Initial"), stars: 5 },
   ];
 
   return (
@@ -46,17 +47,17 @@ export default function HomePage({
           <Link href="/" className="transition hover:opacity-80">
             <DreemiLogo size="md" />
           </Link>
-          <nav className="flex items-center gap-2 sm:gap-3">
+          <nav className="flex items-center gap-2 sm:gap-4">
             <LanguageSwitcher />
             <Link
               href="/login"
-              className="whitespace-nowrap rounded-2xl px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-violet-50"
+              className="whitespace-nowrap rounded-2xl border border-violet-200 bg-white px-5 py-2.5 text-sm font-semibold text-violet-700 transition hover:bg-violet-50 sm:px-6 sm:text-base"
             >
               {tc("login")}
             </Link>
             <Link
               href="/register"
-              className="whitespace-nowrap rounded-2xl bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-violet-700"
+              className="whitespace-nowrap rounded-2xl bg-violet-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:bg-violet-700 sm:px-6 sm:text-base"
             >
               {tc("register")}
             </Link>
@@ -78,12 +79,10 @@ export default function HomePage({
               {t("joinFamilies")}
             </span>
 
-            <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-              <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-violet-700 bg-clip-text text-transparent">
-                {t("heroTitle")}
-              </span>
+            <h1 className="mt-4 bg-gradient-to-r from-violet-600 via-purple-600 to-violet-700 bg-clip-text text-4xl font-extrabold leading-tight tracking-tight text-transparent sm:text-5xl md:text-6xl">
+              {t("heroTitle")}
               <br />
-              <span className="text-slate-900">{t("heroHighlight")}</span>
+              {t("heroHighlight")}
             </h1>
 
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-slate-600 sm:text-xl lg:max-w-none">
@@ -106,7 +105,7 @@ export default function HomePage({
             </div>
           </div>
 
-          <div className="relative mx-auto max-w-md lg:max-w-none">
+          <div className="relative mx-auto max-w-lg lg:max-w-none">
             <div className="overflow-hidden rounded-3xl border-4 border-white shadow-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -174,9 +173,9 @@ export default function HomePage({
             {FEATURES.map((f) => (
               <div
                 key={f.title}
-                className="rounded-2xl border border-violet-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="rounded-2xl border border-violet-100 bg-violet-50 p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 text-2xl">
+                <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-4xl shadow-sm">
                   {f.emoji}
                 </span>
                 <h3 className="mt-5 text-lg font-bold text-slate-900">
@@ -217,9 +216,14 @@ export default function HomePage({
                 <p className="mt-4 text-sm leading-relaxed text-slate-700">
                   &ldquo;{review.text}&rdquo;
                 </p>
-                <p className="mt-4 text-sm font-bold text-violet-700">
-                  — {review.name}
-                </p>
+                <div className="mt-5 flex items-center gap-3">
+                  <span className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-white ${AVATAR_COLORS[i % AVATAR_COLORS.length]}`}>
+                    {review.initial}
+                  </span>
+                  <p className="text-sm font-bold text-violet-700">
+                    {review.name}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
