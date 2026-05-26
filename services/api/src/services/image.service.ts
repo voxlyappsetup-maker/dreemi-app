@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+﻿import OpenAI from "openai";
 
 export interface ImageRequest {
   childName: string;
@@ -36,7 +36,7 @@ export async function generateStoryImage(req: ImageRequest): Promise<string | nu
 
   try {
     const response = await openai.images.generate({
-      model: "dall-e-3",
+      model: "dall-e-2",
       prompt,
       n: 1,
       size: "1024x1024",
@@ -44,10 +44,11 @@ export async function generateStoryImage(req: ImageRequest): Promise<string | nu
     });
 
     const url = response.data?.[0]?.url ?? null;
-    console.log(`[Image] ✓ generated for "${req.storyTitle}": ${url ? "ok" : "no url"}`);
+    console.log(`[Image] âœ“ generated for "${req.storyTitle}": ${url ? "ok" : "no url"}`);
     return url;
   } catch (err) {
     console.error("[Image] generation failed:", err);
     return null;
   }
 }
+
