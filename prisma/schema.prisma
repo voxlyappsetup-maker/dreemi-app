@@ -33,9 +33,12 @@ model Child {
   age       Int
   gender    String   @default("boy")
   skinTone  String   @default("medium")
-  hairColor String   @default("black")
-  avatarUrl String?
-  userId    String
+  hairColor   String   @default("black")
+  personality String?
+  hobbies     String?
+  favAnimal   String?
+  avatarUrl   String?
+  userId      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
 

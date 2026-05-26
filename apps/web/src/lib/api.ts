@@ -133,6 +133,9 @@ export interface Child {
   gender: string;
   skinTone: string;
   hairColor: string;
+  personality: string | null;
+  hobbies: string | null;
+  favAnimal: string | null;
   avatarUrl: string | null;
   userId: string;
   createdAt: string;
@@ -155,6 +158,9 @@ export async function createChild(input: {
   gender?: string;
   skinTone?: string;
   hairColor?: string;
+  personality?: string | null;
+  hobbies?: string | null;
+  favAnimal?: string | null;
 }): Promise<Child> {
   const data = await apiFetch<{ success: boolean; child: Child }>(
     "/api/children",
@@ -172,6 +178,9 @@ export async function updateChild(
     gender?: string;
     skinTone?: string;
     hairColor?: string;
+    personality?: string | null;
+    hobbies?: string | null;
+    favAnimal?: string | null;
   },
 ): Promise<Child> {
   const data = await apiFetch<{ success: boolean; child: Child }>(

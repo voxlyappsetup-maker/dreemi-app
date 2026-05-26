@@ -43,12 +43,23 @@ const CHILD_LIMITS: Record<string, number> = {
   SCHOOL: 999,
 };
 
+const PERSONALITIES = ["curious", "brave", "calm", "energetic", "creative", "kind", "funny", "shy"] as const;
+const ANIMALS = ["cat", "dog", "rabbit", "horse", "bird", "fish", "turtle", "dinosaur"] as const;
+
+const ANIMAL_EMOJI: Record<string, string> = {
+  cat: "🐱", dog: "🐶", rabbit: "🐰", horse: "🐴",
+  bird: "🐦", fish: "🐠", turtle: "🐢", dinosaur: "🦕",
+};
+
 interface ChildFormData {
   name: string;
   age: number;
   gender: string;
   skinTone: string;
   hairColor: string;
+  personality: string;
+  hobbies: string;
+  favAnimal: string;
 }
 
 const emptyForm: ChildFormData = {
@@ -57,6 +68,9 @@ const emptyForm: ChildFormData = {
   gender: "boy",
   skinTone: "medium",
   hairColor: "black",
+  personality: "",
+  hobbies: "",
+  favAnimal: "",
 };
 
 export default function ChildrenPage() {
@@ -114,6 +128,9 @@ export default function ChildrenPage() {
       gender: child.gender,
       skinTone: child.skinTone,
       hairColor: child.hairColor,
+      personality: child.personality ?? "",
+      hobbies: child.hobbies ?? "",
+      favAnimal: child.favAnimal ?? "",
     });
     setError(null);
     setModalOpen(true);
@@ -138,22 +155,20 @@ export default function ChildrenPage() {
     setSaving(true);
     setError(null);
     try {
+      const payload = {
+        name: form.name.trim(),
+        age: form.age,
+        gender: form.gender,
+        skinTone: form.skinTone,
+        hairColor: form.hairColor,
+        personality: form.personality || null,
+        hobbies: form.hobbies.trim() || null,
+        favAnimal: form.favAnimal || null,
+      };
       if (editingChild) {
-        await updateChild(editingChild.id, {
-          name: form.name.trim(),
-          age: form.age,
-          gender: form.gender,
-          skinTone: form.skinTone,
-          hairColor: form.hairColor,
-        });
+        await updateChild(editingChild.id, payload);
       } else {
-        await createChild({
-          name: form.name.trim(),
-          age: form.age,
-          gender: form.gender,
-          skinTone: form.skinTone,
-          hairColor: form.hairColor,
-        });
+        await createChild(payload);
       }
       closeModal();
       await load();
@@ -307,7 +322,24 @@ export default function ChildrenPage() {
                       <span className="rounded-lg bg-violet-50 px-2.5 py-1 text-xs text-slate-600">
                         {child.gender === "girl" ? t("girl") : t("boy")}
                       </span>
+                      {child.personality && (
+                        <span className="rounded-lg bg-purple-50 px-2.5 py-1 text-xs text-purple-600">
+                          {t(`personality${child.personality.charAt(0).toUpperCase() + child.personality.slice(1)}` as `personalityCurious`)}
+                        </span>
+                      )}
+                      {child.favAnimal && (
+                        <span className="rounded-lg bg-amber-50 px-2.5 py-1 text-xs text-amber-700">
+                          {ANIMAL_EMOJI[child.favAnimal] ?? ""} {t(`animal${child.favAnimal.charAt(0).toUpperCase() + child.favAnimal.slice(1)}` as `animalCat`)}
+                        </span>
+                      )}
                     </div>
+                    {child.hobbies && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {child.hobbies.split(",").map((h) => h.trim()).filter(Boolean).map((h) => (
+                          <span key={h} className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] text-slate-500">{h}</span>
+                        ))}
+                      </div>
+                    )}
                     {child._count && (
                       <p className="mt-3 text-xs text-slate-500">
                         {t("stories", { count: child._count.stories })}
@@ -323,8 +355,8 @@ export default function ChildrenPage() {
 
       {/* Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-2xl border border-violet-100 bg-white p-6 shadow-xl sm:p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-sm">
+          <div className="my-8 w-full max-w-md rounded-2xl border border-violet-100 bg-white p-6 shadow-xl sm:p-8">
             <h2 className="mb-6 text-xl font-bold text-slate-900">
               {editingChild ? t("editChild") : t("addChild")}
             </h2>
@@ -415,6 +447,83 @@ export default function ChildrenPage() {
                     >
                       <span className="block h-7 w-7 rounded-full border border-slate-200" style={{ backgroundColor: HAIR_COLORS[h] }} />
                       <span className="text-[10px] text-slate-600">{t(`hair${h.charAt(0).toUpperCase() + h.slice(1)}` as "hairBlack" | "hairBrown" | "hairBlonde" | "hairRed")}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {/* Personality */}
+              <div>
+                <span className="mb-1.5 block text-sm font-semibold text-slate-900">{t("personalityLabel")}</span>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, personality: "" })}
+                    className={`rounded-xl border px-3 py-2 text-xs font-medium transition ${
+                      !form.personality
+                        ? "border-violet-400 bg-violet-100 text-violet-700"
+                        : "border-violet-100 bg-white text-slate-500 hover:bg-violet-50"
+                    }`}
+                  >
+                    {t("personalityNone")}
+                  </button>
+                  {PERSONALITIES.map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => setForm({ ...form, personality: p })}
+                      className={`rounded-xl border px-3 py-2 text-xs font-medium transition ${
+                        form.personality === p
+                          ? "border-violet-400 bg-violet-100 text-violet-700"
+                          : "border-violet-100 bg-white text-slate-600 hover:bg-violet-50"
+                      }`}
+                    >
+                      {t(`personality${p.charAt(0).toUpperCase() + p.slice(1)}` as `personalityCurious`)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Hobbies */}
+              <div>
+                <label htmlFor="hobbies" className="mb-1.5 block text-sm font-semibold text-slate-900">{t("hobbiesLabel")}</label>
+                <input
+                  id="hobbies"
+                  type="text"
+                  maxLength={200}
+                  value={form.hobbies}
+                  onChange={(e) => setForm({ ...form, hobbies: e.target.value })}
+                  className={INPUT_CLASS}
+                  placeholder={t("hobbiesPlaceholder")}
+                />
+              </div>
+
+              {/* Favorite Animal */}
+              <div>
+                <span className="mb-1.5 block text-sm font-semibold text-slate-900">{t("favAnimalLabel")}</span>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, favAnimal: "" })}
+                    className={`rounded-xl border px-3 py-2 text-xs font-medium transition ${
+                      !form.favAnimal
+                        ? "border-violet-400 bg-violet-100 text-violet-700"
+                        : "border-violet-100 bg-white text-slate-500 hover:bg-violet-50"
+                    }`}
+                  >
+                    {t("favAnimalNone")}
+                  </button>
+                  {ANIMALS.map((a) => (
+                    <button
+                      key={a}
+                      type="button"
+                      onClick={() => setForm({ ...form, favAnimal: a })}
+                      className={`rounded-xl border px-3 py-2 text-xs font-medium transition ${
+                        form.favAnimal === a
+                          ? "border-violet-400 bg-violet-100 text-violet-700"
+                          : "border-violet-100 bg-white text-slate-600 hover:bg-violet-50"
+                      }`}
+                    >
+                      {ANIMAL_EMOJI[a]} {t(`animal${a.charAt(0).toUpperCase() + a.slice(1)}` as `animalCat`)}
                     </button>
                   ))}
                 </div>

@@ -7,6 +7,8 @@
   gender?: string;
   skinTone?: string;
   hairColor?: string;
+  personality?: string | null;
+  favAnimal?: string | null;
 }
 
 const GENDER_MAP: Record<string, string> = {
@@ -51,9 +53,12 @@ export async function generateStoryImage(req: ImageRequest): Promise<string | nu
       scene = `a magical scene about ${req.theme}`;
     }
 
+    const animalPart = req.favAnimal ? ` with their favorite ${req.favAnimal} companion` : "";
+    const personalityPart = req.personality ? `, looking ${req.personality}` : "";
+
     const prompt = encodeURIComponent(
       `Children's book watercolor illustration, no text in image: ${scene}. ` +
-      `A ${req.childAge}-year-old ${character} as the main character. ` +
+      `A ${req.childAge}-year-old ${character}${personalityPart} as the main character${animalPart}. ` +
       `Soft pastel colors, cute cartoon style, gentle lighting, classic children's picture book aesthetic.`
     );
     const seed = Math.floor(Math.random() * 1000000);

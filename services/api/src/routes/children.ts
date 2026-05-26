@@ -12,12 +12,18 @@ const CHILD_LIMITS: Record<string, number> = {
   SCHOOL: Infinity,
 };
 
+const PERSONALITIES = ["curious", "brave", "calm", "energetic", "creative", "kind", "funny", "shy"] as const;
+const ANIMALS = ["cat", "dog", "rabbit", "horse", "bird", "fish", "turtle", "dinosaur"] as const;
+
 const CreateChildSchema = z.object({
   name: z.string().min(1).max(50),
   age: z.number().int().min(1).max(18),
   gender: z.enum(["boy", "girl"]).default("boy"),
   skinTone: z.enum(["light", "medium", "dark"]).default("medium"),
   hairColor: z.enum(["black", "brown", "blonde", "red"]).default("black"),
+  personality: z.enum(PERSONALITIES).nullable().optional(),
+  hobbies: z.string().max(200).nullable().optional(),
+  favAnimal: z.enum(ANIMALS).nullable().optional(),
   avatarUrl: z.string().url().optional(),
 });
 
@@ -27,6 +33,9 @@ const UpdateChildSchema = z.object({
   gender: z.enum(["boy", "girl"]).optional(),
   skinTone: z.enum(["light", "medium", "dark"]).optional(),
   hairColor: z.enum(["black", "brown", "blonde", "red"]).optional(),
+  personality: z.enum(PERSONALITIES).nullable().optional(),
+  hobbies: z.string().max(200).nullable().optional(),
+  favAnimal: z.enum(ANIMALS).nullable().optional(),
   avatarUrl: z.string().url().nullable().optional(),
 });
 

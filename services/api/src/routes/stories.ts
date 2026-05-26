@@ -57,6 +57,9 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
     let skinTone = input.skinTone;
     let hairColor = input.hairColor;
     let childId = input.childId;
+    let personality: string | null = null;
+    let hobbies: string | null = null;
+    let favAnimal: string | null = null;
 
     if (childId) {
       const child = await prisma.child.findUnique({ where: { id: childId } });
@@ -69,9 +72,12 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
       gender = (child.gender as "boy" | "girl") || gender;
       skinTone = (child.skinTone as "light" | "medium" | "dark") || skinTone;
       hairColor = (child.hairColor as "black" | "brown" | "blonde" | "red") || hairColor;
+      personality = child.personality;
+      hobbies = child.hobbies;
+      favAnimal = child.favAnimal;
     }
 
-    const storyInput = { ...input, childName, childAge, gender, skinTone, hairColor };
+    const storyInput = { ...input, childName, childAge, gender, skinTone, hairColor, personality, hobbies };
 
     const generated = await generateStoryWithMistral(storyInput);
 
@@ -101,6 +107,8 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
       gender,
       skinTone,
       hairColor,
+      personality,
+      favAnimal,
     }).then(async (imageUrl) => {
       if (imageUrl) {
         await prisma.story.update({
