@@ -2,7 +2,7 @@
 
 import type { Story } from "@dreemi/types";
 import { useLocale, useTranslations } from "next-intl";
-import { IconHeart } from "./icons";
+import { IconBook, IconHeart } from "./icons";
 import { isFavorite, toggleFavorite } from "../lib/favorites";
 import { useState, type MouseEvent } from "react";
 
@@ -45,12 +45,20 @@ export function StoryCard({ story, onFavoriteChange }: StoryCardProps) {
   }
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-white p-[1px] shadow-md transition hover:-translate-y-0.5 hover:shadow-lg">
-      <div className="flex h-full flex-col rounded-2xl bg-white p-5">
+    <article className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-white p-[1px] shadow-md transition hover:-translate-y-0.5 hover:shadow-lg">
+      {/* Thumbnail */}
+      {story.imageUrl ? (
+        <div className="aspect-[16/9] w-full overflow-hidden bg-violet-100">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={story.imageUrl} alt="" className="h-full w-full object-cover transition group-hover:scale-105" />
+        </div>
+      ) : (
+        <div className="flex aspect-[16/9] w-full items-center justify-center bg-gradient-to-br from-violet-100 to-purple-50">
+          <IconBook className="h-10 w-10 text-violet-300" />
+        </div>
+      )}
+      <div className="flex h-full flex-col rounded-b-2xl bg-white p-5">
         <div className="mb-3 flex items-start justify-between gap-2">
-          <div className="flex h-10 w-8 shrink-0 items-end justify-center rounded-lg bg-gradient-to-b from-violet-600 to-violet-800 shadow-md">
-            <div className="mb-1 h-1 w-5 rounded-sm bg-white/40" />
-          </div>
           <div className="flex items-center gap-2">
             <span className="rounded-xl bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700">
               {LANGUAGE_LABELS[story.language] ?? story.language}

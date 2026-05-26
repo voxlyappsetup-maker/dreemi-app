@@ -102,14 +102,18 @@ export default function StoryViewPage({
           data-story-print
           className="overflow-hidden rounded-2xl border border-violet-100 bg-white shadow-lg"
         >
-          {story.imageUrl && (
-            <div className="relative aspect-square w-full overflow-hidden bg-violet-100" data-story-print>
+          {story.imageUrl ? (
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-violet-100" data-story-print>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={story.imageUrl}
                 alt={story.title}
                 className="h-full w-full object-cover"
               />
+            </div>
+          ) : (
+            <div className="flex aspect-[16/7] w-full items-center justify-center bg-gradient-to-br from-violet-100 via-purple-50 to-violet-100" data-story-print>
+              <IconBook className="h-16 w-16 text-violet-200" />
             </div>
           )}
           <div className="border-b border-violet-100 bg-gradient-to-r from-violet-50 to-white px-6 py-6 sm:px-8">
