@@ -239,6 +239,25 @@ export async function getMe(): Promise<User> {
   return data.user;
 }
 
+/** Update user profile (name and/or language). */
+export async function updateProfile(data: { name?: string; language?: string }): Promise<User> {
+  const res = await apiFetch<{ success: boolean; user: User }>(
+    "/api/auth/profile",
+    { method: "PUT", body: JSON.stringify(data) },
+    true,
+  );
+  return res.user;
+}
+
+/** Change password. */
+export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  await apiFetch(
+    "/api/auth/password",
+    { method: "PUT", body: JSON.stringify({ currentPassword, newPassword }) },
+    true,
+  );
+}
+
 /** GDPR: Export all user data as a readable HTML file. */
 export async function exportUserData(): Promise<void> {
   const token = getAccessToken();

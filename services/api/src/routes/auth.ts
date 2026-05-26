@@ -237,6 +237,75 @@ authRouter.get("/me", authenticateToken, async (req: Request, res: Response) => 
 });
 
 /* ------------------------------------------------------------------ */
+/*  PUT /api/auth/profile  — update name / language                   */
+/* ------------------------------------------------------------------ */
+
+const profileSchema = z.object({
+  name: z.string().min(1).max(100).optional(),
+  language: languageSchema.optional(),
+});
+
+authRouter.put("/profile", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const input = profileSchema.parse(req.body);
+    if (!input.name && !input.language) {
+      res.status(400).json({ success: false, error: "Nothing to update" });
+      return;
+    }
+    const data: { name?: string; language?: string } = {};
+    if (input.name) data.name = input.name;
+    if (input.language) data.language = input.language;
+
+    const user = await prisma.user.update({ where: { id: req.userId }, data });
+    res.json({ success: true, user: toPublicUser(user) });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      res.status(400).json({ success: false, error: formatZodError(err) });
+      return;
+    }
+    res.status(500).json({ success: false, error: "Failed to update profile" });
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/*  PUT /api/auth/password  — change password                         */
+/* ------------------------------------------------------------------ */
+
+const passwordSchema = z.object({
+  currentPassword: z.string().min(1),
+  newPassword: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+authRouter.put("/password", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const input = passwordSchema.parse(req.body);
+
+    const user = await prisma.user.findUnique({ where: { id: req.userId } });
+    if (!user?.passwordHash) {
+      res.status(404).json({ success: false, error: "User not found" });
+      return;
+    }
+
+    const valid = await bcrypt.compare(input.currentPassword, user.passwordHash);
+    if (!valid) {
+      res.status(401).json({ success: false, error: "Current password is incorrect" });
+      return;
+    }
+
+    const passwordHash = await bcrypt.hash(input.newPassword, BCRYPT_ROUNDS);
+    await prisma.user.update({ where: { id: req.userId }, data: { passwordHash } });
+
+    res.json({ success: true, message: "Password changed" });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      res.status(400).json({ success: false, error: formatZodError(err) });
+      return;
+    }
+    res.status(500).json({ success: false, error: "Failed to change password" });
+  }
+});
+
+/* ------------------------------------------------------------------ */
 /*  GET /api/auth/export-data  (GDPR Article 20 — data portability)   */
 /* ------------------------------------------------------------------ */
 
