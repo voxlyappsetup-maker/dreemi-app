@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
@@ -187,7 +187,9 @@ function DashboardContent() {
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {stories.map((story) => (
-                <StoryCard key={story.id} story={story} onFavoriteChange={() => setFavTick((t) => t + 1)} />
+                <Link key={story.id} href={`/story/${story.id}`}>
+                  <StoryCard story={story} onFavoriteChange={() => setFavTick((t) => t + 1)} />
+                </Link>
               ))}
             </div>
           )}
@@ -196,3 +198,4 @@ function DashboardContent() {
     </div>
   );
 }
+
