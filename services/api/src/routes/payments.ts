@@ -100,10 +100,15 @@ paymentsRouter.post(
       }
 
       // Cancel at period end — user keeps access until billing cycle ends
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const updated: any = await stripe.subscriptions.update(
+      await stripe.subscriptions.update(
         subscription.stripeSubscriptionId,
         { cancel_at_period_end: true },
+      );
+
+      // Retrieve full subscription to reliably read current_period_end
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const fresh: any = await stripe.subscriptions.retrieve(
+        subscription.stripeSubscriptionId,
       );
 
       await prisma.subscription.update({
@@ -111,9 +116,10 @@ paymentsRouter.post(
         data: { cancelAtPeriodEnd: true },
       });
 
-      const periodEnd = new Date(
-        (updated.current_period_end ?? 0) * 1000,
-      );
+      const rawEnd = fresh.current_period_end;
+      const periodEnd = rawEnd
+        ? new Date(rawEnd * 1000)
+        : subscription.currentPeriodEnd;
 
       console.log(
         `[Payments] ✓ subscription cancel scheduled: user=${userId} ends=${periodEnd.toISOString()}`,

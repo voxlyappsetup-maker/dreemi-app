@@ -256,54 +256,175 @@ authRouter.get("/export-data", authenticateToken, async (req: Request, res: Resp
       return;
     }
 
-    const exportData = {
-      exportDate: new Date().toISOString(),
-      profile: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        language: user.language,
-        plan: user.plan,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      },
-      children: user.children.map((c) => ({
-        id: c.id,
-        name: c.name,
-        age: c.age,
-        createdAt: c.createdAt,
-      })),
-      stories: user.stories.map((s) => ({
-        id: s.id,
-        title: s.title,
-        content: s.content,
-        language: s.language,
-        theme: s.theme,
-        moral: s.moral,
-        childName: s.childName,
-        childAge: s.childAge,
-        isFavorite: s.isFavorite,
-        createdAt: s.createdAt,
-      })),
-      subscription: user.subscription
-        ? {
-            plan: user.subscription.plan,
-            status: user.subscription.status,
-            currentPeriodStart: user.subscription.currentPeriodStart,
-            currentPeriodEnd: user.subscription.currentPeriodEnd,
-            cancelAtPeriodEnd: user.subscription.cancelAtPeriodEnd,
-          }
-        : null,
-    };
+    const html = buildExportHtml(user);
 
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Content-Disposition", 'attachment; filename="dreemi-data-export.json"');
-    res.send(JSON.stringify(exportData, null, 2));
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader("Content-Disposition", 'attachment; filename="dreemi-export.html"');
+    res.send(html);
   } catch (err) {
     console.error("[Auth] export-data error:", err);
     res.status(500).json({ success: false, error: "فشل تصدير البيانات" });
   }
 });
+
+function buildExportHtml(user: User & {
+  stories: Array<{
+    id: string; title: string; content: string; language: string;
+    theme: string; moral: string | null; childName: string; childAge: number;
+    isFavorite: boolean; createdAt: Date;
+  }>;
+  subscription: {
+    plan: string; status: string;
+    currentPeriodStart: Date; currentPeriodEnd: Date;
+    cancelAtPeriodEnd: boolean;
+  } | null;
+  children: Array<{ id: string; name: string; age: number; createdAt: Date }>;
+}): string {
+  const isAr = user.language === "ar";
+  const dir = isAr ? "rtl" : "ltr";
+  const now = new Date();
+
+  const LANG_FLAGS: Record<string, string> = { ar: "🇸🇦", en: "🇬🇧", fr: "🇫🇷" };
+  const LANG_NAMES: Record<string, string> = { ar: "العربية", en: "English", fr: "Français" };
+  const PLAN_NAMES: Record<string, string> = {
+    FREE: isAr ? "مجاني" : "Free",
+    INDIVIDUAL: isAr ? "فردي" : "Individual",
+    FAMILY: isAr ? "عائلي" : "Family",
+    SCHOOL: isAr ? "مدرسي" : "School",
+  };
+  const STATUS_NAMES: Record<string, string> = {
+    active: isAr ? "نشط" : "Active",
+    canceled: isAr ? "ملغى" : "Canceled",
+    past_due: isAr ? "متأخر" : "Past Due",
+    trialing: isAr ? "تجريبي" : "Trial",
+  };
+
+  function esc(s: string | null | undefined): string {
+    if (!s) return "";
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function fmtDate(d: Date): string {
+    return new Intl.DateTimeFormat(isAr ? "ar" : "en", {
+      year: "numeric", month: "long", day: "numeric",
+    }).format(new Date(d));
+  }
+
+  function storyContentToHtml(content: string): string {
+    return content
+      .split(/\n\n+/)
+      .filter(p => p.trim())
+      .map(p => `<p style="margin:0 0 14px;line-height:1.9">${esc(p.trim()).replace(/\n/g, "<br>")}</p>`)
+      .join("\n");
+  }
+
+  const storiesHtml = user.stories.map((s) => `
+    <div style="page-break-inside:avoid;border:1px solid #e5e7eb;border-radius:16px;padding:28px 24px;margin-bottom:24px;background:#fff">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <span style="font-size:12px;color:#7c3aed;font-weight:600">${esc(s.childName)} · ${s.childAge} ${isAr ? "سنوات" : "years"}</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span style="font-size:12px;padding:2px 10px;border-radius:20px;background:#f3f4f6">${LANG_FLAGS[s.language] || ""} ${LANG_NAMES[s.language] || s.language}</span>
+          <span style="font-size:12px;color:#9ca3af">${fmtDate(s.createdAt)}</span>
+          ${s.isFavorite ? '<span style="color:#ef4444">❤</span>' : ""}
+        </div>
+      </div>
+      <h3 style="font-size:22px;font-weight:700;color:#1e293b;margin:0 0 6px">${esc(s.title)}</h3>
+      <p style="font-size:12px;color:#64748b;margin:0 0 16px">${isAr ? "الموضوع" : "Theme"}: ${esc(s.theme)}</p>
+      <div style="font-size:15px;color:#334155">
+        ${storyContentToHtml(s.content)}
+      </div>
+      ${s.moral ? `
+      <div style="margin-top:18px;padding:14px 18px;border-radius:12px;background:#f5f3ff">
+        <strong style="font-size:13px;color:#7c3aed">${isAr ? "القيمة المستفادة" : "Moral"}</strong>
+        <p style="margin:4px 0 0;font-size:14px;color:#475569">${esc(s.moral)}</p>
+      </div>` : ""}
+    </div>`).join("\n");
+
+  const subHtml = user.subscription ? `
+    <div style="border:1px solid #e5e7eb;border-radius:16px;padding:24px;background:#fff">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "الخطة" : "Plan"}</span><strong>${PLAN_NAMES[user.subscription.plan] || user.subscription.plan}</strong></div>
+        <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "الحالة" : "Status"}</span><strong>${STATUS_NAMES[user.subscription.status] || user.subscription.status}</strong></div>
+        <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "بداية الفترة" : "Period Start"}</span>${fmtDate(user.subscription.currentPeriodStart)}</div>
+        <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "نهاية الفترة" : "Period End"}</span>${fmtDate(user.subscription.currentPeriodEnd)}</div>
+      </div>
+    </div>` : `<p style="color:#64748b">${isAr ? "لا يوجد اشتراك" : "No subscription"}</p>`;
+
+  return `<!DOCTYPE html>
+<html lang="${user.language}" dir="${dir}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dreemi — ${isAr ? "تصدير البيانات" : "Data Export"}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: ${isAr ? "'Noto Sans Arabic'," : ""} 'Inter', system-ui, sans-serif;
+    background: #f8f7ff; color: #1e293b; line-height: 1.6;
+    padding: 40px 20px;
+  }
+  .container { max-width: 800px; margin: 0 auto; }
+  @media print {
+    body { background: #fff; padding: 0; font-size: 12pt; }
+    .no-print { display: none !important; }
+    .story-card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div style="text-align:center;margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid #ede9fe">
+    <div style="display:inline-block;background:#7c3aed;color:#fff;width:56px;height:56px;border-radius:16px;line-height:56px;font-size:24px;font-weight:700;margin-bottom:12px">D</div>
+    <h1 style="font-size:28px;font-weight:700;color:#1e293b;margin:0">Dreemi</h1>
+    <p style="font-size:14px;color:#64748b;margin-top:4px">${isAr ? "تصدير البيانات" : "Data Export"} — ${fmtDate(now)}</p>
+    <p style="font-size:13px;color:#94a3b8;margin-top:2px">${esc(user.name)} · ${esc(user.email)}</p>
+  </div>
+
+  <!-- Profile -->
+  <section style="margin-bottom:32px">
+    <h2 style="font-size:20px;font-weight:700;color:#7c3aed;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #ede9fe">
+      ${isAr ? "الملف الشخصي" : "Profile"}
+    </h2>
+    <div style="border:1px solid #e5e7eb;border-radius:16px;padding:24px;background:#fff;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "الاسم" : "Name"}</span><strong>${esc(user.name)}</strong></div>
+      <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "البريد" : "Email"}</span><strong>${esc(user.email)}</strong></div>
+      <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "اللغة" : "Language"}</span>${LANG_FLAGS[user.language] || ""} ${LANG_NAMES[user.language] || user.language}</div>
+      <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "الخطة" : "Plan"}</span>${PLAN_NAMES[user.plan] || user.plan}</div>
+      <div><span style="font-size:12px;color:#64748b;display:block">${isAr ? "عضو منذ" : "Member Since"}</span>${fmtDate(user.createdAt)}</div>
+    </div>
+  </section>
+
+  <!-- Stories -->
+  <section style="margin-bottom:32px">
+    <h2 style="font-size:20px;font-weight:700;color:#7c3aed;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #ede9fe">
+      ${isAr ? "القصص" : "Stories"} (${user.stories.length})
+    </h2>
+    ${user.stories.length === 0
+      ? `<p style="color:#64748b">${isAr ? "لا توجد قصص بعد" : "No stories yet"}</p>`
+      : storiesHtml}
+  </section>
+
+  <!-- Subscription -->
+  <section style="margin-bottom:32px">
+    <h2 style="font-size:20px;font-weight:700;color:#7c3aed;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #ede9fe">
+      ${isAr ? "الاشتراك" : "Subscription"}
+    </h2>
+    ${subHtml}
+  </section>
+
+  <!-- Footer -->
+  <div style="text-align:center;padding-top:24px;border-top:1px solid #ede9fe;color:#94a3b8;font-size:12px">
+    <p>${isAr ? "تم التصدير بموجب المادة ٢٠ من قانون GDPR — حق نقل البيانات" : "Exported under GDPR Article 20 — Right to Data Portability"}</p>
+    <p style="margin-top:4px">© ${now.getFullYear()} Dreemi</p>
+  </div>
+
+</div>
+</body>
+</html>`;
+}
 
 /* ------------------------------------------------------------------ */
 /*  DELETE /api/auth/delete-account  (GDPR Article 17 — right to erasure) */

@@ -142,7 +142,7 @@ export async function getMe(): Promise<User> {
   return data.user;
 }
 
-/** GDPR: Export all user data as JSON download. */
+/** GDPR: Export all user data as a readable HTML file. */
 export async function exportUserData(): Promise<void> {
   const token = getAccessToken();
   const res = await fetch(`${API_URL}/api/auth/export-data`, {
@@ -153,7 +153,7 @@ export async function exportUserData(): Promise<void> {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "dreemi-data-export.json";
+  a.download = "dreemi-export.html";
   document.body.appendChild(a);
   a.click();
   a.remove();
