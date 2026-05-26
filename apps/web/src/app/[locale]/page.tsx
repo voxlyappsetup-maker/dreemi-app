@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "../../i18n/routing";
 import { LanguageSwitcher } from "../../components/LanguageSwitcher";
 import { IconBook, IconGlobe, IconSparkle } from "../../components/icons";
+import { LandingPricing } from "../../components/LandingPricing";
 
 const STAR_POSITIONS = [
   "top-[12%] right-[18%]",
@@ -32,36 +33,6 @@ export default function HomePage({
     { Icon: IconBook, title: t("featureCustomTitle"), desc: t("featureCustomDesc") },
     { Icon: IconGlobe, title: t("featureLanguagesTitle"), desc: t("featureLanguagesDesc") },
     { Icon: IconSparkle, title: t("featureValuesTitle"), desc: t("featureValuesDesc") },
-  ];
-
-  const PLANS = [
-    {
-      name: t("planFree"),
-      price: "€0",
-      period: "",
-      features: t.raw("planFreeFeatures") as string[],
-      cta: t("ctaFree"),
-      href: "/register" as const,
-      highlighted: false,
-    },
-    {
-      name: t("planIndividual"),
-      price: "€4.99",
-      period: t("perMonth"),
-      features: t.raw("planIndFeatures") as string[],
-      cta: t("ctaIndividual"),
-      href: "/pricing" as const,
-      highlighted: true,
-    },
-    {
-      name: t("planFamily"),
-      price: "€7.99",
-      period: t("perMonth"),
-      features: t.raw("planFamilyFeatures") as string[],
-      cta: t("ctaFamily"),
-      href: "/pricing" as const,
-      highlighted: false,
-    },
   ];
 
   return (
@@ -140,63 +111,7 @@ export default function HomePage({
         </div>
       </section>
 
-      <section className="relative z-20 w-full bg-violet-50 py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-slate-900">{t("pricingTitle")}</h2>
-            <p className="mt-3 text-slate-600">{t("pricingDesc")}</p>
-          </div>
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {PLANS.map((plan) => (
-              <div
-                key={plan.name}
-                className={`relative flex flex-col rounded-2xl p-8 shadow-md ${
-                  plan.highlighted
-                    ? "bg-violet-600 text-white shadow-xl ring-2 ring-violet-400"
-                    : "border border-violet-100 bg-white text-slate-900"
-                }`}
-              >
-                {plan.highlighted && (
-                  <span className="absolute -top-3 right-6 rounded-2xl bg-white px-3 py-1 text-xs font-semibold text-violet-700">
-                    {t("mostPopular")}
-                  </span>
-                )}
-                <h3 className={`text-xl font-bold ${plan.highlighted ? "text-white" : "text-slate-900"}`}>
-                  {plan.name}
-                </h3>
-                <p className="mt-4 flex flex-row flex-wrap items-baseline gap-1">
-                  <span className={`text-4xl font-bold ${plan.highlighted ? "text-white" : "text-violet-600"}`}>
-                    {plan.price}
-                  </span>
-                  {plan.period && (
-                    <span className={plan.highlighted ? "text-violet-100" : "text-slate-500"}>
-                      {plan.period}
-                    </span>
-                  )}
-                </p>
-                <ul className={`mt-6 flex-1 space-y-3 text-sm ${plan.highlighted ? "text-violet-50" : "text-slate-600"}`}>
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex flex-row items-center gap-2">
-                      <span className={plan.highlighted ? "text-white" : "text-violet-600"}>✓</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={plan.href}
-                  className={`mt-8 block rounded-2xl py-3 text-center font-semibold transition ${
-                    plan.highlighted
-                      ? "bg-white text-violet-700 shadow-md hover:bg-violet-50"
-                      : "border border-violet-200 bg-white text-violet-700 hover:bg-violet-50"
-                  }`}
-                >
-                  {plan.cta}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <LandingPricing />
 
       <footer className="relative z-20 w-full border-t border-violet-200 bg-white py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 text-center sm:flex-row sm:justify-between">
