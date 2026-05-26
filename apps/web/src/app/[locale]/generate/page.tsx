@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Language, Story } from "@dreemi/types";
 import { Link, useRouter } from "../../../i18n/routing";
-import { ApiError, generateStory } from "../../../lib/api";
+import { type Child, ApiError, generateStory, fetchChildren } from "../../../lib/api";
 import { toggleFavorite, isFavorite } from "../../../lib/favorites";
 import { clearAuth, getStoredUser, isAuthenticated } from "../../../lib/storage";
 import { DashboardSidebar } from "../../../components/DashboardSidebar";
@@ -46,6 +46,8 @@ export default function GeneratePage() {
   const [fav, setFav] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
   const [userPlan, setUserPlan] = useState<"FREE" | "INDIVIDUAL" | "FAMILY" | "SCHOOL">("FREE");
+  const [childrenList, setChildrenList] = useState<Child[]>([]);
+  const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
 
   const STEPS = [t("step1"), t("step2"), t("step3")];
 
@@ -57,11 +59,27 @@ export default function GeneratePage() {
     const u = getStoredUser();
     if (u?.plan) setUserPlan(u.plan);
     setReady(true);
+    fetchChildren().then(setChildrenList).catch(() => {});
   }, [router]);
 
+  function handleSelectChild(id: string | null) {
+    setSelectedChildId(id);
+    if (id) {
+      const child = childrenList.find((c) => c.id === id);
+      if (child) {
+        setChildName(child.name);
+        setChildAge(child.age);
+        setGender(child.gender === "girl" ? "girl" : "boy");
+        setSkinTone(["light", "medium", "dark"].includes(child.skinTone) ? child.skinTone : "medium");
+        setHairColor(["black", "brown", "blonde", "red"].includes(child.hairColor) ? child.hairColor : "black");
+        setShowAppearance(false);
+      }
+    }
+  }
+
   function validateStep1(): boolean {
-    if (!childName.trim()) { setError(t("errorChildName")); return false; }
-    if (childAge < 2 || childAge > 12) { setError(t("errorAge")); return false; }
+    if (!selectedChildId && !childName.trim()) { setError(t("errorChildName")); return false; }
+    if (!selectedChildId && (childAge < 2 || childAge > 12)) { setError(t("errorAge")); return false; }
     return true;
   }
 
@@ -76,7 +94,7 @@ export default function GeneratePage() {
     setStep(3);
     setLoading(true);
     try {
-      const data = await generateStory({
+      const payload: Parameters<typeof generateStory>[0] = {
         childName: childName.trim(),
         childAge,
         theme: theme.trim(),
@@ -86,7 +104,11 @@ export default function GeneratePage() {
         gender,
         skinTone,
         hairColor,
-      });
+      };
+      if (selectedChildId) {
+        payload.childId = selectedChildId;
+      }
+      const data = await generateStory(payload);
       setStory(data.story);
       setFav(isFavorite(data.story.id) || data.story.isFavorite);
     } catch (err) {
@@ -162,6 +184,7 @@ export default function GeneratePage() {
     setStory(null);
     setError(null);
     setShareMsg(null);
+    setSelectedChildId(null);
   }
 
   if (!ready) {
@@ -209,16 +232,75 @@ export default function GeneratePage() {
           {step === 1 && (
             <div className="space-y-5">
               <h2 className="text-lg font-bold text-slate-900">{t("heroQuestion")}</h2>
-              <div>
-                <label htmlFor="childName" className="mb-2 block text-sm font-semibold text-slate-900">{t("childName")}</label>
-                <input id="childName" type="text" required maxLength={50} value={childName} onChange={(e) => setChildName(e.target.value)} className={INPUT_CLASS} placeholder={t("childNamePlaceholder")} />
-              </div>
-              <div>
-                <label htmlFor="childAge" className="mb-2 block text-sm font-semibold text-slate-900">{t("childAge")}</label>
-                <input id="childAge" type="number" min={2} max={12} value={childAge} onChange={(e) => setChildAge(Number(e.target.value))} className={INPUT_CLASS} />
-              </div>
 
-              {/* Collapsible appearance section */}
+              {/* Child selector */}
+              {childrenList.length > 0 && (
+                <div>
+                  <span className="mb-2 block text-sm font-semibold text-slate-900">{t("selectChild")}</span>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectChild(null)}
+                      className={`rounded-xl border px-4 py-2.5 text-sm font-medium transition ${
+                        !selectedChildId
+                          ? "border-violet-400 bg-violet-100 text-violet-700"
+                          : "border-violet-100 bg-white text-slate-600 hover:bg-violet-50"
+                      }`}
+                    >
+                      {t("noChildSelected")}
+                    </button>
+                    {childrenList.map((child) => (
+                      <button
+                        key={child.id}
+                        type="button"
+                        onClick={() => handleSelectChild(child.id)}
+                        className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition ${
+                          selectedChildId === child.id
+                            ? "border-violet-400 bg-violet-100 text-violet-700 shadow-sm"
+                            : "border-violet-100 bg-white text-slate-600 hover:bg-violet-50"
+                        }`}
+                      >
+                        <span>{child.gender === "girl" ? "👧" : "👦"}</span>
+                        <span>{child.name}</span>
+                        <span className="text-xs text-slate-400">({child.age})</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Manual fields - hidden when child selected */}
+              {!selectedChildId && (
+                <>
+                  {childrenList.length > 0 && (
+                    <p className="text-xs font-medium text-slate-500">{t("orEnterManually")}</p>
+                  )}
+                  <div>
+                    <label htmlFor="childName" className="mb-2 block text-sm font-semibold text-slate-900">{t("childName")}</label>
+                    <input id="childName" type="text" required maxLength={50} value={childName} onChange={(e) => setChildName(e.target.value)} className={INPUT_CLASS} placeholder={t("childNamePlaceholder")} />
+                  </div>
+                  <div>
+                    <label htmlFor="childAge" className="mb-2 block text-sm font-semibold text-slate-900">{t("childAge")}</label>
+                    <input id="childAge" type="number" min={2} max={12} value={childAge} onChange={(e) => setChildAge(Number(e.target.value))} className={INPUT_CLASS} />
+                  </div>
+                </>
+              )}
+
+              {/* Show selected child summary */}
+              {selectedChildId && (
+                <div className="rounded-2xl border border-violet-200 bg-violet-50/60 px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{gender === "girl" ? "👧" : "👦"}</span>
+                    <div>
+                      <p className="font-semibold text-slate-900">{childName}</p>
+                      <p className="text-xs text-slate-500">{childAge} years &middot; {t(`gender${gender === "girl" ? "Girl" : "Boy"}`)}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Collapsible appearance section - hidden when child selected */}
+              {!selectedChildId && (
               <div className="rounded-2xl border border-violet-100 bg-violet-50/50">
                 <button
                   type="button"
@@ -307,6 +389,7 @@ export default function GeneratePage() {
                   </div>
                 )}
               </div>
+              )}
             </div>
           )}
 

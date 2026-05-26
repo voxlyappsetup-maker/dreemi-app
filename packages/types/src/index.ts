@@ -33,8 +33,9 @@ export interface LoginInput {
 }
 
 export interface GenerateStoryInput {
-  childName: string;
-  childAge: number;
+  childName?: string;
+  childAge?: number;
+  childId?: string;
   theme: string;
   moral?: string;
   language: Language;

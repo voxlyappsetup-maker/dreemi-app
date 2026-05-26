@@ -124,6 +124,72 @@ export async function createPortal(): Promise<string> {
   return data.url;
 }
 
+/* ── Children CRUD ─────────────────────────────────────── */
+
+export interface Child {
+  id: string;
+  name: string;
+  age: number;
+  gender: string;
+  skinTone: string;
+  hairColor: string;
+  avatarUrl: string | null;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  _count?: { stories: number };
+}
+
+export async function fetchChildren(): Promise<Child[]> {
+  const data = await apiFetch<{ success: boolean; children: Child[] }>(
+    "/api/children",
+    {},
+    true,
+  );
+  return data.children;
+}
+
+export async function createChild(input: {
+  name: string;
+  age: number;
+  gender?: string;
+  skinTone?: string;
+  hairColor?: string;
+}): Promise<Child> {
+  const data = await apiFetch<{ success: boolean; child: Child }>(
+    "/api/children",
+    { method: "POST", body: JSON.stringify(input) },
+    true,
+  );
+  return data.child;
+}
+
+export async function updateChild(
+  id: string,
+  input: {
+    name?: string;
+    age?: number;
+    gender?: string;
+    skinTone?: string;
+    hairColor?: string;
+  },
+): Promise<Child> {
+  const data = await apiFetch<{ success: boolean; child: Child }>(
+    `/api/children/${encodeURIComponent(id)}`,
+    { method: "PUT", body: JSON.stringify(input) },
+    true,
+  );
+  return data.child;
+}
+
+export async function deleteChild(id: string): Promise<void> {
+  await apiFetch(
+    `/api/children/${encodeURIComponent(id)}`,
+    { method: "DELETE" },
+    true,
+  );
+}
+
 /** Fetch a single story by ID (public, no auth required). */
 export async function getStoryById(id: string): Promise<Story> {
   const data = await apiFetch<{ success: boolean; story: Story }>(
