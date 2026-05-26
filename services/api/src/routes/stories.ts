@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+﻿import { Router, Request, Response } from "express";
 import { z } from "zod";
 import { generateStoryWithMistral } from "../services/mistral.service";
 import { generateStoryImage } from "../services/image.service";
@@ -25,7 +25,7 @@ storiesRouter.get("/", async (req: Request, res: Response) => {
   try {
     const { userId } = req.query;
     if (!userId || typeof userId !== "string") {
-      res.status(400).json({ success: false, error: "userId مطلوب" });
+      res.status(400).json({ success: false, error: "userId required" });
       return;
     }
     const stories = await prisma.story.findMany({
@@ -35,7 +35,7 @@ storiesRouter.get("/", async (req: Request, res: Response) => {
     });
     res.json({ success: true, stories });
   } catch (error) {
-    res.status(500).json({ success: false, error: "خطأ في جلب القصص" });
+    res.status(500).json({ success: false, error: "Failed to fetch stories" });
   }
 });
 
@@ -44,25 +44,14 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
     const input = GenerateSchema.parse(req.body);
     const userId = req.userId;
     if (!userId) {
-      res.status(401).json({ success: false, error: "رمز الوصول مطلوب" });
+      res.status(401).json({ success: false, error: "Token required" });
       return;
     }
-    console.log(`[Stories] توليد قصة لـ ${input.childName} (${input.language})`);
 
-    // Generate text and image in parallel; image failure doesn't block the story
-    const [generated, imageUrl] = await Promise.all([
-      generateStoryWithMistral(input),
-      generateStoryImage({
-        childName: input.childName,
-        childAge: input.childAge,
-        theme: input.theme,
-        storyTitle: input.theme,
-        gender: input.gender,
-        skinTone: input.skinTone,
-        hairColor: input.hairColor,
-      }).catch(() => null),
-    ]);
+    // 1. Generate story text only (fast ~5s)
+    const generated = await generateStoryWithMistral(input);
 
+    // 2. Save story immediately without image
     const story = await prisma.story.create({
       data: {
         title:     generated.title,
@@ -72,20 +61,43 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
         language:  input.language,
         childName: input.childName,
         childAge:  input.childAge,
-        imageUrl:  imageUrl ?? undefined,
+        imageUrl:  null,
         userId,
         childId:   input.childId,
       },
     });
-    console.log(`[Stories] تم حفظ القصة: ${story.id} (image: ${imageUrl ? "✓" : "—"})`);
+
+    // 3. Respond immediately
     res.status(201).json({ success: true, story });
+
+    // 4. Generate image in background (fire and forget)
+    generateStoryImage({
+      childName:  input.childName,
+      childAge:   input.childAge,
+      theme:      input.theme,
+      storyTitle: generated.title,
+      gender:     input.gender,
+      skinTone:   input.skinTone,
+      hairColor:  input.hairColor,
+    }).then(async (imageUrl) => {
+      if (imageUrl) {
+        await prisma.story.update({
+          where: { id: story.id },
+          data:  { imageUrl },
+        });
+        console.log("[Stories] image ready:", story.id);
+      }
+    }).catch((err) => {
+      console.error("[Stories] image failed:", err?.message);
+    });
+
   } catch (error) {
     if (error instanceof z.ZodError) {
       res.status(400).json({ success: false, error: error.errors });
       return;
     }
-    console.error("[Stories] خطأ:", error);
-    res.status(500).json({ success: false, error: "فشل توليد القصة" });
+    console.error("[Stories] error:", error);
+    res.status(500).json({ success: false, error: "Failed to generate story" });
   }
 });
 
@@ -93,11 +105,11 @@ storiesRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     const story = await prisma.story.findUnique({ where: { id: req.params.id } });
     if (!story) {
-      res.status(404).json({ success: false, error: "القصة غير موجودة" });
+      res.status(404).json({ success: false, error: "Story not found" });
       return;
     }
     res.json({ success: true, story });
   } catch (error) {
-    res.status(500).json({ success: false, error: "خطأ في جلب القصة" });
+    res.status(500).json({ success: false, error: "Failed to fetch story" });
   }
 });
