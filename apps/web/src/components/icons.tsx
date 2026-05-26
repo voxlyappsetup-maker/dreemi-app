@@ -139,6 +139,34 @@ export function IconEyeOff({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
+export function IconCopy({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg className={`${iconBase} ${className}`} width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+export function IconMail({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg className={`${iconBase} ${className}`} width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function IconPrinter({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg className={`${iconBase} ${className}`} width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path d="M6 9V2h12v7" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <rect x="6" y="14" width="12" height="8" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function IconShare({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg

@@ -11,7 +11,8 @@ import { DashboardSidebar } from "../../../components/DashboardSidebar";
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
 import { FormError } from "../../../components/FormError";
 import { INPUT_CLASS } from "../../../components/PasswordInput";
-import { IconHeart, IconShare, IconSparkle } from "../../../components/icons";
+import { IconCopy, IconHeart, IconMail, IconPrinter, IconShare, IconSparkle } from "../../../components/icons";
+import { StoryContent } from "../../../components/StoryContent";
 
 const PAGE_BG = "min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white";
 
@@ -104,15 +105,42 @@ export default function GeneratePage() {
     else if (step === 3 && !loading) setStep(2);
   }
 
+  function storyUrl() {
+    return `https://dreemi.app/story/${story?.id ?? ""}`;
+  }
+
   async function handleShare() {
     if (!story) return;
-    const text = `${story.title}\n\n${story.content.slice(0, 500)}…`;
+    const preview = story.content.slice(0, 200).trimEnd();
+    const text = `${story.title}\n\n${preview}…\n\n${t("readFullStory")}: ${storyUrl()}`;
     if (navigator.share) {
-      try { await navigator.share({ title: story.title, text }); return; } catch { /* fall through */ }
+      try {
+        await navigator.share({ title: story.title, text, url: storyUrl() });
+        return;
+      } catch { /* user cancelled or unsupported */ }
     }
     await navigator.clipboard.writeText(text);
     setShareMsg(t("storyCopied"));
     setTimeout(() => setShareMsg(null), 2500);
+  }
+
+  function handleEmailShare() {
+    if (!story) return;
+    const subject = encodeURIComponent(story.title);
+    const body = encodeURIComponent(`${story.title}\n\n${story.content}${story.moral ? `\n\n${t("moralLearned")}: ${story.moral}` : ""}`);
+    window.open(`mailto:?subject=${subject}&body=${body}`, "_self");
+  }
+
+  async function handleCopyFull() {
+    if (!story) return;
+    const full = `${story.title}\n\n${story.content}${story.moral ? `\n\n${t("moralLearned")}: ${story.moral}` : ""}`;
+    await navigator.clipboard.writeText(full);
+    setShareMsg(t("storyCopied"));
+    setTimeout(() => setShareMsg(null), 2500);
+  }
+
+  function handlePrint() {
+    window.print();
   }
 
   function handleFavorite() {
@@ -209,23 +237,32 @@ export default function GeneratePage() {
             <div>
               {loading && <LoadingSpinner label={t("generating")} />}
               {story && !loading && (
-                <article className="overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 to-white">
+                <article data-story-print className="overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 to-white">
                   <div className="border-b border-violet-100 bg-white/80 px-6 py-5">
                     <p className="text-sm font-medium text-violet-700">{t("storyFor", { name: story.childName })}</p>
                     <h2 className="mt-1 text-2xl font-bold text-slate-900">{story.title}</h2>
                   </div>
-                  <div className="max-h-[50vh] overflow-y-auto px-6 py-6">
-                    <p className="whitespace-pre-wrap leading-loose text-slate-800">{story.content}</p>
+                  <div className="max-h-[50vh] overflow-y-auto px-6 py-6" data-story-print>
+                    <StoryContent text={story.content} />
                     {story.moral && (
-                      <div className="mt-6 rounded-2xl bg-violet-50 px-4 py-4">
+                      <div className="mt-6 rounded-2xl bg-violet-50 px-4 py-4" data-story-moral>
                         <p className="text-sm font-semibold text-violet-700">{t("moralLearned")}</p>
                         <p className="mt-1 text-slate-700">{story.moral}</p>
                       </div>
                     )}
                   </div>
-                  <div className="flex flex-wrap gap-3 border-t border-violet-100 bg-white/90 px-6 py-4">
+                  <div className="flex flex-wrap gap-2 border-t border-violet-100 bg-white/90 px-6 py-4 no-print" data-no-print>
                     <button type="button" onClick={handleShare} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none`}>
                       <IconShare /> {t("share")}
+                    </button>
+                    <button type="button" onClick={handleCopyFull} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none`}>
+                      <IconCopy /> {t("copyStory")}
+                    </button>
+                    <button type="button" onClick={handleEmailShare} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none`}>
+                      <IconMail /> {t("shareEmail")}
+                    </button>
+                    <button type="button" onClick={handlePrint} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none`}>
+                      <IconPrinter /> {t("exportPdf")}
                     </button>
                     <button type="button" onClick={handleFavorite} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none ${fav ? "border-red-200 bg-red-50 text-red-600" : ""}`}>
                       <IconHeart filled={fav} /> {fav ? t("inFavorites") : t("addToFavorites")}
