@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { storiesRouter } from "./routes/stories";
 import { authRouter } from "./routes/auth";
 import { paymentsRouter } from "./routes/payments";
+import { childrenRouter } from "./routes/children";
 import { errorHandler } from "./middleware/errorHandler";
 
 dotenv.config({ path: "../../.env" });
@@ -40,6 +41,7 @@ app.get("/health", (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/stories", storiesRouter);
 app.use("/api/payments", paymentsRouter);
+app.use("/api/children", childrenRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

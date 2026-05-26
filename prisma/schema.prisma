@@ -31,9 +31,13 @@ model Child {
   id        String   @id @default(cuid())
   name      String
   age       Int
+  gender    String   @default("boy")
+  skinTone  String   @default("medium")
+  hairColor String   @default("black")
   avatarUrl String?
   userId    String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   stories   Story[]

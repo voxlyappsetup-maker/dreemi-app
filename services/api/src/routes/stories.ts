@@ -48,10 +48,28 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
       return;
     }
 
-    // 1. Generate story text only (fast ~5s)
-    const generated = await generateStoryWithMistral(input);
+    let childName = input.childName;
+    let childAge = input.childAge;
+    let gender = input.gender;
+    let skinTone = input.skinTone;
+    let hairColor = input.hairColor;
+    let childId = input.childId;
 
-    // 2. Save story immediately without image
+    if (childId) {
+      const child = await prisma.child.findUnique({ where: { id: childId } });
+      if (child && child.userId === userId) {
+        childName = child.name;
+        childAge = child.age;
+        gender = (child.gender as "boy" | "girl") || gender;
+        skinTone = (child.skinTone as "light" | "medium" | "dark") || skinTone;
+        hairColor = (child.hairColor as "black" | "brown" | "blonde" | "red") || hairColor;
+      }
+    }
+
+    const storyInput = { ...input, childName, childAge, gender, skinTone, hairColor };
+
+    const generated = await generateStoryWithMistral(storyInput);
+
     const story = await prisma.story.create({
       data: {
         title:     generated.title,
@@ -59,26 +77,24 @@ storiesRouter.post("/generate", authenticateToken, checkStoryLimit, async (req: 
         moral:     generated.moral,
         theme:     input.theme,
         language:  input.language,
-        childName: input.childName,
-        childAge:  input.childAge,
+        childName,
+        childAge,
         imageUrl:  null,
         userId,
-        childId:   input.childId,
+        childId,
       },
     });
 
-    // 3. Respond immediately
     res.status(201).json({ success: true, story });
 
-    // 4. Generate image in background (fire and forget)
     generateStoryImage({
-      childName:  input.childName,
-      childAge:   input.childAge,
+      childName,
+      childAge,
       theme:      input.theme,
       storyTitle: generated.title,
-      gender:     input.gender,
-      skinTone:   input.skinTone,
-      hairColor:  input.hairColor,
+      gender,
+      skinTone,
+      hairColor,
     }).then(async (imageUrl) => {
       if (imageUrl) {
         await prisma.story.update({
