@@ -231,7 +231,9 @@
     "listen": "Écouter l'histoire",
     "pause": "Pause",
     "resume": "Reprendre",
-    "stop": "Arrêter"
+    "stop": "Arrêter",
+    "voiceMale": "Voix masculine",
+    "voiceFemale": "Voix féminine"
   },
   "children": {
     "title": "Mes enfants",

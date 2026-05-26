@@ -231,7 +231,9 @@
     "listen": "استمع للقصة",
     "pause": "إيقاف مؤقت",
     "resume": "استئناف",
-    "stop": "إيقاف"
+    "stop": "إيقاف",
+    "voiceMale": "صوت رجل",
+    "voiceFemale": "صوت امرأة"
   },
   "children": {
     "title": "أطفالي",

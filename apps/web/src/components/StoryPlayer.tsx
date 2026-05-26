@@ -9,7 +9,36 @@ const LANG_MAP: Record<string, string> = {
   fr: "fr-FR",
 };
 
+const FEMALE_HINTS = [
+  "female", "woman", "girl", "femme", "fille",
+  "samantha", "victoria", "karen", "moira", "tessa", "fiona",
+  "alice", "amelie", "anna", "helena", "joana", "kathy",
+  "laura", "luciana", "marie", "mei-jia", "milena", "monica",
+  "nora", "paulina", "sara", "satu", "sin-ji", "ting-ting",
+  "xander", "yelda", "zosia", "zuzana", "ellen", "kate",
+  "susan", "linda", "hala", "maged",
+];
+
+const MALE_HINTS = [
+  "male", "man", "boy", "homme", "garçon",
+  "daniel", "david", "fred", "jorge", "juan", "luca",
+  "thomas", "aaron", "alex", "bruce", "carlos", "diego",
+  "james", "mark", "ralph", "rishi", "oliver", "george",
+];
+
+type VoiceGender = "male" | "female";
 type PlayerState = "idle" | "playing" | "paused";
+
+function classifyVoice(voice: SpeechSynthesisVoice): VoiceGender | null {
+  const name = voice.name.toLowerCase();
+  if (FEMALE_HINTS.some((h) => name.includes(h))) return "female";
+  if (MALE_HINTS.some((h) => name.includes(h))) return "male";
+  return null;
+}
+
+function storageKey(lang: string) {
+  return `dreemi_voice_${lang}`;
+}
 
 interface StoryPlayerProps {
   text: string;
@@ -21,17 +50,65 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
   const [supported, setSupported] = useState(false);
   const [state, setState] = useState<PlayerState>("idle");
   const [progress, setProgress] = useState(0);
-  const utterRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [maleVoices, setMaleVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [femaleVoices, setFemaleVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [selectedGender, setSelectedGender] = useState<VoiceGender | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const totalCharsRef = useRef(0);
 
   useEffect(() => {
-    setSupported(typeof window !== "undefined" && "speechSynthesis" in window);
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    setSupported(true);
+
+    function loadVoices() {
+      const all = window.speechSynthesis.getVoices();
+      const target = LANG_MAP[language] ?? language;
+      const prefix = target.split("-")[0];
+      const langVoices = all.filter(
+        (v) => v.lang === target || v.lang.startsWith(prefix + "-") || v.lang === prefix,
+      );
+      const usable = langVoices.length > 0 ? langVoices : all;
+      setVoices(usable);
+
+      const males: SpeechSynthesisVoice[] = [];
+      const females: SpeechSynthesisVoice[] = [];
+      for (const v of usable) {
+        const g = classifyVoice(v);
+        if (g === "male") males.push(v);
+        else if (g === "female") females.push(v);
+      }
+      setMaleVoices(males);
+      setFemaleVoices(females);
+
+      const saved = localStorage.getItem(storageKey(language)) as VoiceGender | null;
+      if (saved === "male" && males.length > 0) setSelectedGender("male");
+      else if (saved === "female" && females.length > 0) setSelectedGender("female");
+      else if (females.length > 0) setSelectedGender("female");
+      else if (males.length > 0) setSelectedGender("male");
+      else setSelectedGender(null);
+    }
+
+    loadVoices();
+    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
     return () => {
-      window.speechSynthesis?.cancel();
+      window.speechSynthesis.removeEventListener("voiceschanged", loadVoices);
+      window.speechSynthesis.cancel();
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [language]);
+
+  const pickVoice = useCallback((): SpeechSynthesisVoice | null => {
+    if (selectedGender === "male" && maleVoices.length > 0) return maleVoices[0];
+    if (selectedGender === "female" && femaleVoices.length > 0) return femaleVoices[0];
+    return voices[0] ?? null;
+  }, [selectedGender, maleVoices, femaleVoices, voices]);
+
+  function selectGender(g: VoiceGender) {
+    setSelectedGender(g);
+    try { localStorage.setItem(storageKey(language), g); } catch {}
+    if (state !== "idle") handleStop();
+  }
 
   const trackProgress = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -43,18 +120,6 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
         if (intervalRef.current) clearInterval(intervalRef.current);
       }
     }, 500);
-  }, []);
-
-  const findVoice = useCallback((lang: string): SpeechSynthesisVoice | null => {
-    const voices = window.speechSynthesis.getVoices();
-    const target = LANG_MAP[lang] ?? lang;
-    const prefix = target.split("-")[0];
-    return (
-      voices.find((v) => v.lang === target) ??
-      voices.find((v) => v.lang.startsWith(prefix)) ??
-      voices[0] ??
-      null
-    );
   }, []);
 
   function handlePlay() {
@@ -74,7 +139,7 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
       }
 
       const utter = new SpeechSynthesisUtterance(chunks[idx]);
-      const voice = findVoice(language);
+      const voice = pickVoice();
       if (voice) utter.voice = voice;
       utter.lang = LANG_MAP[language] ?? language;
       utter.rate = 0.95;
@@ -95,7 +160,6 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
         setProgress(0);
       };
 
-      utterRef.current = utter;
       synth.speak(utter);
     }
 
@@ -124,8 +188,41 @@ export function StoryPlayer({ text, language }: StoryPlayerProps) {
 
   if (!supported) return null;
 
+  const hasMale = maleVoices.length > 0;
+  const hasFemale = femaleVoices.length > 0;
+  const showGenderPicker = hasMale || hasFemale;
+
+  const genderBtnBase = "inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-semibold transition active:scale-95";
+  const genderActive = "bg-violet-600 text-white shadow-md";
+  const genderInactive = "border border-violet-200 bg-white text-slate-600 hover:bg-violet-50";
+
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-violet-100 bg-gradient-to-r from-violet-50 to-purple-50 p-4">
+      {showGenderPicker && (
+        <div className="flex items-center gap-2">
+          {hasFemale && (
+            <button
+              type="button"
+              onClick={() => selectGender("female")}
+              className={`${genderBtnBase} ${selectedGender === "female" ? genderActive : genderInactive}`}
+            >
+              <span className="text-base">👩</span>
+              {t("voiceFemale")}
+            </button>
+          )}
+          {hasMale && (
+            <button
+              type="button"
+              onClick={() => selectGender("male")}
+              className={`${genderBtnBase} ${selectedGender === "male" ? genderActive : genderInactive}`}
+            >
+              <span className="text-base">👨</span>
+              {t("voiceMale")}
+            </button>
+          )}
+        </div>
+      )}
+
       <div className="flex items-center gap-2">
         {state === "idle" && (
           <button
