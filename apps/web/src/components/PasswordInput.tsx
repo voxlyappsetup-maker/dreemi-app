@@ -37,13 +37,13 @@ export function PasswordInput({
         dir="ltr"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`${INPUT_CLASS} pe-12 text-left`}
+        className={`${INPUT_CLASS} ps-12 text-left`}
         placeholder={placeholder}
       />
       <button
         type="button"
         onClick={() => setVisible((v) => !v)}
-        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-xl p-2 text-slate-500 transition hover:bg-violet-50 hover:text-violet-700"
+        className="absolute start-3 top-1/2 -translate-y-1/2 rounded-xl p-2 text-slate-500 transition hover:bg-violet-50 hover:text-violet-700"
         aria-label={visible ? t("hidePassword") : t("showPassword")}
       >
         {visible ? <IconEyeOff /> : <IconEye />}
