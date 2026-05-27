@@ -136,44 +136,25 @@ export default function StoryViewPage({
       };
 
       const drawHeader = () => {
-        const HEADER_H = 15;
-        const heroW = 20;
+        const heroW = 25;
         const logoW = 35;
-        const gap = 2;
+        const gapY = 1;
 
         if (heroAsset && logoAsset) {
-          let heroH = heroW * heroAsset.aspect;
-          let logoH = logoW * logoAsset.aspect;
-          const maxH = Math.max(heroH, logoH);
-          if (maxH > HEADER_H) {
-            const scale = HEADER_H / maxH;
-            heroH *= scale;
-            logoH *= scale;
-          }
-          const totalW = heroW + gap + logoW;
-          const startX = (W - totalW) / 2;
-          pdf.addImage(
-            heroAsset.dataUrl,
-            "PNG",
-            startX,
-            cursorY + (HEADER_H - heroH) / 2,
-            heroW,
-            heroH,
-          );
-          pdf.addImage(
-            logoAsset.dataUrl,
-            "PNG",
-            startX + heroW + gap,
-            cursorY + (HEADER_H - logoH) / 2,
-            logoW,
-            logoH,
-          );
-          cursorY += HEADER_H + 2;
+          const heroH = heroW * heroAsset.aspect;
+          const logoH = logoW * logoAsset.aspect;
+
+          const heroX = (W - heroW) / 2;
+          const logoX = (W - logoW) / 2;
+
+          pdf.addImage(heroAsset.dataUrl, "PNG", heroX, cursorY, heroW, heroH);
+          pdf.addImage(logoAsset.dataUrl, "PNG", logoX, cursorY + heroH + gapY, logoW, logoH);
+
+          cursorY += heroH + gapY + logoH + 2;
         } else if (logoAsset) {
-          let logoH = logoW * logoAsset.aspect;
-          if (logoH > HEADER_H) logoH = HEADER_H;
-          pdf.addImage(logoAsset.dataUrl, "PNG", (W - logoW) / 2, cursorY + (HEADER_H - logoH) / 2, logoW, logoH);
-          cursorY += HEADER_H + 2;
+          const logoH = logoW * logoAsset.aspect;
+          pdf.addImage(logoAsset.dataUrl, "PNG", (W - logoW) / 2, cursorY, logoW, logoH);
+          cursorY += logoH + 2;
         } else {
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(13);
@@ -233,43 +214,35 @@ export default function StoryViewPage({
           const frameH = imgH + PAD * 2;
           const frameX = M + (contentW - frameW) / 2;
 
-          const pxPerMm = 4;
-          const cW = Math.round(imgWidth * pxPerMm);
-          const cH = Math.round(imgH * pxPerMm);
-          const rPx = RADIUS * pxPerMm;
           const canvas = document.createElement("canvas");
-          canvas.width = cW;
-          canvas.height = cH;
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
           const ctx = canvas.getContext("2d")!;
-          const rr = Math.min(rPx, cW / 2, cH / 2);
-          ctx.save();
-          ctx.beginPath();
-          ctx.moveTo(rr, 0);
-          ctx.lineTo(cW - rr, 0);
-          ctx.quadraticCurveTo(cW, 0, cW, rr);
-          ctx.lineTo(cW, cH - rr);
-          ctx.quadraticCurveTo(cW, cH, cW - rr, cH);
-          ctx.lineTo(rr, cH);
-          ctx.quadraticCurveTo(0, cH, 0, cH - rr);
-          ctx.lineTo(0, rr);
-          ctx.quadraticCurveTo(0, 0, rr, 0);
-          ctx.closePath();
-          ctx.clip();
-          ctx.drawImage(img, 0, 0, cW, cH);
-          ctx.restore();
+          ctx.drawImage(img, 0, 0);
           const imgData = canvas.toDataURL("image/jpeg", 0.85);
 
           cursorY += 10;
           ensureSpace(frameH + 20);
 
+          // Frame (colored) + inner white background (prevents black corners)
+          pdf.setFillColor(221, 214, 254);
+          pdf.roundedRect(frameX, cursorY, frameW, frameH, RADIUS, RADIUS, "F");
           pdf.setDrawColor(221, 214, 254);
           pdf.setLineWidth(0.7);
-          pdf.setFillColor(255, 255, 255);
-          pdf.roundedRect(frameX, cursorY, frameW, frameH, RADIUS, RADIUS, "FD");
+          pdf.roundedRect(frameX, cursorY, frameW, frameH, RADIUS, RADIUS, "S");
 
           const imgX = frameX + PAD;
           const imgY = cursorY + PAD;
+          pdf.setFillColor(255, 255, 255);
+          pdf.rect(imgX, imgY, imgWidth, imgH, "F");
           pdf.addImage(imgData, "JPEG", imgX, imgY, imgWidth, imgH);
+
+          // Hide image hard corners (illusion of rounded corners)
+          pdf.setFillColor(255, 255, 255);
+          pdf.rect(imgX, imgY, RADIUS, RADIUS, "F");
+          pdf.rect(imgX + imgWidth - RADIUS, imgY, RADIUS, RADIUS, "F");
+          pdf.rect(imgX, imgY + imgH - RADIUS, RADIUS, RADIUS, "F");
+          pdf.rect(imgX + imgWidth - RADIUS, imgY + imgH - RADIUS, RADIUS, RADIUS, "F");
           cursorY += frameH + 10;
         } catch {
           // skip if image fails
