@@ -73,7 +73,7 @@ export default function StoryViewPage({
       const isRtl = story.language === "ar";
       const LINE_H = 6;
       const FOOTER_ZONE = 20;
-      const HEADER_TOP = M * 0.75;
+      const HEADER_TOP = 5;
       let cursorY = HEADER_TOP;
       let pageNum = 1;
       const loadAsset = async (src: string) => {
@@ -136,17 +136,17 @@ export default function StoryViewPage({
       };
 
       const drawHeader = () => {
-        const brandW = 35;
+        const brandW = 55;
         if (brandAsset) {
           const brandH = brandW * brandAsset.aspect;
           pdf.addImage(brandAsset.dataUrl, "PNG", (W - brandW) / 2, cursorY, brandW, brandH);
-          cursorY += brandH + 1.5;
+          cursorY += brandH + 5;
         } else {
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(13);
           pdf.setTextColor(109, 40, 217);
           pdf.text("Dreemi", W / 2, cursorY + 4, { align: "center" });
-          cursorY += 7;
+          cursorY += 12;
         }
         pdf.setDrawColor(196, 181, 253);
         pdf.setLineWidth(0.3);
@@ -228,14 +228,14 @@ export default function StoryViewPage({
 
           const imgData = canvas.toDataURL("image/png");
 
-          cursorY += 10;
+          cursorY += 5;
           ensureSpace(imgH + 20);
           pdf.addImage(imgData, "PNG", imgX, cursorY, imgWidth, imgH);
           // Rounded frame (no size changes)
           pdf.setDrawColor(221, 214, 254);
           pdf.setLineWidth(1.5);
           pdf.roundedRect(imgX, cursorY, imgWidth, imgH, 5, 5, "S");
-          cursorY += imgH + 10;
+          cursorY += imgH + 5;
         } catch {
           // skip if image fails
         }
