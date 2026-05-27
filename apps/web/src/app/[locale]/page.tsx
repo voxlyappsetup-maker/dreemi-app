@@ -264,21 +264,21 @@ export default function HomePage({
             <span className="text-sm text-slate-500">{tc("copyright")}</span>
           </div>
           <div className="flex items-center gap-4 text-sm text-slate-600">
-            <Link href="#" className="transition hover:text-violet-600">
+            <Link href="/privacy" className="transition hover:text-violet-600">
               {tc("privacy")}
             </Link>
             <span className="text-violet-200" aria-hidden>
               |
             </span>
-            <Link href="#" className="transition hover:text-violet-600">
+            <Link href="/terms" className="transition hover:text-violet-600">
               {tc("terms")}
             </Link>
             <span className="text-violet-200" aria-hidden>
               |
             </span>
-            <Link href="#" className="transition hover:text-violet-600">
+            <a href="mailto:contact@dreemi.app" className="transition hover:text-violet-600">
               {tc("contact")}
-            </Link>
+            </a>
           </div>
         </div>
       </footer>

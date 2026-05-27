@@ -381,5 +381,183 @@
     "langFr": "FR",
     "removeFavorite": "Retirer des favoris",
     "addFavorite": "Ajouter aux favoris"
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "lastUpdatedLabel": "Dernière mise à jour :",
+    "lastUpdatedDate": "Mai 2026",
+    "intro": "Cette Politique de confidentialité explique quelles informations Dreemi collecte, comment nous les utilisons, et les choix et droits dont vous disposez. En utilisant Dreemi, vous acceptez les pratiques décrites ci-dessous.",
+    "sections": {
+      "dataWeCollect": {
+        "title": "Informations que nous collectons",
+        "body": [
+          "Nous collectons les informations que vous fournissez directement lorsque vous créez un compte, utilisez le service ou nous contactez.",
+          "Nous collectons également des informations techniques limitées nécessaires au fonctionnement et à la sécurité de l'application."
+        ],
+        "bullets": [
+          "Données de compte : nom et adresse e-mail.",
+          "Données de profil enfant : nom, âge, et données optionnelles que vous choisissez de fournir (ex. genre, teint, couleur des cheveux, personnalité, loisirs, animal préféré).",
+          "Données d'histoires : thèmes saisis, contenu généré, et histoires sauvegardées.",
+          "Paiement/abonnement : statut d'abonnement et identifiants via notre prestataire de paiement (nous ne stockons pas le numéro complet de carte).",
+          "Données techniques : journaux de base et informations navigateur/appareil à des fins de sécurité, dépannage et performance."
+        ]
+      },
+      "howWeUse": {
+        "title": "Comment nous utilisons les informations",
+        "body": [
+          "Nous utilisons vos informations pour fournir et améliorer Dreemi."
+        ],
+        "bullets": [
+          "Créer et gérer votre compte et vos préférences.",
+          "Générer des histoires et illustrations personnalisées à partir de vos entrées.",
+          "Fournir la narration audio et l'export PDF.",
+          "Maintenir la sécurité et prévenir les abus.",
+          "Améliorer la qualité du service (débogage, analyse, performance)."
+        ]
+      },
+      "thirdParties": {
+        "title": "Partage avec des tiers",
+        "body": [
+          "Nous faisons appel à des prestataires de confiance pour exploiter Dreemi. Ils traitent les données en notre nom, uniquement dans la mesure nécessaire au service."
+        ],
+        "bullets": [
+          "Fournisseurs IA (ex. OpenAI, Mistral) : génération de textes et/ou d'illustrations à partir de vos prompts et du profil enfant.",
+          "Prestataire de paiement (Stripe) : traitement des abonnements, facturation et reçus.",
+          "Hébergement/infrastructure : exécution sécurisée et fiable de l'application."
+        ]
+      },
+      "yourRights": {
+        "title": "Vos droits (RGPD)",
+        "body": [
+          "Selon votre localisation, vous pouvez bénéficier de droits en vertu des lois sur la protection des données, y compris le RGPD."
+        ],
+        "bullets": [
+          "Accès : demander une copie de vos données personnelles.",
+          "Rectification : corriger des informations inexactes.",
+          "Effacement : supprimer votre compte et les données associées.",
+          "Portabilité : exporter vos données dans un format utilisable.",
+          "Opposition/limitation : vous opposer à certains traitements le cas échéant."
+        ]
+      },
+      "children": {
+        "title": "Confidentialité des enfants (COPPA)",
+        "body": [
+          "Dreemi est conçu pour les parents/tuteurs afin de créer des histoires pour les enfants.",
+          "Nous ne permettons pas sciemment aux enfants de créer des comptes. Les informations liées aux enfants sont fournies par les parents/tuteurs pour personnaliser les histoires."
+        ],
+        "bullets": [
+          "Si vous pensez qu'un enfant a fourni des informations personnelles sans consentement parental, contactez-nous et nous agirons en conséquence.",
+          "Les parents/tuteurs peuvent demander l'accès, la correction ou la suppression des données enfant à tout moment."
+        ]
+      },
+      "cookies": {
+        "title": "Cookies",
+        "body": [
+          "Nous pouvons utiliser des cookies ou technologies similaires pour vous maintenir connecté, mémoriser les préférences et protéger le service."
+        ],
+        "bullets": [
+          "Cookies essentiels : authentification et sécurité.",
+          "Cookies de préférence : langue et paramètres.",
+          "Analyses/dépannage : comprendre performance et erreurs (le cas échéant)."
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "body": [
+          "Pour toute question concernant cette Politique de confidentialité ou vos données, contactez-nous à privacy@dreemi.app."
+        ]
+      }
+    }
+  },
+  "terms": {
+    "title": "Conditions d'utilisation",
+    "lastUpdatedLabel": "Dernière mise à jour :",
+    "lastUpdatedDate": "Mai 2026",
+    "intro": "Ces Conditions d'utilisation régissent votre utilisation de Dreemi. En accédant au service ou en l'utilisant, vous acceptez ces conditions.",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptation des conditions",
+        "body": [
+          "En créant un compte ou en utilisant Dreemi, vous confirmez avoir lu, compris et accepté ces Conditions.",
+          "Si vous n'acceptez pas, vous ne devez pas utiliser le service."
+        ]
+      },
+      "service": {
+        "title": "Description du service",
+        "body": [
+          "Dreemi fournit des outils pour créer des histoires personnalisées, avec illustrations optionnelles, narration audio et export PDF.",
+          "Nous pouvons modifier ou mettre à jour des fonctionnalités au fil du temps."
+        ]
+      },
+      "accounts": {
+        "title": "Comptes utilisateurs et responsabilité",
+        "body": [
+          "Vous êtes responsable de la confidentialité de votre compte et de toutes les activités effectuées via celui-ci.",
+          "Vous devez fournir des informations exactes et les maintenir à jour.",
+          "Vous acceptez de ne pas abuser du service ni de tenter un accès non autorisé."
+        ]
+      },
+      "payments": {
+        "title": "Abonnements, paiements et remboursements",
+        "body": [
+          "Les plans payants sont facturés à l'avance de manière récurrente selon le plan choisi.",
+          "Les paiements sont traités via Stripe."
+        ],
+        "bullets": [
+          "Vous pouvez gérer ou annuler votre abonnement via les paramètres ou le portail de facturation.",
+          "En cas d'annulation, le plan peut rester actif jusqu'à la fin de la période de facturation.",
+          "Les remboursements, le cas échéant, sont à notre discrétion ou selon la loi applicable."
+        ]
+      },
+      "ip": {
+        "title": "Propriété intellectuelle",
+        "body": [
+          "L'application Dreemi, la marque et le logiciel appartiennent à Dreemi et sont protégés par la loi.",
+          "Histoires générées : entre vous et Dreemi, vous êtes propriétaire des histoires que vous générez via votre compte, sous réserve de ces Conditions."
+        ],
+        "bullets": [
+          "Vous nous accordez une licence limitée pour traiter vos entrées uniquement afin de fournir le service.",
+          "Vous êtes responsable des prompts et entrées que vous fournissez."
+        ]
+      },
+      "prohibited": {
+        "title": "Contenu et comportements interdits",
+        "body": [
+          "Vous acceptez de ne pas générer, publier ou partager du contenu illégal, nuisible ou portant atteinte aux droits d'autrui."
+        ],
+        "bullets": [
+          "Haine, harcèlement ou violence.",
+          "Contenu sexuel impliquant des mineurs.",
+          "Atteinte à la propriété intellectuelle ou à la vie privée.",
+          "Tentatives de contournement des mesures de sécurité."
+        ]
+      },
+      "termination": {
+        "title": "Résiliation",
+        "body": [
+          "Vous pouvez arrêter d'utiliser Dreemi à tout moment et supprimer votre compte depuis les paramètres.",
+          "Nous pouvons suspendre ou résilier l'accès en cas de violation de ces Conditions ou pour protéger le service et les utilisateurs."
+        ]
+      },
+      "liability": {
+        "title": "Limitation de responsabilité",
+        "body": [
+          "Dreemi est fourni \"tel quel\" et \"selon disponibilité\".",
+          "Dans la mesure permise par la loi, Dreemi ne saurait être responsable des dommages indirects, spéciaux, accessoires ou consécutifs."
+        ]
+      },
+      "law": {
+        "title": "Droit applicable",
+        "body": [
+          "Ces Conditions sont régies par les lois applicables dans votre juridiction, sauf dispositions impératives contraires."
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "body": [
+          "Pour toute question concernant ces Conditions, contactez-nous à legal@dreemi.app."
+        ]
+      }
+    }
   }
 }

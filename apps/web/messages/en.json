@@ -381,5 +381,183 @@
     "langFr": "FR",
     "removeFavorite": "Remove from Favorites",
     "addFavorite": "Add to Favorites"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdatedLabel": "Last updated:",
+    "lastUpdatedDate": "May 2026",
+    "intro": "This Privacy Policy explains what information Dreemi collects, how we use it, and the choices and rights available to you. By using Dreemi, you agree to the practices described below.",
+    "sections": {
+      "dataWeCollect": {
+        "title": "Information we collect",
+        "body": [
+          "We collect information you provide directly when you create an account, use the service, or contact us.",
+          "We also collect limited technical information needed to operate and secure the app."
+        ],
+        "bullets": [
+          "Account data: name and email address.",
+          "Child profile data: child's name, age, and optional appearance/preferences you choose to provide (e.g., gender, skin tone, hair color, personality, hobbies, favorite animal).",
+          "Story data: themes you enter, generated story content, and any saved stories.",
+          "Payment/subscription data: subscription status and identifiers handled via our payments provider (we do not store your full card number).",
+          "Technical data: basic logs and device/browser information used for security, troubleshooting, and performance."
+        ]
+      },
+      "howWeUse": {
+        "title": "How we use information",
+        "body": [
+          "We use your information to provide and improve Dreemi."
+        ],
+        "bullets": [
+          "Create and manage your account and preferences.",
+          "Generate personalized stories and illustrations based on your inputs.",
+          "Provide audio playback and PDF export features.",
+          "Maintain safety, security, and prevent abuse.",
+          "Improve the quality of the service (e.g., debugging, analytics, performance)."
+        ]
+      },
+      "thirdParties": {
+        "title": "Sharing with third parties",
+        "body": [
+          "We use trusted service providers to operate Dreemi. These providers process data on our behalf, only as needed to deliver the service."
+        ],
+        "bullets": [
+          "AI providers (e.g., OpenAI, Mistral): to generate story text and/or illustrations from your prompts and child profile details.",
+          "Payments provider (Stripe): to process subscriptions, billing, and receipts.",
+          "Hosting/infrastructure providers: to run the app securely and reliably."
+        ]
+      },
+      "yourRights": {
+        "title": "Your rights (GDPR)",
+        "body": [
+          "Depending on your location, you may have rights under privacy laws including GDPR."
+        ],
+        "bullets": [
+          "Access: request a copy of your personal data.",
+          "Rectification: correct inaccurate information.",
+          "Erasure: delete your account and associated data.",
+          "Portability: export your data in a usable format.",
+          "Restriction/objection: object to certain processing where applicable."
+        ]
+      },
+      "children": {
+        "title": "Children's privacy (COPPA)",
+        "body": [
+          "Dreemi is designed for parents/guardians to create bedtime stories for children.",
+          "We do not knowingly allow children to create accounts. Child-related information is provided by parents/guardians for the purpose of story personalization."
+        ],
+        "bullets": [
+          "If you believe a child has provided personal information without parental consent, contact us and we will take appropriate action.",
+          "Parents/guardians can request access, correction, or deletion of child profile data at any time."
+        ]
+      },
+      "cookies": {
+        "title": "Cookies",
+        "body": [
+          "We may use cookies or similar technologies to keep you signed in, remember preferences, and protect the service."
+        ],
+        "bullets": [
+          "Essential cookies: required for authentication and security.",
+          "Preference cookies: remember language and settings.",
+          "Analytics/troubleshooting: help us understand performance and errors (where enabled)."
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "body": [
+          "If you have questions about this Privacy Policy or your data, contact us at privacy@dreemi.app."
+        ]
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdatedLabel": "Last updated:",
+    "lastUpdatedDate": "May 2026",
+    "intro": "These Terms of Service govern your use of Dreemi. By accessing or using the service, you agree to these terms.",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance of terms",
+        "body": [
+          "By creating an account or using Dreemi, you confirm that you have read, understood, and agree to these Terms.",
+          "If you do not agree, you must not use the service."
+        ]
+      },
+      "service": {
+        "title": "Service description",
+        "body": [
+          "Dreemi provides tools to create personalized bedtime stories, including optional illustrations, audio playback, and PDF export.",
+          "We may update or change features from time to time."
+        ]
+      },
+      "accounts": {
+        "title": "User accounts and responsibility",
+        "body": [
+          "You are responsible for maintaining the confidentiality of your account and for all activity under your account.",
+          "You must provide accurate information and keep it up to date.",
+          "You agree not to misuse the service, interfere with its operation, or attempt unauthorized access."
+        ]
+      },
+      "payments": {
+        "title": "Subscriptions, billing, and refunds",
+        "body": [
+          "Paid plans are billed in advance on a recurring basis according to the plan you select.",
+          "Payments are processed by Stripe."
+        ],
+        "bullets": [
+          "You can manage or cancel your subscription from your account settings or the billing portal.",
+          "If you cancel, your plan may remain active until the end of the billing period.",
+          "Refunds, if any, are provided at our discretion or where required by law."
+        ]
+      },
+      "ip": {
+        "title": "Intellectual property",
+        "body": [
+          "The Dreemi app, brand, and software are owned by Dreemi and protected by applicable laws.",
+          "Generated stories: as between you and Dreemi, you own the stories you generate using your account, subject to these Terms."
+        ],
+        "bullets": [
+          "You grant us a limited license to process your inputs solely to provide the service.",
+          "You are responsible for the prompts and inputs you provide."
+        ]
+      },
+      "prohibited": {
+        "title": "Prohibited content and conduct",
+        "body": [
+          "You agree not to generate, upload, or share content that is illegal, harmful, or violates the rights of others."
+        ],
+        "bullets": [
+          "Hate, harassment, or violence.",
+          "Sexual content involving minors.",
+          "Content that infringes intellectual property or privacy.",
+          "Attempts to exploit or bypass safety features."
+        ]
+      },
+      "termination": {
+        "title": "Termination",
+        "body": [
+          "You may stop using Dreemi at any time and may delete your account from settings.",
+          "We may suspend or terminate access if we believe you violated these Terms or if necessary to protect the service or users."
+        ]
+      },
+      "liability": {
+        "title": "Limitation of liability",
+        "body": [
+          "Dreemi is provided on an \"as is\" and \"as available\" basis.",
+          "To the maximum extent permitted by law, Dreemi will not be liable for indirect, incidental, special, or consequential damages."
+        ]
+      },
+      "law": {
+        "title": "Governing law",
+        "body": [
+          "These Terms are governed by the laws applicable in your jurisdiction, unless mandatory laws provide otherwise."
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "body": [
+          "For questions about these Terms, contact us at legal@dreemi.app."
+        ]
+      }
+    }
   }
 }

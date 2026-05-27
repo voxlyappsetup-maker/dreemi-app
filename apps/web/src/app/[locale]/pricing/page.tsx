@@ -277,11 +277,11 @@ export default function PricingPage() {
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 text-center sm:flex-row sm:justify-between">
           <p className="text-sm text-slate-500">{tc("copyright")}</p>
           <div className="flex items-center gap-4 text-sm text-slate-600">
-            <Link href="#" className="hover:text-violet-600">{tc("privacy")}</Link>
+            <Link href="/privacy" className="hover:text-violet-600">{tc("privacy")}</Link>
             <span className="text-violet-200" aria-hidden>|</span>
-            <Link href="#" className="hover:text-violet-600">{tc("terms")}</Link>
+            <Link href="/terms" className="hover:text-violet-600">{tc("terms")}</Link>
             <span className="text-violet-200" aria-hidden>|</span>
-            <Link href="#" className="hover:text-violet-600">{tc("contact")}</Link>
+            <a href="mailto:contact@dreemi.app" className="hover:text-violet-600">{tc("contact")}</a>
           </div>
         </div>
       </footer>

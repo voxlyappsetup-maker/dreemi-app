@@ -357,6 +357,22 @@ export default function SettingsPage() {
           </button>
           {deleteError && <p className="mt-3 text-sm text-red-600">{deleteError}</p>}
         </section>
+        <footer className="mt-10 border-t border-violet-100 py-8 text-center text-sm text-slate-600">
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link href="/privacy" className="font-semibold text-violet-700 hover:text-violet-800 hover:underline">
+              {tc("privacy")}
+            </Link>
+            <span className="text-violet-200" aria-hidden>|</span>
+            <Link href="/terms" className="font-semibold text-violet-700 hover:text-violet-800 hover:underline">
+              {tc("terms")}
+            </Link>
+            <span className="text-violet-200" aria-hidden>|</span>
+            <a href="mailto:contact@dreemi.app" className="font-semibold text-violet-700 hover:text-violet-800 hover:underline">
+              {tc("contact")}
+            </a>
+          </div>
+          <p className="mt-3 text-xs text-slate-500">{tc("copyright")}</p>
+        </footer>
       </main>
     </div>
   );
