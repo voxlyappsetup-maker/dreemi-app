@@ -147,6 +147,7 @@ export default function PricingPage() {
     if (loadingPlan === plan.key || loadingPlan === "PENDING") return t("redirecting");
     if (plan.isFree) return t("startFree");
     if (plan.isContact) return t("contactUs");
+    if (plan.key === "SCHOOL") return t("signUpAndStart");
     return t("startNow");
   }
 
