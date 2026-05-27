@@ -76,6 +76,27 @@ export default function StoryViewPage({
       const FOOTER_ZONE = 20;
       let cursorY = M;
       let pageNum = 1;
+      let logoDataUrl: string | null = null;
+      let logoAspect = 0.25;
+
+      try {
+        const logoImg = new Image();
+        logoImg.crossOrigin = "anonymous";
+        await new Promise<void>((resolve, reject) => {
+          logoImg.onload = () => resolve();
+          logoImg.onerror = () => reject();
+          logoImg.src = "/dreemi-logo.png";
+        });
+        const logoCanvas = document.createElement("canvas");
+        logoCanvas.width = logoImg.naturalWidth;
+        logoCanvas.height = logoImg.naturalHeight;
+        const logoCtx = logoCanvas.getContext("2d")!;
+        logoCtx.drawImage(logoImg, 0, 0);
+        logoAspect = logoImg.naturalHeight / logoImg.naturalWidth;
+        logoDataUrl = logoCanvas.toDataURL("image/png");
+      } catch {
+        logoDataUrl = null;
+      }
 
       const drawWatermark = () => {
         pdf.setFont("helvetica", "bold");
@@ -111,6 +132,24 @@ export default function StoryViewPage({
         pdf.text(`dreemi.app  |  ${pageNum}`, W / 2, H - 8, { align: "center" });
       };
 
+      const drawHeader = () => {
+        const logoW = 40;
+        const logoH = Math.max(8, logoW * logoAspect);
+        if (logoDataUrl) {
+          pdf.addImage(logoDataUrl, "PNG", (W - logoW) / 2, cursorY, logoW, logoH);
+          cursorY += logoH + 2;
+        } else {
+          pdf.setFont("helvetica", "bold");
+          pdf.setFontSize(13);
+          pdf.setTextColor(109, 40, 217);
+          pdf.text("Dreemi", W / 2, cursorY + 4, { align: "center" });
+          cursorY += 7;
+        }
+        pdf.setDrawColor(196, 181, 253);
+        pdf.setLineWidth(0.3);
+        pdf.line(M, cursorY, W - M, cursorY);
+      };
+
       const addNewPage = () => {
         drawFooter();
         pdf.addPage();
@@ -118,14 +157,7 @@ export default function StoryViewPage({
         drawGradientBg();
         drawWatermark();
         cursorY = M;
-        pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(13);
-        pdf.setTextColor(109, 40, 217);
-        pdf.text("Dreemi", W / 2, cursorY, { align: "center" });
-        cursorY += 3;
-        pdf.setDrawColor(196, 181, 253);
-        pdf.setLineWidth(0.2);
-        pdf.line(M, cursorY, W - M, cursorY);
+        drawHeader();
         cursorY += 6;
       };
 
@@ -144,15 +176,7 @@ export default function StoryViewPage({
       // --- Page 1 ---
       drawGradientBg();
       drawWatermark();
-
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(25);
-      pdf.setTextColor(109, 40, 217);
-      pdf.text("Dreemi", W / 2, cursorY, { align: "center" });
-      cursorY += 4;
-      pdf.setDrawColor(196, 181, 253);
-      pdf.setLineWidth(0.3);
-      pdf.line(M, cursorY, W - M, cursorY);
+      drawHeader();
 
       // --- Image (102mm wide, aspect-ratio preserved, child-friendly frame) ---
       if (story.imageUrl) {

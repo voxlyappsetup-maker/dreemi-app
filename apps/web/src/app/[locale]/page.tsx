@@ -44,7 +44,22 @@ export default function HomePage({
       <header className="sticky top-0 z-50 border-b border-violet-100 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="transition hover:opacity-80">
-            <DreemiLogo size="md" />
+            <span className="flex items-center gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/dreemi-hero.png"
+                alt="Dreemi"
+                className="h-12 w-auto"
+                draggable={false}
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/dreemi-logo.png"
+                alt="Dreemi"
+                className="h-10 w-auto origin-left scale-150"
+                draggable={false}
+              />
+            </span>
           </Link>
           <nav className="flex items-center gap-2 sm:gap-4">
             <LanguageSwitcher />

@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { Link } from "../i18n/routing";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { StarsBackground } from "./StarsBackground";
-import { DreemiLogo } from "./DreemiLogo";
 
 interface AuthShellProps {
   children: ReactNode;
@@ -61,10 +60,22 @@ export function AuthShell({
 
         <div className="hidden flex-1 flex-col items-center justify-center bg-gradient-to-bl from-violet-100/80 via-violet-50/50 to-transparent px-12 lg:flex">
           <div className="max-w-md text-center">
-            <div className="mx-auto mb-8 flex h-32 w-32 items-center justify-center rounded-3xl bg-violet-600 shadow-lg">
-              <span className="text-6xl" aria-hidden>📖</span>
+            <div className="mx-auto mb-6 flex flex-col items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/dreemi-hero.png"
+                alt="Dreemi"
+                className="h-32 w-auto"
+                draggable={false}
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/dreemi-logo.png"
+                alt="Dreemi"
+                className="mt-4 h-14 w-auto"
+                draggable={false}
+              />
             </div>
-            <DreemiLogo size="lg" />
             <p className="mt-4 text-lg leading-relaxed text-slate-600">
               {t("shellDescription")}
             </p>
