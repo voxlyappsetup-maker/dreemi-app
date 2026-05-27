@@ -191,7 +191,7 @@ export default function StoryViewPage({
             img.onerror = () => reject();
             img.src = story.imageUrl!;
           });
-          const imgWidth = 102;
+          const imgWidth = 90;
           const aspect = img.naturalHeight / img.naturalWidth;
           const imgH = imgWidth * aspect;
           const RADIUS = 5;
@@ -228,7 +228,7 @@ export default function StoryViewPage({
 
           const imgData = canvas.toDataURL("image/png");
 
-          cursorY += 5;
+          cursorY += 8;
           ensureSpace(imgH + 20);
           pdf.addImage(imgData, "PNG", imgX, cursorY, imgWidth, imgH);
           // Rounded frame (no size changes)
@@ -375,7 +375,7 @@ export default function StoryViewPage({
               <img
                 src="/dreemi-brand.png"
                 alt="Dreemi"
-                className="h-14 w-auto"
+                className="h-28 w-auto"
                 draggable={false}
               />
             </Link>
