@@ -8,6 +8,7 @@ import {
   type Child,
   ApiError,
   getChild,
+  deleteStory,
   fetchChildStories,
 } from "../../../../lib/api";
 import { clearAuth, getStoredUser, isAuthenticated } from "../../../../lib/storage";
@@ -37,12 +38,34 @@ export default function ChildProfilePage({
   const t = useTranslations("childProfile");
   const tc = useTranslations("common");
   const tch = useTranslations("children");
+  const tStory = useTranslations("storyCard");
   const [child, setChild] = useState<Child | null>(null);
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userPlan, setUserPlan] = useState<"FREE" | "INDIVIDUAL" | "FAMILY" | "SCHOOL">("FREE");
   const [favTick, setFavTick] = useState(0);
+
+  const reloadStories = useCallback(async () => {
+    const user = getStoredUser();
+    if (!user?.id) return;
+    try {
+      const childStories = await fetchChildStories(user.id, params.id);
+      setStories(childStories);
+    } catch {
+      setStories([]);
+    }
+  }, [params.id]);
+
+  async function handleDeleteStory(storyId: string) {
+    if (!window.confirm(tStory("deleteConfirm"))) return;
+    try {
+      await deleteStory(storyId);
+      await reloadStories();
+    } catch {
+      window.alert(tStory("deleteError"));
+    }
+  }
 
   const load = useCallback(async () => {
     try {
@@ -227,7 +250,11 @@ export default function ChildProfilePage({
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {stories.map((story) => (
               <Link key={story.id} href={`/story/${story.id}`}>
-                <StoryCard story={story} onFavoriteChange={() => setFavTick((v) => v + 1)} />
+                <StoryCard
+                  story={story}
+                  onFavoriteChange={() => setFavTick((v) => v + 1)}
+                  onDelete={handleDeleteStory}
+                />
               </Link>
             ))}
           </div>

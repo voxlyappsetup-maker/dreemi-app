@@ -229,6 +229,15 @@ export async function getStoryById(id: string): Promise<Story> {
   return data.story;
 }
 
+/** Delete a story owned by the current user. */
+export async function deleteStory(storyId: string): Promise<void> {
+  await apiFetch(
+    `/api/stories/${encodeURIComponent(storyId)}`,
+    { method: "DELETE" },
+    true,
+  );
+}
+
 /** Fetch the current user's profile from the API (fresh from database). */
 export async function getMe(): Promise<User> {
   const data = await apiFetch<{ success: boolean; user: User }>(

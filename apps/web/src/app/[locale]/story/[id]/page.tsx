@@ -3,9 +3,9 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Story } from "@dreemi/types";
-import { Link } from "../../../../i18n/routing";
-import { getStoryById, ApiError } from "../../../../lib/api";
-import { isAuthenticated } from "../../../../lib/storage";
+import { deleteStory, getStoryById, ApiError } from "../../../../lib/api";
+import { Link, useRouter } from "../../../../i18n/routing";
+import { getStoredUser, isAuthenticated } from "../../../../lib/storage";
 import { StoryContent } from "../../../../components/StoryContent";
 import { StoryPlayer } from "../../../../components/StoryPlayer";
 import { IconBook } from "../../../../components/icons";
@@ -18,11 +18,14 @@ export default function StoryViewPage({
 }) {
   const t = useTranslations("storyView");
   const locale = useLocale();
+  const router = useRouter();
   const [story, setStory] = useState<Story | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loggedIn] = useState(() => isAuthenticated());
   const [exporting, setExporting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const ownerId = getStoredUser()?.id ?? null;
   const storyRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -58,6 +61,21 @@ export default function StoryViewPage({
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
   }, []);
+
+  const isOwner = loggedIn && story !== null && ownerId === story.userId;
+
+  async function handleDeleteStory() {
+    if (!story || deleting) return;
+    if (!window.confirm(t("deleteConfirm"))) return;
+    setDeleting(true);
+    try {
+      await deleteStory(story.id);
+      router.push("/dashboard");
+    } catch {
+      window.alert(t("deleteError"));
+      setDeleting(false);
+    }
+  }
 
   async function exportPdf() {
     if (!story || exporting) return;
@@ -391,11 +409,21 @@ export default function StoryViewPage({
               <button
                 type="button"
                 onClick={exportPdf}
-                disabled={exporting}
+                disabled={exporting || deleting}
                 className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50 disabled:opacity-50"
               >
                 {exporting ? t("exportingPdf") : t("exportPdf")}
               </button>
+              {isOwner && (
+                <button
+                  type="button"
+                  onClick={handleDeleteStory}
+                  disabled={deleting || exporting}
+                  className="rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+                >
+                  {deleting ? t("deletingStory") : `🗑️ ${t("deleteStory")}`}
+                </button>
+              )}
               <Link
                 href="/generate"
                 className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"

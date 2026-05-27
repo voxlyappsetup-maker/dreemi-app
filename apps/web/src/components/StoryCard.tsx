@@ -2,7 +2,7 @@
 
 import type { Story } from "@dreemi/types";
 import { useLocale, useTranslations } from "next-intl";
-import { IconBook, IconHeart } from "./icons";
+import { IconBook, IconHeart, IconTrash } from "./icons";
 import { isFavorite, toggleFavorite } from "../lib/favorites";
 import { useState, type MouseEvent } from "react";
 
@@ -15,9 +15,10 @@ function excerpt(content: string, max = 100): string {
 interface StoryCardProps {
   story: Story;
   onFavoriteChange?: () => void;
+  onDelete?: (storyId: string) => void;
 }
 
-export function StoryCard({ story, onFavoriteChange }: StoryCardProps) {
+export function StoryCard({ story, onFavoriteChange, onDelete }: StoryCardProps) {
   const locale = useLocale();
   const t = useTranslations("storyCard");
   const [fav, setFav] = useState(() => isFavorite(story.id) || story.isFavorite);
@@ -44,6 +45,12 @@ export function StoryCard({ story, onFavoriteChange }: StoryCardProps) {
     onFavoriteChange?.();
   }
 
+  function handleDelete(e: MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    onDelete?.(story.id);
+  }
+
   return (
     <article className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-white p-[1px] shadow-md transition hover:-translate-y-0.5 hover:shadow-lg">
       {/* Thumbnail */}
@@ -63,18 +70,31 @@ export function StoryCard({ story, onFavoriteChange }: StoryCardProps) {
             <span className="rounded-xl bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700">
               {LANGUAGE_LABELS[story.language] ?? story.language}
             </span>
-            <button
-              type="button"
-              onClick={handleFavorite}
-              aria-label={fav ? t("removeFavorite") : t("addFavorite")}
-              className={`rounded-xl p-2 transition ${
-                fav
-                  ? "bg-red-50 text-red-500"
-                  : "bg-violet-50 text-slate-500 hover:text-violet-700"
-              }`}
-            >
-              <IconHeart filled={fav} />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={handleFavorite}
+                aria-label={fav ? t("removeFavorite") : t("addFavorite")}
+                className={`rounded-xl p-2 transition ${
+                  fav
+                    ? "bg-red-50 text-red-500"
+                    : "bg-violet-50 text-slate-500 hover:text-violet-700"
+                }`}
+              >
+                <IconHeart filled={fav} />
+              </button>
+              {onDelete && (
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  aria-label={t("deleteStory")}
+                  title={t("deleteStory")}
+                  className="rounded-xl bg-red-50 p-2 text-red-500 transition hover:bg-red-100"
+                >
+                  <IconTrash className="h-4 w-4" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
 

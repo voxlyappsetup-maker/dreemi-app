@@ -303,7 +303,11 @@
     "voiceFemale": "Voix féminine",
     "voiceNotOptimized": "Voix non optimisée pour cette langue",
     "exportPdf": "Exporter PDF",
-    "exportingPdf": "Exportation..."
+    "exportingPdf": "Exportation...",
+    "deleteStory": "Supprimer l'histoire",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette histoire ?",
+    "deletingStory": "Suppression...",
+    "deleteError": "Échec de la suppression, veuillez réessayer"
   },
   "children": {
     "title": "Mes enfants",
@@ -385,7 +389,10 @@
     "langEn": "EN",
     "langFr": "FR",
     "removeFavorite": "Retirer des favoris",
-    "addFavorite": "Ajouter aux favoris"
+    "addFavorite": "Ajouter aux favoris",
+    "deleteStory": "Supprimer l'histoire",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette histoire ?",
+    "deleteError": "Échec de la suppression, veuillez réessayer"
   },
   "privacy": {
     "title": "Politique de confidentialité",

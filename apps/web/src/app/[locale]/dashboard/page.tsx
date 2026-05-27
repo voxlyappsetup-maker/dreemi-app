@@ -5,7 +5,7 @@ import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import type { Story, User } from "@dreemi/types";
 import { Link, useRouter } from "../../../i18n/routing";
-import { type Child, fetchChildren, fetchStories, getMe } from "../../../lib/api";
+import { type Child, deleteStory, fetchChildren, fetchStories, getMe } from "../../../lib/api";
 import { getFavoriteIds } from "../../../lib/favorites";
 import { clearAuth, getStoredUser, isAuthenticated, saveUser } from "../../../lib/storage";
 import { DashboardSidebar } from "../../../components/DashboardSidebar";
@@ -37,6 +37,7 @@ function DashboardContent() {
   const searchParams = useSearchParams();
   const t = useTranslations("dashboard");
   const tc = useTranslations("common");
+  const tStory = useTranslations("storyCard");
   const [user, setUser] = useState<User | null>(null);
   const [stories, setStories] = useState<Story[]>([]);
   const [children, setChildren] = useState<Child[]>([]);
@@ -86,6 +87,16 @@ function DashboardContent() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  async function handleDeleteStory(storyId: string) {
+    if (!window.confirm(tStory("deleteConfirm"))) return;
+    try {
+      await deleteStory(storyId);
+      if (user?.id) await loadStories(user.id);
+    } catch {
+      window.alert(tStory("deleteError"));
+    }
+  }
 
   const stats = useMemo(() => {
     void favTick;
@@ -271,7 +282,11 @@ function DashboardContent() {
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {stories.map((story) => (
                 <Link key={story.id} href={`/story/${story.id}`}>
-                  <StoryCard story={story} onFavoriteChange={() => setFavTick((t) => t + 1)} />
+                  <StoryCard
+                    story={story}
+                    onFavoriteChange={() => setFavTick((t) => t + 1)}
+                    onDelete={handleDeleteStory}
+                  />
                 </Link>
               ))}
             </div>

@@ -147,3 +147,30 @@ storiesRouter.get("/:id", async (req: Request, res: Response) => {
     res.status(500).json({ success: false, error: "Failed to fetch story" });
   }
 });
+
+storiesRouter.delete("/:id", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: "Token required" });
+      return;
+    }
+
+    const story = await prisma.story.findUnique({ where: { id: req.params.id } });
+    if (!story) {
+      res.status(404).json({ success: false, error: "Story not found" });
+      return;
+    }
+    if (story.userId !== userId) {
+      res.status(403).json({ success: false, error: "Forbidden" });
+      return;
+    }
+
+    await prisma.story.delete({ where: { id: req.params.id } });
+
+    res.json({ success: true, message: "Story deleted" });
+  } catch (error) {
+    console.error("[Stories] delete error:", error);
+    res.status(500).json({ success: false, error: "Failed to delete story" });
+  }
+});

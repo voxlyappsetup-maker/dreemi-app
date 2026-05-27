@@ -303,7 +303,11 @@
     "voiceFemale": "Female Voice",
     "voiceNotOptimized": "Voice not optimized for this language",
     "exportPdf": "Export PDF",
-    "exportingPdf": "Exporting..."
+    "exportingPdf": "Exporting...",
+    "deleteStory": "Delete Story",
+    "deleteConfirm": "Are you sure you want to delete this story?",
+    "deletingStory": "Deleting...",
+    "deleteError": "Failed to delete story, please try again"
   },
   "children": {
     "title": "My Children",
@@ -385,7 +389,10 @@
     "langEn": "EN",
     "langFr": "FR",
     "removeFavorite": "Remove from Favorites",
-    "addFavorite": "Add to Favorites"
+    "addFavorite": "Add to Favorites",
+    "deleteStory": "Delete story",
+    "deleteConfirm": "Are you sure you want to delete this story?",
+    "deleteError": "Failed to delete story, please try again"
   },
   "privacy": {
     "title": "Privacy Policy",

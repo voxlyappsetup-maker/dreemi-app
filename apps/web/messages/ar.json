@@ -303,7 +303,11 @@
     "voiceFemale": "صوت امرأة",
     "voiceNotOptimized": "الصوت غير محسّن لهذه اللغة",
     "exportPdf": "تصدير PDF",
-    "exportingPdf": "جاري التصدير..."
+    "exportingPdf": "جاري التصدير...",
+    "deleteStory": "حذف القصة",
+    "deleteConfirm": "هل أنت متأكد من حذف هذه القصة؟",
+    "deletingStory": "جاري الحذف...",
+    "deleteError": "فشل حذف القصة، حاول مرة أخرى"
   },
   "children": {
     "title": "أطفالي",
@@ -385,7 +389,10 @@
     "langEn": "EN",
     "langFr": "FR",
     "removeFavorite": "إزالة من المفضلة",
-    "addFavorite": "إضافة للمفضلة"
+    "addFavorite": "إضافة للمفضلة",
+    "deleteStory": "حذف القصة",
+    "deleteConfirm": "هل أنت متأكد من حذف هذه القصة؟",
+    "deleteError": "فشل حذف القصة، حاول مرة أخرى"
   },
   "privacy": {
     "title": "سياسة الخصوصية",
