@@ -172,8 +172,27 @@ function mapLemonStatus(status: string): "active" | "canceled" | "past_due" | "t
   }
 }
 
+async function resolveUserIdFromWebhook(event: any): Promise<string | null> {
+  const attrs = event?.data?.attributes ?? {};
+
+  const customUserId = event?.meta?.custom_data?.user_id;
+  if (customUserId) {
+    const user = await prisma.user.findUnique({
+      where: { id: String(customUserId) },
+    });
+    if (user) return user.id;
+  }
+
+  const email = attrs?.user_email;
+  if (typeof email === "string" && email.length > 0) {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (user) return user.id;
+  }
+
+  return null;
+}
+
 async function handleLemonSubscriptionEvent(eventName: string, event: any): Promise<void> {
-  const userId = String(event?.meta?.custom_data?.user_id ?? "");
   const subId = String(event?.data?.id ?? "");
   const attrs = event?.data?.attributes ?? {};
   const variantId = Number(attrs?.variant_id ?? attrs?.variant?.id ?? 0);
@@ -184,6 +203,8 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
     console.warn(`[Webhook] missing subscription id for ${eventName}`);
     return;
   }
+
+  let userId = await resolveUserIdFromWebhook(event);
 
   if (eventName === "subscription_cancelled" || eventName === "subscription_expired") {
     const existing = await prisma.subscription.findUnique({ where: { stripeSubscriptionId: subId } });
@@ -201,8 +222,13 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
   }
 
   if (!userId) {
-    console.warn(`[Webhook] ${eventName} missing meta.custom_data.user_id`);
-    return;
+    userId = String(event?.meta?.custom_data?.user_id ?? "");
+    if (!userId) {
+      console.warn(
+        `[Webhook] ${eventName} could not resolve user (custom.user_id and email fallback failed)`,
+      );
+      return;
+    }
   }
 
   const renewsAt = attrs?.renews_at ? new Date(String(attrs.renews_at)) : new Date();
