@@ -21,8 +21,110 @@ export interface GeneratedStory {
   moral: string;
 }
 
+interface AgeProfile {
+  level: string;
+  sentences: string;
+  vocabulary: string;
+  concepts: string;
+  length: string;
+  style: string;
+}
+
+function ageProfile(age: number): AgeProfile {
+  if (age <= 3) {
+    return {
+      level: "toddler",
+      sentences: "very short sentences (5-7 words max)",
+      vocabulary: "simple everyday words only, no complex concepts",
+      concepts: "basic emotions, animals, colors, family",
+      length: "very short story (200-300 words)",
+      style: "repetitive patterns, simple rhymes, cause and effect",
+    };
+  }
+  if (age <= 5) {
+    return {
+      level: "preschool",
+      sentences: "short simple sentences (8-10 words)",
+      vocabulary: "simple words, introduce 1-2 new words with context",
+      concepts: "friendship, sharing, basic problem solving",
+      length: "short story (300-500 words)",
+      style: "clear narrative, relatable characters, simple moral",
+    };
+  }
+  if (age <= 7) {
+    return {
+      level: "early reader",
+      sentences: "medium sentences with simple conjunctions",
+      vocabulary: "expanding vocabulary, emotions, descriptive words",
+      concepts: "courage, honesty, teamwork, overcoming fears",
+      length: "medium story (500-700 words)",
+      style: "beginning-middle-end structure, dialogue, suspense",
+    };
+  }
+  if (age <= 9) {
+    return {
+      level: "middle childhood",
+      sentences: "varied sentence structure",
+      vocabulary: "richer vocabulary, figurative language",
+      concepts: "justice, loyalty, self-discovery, complex emotions",
+      length: "longer story (700-900 words)",
+      style: "plot twists, character development, meaningful moral",
+    };
+  }
+  return {
+    level: "preteen",
+    sentences: "complex sentences, varied structure",
+    vocabulary: "advanced vocabulary, metaphors, idioms",
+    concepts: "identity, responsibility, empathy, moral dilemmas",
+    length: "full story (900-1200 words)",
+    style: "nuanced characters, subplots, deeper themes",
+  };
+}
+
+function targetWordCount(age: number, duration?: number): number {
+  const byAge =
+    age <= 3 ? 250 : age <= 5 ? 400 : age <= 7 ? 600 : age <= 9 ? 800 : 1100;
+  const byDuration = (duration ?? 5) * 120;
+  return Math.min(byAge, byDuration);
+}
+
+function buildAgeProfileBlock(req: StoryRequest, profile: AgeProfile, wordCount: number): string {
+  const blocks: Record<string, string> = {
+    ar: `
+ملف العمر الإلزامي (الطفل ${req.childAge} سنوات — المستوى: ${profile.level}):
+يجب الالتزام الصارم بهذا الملف عند الكتابة:
+- الجمل: ${profile.sentences}
+- المفردات واللغة: ${profile.vocabulary}
+- المفاهيم والمواضيع المسموحة: ${profile.concepts}
+- طول القصة: ${profile.length} (حوالي ${wordCount} كلمة)
+- أسلوب السرد: ${profile.style}
+ممنوع استخدام لغة أو مفاهيم أو تعقيد أعلى من مستوى عمر الطفل.`,
+    en: `
+MANDATORY AGE PROFILE (child is ${req.childAge} years old — level: ${profile.level}):
+You MUST strictly follow this profile:
+- Sentences: ${profile.sentences}
+- Vocabulary & language level: ${profile.vocabulary}
+- Allowed concepts & themes: ${profile.concepts}
+- Story length: ${profile.length} (approximately ${wordCount} words)
+- Narrative style: ${profile.style}
+Do NOT use language, concepts, or complexity above this child's age level.`,
+    fr: `
+PROFIL D AGE OBLIGATOIRE (enfant de ${req.childAge} ans — niveau: ${profile.level}):
+Vous DEVEZ respecter strictement ce profil:
+- Phrases: ${profile.sentences}
+- Vocabulaire et niveau de langue: ${profile.vocabulary}
+- Concepts et themes autorises: ${profile.concepts}
+- Longueur: ${profile.length} (environ ${wordCount} mots)
+- Style narratif: ${profile.style}
+N utilisez pas un langage, des concepts ou une complexite au-dessus de l age de l enfant.`,
+  };
+  return blocks[req.language] || blocks.en;
+}
+
 function buildPrompt(req: StoryRequest): string {
-  const wordCount = (req.duration ?? 5) * 120;
+  const profile = ageProfile(req.childAge);
+  const wordCount = targetWordCount(req.childAge, req.duration);
+  const ageBlock = buildAgeProfileBlock(req, profile, wordCount);
 
   let traitAr = "";
   let traitEn = "";
@@ -39,16 +141,24 @@ function buildPrompt(req: StoryRequest): string {
   }
 
   const prompts: Record<string, string> = {
-    ar: `انت كاتب قصص اطفال محترف. اكتب قصة نوم جميلة باللغة العربية الفصحى البسيطة. الاسم: ${req.childName}، العمر: ${req.childAge} سنوات، الموضوع: ${req.theme}${req.moral ? `، القيمة التربوية: ${req.moral}` : ""}${traitAr}. اشترط ان يكون البطل اسمه ${req.childName}${req.personality ? ` وان تعكس القصة شخصيته` : ""}${req.hobbies ? ` ويمارس هواياته في القصة` : ""}، يجب ان تكون القصة ${wordCount} كلمة تقريبا، مع نهاية سعيدة تبعث على النوم. يجب ان تعيد JSON فقط بهذا الشكل بالضبط بدون اي نص اضافي: {"title": "عنوان القصة", "content": "نص القصة كاملا", "moral": "القيمة المستفادة"}`,
-    en: `You are a professional children story writer. Write a beautiful bedtime story in English. Name: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Moral: ${req.moral}` : ""}${traitEn}. The hero must be named ${req.childName}${req.personality ? `. The story should reflect the child's ${req.personality} personality` : ""}${req.hobbies ? `. Weave the child's hobbies (${req.hobbies}) into the story naturally` : ""}. The story must be approximately ${wordCount} words long. Happy ending. Separate each paragraph with a blank line (double newline \\n\\n). Return JSON only: {"title": "...", "content": "full story text with \\n\\n between paragraphs", "moral": "..."}`,
-    fr: `Vous etes un auteur de contes pour enfants. Ecrivez une belle histoire en francais. Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Morale: ${req.moral}` : ""}${traitFr}. Le heros doit s appeler ${req.childName}${req.personality ? `. L histoire doit refleter la personnalite ${req.personality} de l enfant` : ""}${req.hobbies ? `. Integrez naturellement les loisirs de l enfant (${req.hobbies}) dans l histoire` : ""}. L histoire doit faire environ ${wordCount} mots. Fin heureuse. Separez chaque paragraphe par une ligne vide (double retour a la ligne \\n\\n). Retournez JSON uniquement: {"title": "...", "content": "texte complet avec \\n\\n entre les paragraphes", "moral": "..."}`
+    ar: `انت كاتب قصص اطفال محترف. اكتب قصة نوم جميلة باللغة العربية الفصحى البسيطة.
+${ageBlock}
+الاسم: ${req.childName}، العمر: ${req.childAge} سنوات، الموضوع: ${req.theme}${req.moral ? `، القيمة التربوية: ${req.moral}` : ""}${traitAr}. اشترط ان يكون البطل اسمه ${req.childName}${req.personality ? ` وان تعكس القصة شخصيته` : ""}${req.hobbies ? ` ويمارس هواياته في القصة` : ""}، يجب ان تكون القصة ${wordCount} كلمة تقريبا، مع نهاية سعيدة تبعث على النوم. يجب ان تعيد JSON فقط بهذا الشكل بالضبط بدون اي نص اضافي: {"title": "عنوان القصة", "content": "نص القصة كاملا", "moral": "القيمة المستفادة"}`,
+    en: `You are a professional children's story writer. Write a beautiful bedtime story in English.
+${ageBlock}
+Name: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Moral: ${req.moral}` : ""}${traitEn}. The hero must be named ${req.childName}${req.personality ? `. The story should reflect the child's ${req.personality} personality` : ""}${req.hobbies ? `. Weave the child's hobbies (${req.hobbies}) into the story naturally` : ""}. The story must be approximately ${wordCount} words long. Happy ending. Separate each paragraph with a blank line (double newline \\n\\n). Return JSON only: {"title": "...", "content": "full story text with \\n\\n between paragraphs", "moral": "..."}`,
+    fr: `Vous etes un auteur de contes pour enfants. Ecrivez une belle histoire du soir en francais.
+${ageBlock}
+Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Morale: ${req.moral}` : ""}${traitFr}. Le heros doit s appeler ${req.childName}${req.personality ? `. L histoire doit refleter la personnalite ${req.personality} de l enfant` : ""}${req.hobbies ? `. Integrez naturellement les loisirs de l enfant (${req.hobbies}) dans l histoire` : ""}. L histoire doit faire environ ${wordCount} mots. Fin heureuse. Separez chaque paragraphe par une ligne vide (double retour a la ligne \\n\\n). Retournez JSON uniquement: {"title": "...", "content": "texte complet avec \\n\\n entre les paragraphes", "moral": "..."}`
   };
   return prompts[req.language] || prompts.ar;
 }
 
 export async function generateStoryWithMistral(req: StoryRequest): Promise<GeneratedStory> {
   const apiKey = process.env.MISTRAL_API_KEY;
-  if (!apiKey) throw new Error("MISTRAL_API_KEY غير موجود");
+  if (!apiKey) throw new Error("MISTRAL_API_KEY is not set");
+
+  const wordCount = targetWordCount(req.childAge, req.duration);
 
   const response = await fetch(MISTRAL_API_URL, {
     method: "POST",
@@ -59,7 +169,7 @@ export async function generateStoryWithMistral(req: StoryRequest): Promise<Gener
     body: JSON.stringify({
       model: MISTRAL_MODEL,
       temperature: 0.9,
-      max_tokens: Math.max(1500, ((req.duration ?? 5) * 120 * 2)),
+      max_tokens: Math.max(2000, wordCount * 2),
       response_format: { type: "json_object" },
       messages: [{ role: "user", content: buildPrompt(req) }],
     }),
@@ -77,7 +187,7 @@ export async function generateStoryWithMistral(req: StoryRequest): Promise<Gener
 
   const story = JSON.parse(raw) as GeneratedStory;
 
-  if (!story.title || !story.content) throw new Error("القصة غير مكتملة");
+  if (!story.title || !story.content) throw new Error("Story generation incomplete");
 
   // Normalize paragraph breaks: some models return single \n between paragraphs
   story.content = story.content
