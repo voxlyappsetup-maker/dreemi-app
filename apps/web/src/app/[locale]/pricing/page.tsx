@@ -119,7 +119,7 @@ export default function PricingPage() {
   }
 
   async function handleSubscribe(plan: PlanCard) {
-    if (plan.isFree) { router.push("/register"); return; }
+    if (plan.isFree) { router.push(loggedIn ? "/dashboard" : "/register"); return; }
     if (plan.isContact) { window.location.href = "mailto:contact@dreemi.app?subject=School Plan"; return; }
     const variantId = cycle === "yearly" ? plan.variantYearly : plan.variantMonthly;
     if (!variantId) { setError(t("priceNotConfigured")); return; }
@@ -145,7 +145,7 @@ export default function PricingPage() {
     if (loadingPlan === plan.key || loadingPlan === "PENDING") return t("redirecting");
     if (plan.isFree) return t("startFree");
     if (plan.isContact) return t("contactUs");
-    if (plan.key === "SCHOOL") return t("signUpAndStart");
+    if (loggedIn) return t("upgrade");
     return t("startNow");
   }
 
@@ -153,9 +153,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white">
-      <div className="mx-auto max-w-7xl px-6">
-        <PublicHeader />
-      </div>
+      <PublicHeader variant={loggedIn ? "authed" : "guest"} />
 
       <section className="mx-auto max-w-7xl px-6 pt-12 text-center sm:pt-16">
         <h1 className="text-4xl font-bold text-slate-900 sm:text-5xl">{t("title")}</h1>
@@ -190,6 +188,7 @@ export default function PricingPage() {
             const price = cycle === "yearly" ? plan.yearlyPrice : plan.monthlyPrice;
             const isLoading = loadingPlan === plan.key || loadingPlan === "PENDING";
             const current = isCurrent(plan);
+            const disableFreeDowngrade = loggedIn && plan.isFree && userPlan !== "FREE";
             return (
               <div
                 key={plan.key}
@@ -239,7 +238,7 @@ export default function PricingPage() {
 
                 <button
                   type="button"
-                  disabled={isLoading || current}
+                  disabled={isLoading || current || disableFreeDowngrade}
                   onClick={() => handleSubscribe(plan)}
                   className={`mt-8 w-full rounded-2xl py-3 text-center text-sm font-bold transition disabled:cursor-not-allowed ${
                     current
