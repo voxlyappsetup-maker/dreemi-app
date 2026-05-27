@@ -31,7 +31,8 @@ export const metadata: Metadata = {
   title: "Dreemi — Magical Bedtime Stories",
   description: "Magical bedtime stories for your child — personalized, AI-powered, in Arabic, English & French.",
   icons: {
-    icon: [{ url: "/dreemi-icon.png" }],
+    icon: [{ url: "/dreemi-icon.png", type: "image/png" }],
+    shortcut: [{ url: "/dreemi-icon.png", type: "image/png" }],
   },
   manifest: "/site.webmanifest",
 };
@@ -59,6 +60,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
+      <head>
+        <link rel="icon" href="/dreemi-icon.png" type="image/png" />
+        <link rel="shortcut icon" href="/dreemi-icon.png" />
+      </head>
       <body
         className={`${notoArabic.variable} ${inter.variable} ${nunito.variable} font-sans antialiased`}
       >
