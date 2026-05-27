@@ -81,7 +81,13 @@ function ageProfile(age: number): AgeProfile {
   };
 }
 
-function ageWordCount(age: number): number {
+const WORDS_PER_MINUTE: Record<StoryRequest["language"], number> = {
+  ar: 130,
+  fr: 140,
+  en: 150,
+};
+
+function minWordsByAge(age: number): number {
   if (age <= 3) return 250;
   if (age <= 5) return 400;
   if (age <= 7) return 600;
@@ -89,10 +95,15 @@ function ageWordCount(age: number): number {
   return 900;
 }
 
-function targetWordCount(age: number, duration?: number): number {
-  const base = ageWordCount(age);
-  const factor = (duration ?? 5) / 5;
-  return Math.round(base * factor);
+function targetWordCount(
+  age: number,
+  language: StoryRequest["language"],
+  duration?: number,
+): number {
+  const mins = duration ?? 5;
+  const targetByDuration = mins * WORDS_PER_MINUTE[language];
+  const minWords = minWordsByAge(age);
+  return Math.min(Math.max(targetByDuration, minWords), 1300);
 }
 
 function buildAgeProfileBlock(req: StoryRequest, profile: AgeProfile, wordCount: number): string {
@@ -133,7 +144,7 @@ Ecrivez une histoire COMPLETE et non tronquee: debut, milieu et fin clairs. Ne r
 
 function buildPrompt(req: StoryRequest): string {
   const profile = ageProfile(req.childAge);
-  const wordCount = targetWordCount(req.childAge, req.duration);
+  const wordCount = targetWordCount(req.childAge, req.language, req.duration);
   const ageBlock = buildAgeProfileBlock(req, profile, wordCount);
 
   let traitAr = "";
@@ -168,7 +179,7 @@ export async function generateStoryWithMistral(req: StoryRequest): Promise<Gener
   const apiKey = process.env.MISTRAL_API_KEY;
   if (!apiKey) throw new Error("MISTRAL_API_KEY is not set");
 
-  const wordCount = targetWordCount(req.childAge, req.duration);
+  const wordCount = targetWordCount(req.childAge, req.language, req.duration);
 
   const response = await fetch(MISTRAL_API_URL, {
     method: "POST",

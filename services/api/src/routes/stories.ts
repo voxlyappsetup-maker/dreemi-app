@@ -14,7 +14,7 @@ const GenerateSchema = z.object({
   theme:     z.string().min(1).max(100),
   moral:     z.string().max(100).optional(),
   language:  z.enum(["ar", "en", "fr"]).default("ar"),
-  duration:  z.number().int().min(3).max(15).default(5),
+  duration:  z.number().int().min(3).max(10).default(5),
   gender:    z.enum(["boy", "girl"]).default("boy"),
   skinTone:  z.enum(["light", "medium", "dark"]).default("medium"),
   hairColor: z.enum(["black", "brown", "blonde", "red"]).default("black"),

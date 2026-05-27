@@ -164,7 +164,6 @@
     "duration3": "Short",
     "duration5": "Medium",
     "duration10": "Long",
-    "duration15": "Epic",
     "durationMin": "{min} min",
     "generating": "Writing a magical story for your child, please wait...",
     "storyFor": "Story for {name}",

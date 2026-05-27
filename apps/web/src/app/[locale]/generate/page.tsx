@@ -446,8 +446,8 @@ function GenerateContent() {
               <div>
                 <span className="mb-2 block text-sm font-semibold text-slate-900">{t("storyDuration")}</span>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {([3, 5, 10, 15] as const).map((d) => {
-                    const labels: Record<number, string> = { 3: t("duration3"), 5: t("duration5"), 10: t("duration10"), 15: t("duration15") };
+                  {([3, 5, 10] as const).map((d) => {
+                    const labels: Record<number, string> = { 3: t("duration3"), 5: t("duration5"), 10: t("duration10") };
                     const active = duration === d;
                     return (
                       <button
