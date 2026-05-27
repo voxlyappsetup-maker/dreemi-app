@@ -73,7 +73,8 @@ export default function StoryViewPage({
       const isRtl = story.language === "ar";
       const LINE_H = 6;
       const FOOTER_ZONE = 20;
-      let cursorY = M;
+      const HEADER_TOP = M * 0.75;
+      let cursorY = HEADER_TOP;
       let pageNum = 1;
       const loadAsset = async (src: string) => {
         try {
@@ -135,11 +136,11 @@ export default function StoryViewPage({
       };
 
       const drawHeader = () => {
-        const brandW = 50;
+        const brandW = 35;
         if (brandAsset) {
           const brandH = brandW * brandAsset.aspect;
           pdf.addImage(brandAsset.dataUrl, "PNG", (W - brandW) / 2, cursorY, brandW, brandH);
-          cursorY += brandH + 2;
+          cursorY += brandH + 1.5;
         } else {
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(13);
@@ -158,7 +159,7 @@ export default function StoryViewPage({
         pageNum++;
         drawGradientBg();
         drawWatermark();
-        cursorY = M;
+        cursorY = HEADER_TOP;
         drawHeader();
         cursorY += 6;
       };
@@ -230,6 +231,10 @@ export default function StoryViewPage({
           cursorY += 10;
           ensureSpace(imgH + 20);
           pdf.addImage(imgData, "PNG", imgX, cursorY, imgWidth, imgH);
+          // Rounded frame (no size changes)
+          pdf.setDrawColor(221, 214, 254);
+          pdf.setLineWidth(1.5);
+          pdf.roundedRect(imgX, cursorY, imgWidth, imgH, 5, 5, "S");
           cursorY += imgH + 10;
         } catch {
           // skip if image fails
