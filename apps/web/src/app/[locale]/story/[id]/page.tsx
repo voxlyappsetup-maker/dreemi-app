@@ -235,7 +235,7 @@ export default function StoryViewPage({
           pdf.setDrawColor(221, 214, 254);
           pdf.setLineWidth(1.5);
           pdf.roundedRect(imgX, cursorY, imgWidth, imgH, 5, 5, "S");
-          cursorY += imgH + 5;
+          cursorY += imgH + 8;
         } catch {
           // skip if image fails
         }
