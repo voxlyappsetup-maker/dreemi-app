@@ -193,6 +193,12 @@ async function resolveUserIdFromWebhook(event: any): Promise<string | null> {
 }
 
 async function handleLemonSubscriptionEvent(eventName: string, event: any): Promise<void> {
+  // Payment success is notification-only; payload has no variant_id and must not touch plan.
+  if (eventName === "subscription_payment_success") {
+    console.log("[Webhook] ✓ subscription_payment_success: acknowledged (no plan update)");
+    return;
+  }
+
   const subId = String(event?.data?.id ?? "");
   const attrs = event?.data?.attributes ?? {};
   const variantId = Number(attrs?.variant_id ?? attrs?.variant?.id ?? 0);
