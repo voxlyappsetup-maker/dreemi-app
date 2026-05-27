@@ -5,8 +5,7 @@ import { LanguageSwitcher } from "../../components/LanguageSwitcher";
 import { LandingPricing } from "../../components/LandingPricing";
 import { DreemiLogo } from "../../components/DreemiLogo";
 
-const HERO_IMG =
-  "https://image.pollinations.ai/prompt/A%20happy%20child%20reading%20a%20glowing%20magical%20storybook%20in%20bed%20at%20night%2C%20soft%20violet%20and%20purple%20lighting%2C%20stars%20and%20sparkles%20floating%20around%2C%20children%20book%20watercolor%20illustration%20style%2C%20cute%20cozy%20bedroom?width=800&height=600&seed=42&nologo=true";
+const HERO_IMG = "/dreemi-hero.png";
 
 export default function HomePage({
   params: { locale },
@@ -105,13 +104,13 @@ export default function HomePage({
             </div>
           </div>
 
-          <div className="relative mx-auto max-w-lg lg:max-w-none">
-            <div className="overflow-hidden rounded-3xl border-4 border-white shadow-2xl">
+          <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
+            <div className="overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={HERO_IMG}
                 alt="Child reading a magical bedtime story"
-                className="aspect-[4/3] w-full object-cover"
+                className="aspect-[16/11] w-full object-cover"
                 loading="eager"
               />
             </div>

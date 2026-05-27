@@ -3,19 +3,16 @@ interface DreemiLogoProps {
 }
 
 export function DreemiLogo({ size = "md" }: DreemiLogoProps) {
-  const textClass =
-    size === "sm"
-      ? "text-lg"
-      : size === "lg"
-        ? "text-3xl"
-        : "text-xl";
+  const heightClass =
+    size === "sm" ? "h-8" : size === "lg" ? "h-14" : "h-10";
 
   return (
-    <span
-      className={`${textClass} font-extrabold tracking-tight bg-gradient-to-r from-violet-600 via-purple-500 to-violet-700 bg-clip-text text-transparent`}
-      style={{ fontFamily: "var(--font-nunito), var(--font-inter), sans-serif", letterSpacing: "-0.5px" }}
-    >
-      Dreemi
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/dreemi-logo.png"
+      alt="Dreemi"
+      className={`${heightClass} w-auto`}
+      draggable={false}
+    />
   );
 }
