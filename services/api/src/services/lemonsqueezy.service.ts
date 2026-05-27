@@ -103,9 +103,8 @@ export async function createCheckoutUrl(input: {
 }
 
 export async function cancelSubscription(subscriptionId: string): Promise<void> {
-  await lemonFetch(`/subscriptions/${encodeURIComponent(subscriptionId)}/cancel`, {
-    method: "POST",
-    body: JSON.stringify({}),
+  await lemonFetch(`/subscriptions/${encodeURIComponent(subscriptionId)}`, {
+    method: "DELETE",
   });
 }
 
