@@ -34,19 +34,19 @@ export function DashboardSidebar({ onLogout, plan = "FREE" }: DashboardSidebarPr
 
   return (
     <aside className="flex w-full flex-col border-b border-violet-200 bg-white/90 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:end-0 lg:z-40 lg:w-64 lg:border-b-0 lg:border-s lg:px-5 lg:py-8">
-      <Link href="/dashboard" className="mb-10 flex flex-col items-center gap-3">
+      <Link href="/dashboard" className="mb-10 flex flex-col items-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/dreemi-hero.png"
           alt="Dreemi"
-          className="h-16 w-auto"
+          className="h-20 w-auto"
           draggable={false}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/dreemi-logo.png"
           alt="Dreemi"
-          className="h-10 w-auto"
+          className="mt-1 h-12 w-auto"
           draggable={false}
         />
         <span

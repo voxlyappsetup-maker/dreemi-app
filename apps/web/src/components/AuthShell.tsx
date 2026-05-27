@@ -60,19 +60,19 @@ export function AuthShell({
 
         <div className="hidden flex-1 flex-col items-center justify-center bg-gradient-to-bl from-violet-100/80 via-violet-50/50 to-transparent px-12 lg:flex">
           <div className="max-w-md text-center">
-            <div className="mx-auto mb-6 flex flex-col items-center justify-center">
+            <div className="mx-auto mb-6 flex flex-col items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/dreemi-hero.png"
                 alt="Dreemi"
-                className="h-32 w-auto"
+                className="h-40 w-auto"
                 draggable={false}
               />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/dreemi-logo.png"
                 alt="Dreemi"
-                className="mt-4 h-14 w-auto"
+                className="mt-1 h-18 w-auto"
                 draggable={false}
               />
             </div>

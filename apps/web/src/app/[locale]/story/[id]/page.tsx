@@ -9,7 +9,6 @@ import { isAuthenticated } from "../../../../lib/storage";
 import { StoryContent } from "../../../../components/StoryContent";
 import { StoryPlayer } from "../../../../components/StoryPlayer";
 import { IconBook } from "../../../../components/icons";
-import { DreemiLogo } from "../../../../components/DreemiLogo";
 
 export default function StoryViewPage({
   params,
@@ -76,27 +75,31 @@ export default function StoryViewPage({
       const FOOTER_ZONE = 20;
       let cursorY = M;
       let pageNum = 1;
-      let logoDataUrl: string | null = null;
-      let logoAspect = 0.25;
+      const loadAsset = async (src: string) => {
+        try {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          await new Promise<void>((resolve, reject) => {
+            img.onload = () => resolve();
+            img.onerror = () => reject();
+            img.src = src;
+          });
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext("2d")!;
+          ctx.drawImage(img, 0, 0);
+          return {
+            dataUrl: canvas.toDataURL("image/png"),
+            aspect: img.naturalHeight / img.naturalWidth,
+          };
+        } catch {
+          return null;
+        }
+      };
 
-      try {
-        const logoImg = new Image();
-        logoImg.crossOrigin = "anonymous";
-        await new Promise<void>((resolve, reject) => {
-          logoImg.onload = () => resolve();
-          logoImg.onerror = () => reject();
-          logoImg.src = "/dreemi-logo.png";
-        });
-        const logoCanvas = document.createElement("canvas");
-        logoCanvas.width = logoImg.naturalWidth;
-        logoCanvas.height = logoImg.naturalHeight;
-        const logoCtx = logoCanvas.getContext("2d")!;
-        logoCtx.drawImage(logoImg, 0, 0);
-        logoAspect = logoImg.naturalHeight / logoImg.naturalWidth;
-        logoDataUrl = logoCanvas.toDataURL("image/png");
-      } catch {
-        logoDataUrl = null;
-      }
+      const heroAsset = await loadAsset("/dreemi-hero.png");
+      const logoAsset = await loadAsset("/dreemi-logo.png");
 
       const drawWatermark = () => {
         pdf.setFont("helvetica", "bold");
@@ -133,11 +136,44 @@ export default function StoryViewPage({
       };
 
       const drawHeader = () => {
-        const logoW = 40;
-        const logoH = Math.max(8, logoW * logoAspect);
-        if (logoDataUrl) {
-          pdf.addImage(logoDataUrl, "PNG", (W - logoW) / 2, cursorY, logoW, logoH);
-          cursorY += logoH + 2;
+        const HEADER_H = 15;
+        const heroW = 20;
+        const logoW = 35;
+        const gap = 2;
+
+        if (heroAsset && logoAsset) {
+          let heroH = heroW * heroAsset.aspect;
+          let logoH = logoW * logoAsset.aspect;
+          const maxH = Math.max(heroH, logoH);
+          if (maxH > HEADER_H) {
+            const scale = HEADER_H / maxH;
+            heroH *= scale;
+            logoH *= scale;
+          }
+          const totalW = heroW + gap + logoW;
+          const startX = (W - totalW) / 2;
+          pdf.addImage(
+            heroAsset.dataUrl,
+            "PNG",
+            startX,
+            cursorY + (HEADER_H - heroH) / 2,
+            heroW,
+            heroH,
+          );
+          pdf.addImage(
+            logoAsset.dataUrl,
+            "PNG",
+            startX + heroW + gap,
+            cursorY + (HEADER_H - logoH) / 2,
+            logoW,
+            logoH,
+          );
+          cursorY += HEADER_H + 2;
+        } else if (logoAsset) {
+          let logoH = logoW * logoAsset.aspect;
+          if (logoH > HEADER_H) logoH = HEADER_H;
+          pdf.addImage(logoAsset.dataUrl, "PNG", (W - logoW) / 2, cursorY + (HEADER_H - logoH) / 2, logoW, logoH);
+          cursorY += HEADER_H + 2;
         } else {
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(13);
@@ -188,13 +224,6 @@ export default function StoryViewPage({
             img.onerror = () => reject();
             img.src = story.imageUrl!;
           });
-          const canvas = document.createElement("canvas");
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          const ctx = canvas.getContext("2d")!;
-          ctx.drawImage(img, 0, 0);
-          const imgData = canvas.toDataURL("image/jpeg", 0.85);
-
           const imgWidth = 102;
           const aspect = img.naturalHeight / img.naturalWidth;
           const imgH = imgWidth * aspect;
@@ -203,6 +232,32 @@ export default function StoryViewPage({
           const frameW = imgWidth + PAD * 2;
           const frameH = imgH + PAD * 2;
           const frameX = M + (contentW - frameW) / 2;
+
+          const pxPerMm = 4;
+          const cW = Math.round(imgWidth * pxPerMm);
+          const cH = Math.round(imgH * pxPerMm);
+          const rPx = RADIUS * pxPerMm;
+          const canvas = document.createElement("canvas");
+          canvas.width = cW;
+          canvas.height = cH;
+          const ctx = canvas.getContext("2d")!;
+          const rr = Math.min(rPx, cW / 2, cH / 2);
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(rr, 0);
+          ctx.lineTo(cW - rr, 0);
+          ctx.quadraticCurveTo(cW, 0, cW, rr);
+          ctx.lineTo(cW, cH - rr);
+          ctx.quadraticCurveTo(cW, cH, cW - rr, cH);
+          ctx.lineTo(rr, cH);
+          ctx.quadraticCurveTo(0, cH, 0, cH - rr);
+          ctx.lineTo(0, rr);
+          ctx.quadraticCurveTo(0, 0, rr, 0);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(img, 0, 0, cW, cH);
+          ctx.restore();
+          const imgData = canvas.toDataURL("image/jpeg", 0.85);
 
           cursorY += 10;
           ensureSpace(frameH + 20);
@@ -351,7 +406,22 @@ export default function StoryViewPage({
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             <Link href={loggedIn ? "/dashboard" : "/"} className="transition hover:opacity-80">
-              <DreemiLogo size="md" />
+              <span className="flex items-center gap-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/dreemi-hero.png"
+                  alt="Dreemi"
+                  className="h-12 w-auto"
+                  draggable={false}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/dreemi-logo.png"
+                  alt="Dreemi"
+                  className="h-12 w-auto"
+                  draggable={false}
+                />
+              </span>
             </Link>
             {loggedIn && (
               <Link
