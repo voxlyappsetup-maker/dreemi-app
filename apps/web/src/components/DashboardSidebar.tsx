@@ -39,7 +39,7 @@ export function DashboardSidebar({ onLogout, plan = "FREE" }: DashboardSidebarPr
         <img
           src="/dreemi-brand.png"
           alt="Dreemi"
-          className="h-20 w-auto"
+          className="h-32 w-auto"
           draggable={false}
         />
         <span
