@@ -63,16 +63,9 @@ export function AuthShell({
             <div className="mx-auto mb-6 flex flex-col items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/dreemi-hero.png"
+                src="/dreemi-brand.png"
                 alt="Dreemi"
-                className="h-40 w-auto"
-                draggable={false}
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/dreemi-logo.png"
-                alt="Dreemi"
-                className="mt-1 h-18 w-auto"
+                className="h-36 w-auto"
                 draggable={false}
               />
             </div>

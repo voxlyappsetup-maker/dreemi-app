@@ -98,8 +98,7 @@ export default function StoryViewPage({
         }
       };
 
-      const heroAsset = await loadAsset("/dreemi-hero.png");
-      const logoAsset = await loadAsset("/dreemi-logo.png");
+      const brandAsset = await loadAsset("/dreemi-brand.png");
 
       const drawWatermark = () => {
         pdf.setFont("helvetica", "bold");
@@ -136,25 +135,11 @@ export default function StoryViewPage({
       };
 
       const drawHeader = () => {
-        const heroW = 25;
-        const logoW = 35;
-        const gapY = 1;
-
-        if (heroAsset && logoAsset) {
-          const heroH = heroW * heroAsset.aspect;
-          const logoH = logoW * logoAsset.aspect;
-
-          const heroX = (W - heroW) / 2;
-          const logoX = (W - logoW) / 2;
-
-          pdf.addImage(heroAsset.dataUrl, "PNG", heroX, cursorY, heroW, heroH);
-          pdf.addImage(logoAsset.dataUrl, "PNG", logoX, cursorY + heroH + gapY, logoW, logoH);
-
-          cursorY += heroH + gapY + logoH + 2;
-        } else if (logoAsset) {
-          const logoH = logoW * logoAsset.aspect;
-          pdf.addImage(logoAsset.dataUrl, "PNG", (W - logoW) / 2, cursorY, logoW, logoH);
-          cursorY += logoH + 2;
+        const brandW = 50;
+        if (brandAsset) {
+          const brandH = brandW * brandAsset.aspect;
+          pdf.addImage(brandAsset.dataUrl, "PNG", (W - brandW) / 2, cursorY, brandW, brandH);
+          cursorY += brandH + 2;
         } else {
           pdf.setFont("helvetica", "bold");
           pdf.setFontSize(13);
@@ -208,42 +193,44 @@ export default function StoryViewPage({
           const imgWidth = 102;
           const aspect = img.naturalHeight / img.naturalWidth;
           const imgH = imgWidth * aspect;
-          const PAD = 3;
           const RADIUS = 5;
-          const frameW = imgWidth + PAD * 2;
-          const frameH = imgH + PAD * 2;
-          const frameX = M + (contentW - frameW) / 2;
+          const imgX = M + (contentW - imgWidth) / 2;
 
+          const pxPerMm = 6;
+          const cW = Math.max(1, Math.round(imgWidth * pxPerMm));
+          const cH = Math.max(1, Math.round(imgH * pxPerMm));
+          const rr = Math.max(0, Math.round(RADIUS * pxPerMm));
           const canvas = document.createElement("canvas");
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
+          canvas.width = cW;
+          canvas.height = cH;
           const ctx = canvas.getContext("2d")!;
-          ctx.drawImage(img, 0, 0);
-          const imgData = canvas.toDataURL("image/jpeg", 0.85);
+
+          // Transparent background to avoid black corners
+          ctx.clearRect(0, 0, cW, cH);
+
+          const r = Math.min(rr, cW / 2, cH / 2);
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(r, 0);
+          ctx.lineTo(cW - r, 0);
+          ctx.quadraticCurveTo(cW, 0, cW, r);
+          ctx.lineTo(cW, cH - r);
+          ctx.quadraticCurveTo(cW, cH, cW - r, cH);
+          ctx.lineTo(r, cH);
+          ctx.quadraticCurveTo(0, cH, 0, cH - r);
+          ctx.lineTo(0, r);
+          ctx.quadraticCurveTo(0, 0, r, 0);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(img, 0, 0, cW, cH);
+          ctx.restore();
+
+          const imgData = canvas.toDataURL("image/png");
 
           cursorY += 10;
-          ensureSpace(frameH + 20);
-
-          // Frame (colored) + inner white background (prevents black corners)
-          pdf.setFillColor(221, 214, 254);
-          pdf.roundedRect(frameX, cursorY, frameW, frameH, RADIUS, RADIUS, "F");
-          pdf.setDrawColor(221, 214, 254);
-          pdf.setLineWidth(0.7);
-          pdf.roundedRect(frameX, cursorY, frameW, frameH, RADIUS, RADIUS, "S");
-
-          const imgX = frameX + PAD;
-          const imgY = cursorY + PAD;
-          pdf.setFillColor(255, 255, 255);
-          pdf.rect(imgX, imgY, imgWidth, imgH, "F");
-          pdf.addImage(imgData, "JPEG", imgX, imgY, imgWidth, imgH);
-
-          // Hide image hard corners (illusion of rounded corners)
-          pdf.setFillColor(255, 255, 255);
-          pdf.rect(imgX, imgY, RADIUS, RADIUS, "F");
-          pdf.rect(imgX + imgWidth - RADIUS, imgY, RADIUS, RADIUS, "F");
-          pdf.rect(imgX, imgY + imgH - RADIUS, RADIUS, RADIUS, "F");
-          pdf.rect(imgX + imgWidth - RADIUS, imgY + imgH - RADIUS, RADIUS, RADIUS, "F");
-          cursorY += frameH + 10;
+          ensureSpace(imgH + 20);
+          pdf.addImage(imgData, "PNG", imgX, cursorY, imgWidth, imgH);
+          cursorY += imgH + 10;
         } catch {
           // skip if image fails
         }
@@ -379,22 +366,13 @@ export default function StoryViewPage({
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             <Link href={loggedIn ? "/dashboard" : "/"} className="transition hover:opacity-80">
-              <span className="flex items-center gap-2">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/dreemi-hero.png"
-                  alt="Dreemi"
-                  className="h-12 w-auto"
-                  draggable={false}
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/dreemi-logo.png"
-                  alt="Dreemi"
-                  className="h-12 w-auto"
-                  draggable={false}
-                />
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/dreemi-brand.png"
+                alt="Dreemi"
+                className="h-14 w-auto"
+                draggable={false}
+              />
             </Link>
             {loggedIn && (
               <Link

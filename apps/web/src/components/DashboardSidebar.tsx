@@ -37,16 +37,9 @@ export function DashboardSidebar({ onLogout, plan = "FREE" }: DashboardSidebarPr
       <Link href="/dashboard" className="mb-10 flex flex-col items-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/dreemi-hero.png"
+          src="/dreemi-brand.png"
           alt="Dreemi"
           className="h-20 w-auto"
-          draggable={false}
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/dreemi-logo.png"
-          alt="Dreemi"
-          className="mt-1 h-12 w-auto"
           draggable={false}
         />
         <span
