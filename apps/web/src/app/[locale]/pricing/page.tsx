@@ -8,7 +8,7 @@ import { getStoredUser, isAuthenticated } from "../../../lib/storage";
 import { LanguageSwitcher } from "../../../components/LanguageSwitcher";
 import { DreemiLogo } from "../../../components/DreemiLogo";
 
-const PENDING_PLAN_KEY = "pendingPlanPriceId";
+const PENDING_PLAN_KEY = "pendingPlanVariantId";
 
 type BillingCycle = "monthly" | "yearly";
 
@@ -20,8 +20,8 @@ interface PlanCard {
   sub: string;
   features: string[];
   highlighted: boolean;
-  priceEnvMonthly: string | undefined;
-  priceEnvYearly: string | undefined;
+  variantMonthly?: number;
+  variantYearly?: number;
   isFree: boolean;
   isContact: boolean;
 }
@@ -48,7 +48,7 @@ export default function PricingPage() {
       const pending = localStorage.getItem(PENDING_PLAN_KEY);
       if (pending && auth) {
         localStorage.removeItem(PENDING_PLAN_KEY);
-        startCheckout(pending);
+        startCheckout(Number(pending));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,8 +63,6 @@ export default function PricingPage() {
       sub: "",
       features: t.raw("planFreeFeatures") as string[],
       highlighted: false,
-      priceEnvMonthly: undefined,
-      priceEnvYearly: undefined,
       isFree: true,
       isContact: false,
     },
@@ -76,8 +74,8 @@ export default function PricingPage() {
       sub: cycle === "yearly" ? t("perYear") : t("perMonth"),
       features: t.raw("planIndFeatures") as string[],
       highlighted: true,
-      priceEnvMonthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_INDIVIDUAL_MONTHLY,
-      priceEnvYearly: process.env.NEXT_PUBLIC_STRIPE_PRICE_INDIVIDUAL_YEARLY,
+      variantMonthly: 1712541,
+      variantYearly: 1712569,
       isFree: false,
       isContact: false,
     },
@@ -89,8 +87,8 @@ export default function PricingPage() {
       sub: cycle === "yearly" ? t("perYear") : t("perMonth"),
       features: t.raw("planFamilyFeatures") as string[],
       highlighted: false,
-      priceEnvMonthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_FAMILY_MONTHLY,
-      priceEnvYearly: process.env.NEXT_PUBLIC_STRIPE_PRICE_FAMILY_YEARLY,
+      variantMonthly: 1712590,
+      variantYearly: 1712596,
       isFree: false,
       isContact: false,
     },
@@ -102,19 +100,19 @@ export default function PricingPage() {
       sub: cycle === "yearly" ? t("perYear") : t("perMonth"),
       features: t.raw("planSchoolFeatures") as string[],
       highlighted: false,
-      priceEnvMonthly: undefined,
-      priceEnvYearly: undefined,
+      variantMonthly: 1712619,
+      variantYearly: 1712634,
       isFree: false,
-      isContact: true,
+      isContact: false,
     },
   ];
 
-  async function startCheckout(priceId: string) {
+  async function startCheckout(variantId: number) {
     setError(null);
     setLoadingPlan("PENDING");
     try {
-      const url = await createCheckout(priceId);
-      if (url) window.location.href = url;
+      const url = await createCheckout(variantId);
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
     } catch (err) {
       setError(err instanceof ApiError ? err.message : t("checkoutError"));
     } finally {
@@ -125,18 +123,18 @@ export default function PricingPage() {
   async function handleSubscribe(plan: PlanCard) {
     if (plan.isFree) { router.push("/register"); return; }
     if (plan.isContact) { window.location.href = "mailto:contact@dreemi.app?subject=School Plan"; return; }
-    const priceId = cycle === "yearly" ? plan.priceEnvYearly : plan.priceEnvMonthly;
-    if (!priceId) { setError(t("priceNotConfigured")); return; }
+    const variantId = cycle === "yearly" ? plan.variantYearly : plan.variantMonthly;
+    if (!variantId) { setError(t("priceNotConfigured")); return; }
     if (!loggedIn) {
-      localStorage.setItem(PENDING_PLAN_KEY, priceId);
+      localStorage.setItem(PENDING_PLAN_KEY, String(variantId));
       router.push("/login");
       return;
     }
     setError(null);
     setLoadingPlan(plan.key);
     try {
-      const url = await createCheckout(priceId);
-      if (url) window.location.href = url;
+      const url = await createCheckout(variantId);
+      if (url) window.open(url, "_blank", "noopener,noreferrer");
     } catch (err) {
       setError(err instanceof ApiError ? err.message : t("checkoutError"));
     } finally {

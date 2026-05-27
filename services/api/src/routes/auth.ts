@@ -8,7 +8,7 @@ import {
   verifyRefreshToken,
 } from "../services/jwt.service";
 import { authenticateToken } from "../middleware/auth.middleware";
-import { stripe } from "../services/stripe.service";
+import { cancelSubscription } from "../services/lemonsqueezy.service";
 
 export const authRouter = Router();
 
@@ -519,13 +519,13 @@ authRouter.delete("/delete-account", authenticateToken, async (req: Request, res
       return;
     }
 
-    // Cancel active Stripe subscription if exists
+    // Cancel active Lemon Squeezy subscription if exists
     if (user.subscription?.stripeSubscriptionId) {
       try {
-        await stripe.subscriptions.cancel(user.subscription.stripeSubscriptionId);
-        console.log(`[Auth] cancelled Stripe sub ${user.subscription.stripeSubscriptionId}`);
+        await cancelSubscription(user.subscription.stripeSubscriptionId);
+        console.log(`[Auth] cancelled Lemon sub ${user.subscription.stripeSubscriptionId}`);
       } catch (err) {
-        console.warn("[Auth] failed to cancel Stripe subscription:", err);
+        console.warn("[Auth] failed to cancel Lemon subscription:", err);
       }
     }
 

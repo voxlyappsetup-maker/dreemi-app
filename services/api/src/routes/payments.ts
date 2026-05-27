@@ -1,30 +1,30 @@
 import { Router, Request, Response } from "express";
 import { z } from "zod";
 import { prisma } from "../services/prisma.service";
-import {
-  stripe,
-  createCheckoutSession,
-  createPortalSession,
-  planFromPriceId,
-} from "../services/stripe.service";
 import { authenticateToken } from "../middleware/auth.middleware";
+import {
+  cancelSubscription,
+  createCheckoutUrl,
+  getSubscription,
+  verifyLemonSqueezyWebhook,
+} from "../services/lemonsqueezy.service";
 
 export const paymentsRouter = Router();
 
 /* ------------------------------------------------------------------ */
-/*  POST /api/payments/create-checkout  (protected)                   */
+/*  POST /api/payments/checkout  (protected)                          */
 /* ------------------------------------------------------------------ */
 
 const CheckoutSchema = z.object({
-  priceId: z.string().min(1),
+  variantId: z.number().int().positive(),
 });
 
 paymentsRouter.post(
-  "/create-checkout",
+  "/checkout",
   authenticateToken,
   async (req: Request, res: Response) => {
     try {
-      const { priceId } = CheckoutSchema.parse(req.body);
+      const { variantId } = CheckoutSchema.parse(req.body);
       const userId = req.userId!;
 
       const user = await prisma.user.findUnique({ where: { id: userId } });
@@ -33,14 +33,15 @@ paymentsRouter.post(
         return;
       }
 
-      const session = await createCheckoutSession(
+      const redirectUrl = `${process.env.FRONTEND_URL ?? "http://localhost:3000"}/dashboard?success=true`;
+      const url = await createCheckoutUrl({
+        variantId,
         userId,
-        priceId,
-        user.email,
-        user.stripeId,
-      );
+        userEmail: user.email,
+        redirectUrl,
+      });
 
-      res.json({ success: true, url: session.url });
+      res.json({ success: true, url });
     } catch (err) {
       if (err instanceof z.ZodError) {
         res.status(400).json({ success: false, error: err.errors });
@@ -53,39 +54,36 @@ paymentsRouter.post(
 );
 
 /* ------------------------------------------------------------------ */
-/*  POST /api/payments/create-portal  (protected)                     */
+/*  GET /api/payments/subscription  (protected)                       */
 /* ------------------------------------------------------------------ */
 
-paymentsRouter.post(
-  "/create-portal",
+paymentsRouter.get(
+  "/subscription",
   authenticateToken,
   async (req: Request, res: Response) => {
     try {
       const userId = req.userId!;
-      const user = await prisma.user.findUnique({ where: { id: userId } });
-
-      if (!user?.stripeId) {
-        res
-          .status(400)
-          .json({ success: false, error: "لا يوجد اشتراك مرتبط بحسابك" });
+      const subscription = await prisma.subscription.findUnique({ where: { userId } });
+      if (!subscription) {
+        res.status(404).json({ success: false, error: "لا يوجد اشتراك" });
         return;
       }
 
-      const session = await createPortalSession(user.stripeId);
-      res.json({ success: true, url: session.url });
+      const remote = await getSubscription(subscription.stripeSubscriptionId);
+      res.json({ success: true, subscription, remote });
     } catch (err) {
-      console.error("[Payments] portal error:", err);
-      res.status(500).json({ success: false, error: "فشل فتح بوابة الاشتراك" });
+      console.error("[Payments] subscription error:", err);
+      res.status(500).json({ success: false, error: "فشل جلب بيانات الاشتراك" });
     }
   },
 );
 
 /* ------------------------------------------------------------------ */
-/*  POST /api/payments/cancel-subscription  (protected)               */
+/*  POST /api/payments/cancel  (protected)                            */
 /* ------------------------------------------------------------------ */
 
 paymentsRouter.post(
-  "/cancel-subscription",
+  "/cancel",
   authenticateToken,
   async (req: Request, res: Response) => {
     try {
@@ -99,36 +97,14 @@ paymentsRouter.post(
         return;
       }
 
-      // Cancel at period end — user keeps access until billing cycle ends
-      await stripe.subscriptions.update(
-        subscription.stripeSubscriptionId,
-        { cancel_at_period_end: true },
-      );
-
-      // Retrieve full subscription to reliably read current_period_end
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fresh: any = await stripe.subscriptions.retrieve(
-        subscription.stripeSubscriptionId,
-      );
-
+      await cancelSubscription(subscription.stripeSubscriptionId);
       await prisma.subscription.update({
         where: { userId },
         data: { cancelAtPeriodEnd: true },
       });
-
-      const rawEnd = fresh.current_period_end;
-      const periodEnd = rawEnd
-        ? new Date(rawEnd * 1000)
-        : subscription.currentPeriodEnd;
-
-      console.log(
-        `[Payments] ✓ subscription cancel scheduled: user=${userId} ends=${periodEnd.toISOString()}`,
-      );
-
       res.json({
         success: true,
-        message: "سيتم إلغاء الاشتراك في نهاية الفترة الحالية",
-        periodEnd: periodEnd.toISOString(),
+        message: "تم إرسال طلب إلغاء الاشتراك",
       });
     } catch (err) {
       console.error("[Payments] cancel-subscription error:", err);
@@ -138,53 +114,29 @@ paymentsRouter.post(
 );
 
 /* ------------------------------------------------------------------ */
-/*  POST /api/payments/webhook  (NOT protected — called by Stripe)    */
+/*  POST /api/payments/webhook  (NOT protected — called by Lemon)     */
 /* ------------------------------------------------------------------ */
 
 paymentsRouter.post(
   "/webhook",
   async (req: Request, res: Response) => {
-    const sig = req.headers["stripe-signature"];
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let event: any;
-
-    if (webhookSecret && sig) {
-      try {
-        event = stripe.webhooks.constructEvent(
-          req.body as Buffer,
-          sig as string,
-          webhookSecret,
-        );
-      } catch (err) {
-        console.error("[Webhook] signature verification failed:", err);
-        res.status(400).json({ error: "Invalid signature" });
+    try {
+      const raw = req.body as Buffer;
+      const signature = req.headers["x-signature"] as string | undefined;
+      const ok = verifyLemonSqueezyWebhook(raw, signature);
+      if (!ok) {
+        res.status(401).json({ error: "Invalid signature" });
         return;
       }
-    } else {
-      event = req.body;
-    }
 
-    try {
-      const eventType = event.type as string;
-
-      switch (eventType) {
-        case "checkout.session.completed":
-          await handleCheckoutCompleted(event.data.object);
-          break;
-
-        case "customer.subscription.updated":
-          await handleSubscriptionUpdated(event.data.object);
-          break;
-
-        case "customer.subscription.deleted":
-          await handleSubscriptionDeleted(event.data.object);
-          break;
-
-        default:
-          console.log(`[Webhook] unhandled event: ${eventType}`);
+      const event = JSON.parse(raw.toString("utf8")) as any;
+      const eventName = event?.meta?.event_name as string | undefined;
+      if (!eventName) {
+        res.status(400).json({ error: "Missing event_name" });
+        return;
       }
+
+      await handleLemonSubscriptionEvent(eventName, event);
 
       res.json({ received: true });
     } catch (err) {
@@ -198,153 +150,90 @@ paymentsRouter.post(
 /*  Webhook Handlers                                                  */
 /* ------------------------------------------------------------------ */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function handleCheckoutCompleted(session: any): Promise<void> {
-  const userId = session.metadata?.userId as string | undefined;
-  if (!userId) {
-    console.warn("[Webhook] checkout.session.completed missing userId metadata");
-    return;
-  }
-
-  const customerId =
-    typeof session.customer === "string"
-      ? session.customer
-      : session.customer?.id;
-
-  const subscriptionId =
-    typeof session.subscription === "string"
-      ? session.subscription
-      : session.subscription?.id;
-
-  if (!subscriptionId) {
-    console.warn("[Webhook] checkout.session.completed missing subscription");
-    return;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sub: any = await stripe.subscriptions.retrieve(subscriptionId);
-  const priceId: string = sub.items.data[0]?.price.id ?? "";
-  const plan = planFromPriceId(priceId);
-
-  const periodStart = new Date(
-    (sub.current_period_start ?? sub.items?.data?.[0]?.current_period_start ?? 0) * 1000,
-  );
-  const periodEnd = new Date(
-    (sub.current_period_end ?? sub.items?.data?.[0]?.current_period_end ?? 0) * 1000,
-  );
-
-  if (customerId) {
-    await prisma.user.update({
-      where: { id: userId },
-      data: { stripeId: customerId, plan },
-    });
-  }
-
-  await prisma.subscription.upsert({
-    where: { userId },
-    create: {
-      userId,
-      stripeSubscriptionId: subscriptionId,
-      stripePriceId: priceId,
-      status: mapStripeStatus(sub.status),
-      plan,
-      currentPeriodStart: periodStart,
-      currentPeriodEnd: periodEnd,
-      cancelAtPeriodEnd: sub.cancel_at_period_end ?? false,
-    },
-    update: {
-      stripeSubscriptionId: subscriptionId,
-      stripePriceId: priceId,
-      status: mapStripeStatus(sub.status),
-      plan,
-      currentPeriodStart: periodStart,
-      currentPeriodEnd: periodEnd,
-      cancelAtPeriodEnd: sub.cancel_at_period_end ?? false,
-    },
-  });
-
-  console.log(
-    `[Webhook] ✓ checkout completed: user=${userId} plan=${plan} sub=${subscriptionId}`,
-  );
+function planFromVariantId(variantId: number): "INDIVIDUAL" | "FAMILY" | "SCHOOL" | "FREE" {
+  const id = Number(variantId);
+  if ([1712541, 1712569].includes(id)) return "INDIVIDUAL";
+  if ([1712590, 1712596].includes(id)) return "FAMILY";
+  if ([1712619, 1712634].includes(id)) return "SCHOOL";
+  return "FREE";
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function handleSubscriptionUpdated(sub: any): Promise<void> {
-  const existing = await prisma.subscription.findUnique({
-    where: { stripeSubscriptionId: sub.id },
-  });
-
-  if (!existing) {
-    console.warn(`[Webhook] subscription.updated for unknown sub: ${sub.id}`);
-    return;
-  }
-
-  const priceId = sub.items?.data?.[0]?.price?.id ?? existing.stripePriceId;
-  const plan = planFromPriceId(priceId);
-
-  await prisma.subscription.update({
-    where: { stripeSubscriptionId: sub.id },
-    data: {
-      stripePriceId: priceId,
-      status: mapStripeStatus(sub.status),
-      plan,
-      currentPeriodStart: new Date(sub.current_period_start * 1000),
-      currentPeriodEnd: new Date(sub.current_period_end * 1000),
-      cancelAtPeriodEnd: sub.cancel_at_period_end ?? false,
-    },
-  });
-
-  await prisma.user.update({
-    where: { id: existing.userId },
-    data: { plan },
-  });
-
-  console.log(
-    `[Webhook] ✓ subscription updated: sub=${sub.id} plan=${plan} status=${sub.status}`,
-  );
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function handleSubscriptionDeleted(sub: any): Promise<void> {
-  const existing = await prisma.subscription.findUnique({
-    where: { stripeSubscriptionId: sub.id },
-  });
-
-  if (!existing) {
-    console.warn(`[Webhook] subscription.deleted for unknown sub: ${sub.id}`);
-    return;
-  }
-
-  await prisma.subscription.update({
-    where: { stripeSubscriptionId: sub.id },
-    data: { status: "canceled", cancelAtPeriodEnd: false },
-  });
-
-  await prisma.user.update({
-    where: { id: existing.userId },
-    data: { plan: "FREE" },
-  });
-
-  console.log(
-    `[Webhook] ✓ subscription deleted: sub=${sub.id} user=${existing.userId} → FREE`,
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Helpers                                                           */
-/* ------------------------------------------------------------------ */
-
-function mapStripeStatus(
-  status: string,
-): "active" | "canceled" | "past_due" | "trialing" {
+function mapLemonStatus(status: string): "active" | "canceled" | "past_due" | "trialing" {
   switch (status) {
     case "active":
       return "active";
     case "trialing":
       return "trialing";
     case "past_due":
+    case "unpaid":
       return "past_due";
     default:
       return "canceled";
   }
+}
+
+async function handleLemonSubscriptionEvent(eventName: string, event: any): Promise<void> {
+  const userId = String(event?.meta?.custom_data?.user_id ?? "");
+  const subId = String(event?.data?.id ?? "");
+  const attrs = event?.data?.attributes ?? {};
+  const variantId = Number(attrs?.variant_id ?? attrs?.variant?.id ?? 0);
+  const plan = planFromVariantId(variantId);
+  const status = mapLemonStatus(String(attrs?.status ?? ""));
+
+  if (!subId) {
+    console.warn(`[Webhook] missing subscription id for ${eventName}`);
+    return;
+  }
+
+  if (eventName === "subscription_cancelled" || eventName === "subscription_expired") {
+    const existing = await prisma.subscription.findUnique({ where: { stripeSubscriptionId: subId } });
+    if (existing) {
+      await prisma.subscription.update({
+        where: { stripeSubscriptionId: subId },
+        data: { status: "canceled", cancelAtPeriodEnd: false, plan: existing.plan },
+      });
+      await prisma.user.update({ where: { id: existing.userId }, data: { plan: "FREE" } });
+    } else if (userId) {
+      await prisma.user.update({ where: { id: userId }, data: { plan: "FREE" } });
+    }
+    console.log(`[Webhook] ✓ ${eventName}: sub=${subId} → FREE`);
+    return;
+  }
+
+  if (!userId) {
+    console.warn(`[Webhook] ${eventName} missing meta.custom_data.user_id`);
+    return;
+  }
+
+  const renewsAt = attrs?.renews_at ? new Date(String(attrs.renews_at)) : new Date();
+  const currentStart = attrs?.created_at ? new Date(String(attrs.created_at)) : new Date();
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { plan, stripeId: attrs?.customer_id ? String(attrs.customer_id) : undefined },
+  });
+
+  await prisma.subscription.upsert({
+    where: { userId },
+    create: {
+      userId,
+      stripeSubscriptionId: subId,
+      stripePriceId: String(variantId || ""),
+      status,
+      plan: plan === "FREE" ? "FREE" : plan,
+      currentPeriodStart: currentStart,
+      currentPeriodEnd: renewsAt,
+      cancelAtPeriodEnd: Boolean(attrs?.cancelled ?? false),
+    },
+    update: {
+      stripeSubscriptionId: subId,
+      stripePriceId: String(variantId || ""),
+      status,
+      plan: plan === "FREE" ? "FREE" : plan,
+      currentPeriodEnd: renewsAt,
+      cancelAtPeriodEnd: Boolean(attrs?.cancelled ?? false),
+    },
+  });
+
+  console.log(`[Webhook] ✓ ${eventName}: user=${userId} plan=${plan} sub=${subId}`);
 }

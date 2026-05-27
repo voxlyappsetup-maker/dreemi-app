@@ -8,9 +8,9 @@ import {
   ApiError,
   cancelSubscription,
   changePassword,
-  createPortal,
   deleteAccount,
   exportUserData,
+  getSubscription,
   getMe,
   updateProfile,
 } from "../../../lib/api";
@@ -137,8 +137,9 @@ export default function SettingsPage() {
   async function handleCancel() {
     setCancelLoading(true); setCancelError(null);
     try {
-      const end = await cancelSubscription();
-      setCancelledUntil(end); setIsCancelled(true);
+      await cancelSubscription();
+      setCancelledUntil(null);
+      setIsCancelled(true);
     } catch (err) {
       setCancelError(err instanceof ApiError ? err.message : t("cancelError"));
     } finally { setCancelLoading(false); }
@@ -146,7 +147,17 @@ export default function SettingsPage() {
 
   async function handlePortal() {
     setPortalLoading(true);
-    try { window.location.href = await createPortal(); } catch { setPortalLoading(false); }
+    try {
+      const data = await getSubscription();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const remote = (data as any)?.remote;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const portalUrl = remote?.data?.attributes?.urls?.customer_portal as string | undefined;
+      if (portalUrl) window.location.href = portalUrl;
+      else throw new ApiError(400, "No portal URL");
+    } catch {
+      setPortalLoading(false);
+    }
   }
 
   async function handleExport() {

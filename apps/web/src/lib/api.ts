@@ -126,24 +126,24 @@ export async function getChild(id: string): Promise<Child> {
   return child;
 }
 
-/** Create a Stripe Checkout session and return the redirect URL. */
-export async function createCheckout(priceId: string): Promise<string> {
+/** Create a Lemon Squeezy Checkout session and return the redirect URL. */
+export async function createCheckout(variantId: number): Promise<string> {
   const data = await apiFetch<{ success: boolean; url: string }>(
-    "/api/payments/create-checkout",
-    { method: "POST", body: JSON.stringify({ priceId }) },
+    "/api/payments/checkout",
+    { method: "POST", body: JSON.stringify({ variantId }) },
     true,
   );
   return data.url;
 }
 
-/** Create a Stripe Customer Portal session and return the redirect URL. */
-export async function createPortal(): Promise<string> {
-  const data = await apiFetch<{ success: boolean; url: string }>(
-    "/api/payments/create-portal",
-    { method: "POST" },
+/** Fetch subscription details (includes provider URLs when available). */
+export async function getSubscription(): Promise<unknown> {
+  const data = await apiFetch<{ success: boolean; subscription: unknown; remote: unknown }>(
+    "/api/payments/subscription",
+    {},
     true,
   );
-  return data.url;
+  return data;
 }
 
 /* ── Children CRUD ─────────────────────────────────────── */
@@ -286,11 +286,10 @@ export async function deleteAccount(): Promise<void> {
 }
 
 /** Cancel subscription at period end. Returns the date access ends. */
-export async function cancelSubscription(): Promise<string> {
-  const data = await apiFetch<{ success: boolean; periodEnd: string }>(
-    "/api/payments/cancel-subscription",
+export async function cancelSubscription(): Promise<void> {
+  await apiFetch(
+    "/api/payments/cancel",
     { method: "POST" },
     true,
   );
-  return data.periodEnd;
 }
