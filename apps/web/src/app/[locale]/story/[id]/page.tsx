@@ -9,6 +9,7 @@ import { isAuthenticated } from "../../../../lib/storage";
 import { StoryContent } from "../../../../components/StoryContent";
 import { StoryPlayer } from "../../../../components/StoryPlayer";
 import { IconBook } from "../../../../components/icons";
+import { PublicHeader } from "../../../../components/PublicHeader";
 
 export default function StoryViewPage({
   params,
@@ -20,7 +21,7 @@ export default function StoryViewPage({
   const [story, setStory] = useState<Story | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn] = useState(() => isAuthenticated());
   const [exporting, setExporting] = useState(false);
   const storyRef = useRef<HTMLElement>(null);
 
@@ -45,7 +46,6 @@ export default function StoryViewPage({
     }
 
     load();
-    setLoggedIn(isAuthenticated());
     return () => { cancelled = true; };
   }, [params.id]);
 
@@ -367,54 +367,47 @@ export default function StoryViewPage({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-100 via-violet-50 to-white" dir={dir}>
-      <header className="border-b border-violet-100 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-3">
-            <Link href={loggedIn ? "/dashboard" : "/"} className="transition hover:opacity-80">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/dreemi-brand.png"
-                alt="Dreemi"
-                className="h-28 w-auto"
-                draggable={false}
-              />
-            </Link>
-            {loggedIn && (
+      {loggedIn ? (
+        <header className="border-b border-violet-100 bg-white/80 backdrop-blur">
+          <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
+            <div className="flex items-center gap-3">
+              <Link href="/dashboard" className="transition hover:opacity-80">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/dreemi-brand.png"
+                  alt="Dreemi"
+                  className="h-28 w-auto"
+                  draggable={false}
+                />
+              </Link>
               <Link
                 href="/dashboard"
                 className="rounded-xl border border-violet-200 bg-white px-3 py-1.5 text-xs font-semibold text-violet-700 transition hover:bg-violet-50"
               >
                 ← {t("backHome")}
               </Link>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={exportPdf}
-              disabled={exporting}
-              className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50 disabled:opacity-50"
-            >
-              {exporting ? t("exportingPdf") : t("exportPdf")}
-            </button>
-            {loggedIn ? (
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={exportPdf}
+                disabled={exporting}
+                className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50 disabled:opacity-50"
+              >
+                {exporting ? t("exportingPdf") : t("exportPdf")}
+              </button>
               <Link
                 href="/generate"
                 className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
               >
                 {t("createYourOwn")}
               </Link>
-            ) : (
-              <Link
-                href="/register"
-                className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-violet-700"
-              >
-                {t("createYourOwn")}
-              </Link>
-            )}
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      ) : (
+        <PublicHeader />
+      )}
 
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-8 sm:py-12">
         <article

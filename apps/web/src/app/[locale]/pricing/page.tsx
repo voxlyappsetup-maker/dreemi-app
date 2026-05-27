@@ -5,8 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, useRouter } from "../../../i18n/routing";
 import { createCheckout, ApiError } from "../../../lib/api";
 import { getStoredUser, isAuthenticated } from "../../../lib/storage";
-import { LanguageSwitcher } from "../../../components/LanguageSwitcher";
-import { DreemiLogo } from "../../../components/DreemiLogo";
+import { PublicHeader } from "../../../components/PublicHeader";
 
 const PENDING_PLAN_KEY = "pendingPlanVariantId";
 
@@ -30,7 +29,6 @@ export default function PricingPage() {
   const router = useRouter();
   const t = useTranslations("pricing");
   const tc = useTranslations("common");
-  const ts = useTranslations("sidebar");
   const [cycle, setCycle] = useState<BillingCycle>("monthly");
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -156,20 +154,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white">
       <div className="mx-auto max-w-7xl px-6">
-        <header className="flex items-center justify-between py-6">
-          <Link href="/" className="transition hover:opacity-80"><DreemiLogo size="md" /></Link>
-          <nav className="flex items-center gap-2 sm:gap-3">
-            <LanguageSwitcher />
-            {loggedIn ? (
-              <Link href="/dashboard" className="rounded-2xl bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-violet-700">{ts("dashboard")}</Link>
-            ) : (
-              <>
-                <Link href="/login" className="rounded-2xl px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-white/80">{tc("login")}</Link>
-                <Link href="/register" className="rounded-2xl bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-violet-700">{tc("register")}</Link>
-              </>
-            )}
-          </nav>
-        </header>
+        <PublicHeader />
       </div>
 
       <section className="mx-auto max-w-7xl px-6 pt-12 text-center sm:pt-16">

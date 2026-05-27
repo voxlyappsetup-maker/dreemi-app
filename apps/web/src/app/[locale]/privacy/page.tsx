@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "../../../i18n/routing";
-import { LanguageSwitcher } from "../../../components/LanguageSwitcher";
+import { PublicHeader } from "../../../components/PublicHeader";
 
 export default function PrivacyPage({
   params: { locale },
@@ -55,23 +55,7 @@ export default function PrivacyPage({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-100 via-violet-50 to-white">
-      <header className="border-b border-violet-100 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-3 transition hover:opacity-80">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/dreemi-brand.png" alt="Dreemi" className="h-12 w-auto" draggable={false} />
-          </Link>
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            <Link
-              href="/"
-              className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-sm font-semibold text-violet-700 transition hover:bg-violet-50"
-            >
-              {tc("backToHome")}
-            </Link>
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
         <div className="rounded-2xl border border-violet-100 bg-white p-6 shadow-md sm:p-10">
