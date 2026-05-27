@@ -48,7 +48,7 @@ export default function HomePage({
             <img
               src="/dreemi-brand.png"
               alt="Dreemi"
-              className="h-14 w-auto"
+              className="h-28 w-auto"
               draggable={false}
             />
           </Link>
