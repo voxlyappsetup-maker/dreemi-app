@@ -29,7 +29,7 @@ paymentsRouter.post(
 
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (!user) {
-        res.status(404).json({ success: false, error: "المستخدم غير موجود" });
+        res.status(404).json({ success: false, error: "USER_NOT_FOUND" });
         return;
       }
 
@@ -48,7 +48,7 @@ paymentsRouter.post(
         return;
       }
       console.error("[Payments] checkout error:", err);
-      res.status(500).json({ success: false, error: "فشل إنشاء جلسة الدفع" });
+      res.status(500).json({ success: false, error: "CHECKOUT_CREATE_FAILED" });
     }
   },
 );
@@ -65,7 +65,7 @@ paymentsRouter.get(
       const userId = req.userId!;
       const subscription = await prisma.subscription.findUnique({ where: { userId } });
       if (!subscription) {
-        res.status(404).json({ success: false, error: "لا يوجد اشتراك" });
+        res.status(404).json({ success: false, error: "SUBSCRIPTION_NOT_FOUND" });
         return;
       }
 
@@ -73,7 +73,7 @@ paymentsRouter.get(
       res.json({ success: true, subscription, remote });
     } catch (err) {
       console.error("[Payments] subscription error:", err);
-      res.status(500).json({ success: false, error: "فشل جلب بيانات الاشتراك" });
+      res.status(500).json({ success: false, error: "SUBSCRIPTION_FETCH_FAILED" });
     }
   },
 );
@@ -93,7 +93,7 @@ paymentsRouter.post(
       });
 
       if (!subscription || subscription.status === "canceled") {
-        res.status(400).json({ success: false, error: "لا يوجد اشتراك نشط" });
+        res.status(400).json({ success: false, error: "NO_ACTIVE_SUBSCRIPTION" });
         return;
       }
 
@@ -104,11 +104,11 @@ paymentsRouter.post(
       });
       res.json({
         success: true,
-        message: "تم إرسال طلب إلغاء الاشتراك",
+        message: "SUBSCRIPTION_CANCEL_REQUESTED",
       });
     } catch (err) {
       console.error("[Payments] cancel-subscription error:", err);
-      res.status(500).json({ success: false, error: "فشل إلغاء الاشتراك" });
+      res.status(500).json({ success: false, error: "SUBSCRIPTION_CANCEL_FAILED" });
     }
   },
 );

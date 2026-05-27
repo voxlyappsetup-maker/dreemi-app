@@ -14,35 +14,35 @@ export const authRouter = Router();
 
 const BCRYPT_ROUNDS = 12;
 const INVALID_CREDENTIALS_MSG =
-  "البريد الإلكتروني أو كلمة المرور غير صحيحة";
+  "Invalid email or password";
 
 const languageSchema = z.enum(["ar", "en", "fr"], {
-  errorMap: () => ({ message: "اللغة يجب أن تكون ar أو en أو fr" }),
+  errorMap: () => ({ message: "Language must be one of: ar, en, fr" }),
 });
 
 const registerSchema = z.object({
   email: z
-    .string({ required_error: "البريد الإلكتروني مطلوب" })
-    .email("البريد الإلكتروني غير صالح"),
+    .string({ required_error: "Email is required" })
+    .email("Invalid email address"),
   password: z
-    .string({ required_error: "كلمة المرور مطلوبة" })
-    .min(8, "كلمة المرور يجب أن تكون 8 أحرف على الأقل"),
+    .string({ required_error: "Password is required" })
+    .min(8, "Password must be at least 8 characters"),
   name: z
-    .string({ required_error: "الاسم مطلوب" })
-    .min(1, "الاسم مطلوب")
-    .max(100, "الاسم طويل جداً"),
+    .string({ required_error: "Name is required" })
+    .min(1, "Name is required")
+    .max(100, "Name is too long"),
   language: languageSchema,
 });
 
 const loginSchema = z.object({
   email: z
-    .string({ required_error: "البريد الإلكتروني مطلوب" })
-    .email("البريد الإلكتروني غير صالح"),
-  password: z.string({ required_error: "كلمة المرور مطلوبة" }),
+    .string({ required_error: "Email is required" })
+    .email("Invalid email address"),
+  password: z.string({ required_error: "Password is required" }),
 });
 
 const refreshSchema = z.object({
-  refreshToken: z.string({ required_error: "رمز التحديث مطلوب" }).min(1),
+  refreshToken: z.string({ required_error: "Refresh token is required" }).min(1),
 });
 
 type PublicUser = {
@@ -68,7 +68,7 @@ function toPublicUser(user: User): PublicUser {
 }
 
 function formatZodError(error: z.ZodError): string {
-  return error.errors.map((e) => e.message).join("، ");
+  return error.errors.map((e) => e.message).join(", ");
 }
 
 authRouter.post("/register", async (req: Request, res: Response) => {
@@ -81,7 +81,7 @@ authRouter.post("/register", async (req: Request, res: Response) => {
     if (existing) {
       res.status(409).json({
         success: false,
-        error: "البريد الإلكتروني مستخدم بالفعل",
+        error: "EMAIL_ALREADY_IN_USE",
       });
       return;
     }
@@ -114,10 +114,10 @@ authRouter.post("/register", async (req: Request, res: Response) => {
       (error.message.includes("JWT_SECRET") ||
         error.message.includes("JWT_REFRESH_SECRET"))
     ) {
-      res.status(500).json({ success: false, error: "خطأ في إعداد الخادم" });
+      res.status(500).json({ success: false, error: "SERVER_MISCONFIGURED" });
       return;
     }
-    res.status(500).json({ success: false, error: "فشل إنشاء الحساب" });
+    res.status(500).json({ success: false, error: "REGISTRATION_FAILED" });
   }
 });
 
@@ -164,10 +164,10 @@ authRouter.post("/login", async (req: Request, res: Response) => {
       (error.message.includes("JWT_SECRET") ||
         error.message.includes("JWT_REFRESH_SECRET"))
     ) {
-      res.status(500).json({ success: false, error: "خطأ في إعداد الخادم" });
+      res.status(500).json({ success: false, error: "SERVER_MISCONFIGURED" });
       return;
     }
-    res.status(500).json({ success: false, error: "فشل تسجيل الدخول" });
+    res.status(500).json({ success: false, error: "LOGIN_FAILED" });
   }
 });
 
@@ -181,7 +181,7 @@ authRouter.post("/refresh", async (req: Request, res: Response) => {
     } catch {
       res.status(401).json({
         success: false,
-        error: "رمز التحديث غير صالح أو منتهي الصلاحية",
+        error: "INVALID_REFRESH_TOKEN",
       });
       return;
     }
@@ -190,7 +190,7 @@ authRouter.post("/refresh", async (req: Request, res: Response) => {
     if (!user) {
       res.status(401).json({
         success: false,
-        error: "رمز التحديث غير صالح أو منتهي الصلاحية",
+        error: "INVALID_REFRESH_TOKEN",
       });
       return;
     }
@@ -212,10 +212,10 @@ authRouter.post("/refresh", async (req: Request, res: Response) => {
       (error.message.includes("JWT_SECRET") ||
         error.message.includes("JWT_REFRESH_SECRET"))
     ) {
-      res.status(500).json({ success: false, error: "خطأ في إعداد الخادم" });
+      res.status(500).json({ success: false, error: "SERVER_MISCONFIGURED" });
       return;
     }
-    res.status(500).json({ success: false, error: "فشل تحديث الرمز" });
+    res.status(500).json({ success: false, error: "TOKEN_REFRESH_FAILED" });
   }
 });
 
@@ -226,13 +226,13 @@ authRouter.get("/me", authenticateToken, async (req: Request, res: Response) => 
     });
 
     if (!user) {
-      res.status(404).json({ success: false, error: "المستخدم غير موجود" });
+      res.status(404).json({ success: false, error: "USER_NOT_FOUND" });
       return;
     }
 
     res.json({ success: true, user: toPublicUser(user) });
   } catch {
-    res.status(500).json({ success: false, error: "فشل جلب بيانات المستخدم" });
+    res.status(500).json({ success: false, error: "USER_FETCH_FAILED" });
   }
 });
 
@@ -321,7 +321,7 @@ authRouter.get("/export-data", authenticateToken, async (req: Request, res: Resp
     });
 
     if (!user) {
-      res.status(404).json({ success: false, error: "المستخدم غير موجود" });
+      res.status(404).json({ success: false, error: "USER_NOT_FOUND" });
       return;
     }
 
@@ -332,7 +332,7 @@ authRouter.get("/export-data", authenticateToken, async (req: Request, res: Resp
     res.send(html);
   } catch (err) {
     console.error("[Auth] export-data error:", err);
-    res.status(500).json({ success: false, error: "فشل تصدير البيانات" });
+    res.status(500).json({ success: false, error: "EXPORT_DATA_FAILED" });
   }
 });
 
@@ -501,7 +501,7 @@ function buildExportHtml(user: User & {
 
 const deleteSchema = z.object({
   confirm: z.literal("DELETE", {
-    errorMap: () => ({ message: 'يجب كتابة "DELETE" للتأكيد' }),
+    errorMap: () => ({ message: 'Confirmation must be exactly "DELETE"' }),
   }),
 });
 
@@ -515,7 +515,7 @@ authRouter.delete("/delete-account", authenticateToken, async (req: Request, res
     });
 
     if (!user) {
-      res.status(404).json({ success: false, error: "المستخدم غير موجود" });
+      res.status(404).json({ success: false, error: "USER_NOT_FOUND" });
       return;
     }
 
@@ -540,6 +540,6 @@ authRouter.delete("/delete-account", authenticateToken, async (req: Request, res
       return;
     }
     console.error("[Auth] delete-account error:", err);
-    res.status(500).json({ success: false, error: "فشل حذف الحساب" });
+    res.status(500).json({ success: false, error: "ACCOUNT_DELETE_FAILED" });
   }
 });
