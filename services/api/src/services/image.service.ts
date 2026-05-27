@@ -59,58 +59,30 @@ function ageImageStyle(age: number): AgeImageStyle {
   };
 }
 
-const GENDER_MAP: Record<string, string> = {
-  boy: "young boy",
-  girl: "young girl",
-};
-
-const SKIN_MAP: Record<string, string> = {
-  light: "fair skin",
-  medium: "olive skin",
-  dark: "dark brown skin",
-};
-
-const HAIR_MAP: Record<string, string> = {
-  black: "black hair",
-  brown: "brown hair",
-  blonde: "golden blonde hair",
-  red: "red hair",
-};
-
 function extractScene(content: string): string {
-  const cleaned = content
+  return content
     .replace(/\n+/g, " ")
     .replace(/\s+/g, " ")
-    .trim();
-  const snippet = cleaned.slice(0, 200).trimEnd();
-  const lastDot = snippet.lastIndexOf(".");
-  return lastDot > 60 ? snippet.slice(0, lastDot + 1) : snippet + "...";
+    .trim()
+    .slice(0, 300);
 }
 
 function buildImagePrompt(req: ImageRequest): string {
   const imgStyle = ageImageStyle(req.childAge);
-  const genderDesc = GENDER_MAP[req.gender ?? "boy"] ?? "young child";
-  const skinDesc = SKIN_MAP[req.skinTone ?? "medium"] ?? "olive skin";
-  const hairDesc = HAIR_MAP[req.hairColor ?? "black"] ?? "black hair";
-  const character = `${genderDesc} with ${skinDesc} and ${hairDesc} named ${req.childName}`;
 
   const scene = req.storyContent
     ? extractScene(req.storyContent)
     : `a magical scene about ${req.theme}`;
 
-  const animalPart = req.favAnimal ? ` with their favorite ${req.favAnimal} companion` : "";
-  const personalityPart = req.personality ? `, looking ${req.personality}` : "";
+  const ageStyleBlock =
+    `${imgStyle.style}. Colors: ${imgStyle.colors}. ` +
+    `Character style: ${imgStyle.characters}. Mood: ${imgStyle.mood}`;
 
   return (
-    `Children's book illustration, no text in image. ` +
-    `MANDATORY AGE-APPROPRIATE VISUAL PROFILE (child is ${req.childAge} years old): ` +
-    `Art style & detail level: ${imgStyle.style}. ` +
-    `Colors: ${imgStyle.colors}. ` +
-    `Character design & expressions: ${imgStyle.characters}. ` +
-    `Overall mood & atmosphere: ${imgStyle.mood}. ` +
-    `Do NOT use visual complexity, realism, or mood above this child's age level. ` +
-    `Scene: ${scene}. ` +
-    `A ${req.childAge}-year-old ${character}${personalityPart} as the main character${animalPart}. ` +
+    `Children's book illustration: ${scene}. ` +
+    `${ageStyleBlock}. ` +
+    `No text, no child portrait, focus on the scene and environment. ` +
+    `Do NOT show a child's face or portrait. ` +
     `Gentle lighting, classic children's picture book aesthetic.`
   );
 }

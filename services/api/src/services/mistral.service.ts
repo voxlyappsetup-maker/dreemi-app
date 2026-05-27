@@ -81,11 +81,18 @@ function ageProfile(age: number): AgeProfile {
   };
 }
 
+function ageWordCount(age: number): number {
+  if (age <= 3) return 250;
+  if (age <= 5) return 400;
+  if (age <= 7) return 600;
+  if (age <= 9) return 800;
+  return 900;
+}
+
 function targetWordCount(age: number, duration?: number): number {
-  const byAge =
-    age <= 3 ? 250 : age <= 5 ? 400 : age <= 7 ? 600 : age <= 9 ? 800 : 1100;
-  const byDuration = (duration ?? 5) * 120;
-  return Math.min(byAge, byDuration);
+  const base = ageWordCount(age);
+  const factor = (duration ?? 5) / 5;
+  return Math.round(base * factor);
 }
 
 function buildAgeProfileBlock(req: StoryRequest, profile: AgeProfile, wordCount: number): string {
@@ -98,7 +105,8 @@ function buildAgeProfileBlock(req: StoryRequest, profile: AgeProfile, wordCount:
 - المفاهيم والمواضيع المسموحة: ${profile.concepts}
 - طول القصة: ${profile.length} (حوالي ${wordCount} كلمة)
 - أسلوب السرد: ${profile.style}
-ممنوع استخدام لغة أو مفاهيم أو تعقيد أعلى من مستوى عمر الطفل.`,
+ممنوع استخدام لغة أو مفاهيم أو تعقيد أعلى من مستوى عمر الطفل.
+اكتب قصة كاملة غير منقوصة: بداية ووسط ونهاية واضحة. لا تختصر ولا تلخص — حقل content يجب أن يحتوي النص الكامل بحوالي ${wordCount} كلمة.`,
     en: `
 MANDATORY AGE PROFILE (child is ${req.childAge} years old — level: ${profile.level}):
 You MUST strictly follow this profile:
@@ -107,7 +115,8 @@ You MUST strictly follow this profile:
 - Allowed concepts & themes: ${profile.concepts}
 - Story length: ${profile.length} (approximately ${wordCount} words)
 - Narrative style: ${profile.style}
-Do NOT use language, concepts, or complexity above this child's age level.`,
+Do NOT use language, concepts, or complexity above this child's age level.
+Write a COMPLETE, non-truncated story with a clear beginning, middle, and end. Do NOT summarize or cut short — the content field must contain the full story of approximately ${wordCount} words.`,
     fr: `
 PROFIL D AGE OBLIGATOIRE (enfant de ${req.childAge} ans — niveau: ${profile.level}):
 Vous DEVEZ respecter strictement ce profil:
@@ -116,7 +125,8 @@ Vous DEVEZ respecter strictement ce profil:
 - Concepts et themes autorises: ${profile.concepts}
 - Longueur: ${profile.length} (environ ${wordCount} mots)
 - Style narratif: ${profile.style}
-N utilisez pas un langage, des concepts ou une complexite au-dessus de l age de l enfant.`,
+N utilisez pas un langage, des concepts ou une complexite au-dessus de l age de l enfant.
+Ecrivez une histoire COMPLETE et non tronquee: debut, milieu et fin clairs. Ne resumez pas — le champ content doit contenir le texte integral d environ ${wordCount} mots.`,
   };
   return blocks[req.language] || blocks.en;
 }
@@ -143,13 +153,13 @@ function buildPrompt(req: StoryRequest): string {
   const prompts: Record<string, string> = {
     ar: `انت كاتب قصص اطفال محترف. اكتب قصة نوم جميلة باللغة العربية الفصحى البسيطة.
 ${ageBlock}
-الاسم: ${req.childName}، العمر: ${req.childAge} سنوات، الموضوع: ${req.theme}${req.moral ? `، القيمة التربوية: ${req.moral}` : ""}${traitAr}. اشترط ان يكون البطل اسمه ${req.childName}${req.personality ? ` وان تعكس القصة شخصيته` : ""}${req.hobbies ? ` ويمارس هواياته في القصة` : ""}، يجب ان تكون القصة ${wordCount} كلمة تقريبا، مع نهاية سعيدة تبعث على النوم. يجب ان تعيد JSON فقط بهذا الشكل بالضبط بدون اي نص اضافي: {"title": "عنوان القصة", "content": "نص القصة كاملا", "moral": "القيمة المستفادة"}`,
+الاسم: ${req.childName}، العمر: ${req.childAge} سنوات، الموضوع: ${req.theme}${req.moral ? `، القيمة التربوية: ${req.moral}` : ""}${traitAr}. اشترط ان يكون البطل اسمه ${req.childName}${req.personality ? ` وان تعكس القصة شخصيته` : ""}${req.hobbies ? ` ويمارس هواياته في القصة` : ""}، يجب ان تكون القصة كاملة بحوالي ${wordCount} كلمة (لا تقصّرها)، مع نهاية سعيدة تبعث على النوم. يجب ان تعيد JSON فقط بهذا الشكل بالضبط بدون اي نص اضافي: {"title": "عنوان القصة", "content": "نص القصة كاملا", "moral": "القيمة المستفادة"}`,
     en: `You are a professional children's story writer. Write a beautiful bedtime story in English.
 ${ageBlock}
-Name: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Moral: ${req.moral}` : ""}${traitEn}. The hero must be named ${req.childName}${req.personality ? `. The story should reflect the child's ${req.personality} personality` : ""}${req.hobbies ? `. Weave the child's hobbies (${req.hobbies}) into the story naturally` : ""}. The story must be approximately ${wordCount} words long. Happy ending. Separate each paragraph with a blank line (double newline \\n\\n). Return JSON only: {"title": "...", "content": "full story text with \\n\\n between paragraphs", "moral": "..."}`,
+Name: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Moral: ${req.moral}` : ""}${traitEn}. The hero must be named ${req.childName}${req.personality ? `. The story should reflect the child's ${req.personality} personality` : ""}${req.hobbies ? `. Weave the child's hobbies (${req.hobbies}) into the story naturally` : ""}. The story must be a complete, full-length narrative of approximately ${wordCount} words — do not truncate. Happy ending. Separate each paragraph with a blank line (double newline \\n\\n). Return JSON only: {"title": "...", "content": "full story text with \\n\\n between paragraphs", "moral": "..."}`,
     fr: `Vous etes un auteur de contes pour enfants. Ecrivez une belle histoire du soir en francais.
 ${ageBlock}
-Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Morale: ${req.moral}` : ""}${traitFr}. Le heros doit s appeler ${req.childName}${req.personality ? `. L histoire doit refleter la personnalite ${req.personality} de l enfant` : ""}${req.hobbies ? `. Integrez naturellement les loisirs de l enfant (${req.hobbies}) dans l histoire` : ""}. L histoire doit faire environ ${wordCount} mots. Fin heureuse. Separez chaque paragraphe par une ligne vide (double retour a la ligne \\n\\n). Retournez JSON uniquement: {"title": "...", "content": "texte complet avec \\n\\n entre les paragraphes", "moral": "..."}`
+Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Morale: ${req.moral}` : ""}${traitFr}. Le heros doit s appeler ${req.childName}${req.personality ? `. L histoire doit refleter la personnalite ${req.personality} de l enfant` : ""}${req.hobbies ? `. Integrez naturellement les loisirs de l enfant (${req.hobbies}) dans l histoire` : ""}. L histoire doit etre complete et faire environ ${wordCount} mots — sans troncature. Fin heureuse. Separez chaque paragraphe par une ligne vide (double retour a la ligne \\n\\n). Retournez JSON uniquement: {"title": "...", "content": "texte complet avec \\n\\n entre les paragraphes", "moral": "..."}`
   };
   return prompts[req.language] || prompts.ar;
 }
