@@ -65,7 +65,7 @@ async function apiFetch<T>(
       "error" in data &&
       typeof data.error === "string"
         ? data.error
-        : "حدث خطأ غير متوقع";
+        : "An unexpected error occurred";
     throw new ApiError(res.status, message);
   }
 

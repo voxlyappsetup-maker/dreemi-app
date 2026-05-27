@@ -289,7 +289,9 @@ export default function ChildrenPage() {
                         </div>
                         <div>
                           <h3 className="text-lg font-bold text-slate-900">{child.name}</h3>
-                          <p className="text-sm text-slate-500">{child.age} {child.age === 1 ? "year" : "years"}</p>
+                          <p className="text-sm text-slate-500">
+                            {child.age} {child.age === 1 ? t("year") : t("years")}
+                          </p>
                         </div>
                       </Link>
                       <div className="flex gap-1">

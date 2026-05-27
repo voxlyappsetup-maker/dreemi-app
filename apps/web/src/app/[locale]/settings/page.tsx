@@ -25,9 +25,9 @@ const BTN_PRIMARY = `${BTN} bg-violet-600 text-white shadow-lg hover:bg-violet-7
 const BTN_OUTLINE = `${BTN} border border-violet-200 bg-white text-violet-700 hover:bg-violet-50`;
 
 const LANG_OPTIONS = [
-  { code: "ar", flag: "https://flagcdn.com/w40/sa.png", name: "العربية" },
-  { code: "en", flag: "https://flagcdn.com/w40/gb.png", name: "English" },
-  { code: "fr", flag: "https://flagcdn.com/w40/fr.png", name: "Français" },
+  { code: "ar", flag: "https://flagcdn.com/w40/sa.png", nameKey: "arabic" as const },
+  { code: "en", flag: "https://flagcdn.com/w40/gb.png", nameKey: "english" as const },
+  { code: "fr", flag: "https://flagcdn.com/w40/fr.png", nameKey: "french" as const },
 ];
 
 export default function SettingsPage() {
@@ -35,6 +35,7 @@ export default function SettingsPage() {
   const locale = useLocale();
   const t = useTranslations("settings");
   const tc = useTranslations("common");
+  const ta = useTranslations("auth");
 
   const [ready, setReady] = useState(false);
   const [plan, setPlan] = useState<Plan>("FREE");
@@ -154,7 +155,7 @@ export default function SettingsPage() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const portalUrl = remote?.data?.attributes?.urls?.customer_portal as string | undefined;
       if (portalUrl) window.location.href = portalUrl;
-      else throw new ApiError(400, "No portal URL");
+      else throw new ApiError(400, t("portalNoUrl"));
     } catch {
       setPortalLoading(false);
     }
@@ -267,8 +268,8 @@ export default function SettingsPage() {
                   className={`${langBtnBase} ${locale === l.code ? langActive : langInactive}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={l.flag} alt={l.name} className="h-5 w-7 rounded-sm object-cover" />
-                  {l.name}
+                  <img src={l.flag} alt={ta(l.nameKey)} className="h-5 w-7 rounded-sm object-cover" />
+                  {ta(l.nameKey)}
                 </Link>
               ))}
             </div>
@@ -285,8 +286,8 @@ export default function SettingsPage() {
                   className={`${langBtnBase} ${storyLang === l.code ? langActive : langInactive}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={l.flag} alt={l.name} className="h-5 w-7 rounded-sm object-cover" />
-                  {l.name}
+                  <img src={l.flag} alt={ta(l.nameKey)} className="h-5 w-7 rounded-sm object-cover" />
+                  {ta(l.nameKey)}
                 </button>
               ))}
             </div>
