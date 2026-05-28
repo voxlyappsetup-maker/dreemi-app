@@ -69,6 +69,38 @@ async function renderParagraphAsImage(
   return canvas;
 }
 
+/**
+ * Renders a title string using the Canvas 2D API directly — no html2canvas,
+ * no DOM opacity tricks. Works for both Arabic (RTL) and Latin (LTR) text
+ * because the browser's Canvas2D respects ctx.direction and the loaded fonts.
+ */
+async function renderTitleWithCanvas2D(
+  titleText: string,
+  isRtl: boolean
+): Promise<HTMLCanvasElement> {
+  const scale = 2;
+  const fontSize = 22;
+  const padX = 30;
+  const measure = document.createElement("canvas");
+  const mCtx = measure.getContext("2d")!;
+  mCtx.font = `700 ${fontSize}px Cairo, Arial, sans-serif`;
+  const textWidth = Math.ceil(mCtx.measureText(titleText).width);
+  const canvasW = textWidth + padX * 2;
+  const canvasH = Math.ceil(fontSize * 1.8) * scale;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvasW * scale;
+  canvas.height = canvasH;
+  const ctx = canvas.getContext("2d")!;
+  ctx.scale(scale, scale);
+  ctx.font = `700 ${fontSize}px Cairo, Arial, sans-serif`;
+  ctx.fillStyle = "#1e293b";
+  ctx.direction = isRtl ? "rtl" : "ltr";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(titleText, canvasW / 2, (fontSize * 1.8) / 2);
+  return canvas;
+}
+
 export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const { title, childName, content, imageUrl, lesson, locale = "ar" } = data;
   const isRtl = locale === "ar";
@@ -225,11 +257,14 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     ? `قصة لـ ${escHtml(childName)}`
     : `A story for ${escHtml(childName)}`;
 
-  // Title — centered, 22px bold; padding-right:60px absorbs RTL right-edge overflow
-  await placeParagraph(
-    `<div style="font-size:22px;font-weight:700;color:#1e293b;line-height:1.4;text-align:center;padding-right:60px;overflow:visible;">${escHtml(title)}</div>`,
-    560
-  );
+  // Title — rendered via Canvas 2D API: no html2canvas, correct Arabic + English
+  {
+    const titleCanvas = await renderTitleWithCanvas2D(title, isRtl);
+    const titleH = (titleCanvas.height / titleCanvas.width) * contentW;
+    ensureSpace(titleH + 4);
+    pdf.addImage(titleCanvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, titleH);
+    cursorY += titleH + 4;
+  }
 
   // By-line — same wider canvas to avoid edge clipping
   await placeParagraph(
