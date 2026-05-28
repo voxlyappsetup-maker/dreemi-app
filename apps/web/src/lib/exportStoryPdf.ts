@@ -20,15 +20,15 @@ function escHtml(s: string): string {
 }
 
 /**
- * Renders an HTML string into a canvas using the browser's own text engine.
- * This produces correct Arabic shaping, bidi, and ligatures at full quality.
+ * Renders a single HTML fragment (one paragraph / title / box) into a canvas
+ * using the browser's own text engine — produces correct Arabic shaping, bidi,
+ * and ligatures. Each call is independent so there is no cross-page slicing.
  */
-async function renderContentAsImage(
-  htmlContent: string,
+async function renderParagraphAsImage(
+  paragraphHtml: string,
   isRtl: boolean,
   widthPx = 560
 ): Promise<HTMLCanvasElement> {
-  // Ensure Cairo font is fully loaded before painting
   try {
     await document.fonts.load("700 15px Cairo");
     await document.fonts.load("400 15px Cairo");
@@ -50,8 +50,9 @@ async function renderContentAsImage(
     background: transparent;
     word-break: break-word;
     overflow-wrap: break-word;
+    box-sizing: border-box;
   `;
-  wrapper.innerHTML = htmlContent;
+  wrapper.innerHTML = paragraphHtml;
   document.body.appendChild(wrapper);
 
   const canvas = await html2canvas(wrapper, {
@@ -72,6 +73,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const W = 210, H = 297, M = 20;
   const contentW = W - M * 2;
   const FOOTER_ZONE = 20, HEADER_TOP = 5;
+  const PARA_GAP = 3; // mm gap between paragraph images
   let cursorY = HEADER_TOP, pageNum = 1;
 
   const loadAsset = async (src: string) => {
@@ -157,7 +159,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   // ── Page 1 ────────────────────────────────────────────────────────────────
   drawGradientBg(); drawWatermark(); drawHeader();
 
-  // Story illustration
+  // Story illustration (unchanged)
   if (imageUrl) {
     try {
       const img = new Image();
@@ -192,86 +194,65 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     } catch { cursorY += 8; }
   } else { cursorY += 8; }
 
-  // ── Build HTML for all story text (title + byLine + paragraphs + moral) ───
-  // Using html2canvas so the browser's text engine handles Arabic shaping,
-  // bidi reordering, and ligatures correctly — jsPDF cannot do this.
+  // ── Paragraph-by-paragraph rendering ─────────────────────────────────────
+  // Each text element is its own canvas render → no cross-page slicing →
+  // zero risk of a line being split between two PDF pages.
+  // The browser's text engine handles Arabic shaping, bidi, and ligatures.
+
+  /**
+   * Renders html into a canvas, converts its height to mm, starts a new page
+   * if the element doesn't fit, then places it at the current cursor position.
+   */
+  const placeParagraph = async (html: string): Promise<void> => {
+    const canvas = await renderParagraphAsImage(html, isRtl);
+    // canvas is @2x scale: CSS width = canvas.width / 2
+    const cssWidthPx = canvas.width / 2;
+    const pxPerMm = cssWidthPx / contentW;
+    const heightMm = (canvas.height / 2) / pxPerMm;
+
+    if (heightMm > H - cursorY - FOOTER_ZONE) {
+      addNewPage();
+    }
+
+    pdf.addImage(canvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, heightMm);
+    cursorY += heightMm + PARA_GAP;
+  };
 
   const byLineText = isRtl
     ? `قصة لـ ${escHtml(childName)}`
     : `A story for ${escHtml(childName)}`;
 
-  const paragraphsHtml = content
-    .split(/\n\n+/)
-    .map(p => p.replace(/\n/g, " ").trim())
-    .filter(p => p)
-    .map(p => `<p style="margin:0 0 14px 0;font-size:15px;line-height:1.9;color:#334155;">${escHtml(p)}</p>`)
-    .join("");
+  // Title
+  await placeParagraph(
+    `<div style="font-size:22px;font-weight:700;color:#1e293b;line-height:1.4;">${escHtml(title)}</div>`
+  );
 
-  let moralHtml = "";
+  // By-line
+  await placeParagraph(
+    `<div style="font-size:12px;color:#8b5cf6;">${byLineText}</div>`
+  );
+
+  // Content paragraphs — split on any run of newlines for finest granularity
+  const paragraphs = content
+    .split(/\n+/)
+    .map(p => p.trim())
+    .filter(p => p.length > 0);
+
+  for (const para of paragraphs) {
+    await placeParagraph(
+      `<p style="margin:0;font-size:15px;line-height:1.9;color:#334155;">${escHtml(para)}</p>`
+    );
+  }
+
+  // Moral box
   if (lesson?.trim()) {
     const moralLabel = isRtl ? "القيمة المستفادة" : "Moral of the Story";
-    moralHtml = `
-      <div style="background:#f5f3ff;border:1.5px solid #c4b5fd;border-radius:6px;padding:12px 16px;margin-top:16px;">
+    await placeParagraph(`
+      <div style="background:#f5f3ff;border:1.5px solid #c4b5fd;border-radius:6px;padding:12px 16px;">
         <div style="font-weight:700;font-size:13px;color:#6d28d9;margin-bottom:8px;">${moralLabel}</div>
         <div style="font-size:13px;line-height:1.8;color:#334155;">${escHtml(lesson.trim())}</div>
       </div>
-    `;
-  }
-
-  const storyHtml = `
-    <div style="font-size:22px;font-weight:700;color:#1e293b;margin-bottom:6px;line-height:1.4;">${escHtml(title)}</div>
-    <div style="font-size:12px;color:#8b5cf6;margin-bottom:18px;">${byLineText}</div>
-    ${paragraphsHtml}
-    ${moralHtml}
-  `;
-
-  const contentCanvas = await renderContentAsImage(storyHtml, isRtl);
-
-  // mm per canvas-pixel (canvas is @2x so width = 560*2 = 1120px)
-  const mmPerPx = contentW / contentCanvas.width;
-
-  // ── Slice contentCanvas across PDF pages ──────────────────────────────────
-  // font-size:15px × line-height:1.9 × scale:2 = 57px per text line in canvas pixels.
-  // We round every slice boundary DOWN to a multiple of this so no line is ever
-  // cut horizontally between two PDF pages.
-  // font-size 15px × line-height 1.9 × scale 2 = 57px per line
-  // +14px paragraph margin × scale 2 = 28px extra per paragraph
-  // Use 3 lines as safety buffer to never clip mid-line
-  const LINE_HEIGHT_PX = Math.round(15 * 1.9 * 2); // 57px
-  const SAFETY_BUFFER_PX = LINE_HEIGHT_PX * 3;     // 171px safety
-  let srcYPx = 0;
-  let firstSlice = true;
-
-  while (srcYPx < contentCanvas.height) {
-    if (!firstSlice) {
-      addNewPage();
-    }
-    firstSlice = false;
-
-    const availableHeightMm = H - cursorY - FOOTER_ZONE;
-    const rawMaxPx = Math.floor(availableHeightMm / mmPerPx);
-    // Subtract 3-line safety buffer then round to a line boundary — zero clipping risk
-    const maxSliceHeightPx = Math.floor(
-      (rawMaxPx - SAFETY_BUFFER_PX) / LINE_HEIGHT_PX
-    ) * LINE_HEIGHT_PX;
-
-    // Safety: if no space available (shouldn't happen after addNewPage), break
-    if (maxSliceHeightPx <= 0) break;
-
-    const remaining = contentCanvas.height - srcYPx;
-    const thisSlicePx = Math.min(maxSliceHeightPx, remaining);
-    const thisSliceMm = thisSlicePx * mmPerPx;
-
-    const sliceCanvas = document.createElement("canvas");
-    sliceCanvas.width = contentCanvas.width;
-    sliceCanvas.height = Math.ceil(thisSlicePx);
-    const sliceCtx = sliceCanvas.getContext("2d")!;
-    sliceCtx.drawImage(contentCanvas, 0, -srcYPx);
-
-    pdf.addImage(sliceCanvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, thisSliceMm);
-
-    srcYPx += thisSlicePx;
-    cursorY += thisSliceMm;
+    `);
   }
 
   drawFooter();
