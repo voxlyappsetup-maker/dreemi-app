@@ -96,6 +96,40 @@ function splitLongTextBlock(block: string, maxChars: number = MAX_BLOCK_CHARS): 
 }
 
 /**
+ * Loads an external image with a hard timeout.
+ * Always resolves — returns the loaded HTMLImageElement on success, or null
+ * on network error, CORS failure, broken URL, or timeout.
+ * Clears the timeout and nullifies the handlers on every code path to avoid
+ * memory leaks or zombie callbacks.
+ */
+function loadStoryImage(src: string, timeoutMs: number): Promise<HTMLImageElement | null> {
+  return new Promise<HTMLImageElement | null>((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+
+    let settled = false;
+    const settle = (result: HTMLImageElement | null) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      img.onload  = null;
+      img.onerror = null;
+      resolve(result);
+    };
+
+    const timer = setTimeout(() => settle(null), timeoutMs);
+    img.onload  = () => settle(img);
+    img.onerror = () => settle(null);
+
+    try {
+      img.src = src;
+    } catch {
+      settle(null);
+    }
+  });
+}
+
+/**
  * Renders a single HTML fragment (one paragraph / title / box) into a canvas
  * using the browser's own text engine — produces correct Arabic shaping, bidi,
  * and ligatures. Each call is independent so there is no cross-page slicing.
@@ -267,43 +301,76 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     if (cursorY + needed > H - FOOTER_ZONE) addNewPage();
   };
 
+  /**
+   * Draws a simple placeholder box when the story illustration could not be
+   * loaded (broken URL, CORS block, timeout, or canvas draw error).
+   * Uses only jsPDF primitives — no network, no html2canvas.
+   */
+  const drawImageFallback = () => {
+    const boxW = 90, boxH = 50;
+    const boxX = M + (contentW - boxW) / 2;
+    cursorY += 8;
+    ensureSpace(boxH + 12);
+    pdf.setFillColor(245, 243, 255);    // violet-50
+    pdf.setDrawColor(196, 181, 253);    // violet-300
+    pdf.setLineWidth(0.5);
+    pdf.roundedRect(boxX, cursorY, boxW, boxH, 5, 5, "FD");
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(8.5);
+    pdf.setTextColor(139, 92, 246);     // violet-500
+    pdf.text("Story illustration unavailable", boxX + boxW / 2, cursorY + boxH / 2, { align: "center" });
+    cursorY += boxH + 8;
+  };
+
   // ── Page 1 ────────────────────────────────────────────────────────────────
   drawGradientBg(); drawWatermark(); drawHeader();
 
-  // Story illustration (unchanged)
-  if (imageUrl) {
-    try {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve(); img.onerror = () => reject(); img.src = imageUrl;
-      });
-      const imgWidth = 90, aspect = img.naturalHeight / img.naturalWidth;
-      const imgH = imgWidth * aspect, RADIUS = 5;
-      const imgX = M + (contentW - imgWidth) / 2;
-      const pxPerMm = 6;
-      const cW = Math.max(1, Math.round(imgWidth * pxPerMm));
-      const cH = Math.max(1, Math.round(imgH * pxPerMm));
-      const rr = Math.max(0, Math.round(RADIUS * pxPerMm));
-      const canvas = document.createElement("canvas");
-      canvas.width = cW; canvas.height = cH;
-      const ctx = canvas.getContext("2d")!;
-      ctx.clearRect(0, 0, cW, cH);
-      const r = Math.min(rr, cW / 2, cH / 2);
-      ctx.save(); ctx.beginPath();
-      ctx.moveTo(r, 0); ctx.lineTo(cW - r, 0);
-      ctx.quadraticCurveTo(cW, 0, cW, r); ctx.lineTo(cW, cH - r);
-      ctx.quadraticCurveTo(cW, cH, cW - r, cH); ctx.lineTo(r, cH);
-      ctx.quadraticCurveTo(0, cH, 0, cH - r); ctx.lineTo(0, r);
-      ctx.quadraticCurveTo(0, 0, r, 0); ctx.closePath(); ctx.clip();
-      ctx.drawImage(img, 0, 0, cW, cH); ctx.restore();
-      cursorY += 8; ensureSpace(imgH + 20);
-      pdf.addImage(canvas.toDataURL("image/png"), "PNG", imgX, cursorY, imgWidth, imgH);
-      pdf.setDrawColor(221, 214, 254); pdf.setLineWidth(1.5);
-      pdf.roundedRect(imgX, cursorY, imgWidth, imgH, 5, 5, "S");
-      cursorY += imgH + 8;
-    } catch { cursorY += 8; }
-  } else { cursorY += 8; }
+  // Story illustration — resilient: timeout + fallback on any failure
+  const IMG_LOAD_TIMEOUT_MS = 10_000;
+  const hasImageUrl = typeof imageUrl === "string" && imageUrl.trim().length > 0;
+
+  if (hasImageUrl) {
+    const img = await loadStoryImage(imageUrl!, IMG_LOAD_TIMEOUT_MS);
+
+    if (img && img.naturalWidth > 0 && img.naturalHeight > 0) {
+      // Image loaded successfully — draw with rounded corners (same as before).
+      try {
+        const imgWidth = 90, aspect = img.naturalHeight / img.naturalWidth;
+        const imgH = imgWidth * aspect, RADIUS = 5;
+        const imgX = M + (contentW - imgWidth) / 2;
+        const pxPerMm = 6;
+        const cW = Math.max(1, Math.round(imgWidth * pxPerMm));
+        const cH = Math.max(1, Math.round(imgH * pxPerMm));
+        const rr = Math.max(0, Math.round(RADIUS * pxPerMm));
+        const canvas = document.createElement("canvas");
+        canvas.width = cW; canvas.height = cH;
+        const ctx = canvas.getContext("2d")!;
+        ctx.clearRect(0, 0, cW, cH);
+        const r = Math.min(rr, cW / 2, cH / 2);
+        ctx.save(); ctx.beginPath();
+        ctx.moveTo(r, 0); ctx.lineTo(cW - r, 0);
+        ctx.quadraticCurveTo(cW, 0, cW, r); ctx.lineTo(cW, cH - r);
+        ctx.quadraticCurveTo(cW, cH, cW - r, cH); ctx.lineTo(r, cH);
+        ctx.quadraticCurveTo(0, cH, 0, cH - r); ctx.lineTo(0, r);
+        ctx.quadraticCurveTo(0, 0, r, 0); ctx.closePath(); ctx.clip();
+        ctx.drawImage(img, 0, 0, cW, cH); ctx.restore();
+        cursorY += 8; ensureSpace(imgH + 20);
+        pdf.addImage(canvas.toDataURL("image/png"), "PNG", imgX, cursorY, imgWidth, imgH);
+        pdf.setDrawColor(221, 214, 254); pdf.setLineWidth(1.5);
+        pdf.roundedRect(imgX, cursorY, imgWidth, imgH, 5, 5, "S");
+        cursorY += imgH + 8;
+      } catch {
+        // Canvas draw error (e.g. tainted canvas after CORS mis-match) — show fallback.
+        drawImageFallback();
+      }
+    } else {
+      // URL was provided but image failed to load (timeout, CORS, 404, etc.).
+      drawImageFallback();
+    }
+  } else {
+    // No image URL — just add spacing before the title.
+    cursorY += 8;
+  }
 
   // ── Paragraph-by-paragraph rendering ─────────────────────────────────────
   // Each text element is its own canvas render → no cross-page slicing →
