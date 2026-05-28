@@ -187,15 +187,102 @@ Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ?
   return prompts[req.language] || prompts.ar;
 }
 
-const MISTRAL_TIMEOUT_MS = 30_000;
-const TRANSIENT_RETRY_DELAY_MS = 1_500;
+// ── Token estimation ─────────────────────────────────────────────────────────
 
 /**
- * Fetch the Mistral API with a 30-second AbortController timeout.
+ * Estimates the max_tokens value to request from Mistral.
+ *
+ * Arabic text uses significantly more tokens per word than Latin scripts
+ * because Arabic Unicode codepoints typically encode as multiple BPE tokens.
+ * A conservative multiplier of 4 is used for Arabic; 2 for English/French.
+ * Both are capped at 4096 to avoid runaway costs and stay within model limits.
+ */
+export function estimateMaxTokens(
+  language: StoryRequest["language"],
+  wordCount: number,
+): number {
+  if (language === "ar") {
+    return Math.min(4096, Math.max(2500, wordCount * 4));
+  }
+  return Math.min(4096, Math.max(2000, wordCount * 2));
+}
+
+// ── JSON parsing ─────────────────────────────────────────────────────────────
+
+/**
+ * Parses and validates the raw string returned by Mistral into a GeneratedStory.
+ *
+ * Tolerates:
+ *   - Leading/trailing whitespace
+ *   - Fenced code blocks (```json ... ``` or ``` ... ```)
+ *
+ * Validates:
+ *   - title is a non-empty string
+ *   - content is a non-empty string
+ *   - moral, if present, is coerced to a string; if absent defaults to ""
+ *
+ * Throws "Mistral returned invalid JSON" on any parse or validation failure.
+ * Never logs or surfaces the raw content in the error message.
+ */
+export function parseGeneratedStoryJson(raw: string): GeneratedStory {
+  const cleaned = raw
+    .trim()
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/\s*```$/, "");
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(cleaned);
+  } catch {
+    throw new Error("Mistral returned invalid JSON");
+  }
+
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error("Mistral returned invalid JSON");
+  }
+
+  const obj = parsed as Record<string, unknown>;
+
+  if (typeof obj.title !== "string" || !obj.title.trim()) {
+    throw new Error("Mistral returned invalid JSON");
+  }
+  if (typeof obj.content !== "string" || !obj.content.trim()) {
+    throw new Error("Mistral returned invalid JSON");
+  }
+
+  return {
+    title:   obj.title.trim(),
+    content: (obj.content as string).trim(),
+    moral:   typeof obj.moral === "string" ? obj.moral.trim() : "",
+  };
+}
+
+// ── Network layer ─────────────────────────────────────────────────────────────
+
+/**
+ * Suffix appended to the prompt on the second attempt when the first response
+ * could not be parsed as valid JSON.
+ */
+const STRICT_JSON_SUFFIX =
+  "\n\nReturn only a valid JSON object. No markdown. No commentary. Escape all quotation marks inside string values.";
+
+const MISTRAL_TIMEOUT_MS = 45_000;
+const TRANSIENT_RETRY_DELAY_MS = 1_500;
+
+/** Minimal shape of a Mistral chat completion response. */
+interface MistralApiResponse {
+  choices: Array<{
+    finish_reason?: string | null;
+    message: { content: string };
+  }>;
+}
+
+/**
+ * Fetches the Mistral API with a 45-second AbortController timeout.
  * Retries once on transient failures (network errors, 429, 5xx).
- * Does NOT retry on 400/401/403 — those are permanent provider errors.
- * Does NOT retry on timeout — a second attempt would very likely also time out.
- * Never logs the Authorization header or request body.
+ * Does NOT retry on timeout -- a second attempt would very likely also time out.
+ * Does NOT retry on 400/401/403 -- those are permanent provider errors.
+ * Never logs the Authorization header, request body, or generated content.
  */
 async function fetchMistral(
   apiKey: string,
@@ -219,9 +306,8 @@ async function fetchMistral(
   } catch (err) {
     clearTimeout(timer);
     if (err instanceof Error && err.name === "AbortError") {
-      throw new Error("Mistral request timed out after 30 s");
+      throw new Error("Mistral request timed out after 45 s");
     }
-    // Network-level error — retry once
     if (retriesLeft > 0) {
       console.warn("[Mistral] network error, retrying once:", (err as Error).message);
       await new Promise((r) => setTimeout(r, TRANSIENT_RETRY_DELAY_MS));
@@ -231,7 +317,6 @@ async function fetchMistral(
   }
   clearTimeout(timer);
 
-  // Retry once on transient server-side failures
   if (!response.ok && retriesLeft > 0 && (response.status === 429 || response.status >= 500)) {
     const delay = response.status === 429 ? TRANSIENT_RETRY_DELAY_MS * 2 : TRANSIENT_RETRY_DELAY_MS;
     console.warn(`[Mistral] status ${response.status}, retrying once in ${delay} ms`);
@@ -242,41 +327,84 @@ async function fetchMistral(
   return response;
 }
 
-export async function generateStoryWithMistral(req: StoryRequest): Promise<GeneratedStory> {
-  const apiKey = process.env.MISTRAL_API_KEY;
-  if (!apiKey) throw new Error("MISTRAL_API_KEY is not set");
+// ── Story generation ─────────────────────────────────────────────────────────
 
-  const wordCount = targetWordCount(req.childAge, req.language, req.duration);
-
+/**
+ * Makes one complete generation attempt: HTTP fetch + truncation check + JSON parse.
+ * Throws on any failure -- callers decide whether to retry.
+ */
+async function attemptGeneration(
+  apiKey: string,
+  prompt: string,
+  language: StoryRequest["language"],
+  wordCount: number,
+): Promise<GeneratedStory> {
   const requestBody = JSON.stringify({
     model: MISTRAL_MODEL,
-    temperature: 0.9,
-    max_tokens: Math.max(2000, wordCount * 2),
+    temperature: 0.7,
+    max_tokens: estimateMaxTokens(language, wordCount),
     response_format: { type: "json_object" },
-    messages: [{ role: "user", content: buildPrompt(req) }],
+    messages: [{ role: "user", content: prompt }],
   });
 
   const response = await fetchMistral(apiKey, requestBody);
 
   if (!response.ok) {
-    // Do not include the response body in the error message — it may echo back
-    // parts of the prompt which could contain user data.
     throw new Error(`Mistral error: HTTP ${response.status}`);
   }
 
-  const data = await response.json() as { choices: Array<{ message: { content: string } }> };
-  const raw = data.choices[0]?.message?.content;
+  const data = await response.json() as MistralApiResponse;
+  const choice = data.choices[0];
 
+  // Detect truncation before attempting to parse potentially incomplete JSON.
+  if (choice?.finish_reason === "length" || choice?.finish_reason === "model_length") {
+    throw new Error("Mistral response was truncated before valid JSON completion");
+  }
+
+  const raw = choice?.message?.content;
   if (!raw) throw new Error("Mistral returned empty content");
 
-  const story = JSON.parse(raw) as GeneratedStory;
+  const story = parseGeneratedStoryJson(raw);
 
-  if (!story.title || !story.content) throw new Error("Story generation incomplete");
-
-  // Normalize paragraph breaks: some models return single \n between paragraphs
+  // Normalise paragraph separators: ensure all paragraph breaks are \n\n.
   story.content = story.content
     .replace(/\r\n/g, "\n")
     .replace(/(?<!\n)\n(?!\n)/g, "\n\n");
 
   return story;
+}
+
+/**
+ * Generates a children's story via the Mistral API.
+ *
+ * Attempt 1: standard prompt.
+ * Attempt 2 (only on JSON parse failure): same prompt with a strict JSON suffix.
+ *
+ * Truncation, timeout, empty response, and HTTP errors are not retried -- they
+ * indicate conditions unlikely to improve on a second identical request.
+ */
+export async function generateStoryWithMistral(req: StoryRequest): Promise<GeneratedStory> {
+  const apiKey = process.env.MISTRAL_API_KEY;
+  if (!apiKey) throw new Error("MISTRAL_API_KEY is not set");
+
+  const wordCount = targetWordCount(req.childAge, req.language, req.duration);
+  const basePrompt = buildPrompt(req);
+
+  try {
+    return await attemptGeneration(apiKey, basePrompt, req.language, wordCount);
+  } catch (err) {
+    // Only retry on JSON parse failures -- all other errors are thrown immediately.
+    if (!(err instanceof Error) || err.message !== "Mistral returned invalid JSON") {
+      throw err;
+    }
+  }
+
+  // Second attempt: stricter JSON instruction discourages markdown wrapping and
+  // unescaped quotation marks, the two most common causes of parse failures.
+  return attemptGeneration(
+    apiKey,
+    basePrompt + STRICT_JSON_SUFFIX,
+    req.language,
+    wordCount,
+  );
 }
