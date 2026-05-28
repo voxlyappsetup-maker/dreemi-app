@@ -451,9 +451,10 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     cursorY += titleH + 4;
   }
 
-  // By-line — same wider canvas to avoid edge clipping
+  // By-line — generous line-height and bottom padding prevent Arabic descender
+  // clipping (ي ق ن have tails that extend below the baseline).
   await placeParagraph(
-    `<div style="font-size:12px;color:#8b5cf6;">${byLineText}</div>`,
+    `<div style="font-size:12px;color:#8b5cf6;line-height:2.0;padding:2px 0 14px 0;">${byLineText}</div>`,
     600
   );
 

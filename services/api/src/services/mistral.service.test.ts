@@ -278,13 +278,15 @@ describe("normalizeGeneratedStoryContent", () => {
     assert.ok(paras[1].includes("Paragraph two"));
   });
 
-  it("promotes single newlines to paragraph breaks", () => {
+  it("single newlines within a block are treated as soft breaks and merged into the paragraph", () => {
+    // A lone \n is a soft line-wrap, not a paragraph separator.
+    // Two short sentences joined by \n should stay in the same paragraph.
     const input = "Paragraph one.\nParagraph two.";
     const result = normalizeGeneratedStoryContent(input, "en");
     const paras = result.split("\n\n");
-    assert.equal(paras.length, 2);
-    assert.ok(paras[0].includes("Paragraph one"));
-    assert.ok(paras[1].includes("Paragraph two"));
+    assert.equal(paras.length, 1, "Two short sentences separated by \\n should remain one paragraph");
+    assert.ok(result.includes("Paragraph one"));
+    assert.ok(result.includes("Paragraph two"));
   });
 
   it("discards empty paragraph blocks", () => {
@@ -314,37 +316,39 @@ describe("normalizeGeneratedStoryContent", () => {
     assert.ok(result.includes("happily"));
   });
 
-  it("splits a long English paragraph exceeding 700 chars into multiple paragraphs", () => {
+  it("splits a long English paragraph exceeding 900 chars into multiple paragraphs", () => {
     const sentence = "The little explorer walked through the ancient forest and found many wonders.";
-    const longBlock = Array(11).fill(sentence).join(" ");
-    assert.ok(longBlock.length > 700, "test precondition: block must be > 700 chars");
+    const longBlock = Array(13).fill(sentence).join(" ");
+    assert.ok(longBlock.length > 900, "test precondition: block must be > 900 chars");
     const result = normalizeGeneratedStoryContent(longBlock, "en");
     const paras = result.split("\n\n");
     assert.ok(paras.length > 1, `Expected split paragraphs, got ${paras.length}`);
   });
 
-  it("splits a long Arabic paragraph exceeding 500 chars into multiple paragraphs", () => {
+  it("splits a long Arabic paragraph exceeding 600 chars into multiple paragraphs", () => {
     const sentence = "ذهب الولد الصغير إلى الغابة ووجد أصدقاء جدد وعاش سعيداً.";
-    const longBlock = Array(10).fill(sentence).join(" ");
-    assert.ok(longBlock.length > 500, "test precondition: block must be > 500 chars");
+    const longBlock = Array(11).fill(sentence).join(" ");
+    assert.ok(longBlock.length > 600, "test precondition: block must be > 600 chars");
     const result = normalizeGeneratedStoryContent(longBlock, "ar");
     const paras = result.split("\n\n");
     assert.ok(paras.length > 1, `Expected split paragraphs for Arabic, got ${paras.length}`);
   });
 
-  it("Arabic uses a smaller limit than English: a 550-char block splits in Arabic but not English", () => {
+  it("Arabic produces more (smaller) paragraph groups than English for the same multi-sentence input", () => {
+    // 8 Arabic sentences separated by spaces — exceeds both language thresholds.
     const sentence = "هذه جملة قصيرة للاختبار.";
-    let block = "";
-    while (block.length < 520) block += (block ? " " : "") + sentence;
-    block = block.trim();
-    assert.ok(block.length > 500, "test precondition: > 500 chars");
-    assert.ok(block.length < 700, "test precondition: < 700 chars");
+    const block = Array(8).fill(sentence).join(" ");
 
     const arResult = normalizeGeneratedStoryContent(block, "ar");
     const enResult = normalizeGeneratedStoryContent(block, "en");
 
-    assert.ok(arResult.split("\n\n").length > 1, "Arabic block should be split");
-    assert.equal(enResult.split("\n\n").length, 1, "English block should not be split at this length");
+    const arCount = arResult.split("\n\n").length;
+    const enCount = enResult.split("\n\n").length;
+
+    assert.ok(arCount > 1, "Arabic: 8 sentences should produce multiple paragraphs");
+    assert.ok(enCount > 1, "English: 8 sentences should produce multiple paragraphs");
+    // Arabic groupSize (2) < English groupSize (3), so Arabic produces more, smaller groups.
+    assert.ok(arCount >= enCount, `Arabic (${arCount}) should have >= paragraphs as English (${enCount})`);
   });
 
   it("joining paragraphs with \\n\\n never produces a leading or trailing \\n\\n", () => {
@@ -359,6 +363,119 @@ describe("normalizeGeneratedStoryContent", () => {
     const result = normalizeGeneratedStoryContent(input, "ar");
     const paras = result.split("\n\n");
     assert.equal(paras.length, 3);
+  });
+
+  it("Arabic: three short sentences separated by single newlines merge into one natural paragraph", () => {
+    // This is the classic bad-LLM pattern: \n between sentences instead of \n\n.
+    // With the new normaliser the three sentences must NOT become three paragraphs.
+    const input = "ذهب سامي إلى المدرسة.\nالتقى بصديقه الجديد.\nلعبا معاً في الحديقة.";
+    const result = normalizeGeneratedStoryContent(input, "ar");
+    const paras = result.split("\n\n");
+    // 3 sentences ≤ maxSentencesToKeep (3) → one paragraph
+    assert.equal(paras.length, 1,
+      `Expected 1 paragraph (3 sentences ≤ Arabic max), got ${paras.length}`);
+    assert.ok(result.includes("سامي"));
+    assert.ok(result.includes("صديقه"));
+    assert.ok(result.includes("الحديقة"));
+  });
+
+  it("Arabic: six sentences with single newlines group into natural multi-sentence paragraphs, not one-per-sentence", () => {
+    // 6 sentences → exceeds Arabic max (3) → grouped into 2-sentence paragraphs → 3 paragraphs
+    const input = [
+      "ذهب سامي إلى المدرسة.",
+      "التقى بصديقه الجديد.",
+      "لعبا معاً في الحديقة.",
+      "رأى سامي فراشة جميلة.",
+      "حاول أن يمسكها لكنها طارت.",
+      "ضحك الصديقان معاً.",
+    ].join("\n");
+    const result = normalizeGeneratedStoryContent(input, "ar");
+    const paras = result.split("\n\n");
+    // Must NOT be 6 (one-per-sentence).
+    assert.ok(paras.length < 6,
+      `Should not produce one paragraph per sentence; got ${paras.length}`);
+    // Must NOT be 1 (all merged into one dense block).
+    assert.ok(paras.length > 1,
+      `Should split 6 sentences into multiple paragraphs; got ${paras.length}`);
+    // No content dropped.
+    assert.ok(result.includes("سامي"));
+    assert.ok(result.includes("فراشة"));
+    assert.ok(result.includes("الصديقان"));
+  });
+
+  it("English: five sentences with single newlines group naturally — not one-per-sentence", () => {
+    const input = [
+      "The brave fox walked into the dark forest.",
+      "She heard a soft rustle among the leaves.",
+      "A tiny hedgehog peeked out from behind a tree.",
+      "The fox smiled and offered a piece of bread.",
+      "They sat together and watched the stars appear.",
+    ].join("\n");
+    const result = normalizeGeneratedStoryContent(input, "en");
+    const paras = result.split("\n\n");
+    // 5 sentences > English max (4) → group into 3s → 2 paragraphs (3+2)
+    assert.ok(paras.length < 5, `Should not produce one paragraph per sentence; got ${paras.length}`);
+    assert.ok(paras.length > 0);
+    // All words present
+    assert.ok(result.includes("brave fox"));
+    assert.ok(result.includes("hedgehog"));
+    assert.ok(result.includes("stars"));
+  });
+
+  it("a well-formed paragraph with 2 Arabic sentences kept exactly as-is", () => {
+    const input = "كان يا ما كان في قديم الزمان ملك حكيم. عاش في قصر جميل على قمة الجبل.";
+    const result = normalizeGeneratedStoryContent(input, "ar");
+    const paras = result.split("\n\n");
+    // 2 sentences ≤ maxSentencesToKeep (3) → unchanged
+    assert.equal(paras.length, 1);
+    assert.ok(result.includes("ملك حكيم"));
+    assert.ok(result.includes("قمة الجبل"));
+  });
+
+  it("splits a long unpunctuated English block (>900) into multiple paragraphs", () => {
+    const block = Array(230).fill("sunshine").join(" ");
+    assert.ok(block.length > 900, "test precondition: block must be > 900 chars");
+    const result = normalizeGeneratedStoryContent(block, "en");
+    const paras = result.split("\n\n");
+    assert.ok(paras.length > 1, "Expected unpunctuated English block to be split");
+  });
+
+  it("splits a long unpunctuated Arabic block (>600) into multiple paragraphs", () => {
+    const block = Array(170).fill("نور").join(" ");
+    assert.ok(block.length > 600, "test precondition: block must be > 600 chars");
+    const result = normalizeGeneratedStoryContent(block, "ar");
+    const paras = result.split("\n\n");
+    assert.ok(paras.length > 1, "Expected unpunctuated Arabic block to be split");
+  });
+
+  it("does not drop words during fallback splitting of long unpunctuated blocks", () => {
+    const words = [
+      "anchorOne",
+      ...Array(210).fill("middleword"),
+      "anchorTwo",
+      "anchorThree",
+    ];
+    const block = words.join(" ");
+    const result = normalizeGeneratedStoryContent(block, "en");
+
+    assert.ok(result.includes("anchorOne"));
+    assert.ok(result.includes("anchorTwo"));
+    assert.ok(result.includes("anchorThree"));
+  });
+
+  it("fallback-split paragraphs stay within configured limits when whitespace cuts are available", () => {
+    const enBlock = Array(250).fill("cloud").join(" ");
+    const arBlock = Array(220).fill("قمر").join(" ");
+
+    const enResult = normalizeGeneratedStoryContent(enBlock, "en");
+    const arResult = normalizeGeneratedStoryContent(arBlock, "ar");
+
+    for (const p of enResult.split("\n\n")) {
+      assert.ok(p.length <= 900, `English paragraph exceeded 900 chars: ${p.length}`);
+    }
+    for (const p of arResult.split("\n\n")) {
+      assert.ok(p.length <= 600, `Arabic paragraph exceeded 600 chars: ${p.length}`);
+    }
   });
 
 });

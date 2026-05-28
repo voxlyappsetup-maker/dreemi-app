@@ -88,9 +88,9 @@ const WORDS_PER_MINUTE: Record<StoryRequest["language"], number> = {
 };
 
 const PARAGRAPH_RULE: Record<StoryRequest["language"], string> = {
-  ar: `قسّم القصة إلى فقرات قصيرة جداً. كل فقرة جملة أو جملتان فقط. افصل كل فقرة بسطر فارغ (\\n\\n). لا تكتب القصة كنص متواصل ولا تجمع كثيراً من الجمل في فقرة واحدة.`,
-  en: `Divide the story into short, clear paragraphs separated by blank lines (\\n\\n). Each paragraph should be 2-3 sentences at most. Do NOT write the story as a single continuous block of text.`,
-  fr: `Divisez l'histoire en paragraphes courts et clairs separes par des lignes vides (\\n\\n). Chaque paragraphe doit contenir 2-3 phrases au maximum. N'ecrivez PAS l'histoire en un seul bloc de texte continu.`,
+  ar: `قسّم القصة إلى فقرات طبيعية قصيرة. عادةً 2-3 جمل قصيرة في كل فقرة. لا تجعل كل جملة فقرة وحدها. افصل بين الفقرات بسطر فارغ (\\n\\n). لا تكتب القصة كنص متواصل غير مقسّم.`,
+  en: `Divide the story into short, natural paragraphs separated by blank lines (\\n\\n). Each paragraph should contain 3-4 sentences. Do NOT put each sentence on its own line. Do NOT write the story as one continuous block of text.`,
+  fr: `Divisez l'histoire en paragraphes naturels et courts separes par des lignes vides (\\n\\n). Chaque paragraphe doit contenir 3-4 phrases. Ne mettez PAS chaque phrase sur sa propre ligne. N'ecrivez PAS l'histoire en un seul bloc continu.`,
 };
 
 function minWordsByAge(age: number): number {
@@ -257,45 +257,62 @@ export function parseGeneratedStoryJson(raw: string): GeneratedStory {
 // ── Content normalisation ────────────────────────────────────────────────────
 
 /**
- * Splits a single story paragraph that exceeds `maxChars` into shorter
- * paragraphs, preferring sentence-ending punctuation as split points.
+ * Splits `text` into individual sentences by locating sentence-ending
+ * punctuation (. ! ? ؟ ۔) followed by whitespace or end of string.
+ * The punctuation is kept attached to its sentence.
+ * Any unpunctuated trailing fragment is returned as the last element.
+ *
+ * Arabic commas (،) are intentionally excluded — they are clause separators,
+ * not sentence endings, and splitting on them fragments Arabic prose unnaturally.
+ */
+function extractSentences(text: string): string[] {
+  const re = /([.!?؟۔][)'"»]*)\s+(?=\S)/g;
+  const result: string[] = [];
+  let lastEnd = 0;
+  let m: RegExpExecArray | null;
+
+  while ((m = re.exec(text)) !== null) {
+    const sentence = text.slice(lastEnd, m.index + m[1].length).trim();
+    if (sentence) result.push(sentence);
+    lastEnd = m.index + m[0].length;
+  }
+
+  const tail = text.slice(lastEnd).trim();
+  if (tail) result.push(tail);
+
+  return result;
+}
+
+/**
+ * Splits very long text by word boundary when sentence grouping cannot reduce
+ * size (for example an unpunctuated block or one sentence longer than limit).
  *
  * Split preference:
- *   1. Last sentence boundary (. ! ? ؟ ،  ۔) + following whitespace within
- *      the slice, provided the cut point is past 40 % of the slice.
- *   2. Last whitespace (space) in the slice.
- *   3. Hard cut at `maxChars` (very rare — only when no whitespace exists).
+ *   1. Last whitespace at/near the limit (only if beyond 40% of charLimit).
+ *   2. Hard cut at charLimit when no suitable whitespace exists.
  *
- * Text order is preserved exactly; no characters are added or removed.
+ * Text order is preserved. No words are dropped.
  */
-function splitContentIntoShortParagraphs(block: string, maxChars: number): string[] {
-  if (block.length <= maxChars) return [block];
+function splitLongTextByWordBoundary(text: string, charLimit: number): string[] {
+  if (text.length <= charLimit) return [text];
 
   const chunks: string[] = [];
-  let remaining = block;
+  let remaining = text;
 
-  while (remaining.length > maxChars) {
-    const slice = remaining.slice(0, maxChars);
+  while (remaining.length > charLimit) {
+    const slice = remaining.slice(0, charLimit);
+    const lastWhitespace = Math.max(
+      slice.lastIndexOf(" "),
+      slice.lastIndexOf("\t"),
+      slice.lastIndexOf("\n"),
+    );
 
-    let cutAt = -1;
-    const sentenceRe = /[.!?؟،۔][)\]'"»]*\s*/g;
-    let m: RegExpExecArray | null;
-    while ((m = sentenceRe.exec(slice)) !== null) {
-      cutAt = m.index + m[0].length;
-    }
-
-    if (cutAt > maxChars * 0.4) {
-      chunks.push(remaining.slice(0, cutAt).trimEnd());
-      remaining = remaining.slice(cutAt).trimStart();
+    if (lastWhitespace > Math.floor(charLimit * 0.4)) {
+      chunks.push(remaining.slice(0, lastWhitespace).trimEnd());
+      remaining = remaining.slice(lastWhitespace).trimStart();
     } else {
-      const lastSpace = slice.lastIndexOf(" ");
-      if (lastSpace > 0) {
-        chunks.push(remaining.slice(0, lastSpace).trimEnd());
-        remaining = remaining.slice(lastSpace).trimStart();
-      } else {
-        chunks.push(remaining.slice(0, maxChars));
-        remaining = remaining.slice(maxChars);
-      }
+      chunks.push(remaining.slice(0, charLimit));
+      remaining = remaining.slice(charLimit);
     }
   }
 
@@ -307,17 +324,74 @@ function splitContentIntoShortParagraphs(block: string, maxChars: number): strin
 }
 
 /**
+ * Groups an array of sentences into natural paragraphs.
+ * Each group contains at most `groupSize` sentences, and the joined text
+ * stays under `charLimit`. If one sentence exceeds `charLimit`, it is split
+ * by word boundary as a fallback.
+ */
+function groupSentencesIntoParagraphs(
+  sentences: string[],
+  groupSize: number,
+  charLimit: number,
+): string[] {
+  const paragraphs: string[] = [];
+  let group: string[] = [];
+  let groupLen = 0;
+
+  for (const sentence of sentences) {
+    if (sentence.length > charLimit) {
+      if (group.length > 0) {
+        paragraphs.push(group.join(" "));
+        group = [];
+        groupLen = 0;
+      }
+      paragraphs.push(...splitLongTextByWordBoundary(sentence, charLimit));
+      continue;
+    }
+
+    const nextLen = groupLen > 0 ? groupLen + 1 + sentence.length : sentence.length;
+    const groupFull  = group.length >= groupSize;
+    const wouldExceedLimit = group.length > 0 && nextLen > charLimit;
+
+    if (groupFull || wouldExceedLimit) {
+      paragraphs.push(group.join(" "));
+      group = [sentence];
+      groupLen = sentence.length;
+    } else {
+      group.push(sentence);
+      groupLen = nextLen;
+    }
+  }
+
+  if (group.length > 0) paragraphs.push(group.join(" "));
+
+  return paragraphs;
+}
+
+/**
  * Normalises raw story content returned by the LLM before it is saved.
  *
- * Steps (in order):
- *   1. CRLF and bare CR  → LF.
- *   2. Lone single `\n` → `\n\n`  (LLMs often use single newlines for paragraph
- *      breaks even when instructed to use `\n\n`; promoting them is safe because
- *      the UI and PDF both treat `\n\n` as the paragraph separator).
- *   3. Split on `\n\n+` to get individual paragraph blocks; discard empty blocks.
- *   4. For each block longer than the language-specific limit, split at sentence
- *      boundaries to produce shorter paragraphs.
- *   5. Re-join all resulting paragraphs with `\n\n`.
+ * Algorithm (in order):
+ *   1. Normalize CRLF and bare CR to LF.
+ *   2. Split on double+ newlines — these are the model's intended paragraph
+ *      boundaries and are always respected.
+ *   3. Within each block, merge single newlines into spaces.  LLMs often
+ *      wrap long lines inside a paragraph with \n; those soft breaks are
+ *      NOT paragraph separators.  Converting them to spaces avoids the
+ *      "one sentence per paragraph" pattern caused by blind \n→\n\n promotion.
+ *   4. Count the sentences in each merged block using sentence-ending
+ *      punctuation as the boundary marker:
+ *      - If the block has ≤ maxSentencesToKeep sentences AND is under the
+ *        character safety limit → keep it as one paragraph (no change).
+ *      - Otherwise → group its sentences into shorter paragraphs of
+ *        `groupSize` sentences each, still respecting the character limit.
+ *   5. Discard empty blocks; join all final paragraphs with "\n\n".
+ *
+ * Per-language settings:
+ *   - Arabic (ar):    keep if ≤ 3 sentences; group into 2-sentence paragraphs;
+ *                     safety limit 600 chars.
+ *   - English/French: keep if ≤ 4 sentences; group into 3-sentence paragraphs;
+ *                     safety limit 900 chars.
  *
  * Never logs content. Never removes characters.
  */
@@ -325,29 +399,35 @@ export function normalizeGeneratedStoryContent(
   content: string,
   language: StoryRequest["language"],
 ): string {
-  // Per-language character limits for paragraph splitting.
-  const limit = language === "ar" ? 500 : 700;
+  const isArabic           = language === "ar";
+  const maxSentencesToKeep = isArabic ? 3 : 4;   // keep block intact if ≤ this many sentences
+  const groupSize          = isArabic ? 2 : 3;   // sentences per group when splitting is needed
+  const charLimit          = isArabic ? 600 : 900; // character safety limit per paragraph
 
   const normalised = content
     .replace(/\r\n/g, "\n")
-    .replace(/\r/g, "\n")
-    .replace(/(?<!\n)\n(?!\n)/g, "\n\n"); // lone \n → paragraph break
+    .replace(/\r/g, "\n");
 
   const rawBlocks = normalised.split(/\n{2,}/);
-  const paragraphs: string[] = [];
+  const finalParagraphs: string[] = [];
 
   for (const block of rawBlocks) {
-    const trimmed = block.trim();
-    if (!trimmed) continue;
+    // Merge internal soft line-wraps into spaces; drop purely whitespace blocks.
+    const merged = block.replace(/\n/g, " ").trim();
+    if (!merged) continue;
 
-    if (trimmed.length <= limit) {
-      paragraphs.push(trimmed);
+    const sentences = extractSentences(merged);
+
+    if (sentences.length <= maxSentencesToKeep && merged.length <= charLimit) {
+      // Already appropriately sized — keep as-is.
+      finalParagraphs.push(merged);
     } else {
-      paragraphs.push(...splitContentIntoShortParagraphs(trimmed, limit));
+      // Too many sentences or too long — group into natural paragraph chunks.
+      finalParagraphs.push(...groupSentencesIntoParagraphs(sentences, groupSize, charLimit));
     }
   }
 
-  return paragraphs.join("\n\n");
+  return finalParagraphs.join("\n\n");
 }
 
 // ── Network layer ─────────────────────────────────────────────────────────────
