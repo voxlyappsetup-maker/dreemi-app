@@ -231,6 +231,10 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const mmPerPx = contentW / contentCanvas.width;
 
   // ── Slice contentCanvas across PDF pages ──────────────────────────────────
+  // font-size:15px × line-height:1.9 × scale:2 = 57px per text line in canvas pixels.
+  // We round every slice boundary DOWN to a multiple of this so no line is ever
+  // cut horizontally between two PDF pages.
+  const LINE_HEIGHT_PX = Math.round(15 * 1.9 * 2); // ≈ 57px
   let srcYPx = 0;
   let firstSlice = true;
 
@@ -241,7 +245,9 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     firstSlice = false;
 
     const availableHeightMm = H - cursorY - FOOTER_ZONE;
-    const maxSliceHeightPx = Math.floor(availableHeightMm / mmPerPx);
+    const rawMaxPx = Math.floor(availableHeightMm / mmPerPx);
+    // Round down to the nearest complete text line — prevents horizontal clipping
+    const maxSliceHeightPx = Math.floor(rawMaxPx / LINE_HEIGHT_PX) * LINE_HEIGHT_PX;
 
     // Safety: if no space available (shouldn't happen after addNewPage), break
     if (maxSliceHeightPx <= 0) break;
