@@ -20,74 +20,6 @@ function escHtml(s: string): string {
 }
 
 /**
- * Renders the story title by first measuring its actual rendered width with a
- * probe element (scrollWidth), then capturing at exactly that width.
- * This guarantees zero clipping regardless of RTL direction or text length.
- */
-async function renderTitleAsImage(
-  html: string,
-  isRtl: boolean
-): Promise<HTMLCanvasElement> {
-  try {
-    await document.fonts.load("700 22px Cairo");
-    await document.fonts.load("400 22px Cairo");
-  } catch { /* best effort */ }
-
-  // Step 1: measure actual text width by letting it expand freely (no wrapping)
-  const probe = document.createElement("div");
-  probe.style.cssText = `
-    position: fixed;
-    left: -9999px;
-    top: 0;
-    width: auto;
-    white-space: nowrap;
-    direction: ${isRtl ? "rtl" : "ltr"};
-    font-family: 'Cairo', Arial, sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.4;
-    visibility: hidden;
-  `;
-  probe.innerHTML = html;
-  document.body.appendChild(probe);
-  const actualWidth = Math.ceil(probe.scrollWidth) + 40; // +40px safety margin
-  console.log("[PDF Title] actualWidth:", actualWidth);
-  document.body.removeChild(probe);
-
-  // Step 2: render at exactly actualWidth — overflow is structurally impossible
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = `
-    position: fixed;
-    left: -9999px;
-    top: 0;
-    width: ${actualWidth}px;
-    direction: ${isRtl ? "rtl" : "ltr"};
-    text-align: ${isRtl ? "right" : "left"};
-    font-family: 'Cairo', Arial, sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.4;
-    color: #1e293b;
-    background: transparent;
-    box-sizing: border-box;
-    overflow: visible;
-  `;
-  wrapper.innerHTML = html;
-  document.body.appendChild(wrapper);
-
-  const canvas = await html2canvas(wrapper, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: null,
-    logging: false,
-    width: actualWidth,
-  });
-
-  document.body.removeChild(wrapper);
-  return canvas;
-}
-
-/**
  * Renders a single HTML fragment (one paragraph / title / box) into a canvas
  * using the browser's own text engine — produces correct Arabic shaping, bidi,
  * and ligatures. Each call is independent so there is no cross-page slicing.
@@ -291,18 +223,11 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     ? `قصة لـ ${escHtml(childName)}`
     : `A story for ${escHtml(childName)}`;
 
-  // Title — renderTitleAsImage measures scrollWidth first so the canvas is
-  // exactly as wide as the text; overflow is structurally impossible.
-  {
-    const titleCanvas = await renderTitleAsImage(
-      `<div style="font-size:22px;font-weight:700;color:#1e293b;line-height:1.4;">${escHtml(title)}</div>`,
-      isRtl
-    );
-    const titleMm = (titleCanvas.height / 2) / ((titleCanvas.width / 2) / contentW);
-    if (titleMm > H - cursorY - FOOTER_ZONE) addNewPage();
-    pdf.addImage(titleCanvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, titleMm);
-    cursorY += titleMm + PARA_GAP;
-  }
+  // Title — centered, 22px bold; padding-right:60px absorbs RTL right-edge overflow
+  await placeParagraph(
+    `<div style="font-size:22px;font-weight:700;color:#1e293b;line-height:1.4;text-align:center;padding-right:60px;overflow:visible;">${escHtml(title)}</div>`,
+    560
+  );
 
   // By-line — same wider canvas to avoid edge clipping
   await placeParagraph(
