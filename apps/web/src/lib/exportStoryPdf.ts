@@ -1,5 +1,25 @@
 import jsPDF from "jspdf";
 
+async function loadArabicFont(pdf: jsPDF): Promise<string> {
+  try {
+    const response = await fetch("/cairo-regular.ttf");
+    if (!response.ok) throw new Error("Font not found");
+    const buffer = await response.arrayBuffer();
+    const uint8 = new Uint8Array(buffer);
+    let binary = "";
+    for (let i = 0; i < uint8.length; i++) binary += String.fromCharCode(uint8[i]);
+    const base64 = btoa(binary);
+    pdf.addFileToVFS("Cairo-Regular.ttf", base64);
+    pdf.addFont("Cairo-Regular.ttf", "Cairo", "normal");
+    pdf.addFileToVFS("Cairo-Bold.ttf", base64);
+    pdf.addFont("Cairo-Bold.ttf", "Cairo", "bold");
+    return "Cairo";
+  } catch (e) {
+    console.warn("[PDF] Arabic font failed, using fallback:", e);
+    return "helvetica";
+  }
+}
+
 export interface StoryPdfData {
   title: string;
   childName: string;
@@ -13,6 +33,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const { title, childName, content, imageUrl, lesson, locale = "ar" } = data;
   const isRtl = locale === "ar";
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+  const bodyFont = isRtl ? await loadArabicFont(pdf) : "helvetica";
   const W = 210, H = 297, M = 20;
   const contentW = W - M * 2;
   const LINE_H = 6, FOOTER_ZONE = 20, HEADER_TOP = 5;
@@ -99,7 +120,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   };
 
   const setBodyFont = () => {
-    pdf.setFont("helvetica", "normal");
+    pdf.setFont(bodyFont, "normal");
     pdf.setFontSize(13);
     pdf.setTextColor(51, 65, 85);
   };
@@ -146,14 +167,14 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const titleLines: string[] = pdf.splitTextToSize(title, contentW);
   for (const line of titleLines) {
     ensureSpace(8);
-    pdf.setFont("helvetica", "bold"); pdf.setFontSize(18); pdf.setTextColor(30, 41, 59);
+    pdf.setFont(bodyFont, "bold"); pdf.setFontSize(18); pdf.setTextColor(30, 41, 59);
     pdf.text(line, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
     cursorY += 8;
   }
 
   // By line
   ensureSpace(7);
-  pdf.setFont("helvetica", "normal"); pdf.setFontSize(10); pdf.setTextColor(139, 92, 246);
+  pdf.setFont(bodyFont, "normal"); pdf.setFontSize(10); pdf.setTextColor(139, 92, 246);
   const byLine = isRtl ? `قصة لـ ${childName}` : `A story for ${childName}`;
   pdf.text(byLine, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
   cursorY += 7;
@@ -179,9 +200,9 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     if (cursorY + moralBoxH + 4 > H - FOOTER_ZONE || H - FOOTER_ZONE - cursorY < 40) addNewPage();
     pdf.setFillColor(245, 243, 255); pdf.setDrawColor(196, 181, 253);
     pdf.roundedRect(M, cursorY, contentW, moralBoxH, 3, 3, "FD");
-    pdf.setFont("helvetica", "bold"); pdf.setFontSize(12); pdf.setTextColor(109, 40, 217);
+    pdf.setFont(bodyFont, "bold"); pdf.setFontSize(12); pdf.setTextColor(109, 40, 217);
     pdf.text(moralLabel, isRtl ? W - M - 6 : M + 6, cursorY + 8, { align: isRtl ? "right" : "left" });
-    pdf.setFont("helvetica", "normal"); pdf.setFontSize(12); pdf.setTextColor(51, 65, 85);
+    pdf.setFont(bodyFont, "normal"); pdf.setFontSize(12); pdf.setTextColor(51, 65, 85);
     let my = cursorY + 15;
     for (const line of moralLines) {
       pdf.text(line, isRtl ? W - M - 6 : M + 6, my, { align: isRtl ? "right" : "left" });
