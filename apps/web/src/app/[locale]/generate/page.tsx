@@ -254,7 +254,7 @@ function GenerateContent() {
 
       <main className="mx-auto max-w-2xl px-4 py-8 sm:px-8 lg:py-10">
         <Link
-          href={`/${locale}/dashboard`}
+          href="/dashboard"
           className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-violet-700 transition hover:text-violet-900 hover:underline"
         >
           ← {t("backToDashboard")}
@@ -564,7 +564,7 @@ function GenerateContent() {
             <>
               <div className="mt-6 flex flex-wrap gap-3">
                 <button type="button" onClick={startOver} className={BTN_SECONDARY}>{t("newStory")}</button>
-                <Link href={`/${locale}/dashboard`} className="inline-flex items-center justify-center rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700">
+                <Link href="/dashboard" className="inline-flex items-center justify-center rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700">
                   {t("backToDashboard")}
                 </Link>
               </div>
