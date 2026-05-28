@@ -88,9 +88,9 @@ const WORDS_PER_MINUTE: Record<StoryRequest["language"], number> = {
 };
 
 const PARAGRAPH_RULE: Record<StoryRequest["language"], string> = {
-  ar: `قسّم القصة إلى فقرات واضحة. كل فقرة من 3-5 جمل. استخدم دائماً سطراً فارغاً بين الفقرات (\\n\\n في حقل content).`,
-  en: `Divide the story into clear paragraphs. Each paragraph should be 3-5 sentences. Always use line breaks between paragraphs (\\n\\n in the content field).`,
-  fr: `Divisez l'histoire en paragraphes clairs. Chaque paragraphe doit contenir 3-5 phrases. Utilisez toujours des sauts de ligne entre les paragraphes (\\n\\n dans le champ content).`,
+  ar: `قسّم القصة إلى فقرات واضحة. افصل كل فقرة بسطر فارغ (\\n\\n). كل فقرة 3-5 جمل. لا تكتب القصة كنص متواصل.`,
+  en: `Divide the story into clear paragraphs separated by blank lines (\\n\\n). Each paragraph should be 3-5 sentences. Do NOT write the story as a single continuous block of text.`,
+  fr: `Divisez l'histoire en paragraphes clairs separes par des lignes vides (\\n\\n). Chaque paragraphe doit contenir 3-5 phrases. N'ecrivez PAS l'histoire en un seul bloc de texte continu.`,
 };
 
 function minWordsByAge(age: number): number {

@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { Story } from "@dreemi/types";
 import { deleteStory, getStoryById, ApiError } from "../../../../lib/api";
-import { exportStoryToPdf } from "../../../../lib/exportStoryPdf";
+import { exportStoryPdf } from "../../../../lib/exportStoryPdf";
 import { Link, useRouter } from "../../../../i18n/routing";
 import { getStoredUser, isAuthenticated } from "../../../../lib/storage";
 import { StoryContent } from "../../../../components/StoryContent";
@@ -82,9 +82,13 @@ export default function StoryViewPage({
     if (!story || exporting) return;
     setExporting(true);
     try {
-      await exportStoryToPdf(story, {
-        storyBy: t("storyBy", { name: story.childName }),
-        moralLearned: t("moralLearned"),
+      await exportStoryPdf({
+        title: story.title,
+        childName: story.childName,
+        content: story.content,
+        imageUrl: story.imageUrl ?? undefined,
+        lesson: story.moral ?? undefined,
+        locale: story.language,
       });
     } catch (err) {
       console.error("[PDF export]", err);
