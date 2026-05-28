@@ -40,7 +40,8 @@ async function renderParagraphAsImage(
     left: -9999px;
     top: 0;
     width: ${widthPx}px;
-    padding: 0 20px;
+    padding: 0 24px 0 24px;
+    overflow: visible;
     direction: ${isRtl ? "rtl" : "ltr"};
     text-align: ${isRtl ? "right" : "left"};
     font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif;
@@ -203,8 +204,8 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
    * Renders html into a canvas, converts its height to mm, starts a new page
    * if the element doesn't fit, then places it at the current cursor position.
    */
-  const placeParagraph = async (html: string): Promise<void> => {
-    const canvas = await renderParagraphAsImage(html, isRtl);
+  const placeParagraph = async (html: string, widthPx = 560): Promise<void> => {
+    const canvas = await renderParagraphAsImage(html, isRtl, widthPx);
     // canvas is @2x scale: CSS width = canvas.width / 2
     const cssWidthPx = canvas.width / 2;
     const pxPerMm = cssWidthPx / contentW;
@@ -222,14 +223,17 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     ? `قصة لـ ${escHtml(childName)}`
     : `A story for ${escHtml(childName)}`;
 
-  // Title
+  // Title — widthPx=600 gives 552px effective (600−48) vs 520px at 560, preventing
+  // right-side clipping of large bold Arabic text in RTL mode.
   await placeParagraph(
-    `<div style="font-size:22px;font-weight:700;color:#1e293b;line-height:1.4;">${escHtml(title)}</div>`
+    `<div style="font-size:22px;font-weight:700;color:#1e293b;line-height:1.4;word-break:keep-all;overflow-wrap:normal;white-space:normal;">${escHtml(title)}</div>`,
+    600
   );
 
-  // By-line
+  // By-line — same wider canvas to avoid edge clipping
   await placeParagraph(
-    `<div style="font-size:12px;color:#8b5cf6;">${byLineText}</div>`
+    `<div style="font-size:12px;color:#8b5cf6;">${byLineText}</div>`,
+    600
   );
 
   // Content paragraphs — split on any run of newlines for finest granularity
