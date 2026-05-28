@@ -26,6 +26,7 @@ export default function StoryViewPage({
   const [loggedIn] = useState(() => isAuthenticated());
   const [exporting, setExporting] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const ownerId = getStoredUser()?.id ?? null;
   const storyRef = useRef<HTMLElement>(null);
 
@@ -52,6 +53,11 @@ export default function StoryViewPage({
     load();
     return () => { cancelled = true; };
   }, [params.id]);
+
+  // Reset image error state whenever the story image URL changes.
+  useEffect(() => {
+    setImgError(false);
+  }, [story?.imageUrl]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if ((e.ctrlKey || e.metaKey) && (e.key === "c" || e.key === "a" || e.key === "C" || e.key === "A")) {
@@ -198,7 +204,7 @@ export default function StoryViewPage({
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
-          {story.imageUrl ? (
+          {story.imageUrl && !imgError ? (
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-violet-100" data-story-print>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -206,6 +212,8 @@ export default function StoryViewPage({
                 alt={story.title}
                 className="h-full w-full object-cover"
                 draggable={false}
+                referrerPolicy="no-referrer"
+                onError={() => setImgError(true)}
               />
             </div>
           ) : (

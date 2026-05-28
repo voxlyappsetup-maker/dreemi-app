@@ -22,6 +22,7 @@ export function StoryCard({ story, onFavoriteChange, onDelete }: StoryCardProps)
   const locale = useLocale();
   const t = useTranslations("storyCard");
   const [fav, setFav] = useState(() => isFavorite(story.id) || story.isFavorite);
+  const [imgError, setImgError] = useState(false);
 
   const LANGUAGE_LABELS: Record<string, string> = {
     ar: t("langAr"),
@@ -54,10 +55,17 @@ export function StoryCard({ story, onFavoriteChange, onDelete }: StoryCardProps)
   return (
     <article className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-white p-[1px] shadow-md transition hover:-translate-y-0.5 hover:shadow-lg">
       {/* Thumbnail */}
-      {story.imageUrl ? (
+      {story.imageUrl && !imgError ? (
         <div className="aspect-[16/9] w-full overflow-hidden bg-violet-100">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={story.imageUrl} alt="" className="h-full w-full object-cover transition group-hover:scale-105" />
+          <img
+            src={story.imageUrl}
+            alt=""
+            className="h-full w-full object-cover transition group-hover:scale-105"
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={() => setImgError(true)}
+          />
         </div>
       ) : (
         <div className="flex aspect-[16/9] w-full items-center justify-center bg-gradient-to-br from-violet-100 to-purple-50">
