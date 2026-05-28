@@ -1,1 +1,0 @@
-fix: use Canvas2D for title rendering — works for both Arabic and English
