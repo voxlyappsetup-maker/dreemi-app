@@ -127,7 +127,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   };
 
   const drawHeader = () => {
-    const brandW = 55;
+    const brandW = 55 * 0.85; // reduced 15% → 46.75mm; x = (W-brandW)/2 auto-recenters
     if (brandAsset) {
       const brandH = brandW * brandAsset.aspect;
       pdf.addImage(brandAsset.dataUrl, "PNG", (W - brandW) / 2, cursorY, brandW, brandH);
@@ -234,7 +234,11 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   // font-size:15px × line-height:1.9 × scale:2 = 57px per text line in canvas pixels.
   // We round every slice boundary DOWN to a multiple of this so no line is ever
   // cut horizontally between two PDF pages.
-  const LINE_HEIGHT_PX = Math.round(15 * 1.9 * 2); // ≈ 57px
+  // font-size 15px × line-height 1.9 × scale 2 = 57px per line
+  // +14px paragraph margin × scale 2 = 28px extra per paragraph
+  // Use 3 lines as safety buffer to never clip mid-line
+  const LINE_HEIGHT_PX = Math.round(15 * 1.9 * 2); // 57px
+  const SAFETY_BUFFER_PX = LINE_HEIGHT_PX * 3;     // 171px safety
   let srcYPx = 0;
   let firstSlice = true;
 
@@ -246,8 +250,10 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
 
     const availableHeightMm = H - cursorY - FOOTER_ZONE;
     const rawMaxPx = Math.floor(availableHeightMm / mmPerPx);
-    // Round down to the nearest complete text line — prevents horizontal clipping
-    const maxSliceHeightPx = Math.floor(rawMaxPx / LINE_HEIGHT_PX) * LINE_HEIGHT_PX;
+    // Subtract 3-line safety buffer then round to a line boundary — zero clipping risk
+    const maxSliceHeightPx = Math.floor(
+      (rawMaxPx - SAFETY_BUFFER_PX) / LINE_HEIGHT_PX
+    ) * LINE_HEIGHT_PX;
 
     // Safety: if no space available (shouldn't happen after addNewPage), break
     if (maxSliceHeightPx <= 0) break;
