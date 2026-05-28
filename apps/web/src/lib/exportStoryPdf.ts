@@ -20,6 +20,82 @@ function escHtml(s: string): string {
 }
 
 /**
+ * Maximum characters per rendering block before we force a split.
+ * ~1 000 chars ≈ 10–14 lines at 15 px — comfortably fits inside one PDF page.
+ */
+const MAX_BLOCK_CHARS = 1000;
+
+/**
+ * Splits raw story content into rendering blocks that match the same visual
+ * semantics as StoryContent in the web UI:
+ *   - Two or more consecutive newlines  → paragraph boundary (new block).
+ *   - A single newline inside a block   → preserved as-is (rendered as <br/>).
+ *   - Purely whitespace blocks          → discarded.
+ */
+function normalizeStoryBlocks(content: string): string[] {
+  return content
+    .split(/\n{2,}/)
+    .map(b => b.trim())
+    .filter(b => b.length > 0);
+}
+
+/**
+ * Splits a single text block that is too long for one canvas render into
+ * smaller chunks, each no longer than `maxChars` characters.
+ *
+ * Split preference order:
+ *   1. Last sentence-ending punctuation (.  !  ?  ؟  ،  ۔) followed by
+ *      optional closing punctuation and whitespace — but only when the
+ *      resulting cut lands past 40 % of the slice (avoids very short chunks).
+ *   2. Last whitespace character (space or newline) in the slice.
+ *   3. Hard cut at `maxChars` (fallback; word may be split — very rare).
+ *
+ * Text order is preserved exactly; no characters are added or removed.
+ */
+function splitLongTextBlock(block: string, maxChars: number = MAX_BLOCK_CHARS): string[] {
+  if (block.length <= maxChars) return [block];
+
+  const chunks: string[] = [];
+  let remaining = block;
+
+  while (remaining.length > maxChars) {
+    const slice = remaining.slice(0, maxChars);
+
+    // Find the last sentence boundary in the slice.
+    let cutAt = -1;
+    const sentenceRe = /[.!?؟،۔][)\]'"»]*[\s\n]+/g;
+    let m: RegExpExecArray | null;
+    while ((m = sentenceRe.exec(slice)) !== null) {
+      cutAt = m.index + m[0].length;
+    }
+
+    if (cutAt > maxChars * 0.4) {
+      chunks.push(remaining.slice(0, cutAt).trimEnd());
+      remaining = remaining.slice(cutAt).trimStart();
+    } else {
+      // Fall back: last whitespace (space or newline) near the end of the slice.
+      const lastNewline = slice.lastIndexOf("\n");
+      const lastSpace   = slice.lastIndexOf(" ");
+      const breakAt     = Math.max(lastNewline, lastSpace);
+      if (breakAt > 0) {
+        chunks.push(remaining.slice(0, breakAt).trimEnd());
+        remaining = remaining.slice(breakAt).trimStart();
+      } else {
+        // Hard cut — no whitespace found (e.g. long URL or unspaced text).
+        chunks.push(remaining.slice(0, maxChars));
+        remaining = remaining.slice(maxChars);
+      }
+    }
+  }
+
+  if (remaining.trim().length > 0) {
+    chunks.push(remaining.trim());
+  }
+
+  return chunks;
+}
+
+/**
  * Renders a single HTML fragment (one paragraph / title / box) into a canvas
  * using the browser's own text engine — produces correct Arabic shaping, bidi,
  * and ligatures. Each call is independent so there is no cross-page slicing.
@@ -242,10 +318,12 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     const canvas = await renderParagraphAsImage(html, isRtl, widthPx);
     // canvas is @2x scale: CSS width = canvas.width / 2
     const cssWidthPx = canvas.width / 2;
+    if (cssWidthPx <= 0 || contentW <= 0) return; // nothing to draw
     const pxPerMm = cssWidthPx / contentW;
     const heightMm = (canvas.height / 2) / pxPerMm;
+    if (heightMm <= 0) return; // nothing to draw
 
-    if (heightMm > H - cursorY - FOOTER_ZONE) {
+    if (cursorY + heightMm > H - FOOTER_ZONE) {
       addNewPage();
     }
 
@@ -272,16 +350,21 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     600
   );
 
-  // Content paragraphs — split on any run of newlines for finest granularity
-  const paragraphs = content
-    .split(/\n+/)
-    .map(p => p.trim())
-    .filter(p => p.length > 0);
+  // Content paragraphs
+  // normalizeStoryBlocks: double+ newlines → block boundary; single newlines kept.
+  // splitLongTextBlock:   blocks > MAX_BLOCK_CHARS split at sentence/word boundaries
+  //                       so no single canvas render can span more than one PDF page.
+  const blocks = normalizeStoryBlocks(content);
 
-  for (const para of paragraphs) {
-    await placeParagraph(
-      `<p style="margin:0;font-size:15px;line-height:1.9;color:#334155;">${escHtml(para)}</p>`
-    );
+  for (const block of blocks) {
+    const chunks = splitLongTextBlock(block);
+    for (const chunk of chunks) {
+      // Single newlines within a chunk become <br/> for correct line-break rendering.
+      const innerHtml = escHtml(chunk).replace(/\n/g, "<br/>");
+      await placeParagraph(
+        `<p style="margin:0;font-size:15px;line-height:1.9;color:#334155;">${innerHtml}</p>`
+      );
+    }
   }
 
   // Moral box
