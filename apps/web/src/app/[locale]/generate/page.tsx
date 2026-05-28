@@ -14,6 +14,7 @@ import { FormError } from "../../../components/FormError";
 import { INPUT_CLASS } from "../../../components/PasswordInput";
 import { IconCopy, IconHeart, IconMail, IconPrinter, IconShare, IconSparkle } from "../../../components/icons";
 import { StoryContent } from "../../../components/StoryContent";
+import { exportStoryPdf } from "../../../lib/exportStoryPdf";
 
 const PAGE_BG = "min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white";
 
@@ -61,6 +62,7 @@ function GenerateContent() {
   const [error, setError] = useState<string | null>(null);
   const [story, setStory] = useState<Story | null>(null);
   const [fav, setFav] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
   const [userPlan, setUserPlan] = useState<"FREE" | "INDIVIDUAL" | "FAMILY" | "SCHOOL">("FREE");
   const [childrenList, setChildrenList] = useState<Child[]>([]);
@@ -201,8 +203,23 @@ function GenerateContent() {
     setTimeout(() => setShareMsg(null), 2500);
   }
 
-  function handlePrint() {
-    window.print();
+  async function handleExportPdf() {
+    if (!story) return;
+    setExporting(true);
+    try {
+      await exportStoryPdf({
+        title:     story.title,
+        childName: story.childName,
+        content:   story.content,
+        imageUrl:  story.imageUrl  ?? undefined,
+        lesson:    story.moral     ?? undefined,
+        locale:    story.language,
+      });
+    } catch (err) {
+      console.error("[Generate] PDF export failed:", err);
+    } finally {
+      setExporting(false);
+    }
   }
 
   function handleFavorite() {
@@ -518,7 +535,7 @@ function GenerateContent() {
                     <button type="button" onClick={handleEmailShare} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none`}>
                       <IconMail /> {t("shareEmail")}
                     </button>
-                    <button type="button" onClick={handlePrint} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none`}>
+                    <button type="button" onClick={handleExportPdf} disabled={exporting} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none disabled:cursor-not-allowed disabled:opacity-60`}>
                       <IconPrinter /> {t("exportPdf")}
                     </button>
                     <button type="button" onClick={handleFavorite} className={`${BTN_SECONDARY} flex-1 text-sm sm:flex-none ${fav ? "border-red-200 bg-red-50 text-red-600" : ""}`}>
