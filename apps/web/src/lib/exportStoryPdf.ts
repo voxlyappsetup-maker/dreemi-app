@@ -1,24 +1,5 @@
 import jsPDF from "jspdf";
-
-async function loadArabicFont(pdf: jsPDF): Promise<string> {
-  try {
-    const response = await fetch("/cairo-regular.ttf");
-    if (!response.ok) throw new Error("Font not found");
-    const buffer = await response.arrayBuffer();
-    const uint8 = new Uint8Array(buffer);
-    let binary = "";
-    for (let i = 0; i < uint8.length; i++) binary += String.fromCharCode(uint8[i]);
-    const base64 = btoa(binary);
-    pdf.addFileToVFS("Cairo-Regular.ttf", base64);
-    pdf.addFont("Cairo-Regular.ttf", "Cairo", "normal");
-    pdf.addFileToVFS("Cairo-Bold.ttf", base64);
-    pdf.addFont("Cairo-Bold.ttf", "Cairo", "bold");
-    return "Cairo";
-  } catch (e) {
-    console.warn("[PDF] Arabic font failed, using fallback:", e);
-    return "helvetica";
-  }
-}
+import html2canvas from "html2canvas";
 
 export interface StoryPdfData {
   title: string;
@@ -29,14 +10,68 @@ export interface StoryPdfData {
   locale?: string;
 }
 
+/** Escape HTML special characters to prevent rendering issues in the canvas div. */
+function escHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/**
+ * Renders an HTML string into a canvas using the browser's own text engine.
+ * This produces correct Arabic shaping, bidi, and ligatures at full quality.
+ */
+async function renderContentAsImage(
+  htmlContent: string,
+  isRtl: boolean,
+  widthPx = 560
+): Promise<HTMLCanvasElement> {
+  // Ensure Cairo font is fully loaded before painting
+  try {
+    await document.fonts.load("700 15px Cairo");
+    await document.fonts.load("400 15px Cairo");
+  } catch { /* best effort */ }
+
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText = `
+    position: fixed;
+    left: -9999px;
+    top: 0;
+    width: ${widthPx}px;
+    padding: 0 20px;
+    direction: ${isRtl ? "rtl" : "ltr"};
+    text-align: ${isRtl ? "right" : "left"};
+    font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.9;
+    color: #2d2d2d;
+    background: transparent;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  `;
+  wrapper.innerHTML = htmlContent;
+  document.body.appendChild(wrapper);
+
+  const canvas = await html2canvas(wrapper, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: null,
+    logging: false,
+  });
+
+  document.body.removeChild(wrapper);
+  return canvas;
+}
+
 export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const { title, childName, content, imageUrl, lesson, locale = "ar" } = data;
   const isRtl = locale === "ar";
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-  const bodyFont = isRtl ? await loadArabicFont(pdf) : "helvetica";
   const W = 210, H = 297, M = 20;
   const contentW = W - M * 2;
-  const LINE_H = 6, FOOTER_ZONE = 20, HEADER_TOP = 5;
+  const FOOTER_ZONE = 20, HEADER_TOP = 5;
   let cursorY = HEADER_TOP, pageNum = 1;
 
   const loadAsset = async (src: string) => {
@@ -119,16 +154,10 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     if (cursorY + needed > H - FOOTER_ZONE) addNewPage();
   };
 
-  const setBodyFont = () => {
-    pdf.setFont(bodyFont, "normal");
-    pdf.setFontSize(13);
-    pdf.setTextColor(51, 65, 85);
-  };
-
-  // Page 1
+  // ── Page 1 ────────────────────────────────────────────────────────────────
   drawGradientBg(); drawWatermark(); drawHeader();
 
-  // Image
+  // Story illustration
   if (imageUrl) {
     try {
       const img = new Image();
@@ -163,52 +192,74 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     } catch { cursorY += 8; }
   } else { cursorY += 8; }
 
-  // Title
-  const titleLines: string[] = pdf.splitTextToSize(title, contentW);
-  for (const line of titleLines) {
-    ensureSpace(8);
-    pdf.setFont(bodyFont, "bold"); pdf.setFontSize(18); pdf.setTextColor(30, 41, 59);
-    pdf.text(line, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
-    cursorY += 8;
-  }
+  // ── Build HTML for all story text (title + byLine + paragraphs + moral) ───
+  // Using html2canvas so the browser's text engine handles Arabic shaping,
+  // bidi reordering, and ligatures correctly — jsPDF cannot do this.
 
-  // By line
-  ensureSpace(7);
-  pdf.setFont(bodyFont, "normal"); pdf.setFontSize(10); pdf.setTextColor(139, 92, 246);
-  const byLine = isRtl ? `قصة لـ ${childName}` : `A story for ${childName}`;
-  pdf.text(byLine, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
-  cursorY += 7;
+  const byLineText = isRtl
+    ? `قصة لـ ${escHtml(childName)}`
+    : `A story for ${escHtml(childName)}`;
 
-  // Content
-  for (const para of content.split(/\n\n+/)) {
-    const cleanPara = para.replace(/\n/g, " ").trim();
-    if (!cleanPara) continue;
-    const lines: string[] = pdf.splitTextToSize(cleanPara, contentW);
-    for (const line of lines) {
-      ensureSpace(LINE_H); setBodyFont();
-      pdf.text(line, isRtl ? W - M : M, cursorY, { align: isRtl ? "right" : "left" });
-      cursorY += LINE_H;
-    }
-    cursorY += 3;
-  }
+  const paragraphsHtml = content
+    .split(/\n\n+/)
+    .map(p => p.replace(/\n/g, " ").trim())
+    .filter(p => p)
+    .map(p => `<p style="margin:0 0 14px 0;font-size:15px;line-height:1.9;color:#334155;">${escHtml(p)}</p>`)
+    .join("");
 
-  // Moral box
+  let moralHtml = "";
   if (lesson?.trim()) {
     const moralLabel = isRtl ? "القيمة المستفادة" : "Moral of the Story";
-    const moralLines: string[] = pdf.splitTextToSize(lesson, contentW - 12);
-    const moralBoxH = 14 + moralLines.length * LINE_H;
-    if (cursorY + moralBoxH + 4 > H - FOOTER_ZONE || H - FOOTER_ZONE - cursorY < 40) addNewPage();
-    pdf.setFillColor(245, 243, 255); pdf.setDrawColor(196, 181, 253);
-    pdf.roundedRect(M, cursorY, contentW, moralBoxH, 3, 3, "FD");
-    pdf.setFont(bodyFont, "bold"); pdf.setFontSize(12); pdf.setTextColor(109, 40, 217);
-    pdf.text(moralLabel, isRtl ? W - M - 6 : M + 6, cursorY + 8, { align: isRtl ? "right" : "left" });
-    pdf.setFont(bodyFont, "normal"); pdf.setFontSize(12); pdf.setTextColor(51, 65, 85);
-    let my = cursorY + 15;
-    for (const line of moralLines) {
-      pdf.text(line, isRtl ? W - M - 6 : M + 6, my, { align: isRtl ? "right" : "left" });
-      my += LINE_H;
+    moralHtml = `
+      <div style="background:#f5f3ff;border:1.5px solid #c4b5fd;border-radius:6px;padding:12px 16px;margin-top:16px;">
+        <div style="font-weight:700;font-size:13px;color:#6d28d9;margin-bottom:8px;">${moralLabel}</div>
+        <div style="font-size:13px;line-height:1.8;color:#334155;">${escHtml(lesson.trim())}</div>
+      </div>
+    `;
+  }
+
+  const storyHtml = `
+    <div style="font-size:22px;font-weight:700;color:#1e293b;margin-bottom:6px;line-height:1.4;">${escHtml(title)}</div>
+    <div style="font-size:12px;color:#8b5cf6;margin-bottom:18px;">${byLineText}</div>
+    ${paragraphsHtml}
+    ${moralHtml}
+  `;
+
+  const contentCanvas = await renderContentAsImage(storyHtml, isRtl);
+
+  // mm per canvas-pixel (canvas is @2x so width = 560*2 = 1120px)
+  const mmPerPx = contentW / contentCanvas.width;
+
+  // ── Slice contentCanvas across PDF pages ──────────────────────────────────
+  let srcYPx = 0;
+  let firstSlice = true;
+
+  while (srcYPx < contentCanvas.height) {
+    if (!firstSlice) {
+      addNewPage();
     }
-    cursorY += moralBoxH + 6;
+    firstSlice = false;
+
+    const availableHeightMm = H - cursorY - FOOTER_ZONE;
+    const maxSliceHeightPx = Math.floor(availableHeightMm / mmPerPx);
+
+    // Safety: if no space available (shouldn't happen after addNewPage), break
+    if (maxSliceHeightPx <= 0) break;
+
+    const remaining = contentCanvas.height - srcYPx;
+    const thisSlicePx = Math.min(maxSliceHeightPx, remaining);
+    const thisSliceMm = thisSlicePx * mmPerPx;
+
+    const sliceCanvas = document.createElement("canvas");
+    sliceCanvas.width = contentCanvas.width;
+    sliceCanvas.height = Math.ceil(thisSlicePx);
+    const sliceCtx = sliceCanvas.getContext("2d")!;
+    sliceCtx.drawImage(contentCanvas, 0, -srcYPx);
+
+    pdf.addImage(sliceCanvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, thisSliceMm);
+
+    srcYPx += thisSlicePx;
+    cursorY += thisSliceMm;
   }
 
   drawFooter();
