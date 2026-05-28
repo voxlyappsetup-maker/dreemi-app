@@ -101,16 +101,16 @@ export async function generateStory(
   );
 }
 
-export async function fetchStories(userId: string): Promise<Story[]> {
-  const data = await apiFetch<StoriesListResponse>(
-    `/api/stories?userId=${encodeURIComponent(userId)}`
-  );
+export async function fetchStories(_userId?: string): Promise<Story[]> {
+  const data = await apiFetch<StoriesListResponse>("/api/stories", {}, true);
   return data.stories;
 }
 
-export async function fetchChildStories(userId: string, childId: string): Promise<Story[]> {
+export async function fetchChildStories(_userId: string, childId: string): Promise<Story[]> {
   const data = await apiFetch<StoriesListResponse>(
-    `/api/stories?userId=${encodeURIComponent(userId)}&childId=${encodeURIComponent(childId)}`
+    `/api/stories?childId=${encodeURIComponent(childId)}`,
+    {},
+    true,
   );
   return data.stories;
 }
@@ -221,10 +221,12 @@ export async function deleteChild(id: string): Promise<void> {
   );
 }
 
-/** Fetch a single story by ID (public, no auth required). */
+/** Fetch a single story by ID. Requires authentication — only the story owner can read it. */
 export async function getStoryById(id: string): Promise<Story> {
   const data = await apiFetch<{ success: boolean; story: Story }>(
     `/api/stories/${encodeURIComponent(id)}`,
+    {},
+    true,
   );
   return data.story;
 }
