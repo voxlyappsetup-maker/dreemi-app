@@ -154,7 +154,7 @@ export async function exportStoryPdf(data: {
     language: data.locale ?? "ar",
   } as import("@dreemi/types").Story;
   const labels = {
-    storyBy: data.locale === "ar" ? قصة لـ \ : \'s Story,
+    storyBy: data.locale === "ar" ? `قصة لـ ${data.childName}` : `${data.childName}'s Story`,
     moralLearned: data.locale === "ar" ? "القيمة المستفادة" : "Lesson Learned",
   };
   return exportStoryToPdf(story, labels);
