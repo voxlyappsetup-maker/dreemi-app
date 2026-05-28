@@ -37,8 +37,11 @@ async function renderParagraphAsImage(
   const wrapper = document.createElement("div");
   wrapper.style.cssText = `
     position: fixed;
-    left: -9999px;
     top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -9999;
     width: ${widthPx}px;
     padding: 0 24px 0 24px;
     overflow: visible;
