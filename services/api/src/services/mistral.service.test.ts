@@ -10,7 +10,7 @@
 
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { parseGeneratedStoryJson, estimateMaxTokens } from "./mistral.service.js";
+import { parseGeneratedStoryJson, estimateMaxTokens, normalizeGeneratedStoryContent } from "./mistral.service.js";
 
 // ── parseGeneratedStoryJson ───────────────────────────────────────────────────
 
@@ -251,6 +251,114 @@ describe("estimateMaxTokens", () => {
     // 1200 * 2 = 2400 — above minimum of 2000, below cap
     const tokens = estimateMaxTokens("en", 1200);
     assert.equal(tokens, 2400);
+  });
+
+});
+
+// ── normalizeGeneratedStoryContent ───────────────────────────────────────────
+
+describe("normalizeGeneratedStoryContent", () => {
+
+  it("removes carriage returns from CRLF line endings", () => {
+    const result = normalizeGeneratedStoryContent("Line one.\r\nLine two.", "en");
+    assert.ok(!result.includes("\r"), "Output must not contain \\r");
+  });
+
+  it("removes bare CR characters", () => {
+    const result = normalizeGeneratedStoryContent("Line one.\rLine two.", "en");
+    assert.ok(!result.includes("\r"));
+  });
+
+  it("preserves existing double-newline paragraph breaks", () => {
+    const input = "Paragraph one sentence.\n\nParagraph two sentence.";
+    const result = normalizeGeneratedStoryContent(input, "en");
+    const paras = result.split("\n\n");
+    assert.equal(paras.length, 2);
+    assert.ok(paras[0].includes("Paragraph one"));
+    assert.ok(paras[1].includes("Paragraph two"));
+  });
+
+  it("promotes single newlines to paragraph breaks", () => {
+    const input = "Paragraph one.\nParagraph two.";
+    const result = normalizeGeneratedStoryContent(input, "en");
+    const paras = result.split("\n\n");
+    assert.equal(paras.length, 2);
+    assert.ok(paras[0].includes("Paragraph one"));
+    assert.ok(paras[1].includes("Paragraph two"));
+  });
+
+  it("discards empty paragraph blocks", () => {
+    const input = "Para one.\n\n\n\n\n\nPara two.";
+    const result = normalizeGeneratedStoryContent(input, "en");
+    const paras = result.split("\n\n");
+    assert.equal(paras.length, 2);
+    for (const p of paras) {
+      assert.ok(p.trim().length > 0, "Must produce no empty paragraphs");
+    }
+  });
+
+  it("produces no empty paragraphs for whitespace-only blocks", () => {
+    const input = "First para.\n\n   \n\nSecond para.";
+    const result = normalizeGeneratedStoryContent(input, "en");
+    const paras = result.split("\n\n");
+    for (const p of paras) {
+      assert.ok(p.trim().length > 0, `Empty paragraph found: "${p}"`);
+    }
+  });
+
+  it("does not drop any story words", () => {
+    const input = "The brave fox. The clever rabbit.\n\nThey lived happily.";
+    const result = normalizeGeneratedStoryContent(input, "en");
+    assert.ok(result.includes("brave fox"));
+    assert.ok(result.includes("clever rabbit"));
+    assert.ok(result.includes("happily"));
+  });
+
+  it("splits a long English paragraph exceeding 700 chars into multiple paragraphs", () => {
+    const sentence = "The little explorer walked through the ancient forest and found many wonders.";
+    const longBlock = Array(11).fill(sentence).join(" ");
+    assert.ok(longBlock.length > 700, "test precondition: block must be > 700 chars");
+    const result = normalizeGeneratedStoryContent(longBlock, "en");
+    const paras = result.split("\n\n");
+    assert.ok(paras.length > 1, `Expected split paragraphs, got ${paras.length}`);
+  });
+
+  it("splits a long Arabic paragraph exceeding 500 chars into multiple paragraphs", () => {
+    const sentence = "ذهب الولد الصغير إلى الغابة ووجد أصدقاء جدد وعاش سعيداً.";
+    const longBlock = Array(10).fill(sentence).join(" ");
+    assert.ok(longBlock.length > 500, "test precondition: block must be > 500 chars");
+    const result = normalizeGeneratedStoryContent(longBlock, "ar");
+    const paras = result.split("\n\n");
+    assert.ok(paras.length > 1, `Expected split paragraphs for Arabic, got ${paras.length}`);
+  });
+
+  it("Arabic uses a smaller limit than English: a 550-char block splits in Arabic but not English", () => {
+    const sentence = "هذه جملة قصيرة للاختبار.";
+    let block = "";
+    while (block.length < 520) block += (block ? " " : "") + sentence;
+    block = block.trim();
+    assert.ok(block.length > 500, "test precondition: > 500 chars");
+    assert.ok(block.length < 700, "test precondition: < 700 chars");
+
+    const arResult = normalizeGeneratedStoryContent(block, "ar");
+    const enResult = normalizeGeneratedStoryContent(block, "en");
+
+    assert.ok(arResult.split("\n\n").length > 1, "Arabic block should be split");
+    assert.equal(enResult.split("\n\n").length, 1, "English block should not be split at this length");
+  });
+
+  it("joining paragraphs with \\n\\n never produces a leading or trailing \\n\\n", () => {
+    const input = "Only one paragraph here with enough text to fit.";
+    const result = normalizeGeneratedStoryContent(input, "en");
+    assert.ok(!result.startsWith("\n"), "Should not start with newline");
+    assert.ok(!result.endsWith("\n"), "Should not end with newline");
+  });
+
+  it("handles an already well-formed Arabic multi-paragraph story without altering structure", () => {
+    const input = "الفقرة الأولى من القصة.\n\nالفقرة الثانية من القصة.\n\nالفقرة الثالثة من القصة.";
+    const result = normalizeGeneratedStoryContent(input, "ar");
+    const paras = result.split("\n\n");
+    assert.equal(paras.length, 3);
   });
 
 });

@@ -88,9 +88,9 @@ const WORDS_PER_MINUTE: Record<StoryRequest["language"], number> = {
 };
 
 const PARAGRAPH_RULE: Record<StoryRequest["language"], string> = {
-  ar: `قسّم القصة إلى فقرات واضحة. افصل كل فقرة بسطر فارغ (\\n\\n). كل فقرة 3-5 جمل. لا تكتب القصة كنص متواصل.`,
-  en: `Divide the story into clear paragraphs separated by blank lines (\\n\\n). Each paragraph should be 3-5 sentences. Do NOT write the story as a single continuous block of text.`,
-  fr: `Divisez l'histoire en paragraphes clairs separes par des lignes vides (\\n\\n). Chaque paragraphe doit contenir 3-5 phrases. N'ecrivez PAS l'histoire en un seul bloc de texte continu.`,
+  ar: `قسّم القصة إلى فقرات قصيرة جداً. كل فقرة جملة أو جملتان فقط. افصل كل فقرة بسطر فارغ (\\n\\n). لا تكتب القصة كنص متواصل ولا تجمع كثيراً من الجمل في فقرة واحدة.`,
+  en: `Divide the story into short, clear paragraphs separated by blank lines (\\n\\n). Each paragraph should be 2-3 sentences at most. Do NOT write the story as a single continuous block of text.`,
+  fr: `Divisez l'histoire en paragraphes courts et clairs separes par des lignes vides (\\n\\n). Chaque paragraphe doit contenir 2-3 phrases au maximum. N'ecrivez PAS l'histoire en un seul bloc de texte continu.`,
 };
 
 function minWordsByAge(age: number): number {
@@ -173,15 +173,12 @@ function buildPrompt(req: StoryRequest): string {
   const prompts: Record<string, string> = {
     ar: `انت كاتب قصص اطفال محترف. اكتب قصة نوم جميلة باللغة العربية الفصحى البسيطة.
 ${ageBlock}
-${PARAGRAPH_RULE.ar}
 الاسم: ${req.childName}، العمر: ${req.childAge} سنوات، الموضوع: ${req.theme}${req.moral ? `، القيمة التربوية: ${req.moral}` : ""}${traitAr}. اشترط ان يكون البطل اسمه ${req.childName}${req.personality ? ` وان تعكس القصة شخصيته` : ""}${req.hobbies ? ` ويمارس هواياته في القصة` : ""}، يجب ان تكون القصة كاملة بحوالي ${wordCount} كلمة (لا تقصّرها)، مع نهاية سعيدة تبعث على النوم. يجب ان تعيد JSON فقط بهذا الشكل بالضبط بدون اي نص اضافي: {"title": "عنوان القصة", "content": "نص القصة كاملا", "moral": "القيمة المستفادة"}`,
     en: `You are a professional children's story writer. Write a beautiful bedtime story in English.
 ${ageBlock}
-${PARAGRAPH_RULE.en}
 Name: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Moral: ${req.moral}` : ""}${traitEn}. The hero must be named ${req.childName}${req.personality ? `. The story should reflect the child's ${req.personality} personality` : ""}${req.hobbies ? `. Weave the child's hobbies (${req.hobbies}) into the story naturally` : ""}. The story must be a complete, full-length narrative of approximately ${wordCount} words — do not truncate. Happy ending. Return JSON only: {"title": "...", "content": "full story text with \\n\\n between paragraphs", "moral": "..."}`,
     fr: `Vous etes un auteur de contes pour enfants. Ecrivez une belle histoire du soir en francais.
 ${ageBlock}
-${PARAGRAPH_RULE.fr}
 Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ? `, Morale: ${req.moral}` : ""}${traitFr}. Le heros doit s appeler ${req.childName}${req.personality ? `. L histoire doit refleter la personnalite ${req.personality} de l enfant` : ""}${req.hobbies ? `. Integrez naturellement les loisirs de l enfant (${req.hobbies}) dans l histoire` : ""}. L histoire doit etre complete et faire environ ${wordCount} mots — sans troncature. Fin heureuse. Retournez JSON uniquement: {"title": "...", "content": "texte complet avec \\n\\n entre les paragraphes", "moral": "..."}`
   };
   return prompts[req.language] || prompts.ar;
@@ -255,6 +252,102 @@ export function parseGeneratedStoryJson(raw: string): GeneratedStory {
     content: (obj.content as string).trim(),
     moral:   typeof obj.moral === "string" ? obj.moral.trim() : "",
   };
+}
+
+// ── Content normalisation ────────────────────────────────────────────────────
+
+/**
+ * Splits a single story paragraph that exceeds `maxChars` into shorter
+ * paragraphs, preferring sentence-ending punctuation as split points.
+ *
+ * Split preference:
+ *   1. Last sentence boundary (. ! ? ؟ ،  ۔) + following whitespace within
+ *      the slice, provided the cut point is past 40 % of the slice.
+ *   2. Last whitespace (space) in the slice.
+ *   3. Hard cut at `maxChars` (very rare — only when no whitespace exists).
+ *
+ * Text order is preserved exactly; no characters are added or removed.
+ */
+function splitContentIntoShortParagraphs(block: string, maxChars: number): string[] {
+  if (block.length <= maxChars) return [block];
+
+  const chunks: string[] = [];
+  let remaining = block;
+
+  while (remaining.length > maxChars) {
+    const slice = remaining.slice(0, maxChars);
+
+    let cutAt = -1;
+    const sentenceRe = /[.!?؟،۔][)\]'"»]*\s*/g;
+    let m: RegExpExecArray | null;
+    while ((m = sentenceRe.exec(slice)) !== null) {
+      cutAt = m.index + m[0].length;
+    }
+
+    if (cutAt > maxChars * 0.4) {
+      chunks.push(remaining.slice(0, cutAt).trimEnd());
+      remaining = remaining.slice(cutAt).trimStart();
+    } else {
+      const lastSpace = slice.lastIndexOf(" ");
+      if (lastSpace > 0) {
+        chunks.push(remaining.slice(0, lastSpace).trimEnd());
+        remaining = remaining.slice(lastSpace).trimStart();
+      } else {
+        chunks.push(remaining.slice(0, maxChars));
+        remaining = remaining.slice(maxChars);
+      }
+    }
+  }
+
+  if (remaining.trim().length > 0) {
+    chunks.push(remaining.trim());
+  }
+
+  return chunks;
+}
+
+/**
+ * Normalises raw story content returned by the LLM before it is saved.
+ *
+ * Steps (in order):
+ *   1. CRLF and bare CR  → LF.
+ *   2. Lone single `\n` → `\n\n`  (LLMs often use single newlines for paragraph
+ *      breaks even when instructed to use `\n\n`; promoting them is safe because
+ *      the UI and PDF both treat `\n\n` as the paragraph separator).
+ *   3. Split on `\n\n+` to get individual paragraph blocks; discard empty blocks.
+ *   4. For each block longer than the language-specific limit, split at sentence
+ *      boundaries to produce shorter paragraphs.
+ *   5. Re-join all resulting paragraphs with `\n\n`.
+ *
+ * Never logs content. Never removes characters.
+ */
+export function normalizeGeneratedStoryContent(
+  content: string,
+  language: StoryRequest["language"],
+): string {
+  // Per-language character limits for paragraph splitting.
+  const limit = language === "ar" ? 500 : 700;
+
+  const normalised = content
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .replace(/(?<!\n)\n(?!\n)/g, "\n\n"); // lone \n → paragraph break
+
+  const rawBlocks = normalised.split(/\n{2,}/);
+  const paragraphs: string[] = [];
+
+  for (const block of rawBlocks) {
+    const trimmed = block.trim();
+    if (!trimmed) continue;
+
+    if (trimmed.length <= limit) {
+      paragraphs.push(trimmed);
+    } else {
+      paragraphs.push(...splitContentIntoShortParagraphs(trimmed, limit));
+    }
+  }
+
+  return paragraphs.join("\n\n");
 }
 
 // ── Network layer ─────────────────────────────────────────────────────────────
@@ -366,10 +459,9 @@ async function attemptGeneration(
 
   const story = parseGeneratedStoryJson(raw);
 
-  // Normalise paragraph separators: ensure all paragraph breaks are \n\n.
-  story.content = story.content
-    .replace(/\r\n/g, "\n")
-    .replace(/(?<!\n)\n(?!\n)/g, "\n\n");
+  // Normalise, promote lone newlines to paragraph breaks, and split any
+  // overly-long paragraphs into shorter ones before saving.
+  story.content = normalizeGeneratedStoryContent(story.content, language);
 
   return story;
 }

@@ -20,10 +20,18 @@ function escHtml(s: string): string {
 }
 
 /**
- * Maximum characters per rendering block before we force a split.
- * ~1 000 chars ≈ 10–14 lines at 15 px — comfortably fits inside one PDF page.
+ * Default maximum characters per rendering block (used as the splitLongTextBlock default).
+ * The PDF rendering loop overrides this with language-specific values below.
  */
 const MAX_BLOCK_CHARS = 1000;
+
+/**
+ * Language-aware per-block character limits for PDF rendering.
+ * Arabic glyphs are visually wider and more dense, so shorter chunks keep
+ * each canvas render well within a single PDF page height.
+ */
+const MAX_BLOCK_CHARS_AR  = 500;
+const MAX_BLOCK_CHARS_LTR = 700;
 
 /**
  * Splits raw story content into rendering blocks that match the same visual
@@ -180,34 +188,66 @@ async function renderParagraphAsImage(
 }
 
 /**
- * Renders a title string using the Canvas 2D API directly — no html2canvas,
- * no DOM opacity tricks. Works for both Arabic (RTL) and Latin (LTR) text
- * because the browser's Canvas2D respects ctx.direction and the loaded fonts.
+ * Renders a title using Canvas 2D — no html2canvas, no stretching.
+ *
+ * Key design decisions:
+ *  - Fixed CSS canvas width (560 px) matches the paragraph wrapper width so
+ *    pdf.addImage() places the image at contentW without horizontal stretching.
+ *  - Long titles are word-wrapped onto multiple lines; each line is centred.
+ *  - Canvas 2D direction + textAlign handle Arabic RTL and Latin LTR natively.
+ *  - Font is 20 px (slightly smaller than the previous 22 px) to reduce the
+ *    visual weight of short one-word titles.
  */
 async function renderTitleWithCanvas2D(
   titleText: string,
   isRtl: boolean
 ): Promise<HTMLCanvasElement> {
-  const scale = 2;
-  const fontSize = 22;
-  const padX = 30;
+  const scale      = 2;
+  const fontSize   = 20;
+  const lineHeight = Math.ceil(fontSize * 1.55); // comfortable leading
+  const padX       = 28;                         // horizontal padding inside canvas
+  const padY       = 6;                          // top/bottom padding
+  const CSS_W      = 560;                        // must match paragraph widthPx
+
+  // Measure canvas — used only for text width queries (never drawn).
   const measure = document.createElement("canvas");
-  const mCtx = measure.getContext("2d")!;
-  mCtx.font = `700 ${fontSize}px Cairo, Arial, sans-serif`;
-  const textWidth = Math.ceil(mCtx.measureText(titleText).width);
-  const canvasW = textWidth + padX * 2;
-  const canvasH = Math.ceil(fontSize * 1.8) * scale;
+  const mCtx    = measure.getContext("2d")!;
+  mCtx.font     = `700 ${fontSize}px Cairo, Arial, sans-serif`;
+  const maxTextW = CSS_W - padX * 2;
+
+  // Word-wrap: split on spaces; each word that causes overflow starts a new line.
+  const words: string[] = titleText.split(" ");
+  const lines: string[] = [];
+  let current = "";
+  for (const word of words) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (mCtx.measureText(candidate).width <= maxTextW) {
+      current = candidate;
+    } else {
+      if (current) lines.push(current);
+      current = word; // single word may still exceed maxTextW — kept as-is
+    }
+  }
+  if (current) lines.push(current);
+
+  const cssH = padY + lines.length * lineHeight + padY;
+
   const canvas = document.createElement("canvas");
-  canvas.width = canvasW * scale;
-  canvas.height = canvasH;
+  canvas.width  = CSS_W * scale;
+  canvas.height = Math.ceil(cssH) * scale;
+
   const ctx = canvas.getContext("2d")!;
   ctx.scale(scale, scale);
-  ctx.font = `700 ${fontSize}px Cairo, Arial, sans-serif`;
-  ctx.fillStyle = "#1e293b";
-  ctx.direction = isRtl ? "rtl" : "ltr";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(titleText, canvasW / 2, (fontSize * 1.8) / 2);
+  ctx.font          = `700 ${fontSize}px Cairo, Arial, sans-serif`;
+  ctx.fillStyle     = "#1e293b";
+  ctx.direction     = isRtl ? "rtl" : "ltr";
+  ctx.textAlign     = "center";
+  ctx.textBaseline  = "top";
+
+  lines.forEach((line, i) => {
+    ctx.fillText(line, CSS_W / 2, padY + i * lineHeight);
+  });
+
   return canvas;
 }
 
@@ -274,7 +314,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   };
 
   const drawHeader = () => {
-    const brandW = 55 * 0.85; // reduced 15% → 46.75mm; x = (W-brandW)/2 auto-recenters
+    const brandW = 55 * 0.765; // reduced 15% then another 10% → ~42mm; centred automatically
     if (brandAsset) {
       const brandH = brandW * brandAsset.aspect;
       pdf.addImage(brandAsset.dataUrl, "PNG", (W - brandW) / 2, cursorY, brandW, brandH);
@@ -419,12 +459,13 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
 
   // Content paragraphs
   // normalizeStoryBlocks: double+ newlines → block boundary; single newlines kept.
-  // splitLongTextBlock:   blocks > MAX_BLOCK_CHARS split at sentence/word boundaries
-  //                       so no single canvas render can span more than one PDF page.
+  // splitLongTextBlock:   blocks > language-specific limit split at sentence/word
+  //                       boundaries so no single canvas render spans a full page.
+  const pdfMaxChars = isRtl ? MAX_BLOCK_CHARS_AR : MAX_BLOCK_CHARS_LTR;
   const blocks = normalizeStoryBlocks(content);
 
   for (const block of blocks) {
-    const chunks = splitLongTextBlock(block);
+    const chunks = splitLongTextBlock(block, pdfMaxChars);
     for (const chunk of chunks) {
       // Single newlines within a chunk become <br/> for correct line-break rendering.
       const innerHtml = escHtml(chunk).replace(/\n/g, "<br/>");
