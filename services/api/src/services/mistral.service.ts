@@ -187,36 +187,87 @@ Prenom: ${req.childName}, Age: ${req.childAge}, Theme: ${req.theme}${req.moral ?
   return prompts[req.language] || prompts.ar;
 }
 
+const MISTRAL_TIMEOUT_MS = 30_000;
+const TRANSIENT_RETRY_DELAY_MS = 1_500;
+
+/**
+ * Fetch the Mistral API with a 30-second AbortController timeout.
+ * Retries once on transient failures (network errors, 429, 5xx).
+ * Does NOT retry on 400/401/403 — those are permanent provider errors.
+ * Does NOT retry on timeout — a second attempt would very likely also time out.
+ * Never logs the Authorization header or request body.
+ */
+async function fetchMistral(
+  apiKey: string,
+  body: string,
+  retriesLeft = 1,
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), MISTRAL_TIMEOUT_MS);
+
+  let response: Response;
+  try {
+    response = await fetch(MISTRAL_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+      },
+      body,
+      signal: controller.signal,
+    });
+  } catch (err) {
+    clearTimeout(timer);
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error("Mistral request timed out after 30 s");
+    }
+    // Network-level error — retry once
+    if (retriesLeft > 0) {
+      console.warn("[Mistral] network error, retrying once:", (err as Error).message);
+      await new Promise((r) => setTimeout(r, TRANSIENT_RETRY_DELAY_MS));
+      return fetchMistral(apiKey, body, retriesLeft - 1);
+    }
+    throw err;
+  }
+  clearTimeout(timer);
+
+  // Retry once on transient server-side failures
+  if (!response.ok && retriesLeft > 0 && (response.status === 429 || response.status >= 500)) {
+    const delay = response.status === 429 ? TRANSIENT_RETRY_DELAY_MS * 2 : TRANSIENT_RETRY_DELAY_MS;
+    console.warn(`[Mistral] status ${response.status}, retrying once in ${delay} ms`);
+    await new Promise((r) => setTimeout(r, delay));
+    return fetchMistral(apiKey, body, retriesLeft - 1);
+  }
+
+  return response;
+}
+
 export async function generateStoryWithMistral(req: StoryRequest): Promise<GeneratedStory> {
   const apiKey = process.env.MISTRAL_API_KEY;
   if (!apiKey) throw new Error("MISTRAL_API_KEY is not set");
 
   const wordCount = targetWordCount(req.childAge, req.language, req.duration);
 
-  const response = await fetch(MISTRAL_API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`
-    },
-    body: JSON.stringify({
-      model: MISTRAL_MODEL,
-      temperature: 0.9,
-      max_tokens: Math.max(2000, wordCount * 2),
-      response_format: { type: "json_object" },
-      messages: [{ role: "user", content: buildPrompt(req) }],
-    }),
+  const requestBody = JSON.stringify({
+    model: MISTRAL_MODEL,
+    temperature: 0.9,
+    max_tokens: Math.max(2000, wordCount * 2),
+    response_format: { type: "json_object" },
+    messages: [{ role: "user", content: buildPrompt(req) }],
   });
 
+  const response = await fetchMistral(apiKey, requestBody);
+
   if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`Mistral error: ${response.status} - ${errText}`);
+    // Do not include the response body in the error message — it may echo back
+    // parts of the prompt which could contain user data.
+    throw new Error(`Mistral error: HTTP ${response.status}`);
   }
 
   const data = await response.json() as { choices: Array<{ message: { content: string } }> };
-  const raw  = data.choices[0].message.content;
+  const raw = data.choices[0]?.message?.content;
 
-  console.log("[Mistral] raw:", raw.substring(0, 150));
+  if (!raw) throw new Error("Mistral returned empty content");
 
   const story = JSON.parse(raw) as GeneratedStory;
 
