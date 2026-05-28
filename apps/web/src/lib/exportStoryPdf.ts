@@ -39,9 +39,8 @@ async function renderParagraphAsImage(
     position: fixed;
     top: 0;
     left: 0;
-    opacity: 0;
+    transform: translateX(-9999px);
     pointer-events: none;
-    z-index: -9999;
     width: ${widthPx}px;
     padding: 0 24px 0 24px;
     overflow: visible;
