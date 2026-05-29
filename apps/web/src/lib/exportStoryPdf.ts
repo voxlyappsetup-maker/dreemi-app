@@ -47,6 +47,111 @@ function normalizeStoryBlocks(content: string): string[] {
     .filter(b => b.length > 0);
 }
 
+/** Counts sentence endings using both Arabic and Latin punctuation. */
+function countSentences(text: string): number {
+  const matches = text.match(/[.!?؟۔]+/g);
+  return matches ? matches.length : 0;
+}
+
+/** True when a block looks like a short one-sentence paragraph. */
+function isShortSingleSentenceBlock(block: string): boolean {
+  const compact = block.replace(/\s+/g, " ").trim();
+  if (!compact) return false;
+  if (compact.length > 220) return false;
+  const sentenceCount = countSentences(compact);
+  return sentenceCount === 1;
+}
+
+/**
+ * Groups consecutive short one-sentence Arabic blocks into natural paragraphs
+ * of roughly 2–3 sentences while preserving text order.
+ */
+function regroupArabicShortBlocks(run: string[]): string[] {
+  const grouped: string[] = [];
+  let current = "";
+  let currentSentences = 0;
+  let currentLength = 0;
+  const minSentences = 2;
+  const maxSentences = 3;
+  const maxChars = 550;
+
+  const pushCurrent = () => {
+    const value = current.trim();
+    if (value) grouped.push(value);
+    current = "";
+    currentSentences = 0;
+    currentLength = 0;
+  };
+
+  for (const block of run) {
+    const compact = block.replace(/\s+/g, " ").trim();
+    if (!compact) continue;
+    const sentences = 1; // `run` contains only verified one-sentence short blocks.
+    const nextLength = currentLength > 0 ? currentLength + 1 + compact.length : compact.length;
+    const tooManySentences = currentSentences + sentences > maxSentences;
+    const tooLong = currentLength > 0 && nextLength > maxChars && currentSentences >= minSentences;
+
+    if (tooManySentences || tooLong) {
+      pushCurrent();
+    }
+
+    current = current ? `${current} ${compact}` : compact;
+    currentSentences += sentences;
+    currentLength = current.length;
+  }
+
+  pushCurrent();
+
+  // Avoid trailing 1-sentence orphan when possible by merging into previous group,
+  // as long as we stay under the same character safety cap.
+  if (grouped.length >= 2 && countSentences(grouped[grouped.length - 1]) <= 1) {
+    const last = grouped.pop()!;
+    const merged = `${grouped[grouped.length - 1]} ${last}`.trim();
+    if (merged.length <= maxChars) {
+      grouped[grouped.length - 1] = merged;
+    } else {
+      grouped.push(last);
+    }
+  }
+
+  return grouped;
+}
+
+/**
+ * PDF-side repair for legacy Arabic stories where each sentence was saved as a
+ * standalone paragraph. Activates only when most blocks look like short
+ * single-sentence paragraphs.
+ */
+function normalizeArabicPdfBlocksForExport(content: string): string[] {
+  const rawBlocks = normalizeStoryBlocks(content);
+  if (rawBlocks.length < 4) return rawBlocks;
+
+  const shortSingles = rawBlocks.filter(isShortSingleSentenceBlock).length;
+  const shouldRegroup = shortSingles / rawBlocks.length >= 0.5;
+  if (!shouldRegroup) return rawBlocks;
+
+  const result: string[] = [];
+  let run: string[] = [];
+
+  const flushRun = () => {
+    if (run.length === 0) return;
+    result.push(...regroupArabicShortBlocks(run));
+    run = [];
+  };
+
+  for (const block of rawBlocks) {
+    if (isShortSingleSentenceBlock(block)) {
+      run.push(block);
+    } else {
+      flushRun();
+      result.push(block);
+    }
+  }
+  flushRun();
+
+  return result.filter(b => b.trim().length > 0);
+}
+
 /**
  * Splits a single text block that is too long for one canvas render into
  * smaller chunks, each no longer than `maxChars` characters.
@@ -251,6 +356,36 @@ async function renderTitleWithCanvas2D(
   return canvas;
 }
 
+/**
+ * Renders the small byline/subtitle using Canvas 2D to avoid html2canvas
+ * bottom clipping on Arabic descenders.
+ */
+async function renderBylineWithCanvas2D(
+  bylineText: string,
+  isRtl: boolean
+): Promise<HTMLCanvasElement> {
+  const scale = 2;
+  const fontSize = 12.8;
+  const cssW = 560;
+  const cssH = 44; // compact aspect ratio (~13 mm in PDF at contentW)
+
+  const canvas = document.createElement("canvas");
+  canvas.width = cssW * scale;
+  canvas.height = cssH * scale;
+
+  const ctx = canvas.getContext("2d")!;
+  ctx.scale(scale, scale);
+  ctx.font = `600 ${fontSize}px Cairo, Arial, sans-serif`;
+  ctx.fillStyle = "#8b5cf6";
+  ctx.direction = isRtl ? "rtl" : "ltr";
+  ctx.textAlign = "center";
+  // Middle baseline + centred y keeps glyph tails away from canvas edges.
+  ctx.textBaseline = "middle";
+  ctx.fillText(bylineText, cssW / 2, cssH / 2);
+
+  return canvas;
+}
+
 export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const { title, childName, content, imageUrl, lesson, locale = "ar" } = data;
   const isRtl = locale === "ar";
@@ -438,9 +573,11 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     cursorY += heightMm + PARA_GAP;
   };
 
-  const byLineText = isRtl
-    ? `قصة لـ ${escHtml(childName)}`
-    : `A story for ${escHtml(childName)}`;
+  const byLineText = locale === "ar"
+    ? `قصة لـ ${childName}`
+    : locale === "fr"
+      ? `Une histoire pour ${childName}`
+      : `A story for ${childName}`;
 
   // Title — rendered via Canvas 2D API: no html2canvas, correct Arabic + English
   {
@@ -451,19 +588,24 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     cursorY += titleH + 4;
   }
 
-  // By-line — generous line-height and bottom padding prevent Arabic descender
-  // clipping (ي ق ن have tails that extend below the baseline).
-  await placeParagraph(
-    `<div style="font-size:12px;color:#8b5cf6;line-height:2.0;padding:2px 0 14px 0;">${byLineText}</div>`,
-    600
-  );
+  // By-line — rendered via dedicated Canvas 2D path to prevent descender clipping.
+  {
+    const bylineCanvas = await renderBylineWithCanvas2D(byLineText, isRtl);
+    // Keep natural aspect ratio to avoid vertical squash/stretch.
+    const bylineH = (bylineCanvas.height / bylineCanvas.width) * contentW;
+    ensureSpace(bylineH + 2);
+    pdf.addImage(bylineCanvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, bylineH);
+    cursorY += bylineH + PARA_GAP;
+  }
 
   // Content paragraphs
   // normalizeStoryBlocks: double+ newlines → block boundary; single newlines kept.
   // splitLongTextBlock:   blocks > language-specific limit split at sentence/word
   //                       boundaries so no single canvas render spans a full page.
   const pdfMaxChars = isRtl ? MAX_BLOCK_CHARS_AR : MAX_BLOCK_CHARS_LTR;
-  const blocks = normalizeStoryBlocks(content);
+  const blocks = isRtl
+    ? normalizeArabicPdfBlocksForExport(content)
+    : normalizeStoryBlocks(content);
 
   for (const block of blocks) {
     const chunks = splitLongTextBlock(block, pdfMaxChars);
