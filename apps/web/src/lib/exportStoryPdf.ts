@@ -387,6 +387,24 @@ async function renderBylineWithCanvas2D(
 }
 
 export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
+  const perfNow = (): number =>
+    (typeof performance !== "undefined" && typeof performance.now === "function")
+      ? performance.now()
+      : Date.now();
+  const perfEnabled = process.env.NODE_ENV === "development";
+  const perfStart = perfNow();
+
+  let perfLogoMs = 0;
+  let perfImageMs = 0;
+  let perfTitleMs = 0;
+  let perfBylineMs = 0;
+  let perfParagraphTotalMs = 0;
+  let perfParagraphMaxMs = 0;
+  let perfParagraphRenderCallCount = 0;
+  let perfParagraphBatchCount = 0;
+  let perfBodyBatchRenderTotalMs = 0;
+  let perfSaveMs = 0;
+
   const { title, childName, content, imageUrl, lesson, locale = "ar" } = data;
   const isRtl = locale === "ar";
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
@@ -414,7 +432,9 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     } catch { return null; }
   };
 
+  const logoStart = perfNow();
   const brandAsset = await loadAsset("/dreemi-brand.png");
+  perfLogoMs = perfNow() - logoStart;
 
   const drawWatermark = () => {
     pdf.setFont("helvetica", "bold");
@@ -504,6 +524,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const IMG_LOAD_TIMEOUT_MS = 10_000;
   const hasImageUrl = typeof imageUrl === "string" && imageUrl.trim().length > 0;
 
+  const imageStart = perfNow();
   if (hasImageUrl) {
     const img = await loadStoryImage(imageUrl!, IMG_LOAD_TIMEOUT_MS);
 
@@ -546,6 +567,7 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     // No image URL — just add spacing before the title.
     cursorY += 8;
   }
+  perfImageMs = perfNow() - imageStart;
 
   // ── Paragraph-by-paragraph rendering ─────────────────────────────────────
   // Each text element is its own canvas render → no cross-page slicing →
@@ -573,6 +595,87 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
     cursorY += heightMm + PARA_GAP;
   };
 
+  /**
+   * Measures paragraph HTML height in CSS pixels using the same typography and
+   * width as renderParagraphAsImage, without running html2canvas.
+   */
+  const estimateParagraphHeightPx = (html: string, widthPx = 560): number => {
+    const probe = document.createElement("div");
+    probe.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translateX(-9999px);
+      pointer-events: none;
+      width: ${widthPx}px;
+      padding: 0 24px 0 24px;
+      overflow: visible;
+      direction: ${isRtl ? "rtl" : "ltr"};
+      text-align: ${isRtl ? "right" : "left"};
+      font-family: 'Cairo', 'Noto Sans Arabic', Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+      color: #2d2d2d;
+      background: transparent;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+    `;
+    probe.innerHTML = html;
+    document.body.appendChild(probe);
+    const height = Math.ceil(probe.scrollHeight);
+    document.body.removeChild(probe);
+    return Math.max(1, height);
+  };
+
+  const placeBodyBatch = async (paragraphInnerHtmlItems: string[], widthPx = 560): Promise<void> => {
+    if (paragraphInnerHtmlItems.length === 0) return;
+
+    const paragraphsHtml = paragraphInnerHtmlItems
+      .map((innerHtml, i) => {
+        const isLast = i === paragraphInnerHtmlItems.length - 1;
+        return `<p style="margin:0 0 ${isLast ? 0 : 10}px 0;font-size:15px;line-height:1.9;color:#334155;">${innerHtml}</p>`;
+      })
+      .join("");
+
+    const batchStart = perfNow();
+    try {
+      const canvas = await renderParagraphAsImage(paragraphsHtml, isRtl, widthPx);
+      const cssWidthPx = canvas.width / 2;
+      if (cssWidthPx <= 0 || contentW <= 0) return;
+      const pxPerMm = cssWidthPx / contentW;
+      const heightMm = (canvas.height / 2) / pxPerMm;
+      if (heightMm <= 0) return;
+
+      if (cursorY + heightMm > H - FOOTER_ZONE) {
+        addNewPage();
+      }
+
+      pdf.addImage(canvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, heightMm);
+      cursorY += heightMm + PARA_GAP;
+
+      const batchMs = perfNow() - batchStart;
+      perfParagraphTotalMs += batchMs;
+      perfBodyBatchRenderTotalMs += batchMs;
+      perfParagraphMaxMs = Math.max(perfParagraphMaxMs, batchMs);
+      perfParagraphRenderCallCount += 1;
+      perfParagraphBatchCount += 1;
+    } catch {
+      // Safe fallback: preserve visual correctness by rendering each paragraph separately.
+      for (const innerHtml of paragraphInnerHtmlItems) {
+        const paraStart = perfNow();
+        await placeParagraph(
+          `<p style="margin:0;font-size:15px;line-height:1.9;color:#334155;">${innerHtml}</p>`,
+          widthPx
+        );
+        const paraMs = perfNow() - paraStart;
+        perfParagraphTotalMs += paraMs;
+        perfParagraphMaxMs = Math.max(perfParagraphMaxMs, paraMs);
+        perfParagraphRenderCallCount += 1;
+      }
+    }
+  };
+
   const byLineText = locale === "ar"
     ? `قصة لـ ${childName}`
     : locale === "fr"
@@ -581,21 +684,25 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
 
   // Title — rendered via Canvas 2D API: no html2canvas, correct Arabic + English
   {
+    const titleStart = perfNow();
     const titleCanvas = await renderTitleWithCanvas2D(title, isRtl);
     const titleH = (titleCanvas.height / titleCanvas.width) * contentW;
     ensureSpace(titleH + 4);
     pdf.addImage(titleCanvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, titleH);
     cursorY += titleH + 4;
+    perfTitleMs = perfNow() - titleStart;
   }
 
   // By-line — rendered via dedicated Canvas 2D path to prevent descender clipping.
   {
+    const bylineStart = perfNow();
     const bylineCanvas = await renderBylineWithCanvas2D(byLineText, isRtl);
     // Keep natural aspect ratio to avoid vertical squash/stretch.
     const bylineH = (bylineCanvas.height / bylineCanvas.width) * contentW;
     ensureSpace(bylineH + 2);
     pdf.addImage(bylineCanvas.toDataURL("image/png"), "PNG", M, cursorY, contentW, bylineH);
     cursorY += bylineH + PARA_GAP;
+    perfBylineMs = perfNow() - bylineStart;
   }
 
   // Content paragraphs
@@ -606,17 +713,58 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   const blocks = isRtl
     ? normalizeArabicPdfBlocksForExport(content)
     : normalizeStoryBlocks(content);
+  const BODY_GAP_PX = 10;
+  const BODY_BATCH_SAFETY_PX = 8;
+  const BODY_WIDTH_PX = 560;
+  let bodyBatch: string[] = [];
+  let bodyBatchEstimatedHeightPx = 0;
+
+  const flushBodyBatch = async () => {
+    if (bodyBatch.length === 0) return;
+    await placeBodyBatch(bodyBatch, BODY_WIDTH_PX);
+    bodyBatch = [];
+    bodyBatchEstimatedHeightPx = 0;
+  };
+
+  const getRemainingBodyHeightPx = (): number => {
+    const remainingMm = Math.max(0, H - FOOTER_ZONE - cursorY);
+    const pxPerMm = BODY_WIDTH_PX / contentW;
+    return Math.max(0, remainingMm * pxPerMm - BODY_BATCH_SAFETY_PX);
+  };
 
   for (const block of blocks) {
     const chunks = splitLongTextBlock(block, pdfMaxChars);
     for (const chunk of chunks) {
-      // Single newlines within a chunk become <br/> for correct line-break rendering.
       const innerHtml = escHtml(chunk).replace(/\n/g, "<br/>");
-      await placeParagraph(
-        `<p style="margin:0;font-size:15px;line-height:1.9;color:#334155;">${innerHtml}</p>`
-      );
+      const paragraphHtml = `<p style="margin:0;font-size:15px;line-height:1.9;color:#334155;">${innerHtml}</p>`;
+      const estimatedHeightPx = estimateParagraphHeightPx(paragraphHtml, BODY_WIDTH_PX);
+      const nextEstimated = bodyBatchEstimatedHeightPx + estimatedHeightPx + BODY_GAP_PX;
+      let availableHeightPx = getRemainingBodyHeightPx();
+
+      // Greedy page-aware batching: render current batch before overflow.
+      if (bodyBatch.length > 0 && nextEstimated > availableHeightPx) {
+        await flushBodyBatch();
+        availableHeightPx = getRemainingBodyHeightPx();
+      }
+
+      // If a single paragraph itself is taller than remaining space, render it alone.
+      // This may legitimately move only this paragraph to the next page.
+      if (bodyBatch.length === 0 && (estimatedHeightPx + BODY_GAP_PX) > availableHeightPx) {
+        const paraStart = perfNow();
+        await placeParagraph(paragraphHtml, BODY_WIDTH_PX);
+        const paraMs = perfNow() - paraStart;
+        perfParagraphTotalMs += paraMs;
+        perfParagraphMaxMs = Math.max(perfParagraphMaxMs, paraMs);
+        perfParagraphRenderCallCount += 1;
+        continue;
+      }
+
+      bodyBatch.push(innerHtml);
+      bodyBatchEstimatedHeightPx += estimatedHeightPx + BODY_GAP_PX;
     }
   }
+
+  await flushBodyBatch();
 
   // Moral box
   if (lesson?.trim()) {
@@ -630,5 +778,33 @@ export async function exportStoryPdf(data: StoryPdfData): Promise<void> {
   }
 
   drawFooter();
+  const saveStart = perfNow();
   pdf.save(`Dreemi - ${title.replace(/[^a-zA-Z0-9\u0600-\u06FF ]/g, "").slice(0, 40)}.pdf`);
+  perfSaveMs = perfNow() - saveStart;
+
+  if (perfEnabled) {
+    const toMs = (n: number) => Number(n.toFixed(1));
+    const perfTotalMs = perfNow() - perfStart;
+    console.info("[PDF_PERF]", {
+      totalExportMs: toMs(perfTotalMs),
+      language: locale,
+      isRtl,
+      hasImageUrl,
+      storyBlockCount: blocks.length,
+      pageCount: pageNum,
+      logoRenderMs: toMs(perfLogoMs),
+      imageLoadRenderMs: toMs(perfImageMs),
+      titleRenderMs: toMs(perfTitleMs),
+      bylineRenderMs: toMs(perfBylineMs),
+      paragraphRenderTotalMs: toMs(perfParagraphTotalMs),
+      maxSingleParagraphRenderMs: toMs(perfParagraphMaxMs),
+      paragraphRenderCallCount: perfParagraphRenderCallCount,
+      paragraphBatchCount: perfParagraphBatchCount,
+      bodyBatchRenderTotalMs: toMs(perfBodyBatchRenderTotalMs),
+      averageParagraphBatchMs: perfParagraphBatchCount > 0
+        ? toMs(perfBodyBatchRenderTotalMs / perfParagraphBatchCount)
+        : 0,
+      pdfSaveMs: toMs(perfSaveMs),
+    });
+  }
 }
