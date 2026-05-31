@@ -13,11 +13,15 @@ import path from "node:path";
 const PAYMENTS_PATH = path.resolve(__dirname, "payments.ts");
 const INDEX_PATH = path.resolve(__dirname, "../index.ts");
 const PLANS_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/plans.middleware.ts");
+const AUTH_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/auth.middleware.ts");
+const JWT_SERVICE_PATH = path.resolve(__dirname, "../services/jwt.service.ts");
 const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "children.ts");
 const FRONTEND_CHILDREN_PAGE_PATH = path.resolve(__dirname, "../../../../apps/web/src/app/[locale]/children/page.tsx");
 const src: string = fs.readFileSync(PAYMENTS_PATH, "utf-8");
 const indexSrc: string = fs.readFileSync(INDEX_PATH, "utf-8");
 const plansSrc: string = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
+const authSrc: string = fs.readFileSync(AUTH_MIDDLEWARE_PATH, "utf-8");
+const jwtSrc: string = fs.readFileSync(JWT_SERVICE_PATH, "utf-8");
 const childrenRouteSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
 const frontendChildrenPageSrc: string = fs.readFileSync(FRONTEND_CHILDREN_PAGE_PATH, "utf-8");
 
@@ -283,5 +287,46 @@ describe("plan/children limits alignment regressions", () => {
   it("ensures plans.middleware.ts has no mojibake markers", () => {
     assert.equal(plansSrc.includes("Ø"), false, "plans.middleware.ts must not contain mojibake marker Ø");
     assert.equal(plansSrc.includes("Ù"), false, "plans.middleware.ts must not contain mojibake marker Ù");
+    assert.equal(plansSrc.includes("â†"), false, "plans.middleware.ts must not contain mojibake marker â†");
+  });
+});
+
+describe("auth/jwt/plans Arabic mojibake regressions", () => {
+  it("ensures auth.middleware.ts has no mojibake markers and keeps expected Arabic messages", () => {
+    assert.equal(authSrc.includes("Ø"), false, "auth.middleware.ts must not contain mojibake marker Ø");
+    assert.equal(authSrc.includes("Ù"), false, "auth.middleware.ts must not contain mojibake marker Ù");
+    assert.equal(authSrc.includes("â†"), false, "auth.middleware.ts must not contain mojibake marker â†");
+    assert.ok(authSrc.includes("رمز الوصول مطلوب"), 'auth.middleware.ts must include "رمز الوصول مطلوب"');
+    assert.ok(authSrc.includes("خطأ في إعداد الخادم"), 'auth.middleware.ts must include "خطأ في إعداد الخادم"');
+    assert.ok(
+      authSrc.includes("رمز الوصول غير صالح أو منتهي الصلاحية"),
+      'auth.middleware.ts must include "رمز الوصول غير صالح أو منتهي الصلاحية"',
+    );
+  });
+
+  it("ensures jwt.service.ts has no mojibake markers and keeps expected Arabic messages", () => {
+    assert.equal(jwtSrc.includes("Ø"), false, "jwt.service.ts must not contain mojibake marker Ø");
+    assert.equal(jwtSrc.includes("Ù"), false, "jwt.service.ts must not contain mojibake marker Ù");
+    assert.equal(jwtSrc.includes("â†"), false, "jwt.service.ts must not contain mojibake marker â†");
+    assert.ok(jwtSrc.includes("JWT_SECRET غير معرّف"), 'jwt.service.ts must include "JWT_SECRET غير معرّف"');
+    assert.ok(
+      jwtSrc.includes("JWT_REFRESH_SECRET غير معرّف"),
+      'jwt.service.ts must include "JWT_REFRESH_SECRET غير معرّف"',
+    );
+    assert.ok(jwtSrc.includes("رمز غير صالح"), 'jwt.service.ts must include "رمز غير صالح"');
+  });
+
+  it("ensures plans.middleware.ts keeps expected Arabic messages and readable comment", () => {
+    assert.ok(
+      plansSrc.includes("FREE → max 3 stories/month. INDIVIDUAL / FAMILY / SCHOOL → unlimited."),
+      "plans.middleware.ts must keep readable FREE/paid limit comment",
+    );
+    assert.ok(plansSrc.includes("رمز الوصول مطلوب"), 'plans.middleware.ts must include "رمز الوصول مطلوب"');
+    assert.ok(plansSrc.includes("المستخدم غير موجود"), 'plans.middleware.ts must include "المستخدم غير موجود"');
+    assert.ok(
+      plansSrc.includes("وصلت للحد الأقصى (${FREE_MONTHLY_LIMIT} قصص/شهر). قم بالترقية لقصص غير محدودة."),
+      "plans.middleware.ts must include the readable Arabic story-limit message",
+    );
+    assert.ok(plansSrc.includes("خطأ في التحقق من الخطة"), 'plans.middleware.ts must include "خطأ في التحقق من الخطة"');
   });
 });
