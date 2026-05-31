@@ -2,7 +2,10 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
   ALLOWED_LEMON_VARIANT_IDS,
+  doesSubscriptionStatusGrantPaidAccess,
   isAllowedCheckoutVariantId,
+  mapLemonSubscriptionStatus,
+  resolveEffectiveUserPlanForSubscription,
   resolveLemonVariant,
   resolvePlanFromLemonVariantId,
 } from "./billing.js";
@@ -32,5 +35,49 @@ describe("billing catalog", () => {
       1712619,
       1712634,
     ]);
+  });
+});
+
+describe("subscription status entitlement policy", () => {
+  it("active grants paid access", () => {
+    const status = mapLemonSubscriptionStatus("active");
+    assert.equal(status, "active");
+    assert.equal(doesSubscriptionStatusGrantPaidAccess(status), true);
+    assert.equal(resolveEffectiveUserPlanForSubscription("FAMILY", status), "FAMILY");
+  });
+
+  it("trialing grants paid access", () => {
+    const status = mapLemonSubscriptionStatus("trialing");
+    assert.equal(status, "trialing");
+    assert.equal(doesSubscriptionStatusGrantPaidAccess(status), true);
+    assert.equal(resolveEffectiveUserPlanForSubscription("INDIVIDUAL", status), "INDIVIDUAL");
+  });
+
+  it("on_trial maps to trialing and grants paid access", () => {
+    const status = mapLemonSubscriptionStatus("on_trial");
+    assert.equal(status, "trialing");
+    assert.equal(doesSubscriptionStatusGrantPaidAccess(status), true);
+    assert.equal(resolveEffectiveUserPlanForSubscription("SCHOOL", status), "SCHOOL");
+  });
+
+  it("past_due grants paid access for V1", () => {
+    const status = mapLemonSubscriptionStatus("past_due");
+    assert.equal(status, "past_due");
+    assert.equal(doesSubscriptionStatusGrantPaidAccess(status), true);
+    assert.equal(resolveEffectiveUserPlanForSubscription("FAMILY", status), "FAMILY");
+  });
+
+  it("unpaid maps to canceled and resolves effective user plan to FREE", () => {
+    const status = mapLemonSubscriptionStatus("unpaid");
+    assert.equal(status, "canceled");
+    assert.equal(doesSubscriptionStatusGrantPaidAccess(status), false);
+    assert.equal(resolveEffectiveUserPlanForSubscription("FAMILY", status), "FREE");
+  });
+
+  it("unknown status resolves effective user plan to FREE", () => {
+    const status = mapLemonSubscriptionStatus("unknown_future_status");
+    assert.equal(status, "canceled");
+    assert.equal(doesSubscriptionStatusGrantPaidAccess(status), false);
+    assert.equal(resolveEffectiveUserPlanForSubscription("INDIVIDUAL", status), "FREE");
   });
 });

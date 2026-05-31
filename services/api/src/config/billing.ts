@@ -2,6 +2,7 @@ import { Plan } from "@prisma/client";
 
 export type BillingCycle = "monthly" | "yearly";
 type PaidPlan = Exclude<Plan, "FREE">;
+export type LemonLocalSubscriptionStatus = "active" | "trialing" | "past_due" | "canceled";
 
 export type LemonVariantCatalogEntry = {
   variantId: number;
@@ -36,4 +37,35 @@ export function resolvePlanFromLemonVariantId(variantId: number): Plan | null {
 
 export function isAllowedCheckoutVariantId(variantId: number): boolean {
   return resolveLemonVariant(variantId) !== null;
+}
+
+export function mapLemonSubscriptionStatus(status: string): LemonLocalSubscriptionStatus {
+  const normalized = String(status ?? "").trim().toLowerCase();
+  switch (normalized) {
+    case "active":
+      return "active";
+    case "trialing":
+    case "on_trial":
+      return "trialing";
+    case "past_due":
+      return "past_due";
+    case "unpaid":
+    case "cancelled":
+    case "canceled":
+    case "expired":
+    default:
+      return "canceled";
+  }
+}
+
+export function doesSubscriptionStatusGrantPaidAccess(status: LemonLocalSubscriptionStatus): boolean {
+  return status === "active" || status === "trialing" || status === "past_due";
+}
+
+export function resolveEffectiveUserPlanForSubscription(
+  subscriptionPlan: Plan,
+  status: LemonLocalSubscriptionStatus,
+): Plan {
+  if (subscriptionPlan === "FREE") return "FREE";
+  return doesSubscriptionStatusGrantPaidAccess(status) ? subscriptionPlan : "FREE";
 }

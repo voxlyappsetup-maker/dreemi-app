@@ -8,7 +8,12 @@ import {
   getSubscription,
   verifyLemonSqueezyWebhook,
 } from "../services/lemonsqueezy.service";
-import { isAllowedCheckoutVariantId, resolvePlanFromLemonVariantId } from "../config/billing";
+import {
+  isAllowedCheckoutVariantId,
+  mapLemonSubscriptionStatus,
+  resolveEffectiveUserPlanForSubscription,
+  resolvePlanFromLemonVariantId,
+} from "../config/billing";
 
 export const paymentsRouter = Router();
 
@@ -155,20 +160,6 @@ paymentsRouter.post(
 /*  Webhook Handlers                                                  */
 /* ------------------------------------------------------------------ */
 
-function mapLemonStatus(status: string): "active" | "canceled" | "past_due" | "trialing" {
-  switch (status) {
-    case "active":
-      return "active";
-    case "trialing":
-      return "trialing";
-    case "past_due":
-    case "unpaid":
-      return "past_due";
-    default:
-      return "canceled";
-  }
-}
-
 async function resolveUserIdFromWebhook(event: any): Promise<string | null> {
   const attrs = event?.data?.attributes ?? {};
 
@@ -199,7 +190,7 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
   const subId = String(event?.data?.id ?? "");
   const attrs = event?.data?.attributes ?? {};
   const variantId = Number(attrs?.variant_id ?? attrs?.variant?.id ?? 0);
-  const status = mapLemonStatus(String(attrs?.status ?? ""));
+  const status = mapLemonSubscriptionStatus(String(attrs?.status ?? ""));
 
   if (!subId) {
     console.warn(`[Webhook] missing subscription id for ${eventName}`);
@@ -228,6 +219,7 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
     console.warn(`[Webhook] ${eventName} unknown variant_id=${variantId}; skipping plan update`);
     return;
   }
+  const effectiveUserPlan = resolveEffectiveUserPlanForSubscription(plan, status);
 
   if (!userId) {
     userId = String(event?.meta?.custom_data?.user_id ?? "");
@@ -244,7 +236,7 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
 
   await prisma.user.update({
     where: { id: userId },
-    data: { plan, stripeId: attrs?.customer_id ? String(attrs.customer_id) : undefined },
+    data: { plan: effectiveUserPlan, stripeId: attrs?.customer_id ? String(attrs.customer_id) : undefined },
   });
 
   await prisma.subscription.upsert({
@@ -269,5 +261,7 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
     },
   });
 
-  console.log(`[Webhook] ✓ ${eventName}: user=${userId} plan=${plan} sub=${subId}`);
+  console.log(
+    `[Webhook] ✓ ${eventName}: user=${userId} subscriptionPlan=${plan} effectiveUserPlan=${effectiveUserPlan} sub=${subId}`,
+  );
 }
