@@ -8,6 +8,7 @@ import {
   getSubscription,
   verifyLemonSqueezyWebhook,
 } from "../services/lemonsqueezy.service";
+import { isAllowedCheckoutVariantId, resolvePlanFromLemonVariantId } from "../config/billing";
 
 export const paymentsRouter = Router();
 
@@ -26,6 +27,10 @@ paymentsRouter.post(
     try {
       const { variantId } = CheckoutSchema.parse(req.body);
       const userId = req.userId!;
+      if (!isAllowedCheckoutVariantId(variantId)) {
+        res.status(400).json({ success: false, error: "UNKNOWN_CHECKOUT_VARIANT" });
+        return;
+      }
 
       const user = await prisma.user.findUnique({ where: { id: userId } });
       if (!user) {
@@ -150,14 +155,6 @@ paymentsRouter.post(
 /*  Webhook Handlers                                                  */
 /* ------------------------------------------------------------------ */
 
-function planFromVariantId(variantId: number): "INDIVIDUAL" | "FAMILY" | "SCHOOL" | "FREE" {
-  const id = Number(variantId);
-  if ([1712541, 1712569].includes(id)) return "INDIVIDUAL";
-  if ([1712590, 1712596].includes(id)) return "FAMILY";
-  if ([1712619, 1712634].includes(id)) return "SCHOOL";
-  return "FREE";
-}
-
 function mapLemonStatus(status: string): "active" | "canceled" | "past_due" | "trialing" {
   switch (status) {
     case "active":
@@ -202,7 +199,6 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
   const subId = String(event?.data?.id ?? "");
   const attrs = event?.data?.attributes ?? {};
   const variantId = Number(attrs?.variant_id ?? attrs?.variant?.id ?? 0);
-  const plan = planFromVariantId(variantId);
   const status = mapLemonStatus(String(attrs?.status ?? ""));
 
   if (!subId) {
@@ -224,6 +220,12 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
       await prisma.user.update({ where: { id: userId }, data: { plan: "FREE" } });
     }
     console.log(`[Webhook] ✓ ${eventName}: sub=${subId} → FREE`);
+    return;
+  }
+
+  const plan = resolvePlanFromLemonVariantId(variantId);
+  if (!plan) {
+    console.warn(`[Webhook] ${eventName} unknown variant_id=${variantId}; skipping plan update`);
     return;
   }
 
@@ -252,7 +254,7 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
       stripeSubscriptionId: subId,
       stripePriceId: String(variantId || ""),
       status,
-      plan: plan === "FREE" ? "FREE" : plan,
+      plan,
       currentPeriodStart: currentStart,
       currentPeriodEnd: renewsAt,
       cancelAtPeriodEnd: Boolean(attrs?.cancelled ?? false),
@@ -261,7 +263,7 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
       stripeSubscriptionId: subId,
       stripePriceId: String(variantId || ""),
       status,
-      plan: plan === "FREE" ? "FREE" : plan,
+      plan,
       currentPeriodEnd: renewsAt,
       cancelAtPeriodEnd: Boolean(attrs?.cancelled ?? false),
     },

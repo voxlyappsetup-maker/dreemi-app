@@ -13,6 +13,7 @@ import { INPUT_CLASS, PasswordInput } from "../../../../components/PasswordInput
 
 const BTN_PRIMARY =
   "w-full rounded-2xl bg-violet-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60";
+const PENDING_PLAN_KEY = "pendingPlanVariantId";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function RegisterPage() {
     try {
       const data = await register({ name, email, password, language });
       saveAuth(data.accessToken, data.refreshToken, data.user);
-      const pending = localStorage.getItem("pendingPlanPriceId");
+      const pending = localStorage.getItem(PENDING_PLAN_KEY);
       router.push(pending ? "/pricing" : "/dashboard");
     } catch (err) {
       setError(err instanceof ApiError ? err.message : t("registerError"));
