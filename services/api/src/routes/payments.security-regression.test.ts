@@ -1,0 +1,248 @@
+/**
+ * Static security regression tests for services/api/src/routes/payments.ts
+ *
+ * Strategy: inspect source text without importing runtime modules to avoid
+ * Prisma, Express, network, env, or webhook side effects.
+ */
+
+import { describe, it } from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+
+const PAYMENTS_PATH = path.resolve(__dirname, "payments.ts");
+const INDEX_PATH = path.resolve(__dirname, "../index.ts");
+const src: string = fs.readFileSync(PAYMENTS_PATH, "utf-8");
+const indexSrc: string = fs.readFileSync(INDEX_PATH, "utf-8");
+
+function find(pattern: string | RegExp): number {
+  if (typeof pattern === "string") return src.indexOf(pattern);
+  const m = src.match(pattern);
+  return m?.index ?? -1;
+}
+
+function findFrom(needle: string, startIdx: number): number {
+  return src.indexOf(needle, startIdx);
+}
+
+function mustExist(pattern: string | RegExp, label: string): number {
+  const idx = find(pattern);
+  assert.ok(idx >= 0, `MISSING — ${label}\n  pattern: ${pattern}`);
+  return idx;
+}
+
+function mustAbsent(pattern: string | RegExp, label: string): void {
+  const idx = find(pattern);
+  assert.ok(idx === -1, `UNEXPECTED — ${label}\n  pattern: ${pattern}\n  found at char ${idx}`);
+}
+
+function mustBeBefore(aIdx: number, aLabel: string, bIdx: number, bLabel: string): void {
+  assert.ok(
+    aIdx >= 0 && bIdx >= 0 && aIdx < bIdx,
+    `ORDER VIOLATION — "${aLabel}" (pos ${aIdx}) must appear before "${bLabel}" (pos ${bIdx})`,
+  );
+}
+
+describe('payments.ts — checkout route protections', () => {
+  it('registers protected POST "/checkout" with authenticateToken', () => {
+    mustExist(
+      /paymentsRouter\.post\(\s*"\/checkout"\s*,\s*authenticateToken\s*,/m,
+      'paymentsRouter.post("/checkout", authenticateToken, ...)',
+    );
+  });
+
+  it("CheckoutSchema requires positive integer variantId", () => {
+    mustExist(
+      /const\s+CheckoutSchema\s*=\s*z\.object\(\s*\{\s*variantId:\s*z\.number\(\)\.int\(\)\.positive\(\)\s*,?\s*\}\s*\)/m,
+      "CheckoutSchema with variantId: z.number().int().positive()",
+    );
+  });
+
+  it("validates allowed variant before createCheckoutUrl and keeps stable error code", () => {
+    const allowedCheckPos = mustExist(
+      "isAllowedCheckoutVariantId(variantId)",
+      "allowed variant check",
+    );
+    const unknownErrPos = mustExist(
+      "UNKNOWN_CHECKOUT_VARIANT",
+      "stable UNKNOWN_CHECKOUT_VARIANT error code",
+    );
+    const checkoutCallPos = mustExist("createCheckoutUrl(", "createCheckoutUrl call");
+
+    mustBeBefore(allowedCheckPos, "allowed variant check", checkoutCallPos, "createCheckoutUrl");
+    mustBeBefore(unknownErrPos, "UNKNOWN_CHECKOUT_VARIANT", checkoutCallPos, "createCheckoutUrl");
+  });
+});
+
+describe("payments.ts — subscription/cancel route protections", () => {
+  it('registers protected GET "/subscription"', () => {
+    mustExist(
+      /paymentsRouter\.get\(\s*"\/subscription"\s*,\s*authenticateToken\s*,/m,
+      'paymentsRouter.get("/subscription", authenticateToken, ...)',
+    );
+  });
+
+  it('registers protected POST "/cancel"', () => {
+    mustExist(
+      /paymentsRouter\.post\(\s*"\/cancel"\s*,\s*authenticateToken\s*,/m,
+      'paymentsRouter.post("/cancel", authenticateToken, ...)',
+    );
+  });
+
+  it("keeps cancel call and stable NO_ACTIVE_SUBSCRIPTION error", () => {
+    mustExist(
+      "cancelSubscription(subscription.stripeSubscriptionId)",
+      "cancelSubscription call with legacy stripeSubscriptionId field",
+    );
+    mustExist("NO_ACTIVE_SUBSCRIPTION", "stable NO_ACTIVE_SUBSCRIPTION error code");
+  });
+});
+
+describe("payments.ts — webhook route protections", () => {
+  it('registers POST "/webhook" without authenticateToken', () => {
+    const webhookStart = mustExist(
+      /paymentsRouter\.post\(\s*"\/webhook"\s*,\s*async\s*\(req:\s*Request,\s*res:\s*Response\)\s*=>/m,
+      'paymentsRouter.post("/webhook", async ...)',
+    );
+    const webhookHeaderSlice = src.slice(webhookStart, webhookStart + 220);
+    assert.equal(
+      webhookHeaderSlice.includes("authenticateToken"),
+      false,
+      "webhook route must not include authenticateToken",
+    );
+  });
+
+  it("verifies signature before JSON parsing and handler execution", () => {
+    const verifyPos = mustExist(
+      "verifyLemonSqueezyWebhook(raw, signature)",
+      "verifyLemonSqueezyWebhook(raw, signature)",
+    );
+    const invalidSigPos = mustExist(
+      'res.status(401).json({ error: "Invalid signature" })',
+      "401 invalid signature response",
+    );
+    const parsePos = mustExist("JSON.parse(raw.toString(\"utf8\"))", "event JSON parse");
+    const handlerPos = mustExist(
+      "handleLemonSubscriptionEvent(eventName, event)",
+      "handle webhook event call",
+    );
+
+    mustBeBefore(verifyPos, "signature verification", invalidSigPos, "invalid signature response");
+    mustBeBefore(invalidSigPos, "invalid signature response", parsePos, "JSON.parse");
+    mustBeBefore(parsePos, "JSON.parse", handlerPos, "handleLemonSubscriptionEvent");
+  });
+
+  it("keeps stable Missing event_name validation before handler", () => {
+    const eventNameCheckPos = mustExist("if (!eventName)", "eventName presence check");
+    const missingEventErrPos = mustExist(
+      'res.status(400).json({ error: "Missing event_name" })',
+      "Missing event_name response",
+    );
+    const handlerPos = mustExist(
+      "handleLemonSubscriptionEvent(eventName, event)",
+      "handle webhook event call",
+    );
+    mustBeBefore(eventNameCheckPos, "if (!eventName)", missingEventErrPos, "Missing event_name error");
+    mustBeBefore(missingEventErrPos, "Missing event_name error", handlerPos, "event handler call");
+  });
+});
+
+describe("payments.ts — webhook subscription policy protections", () => {
+  it("keeps subscription_payment_success as notification-only early return", () => {
+    const paymentSuccessPos = mustExist(
+      'if (eventName === "subscription_payment_success")',
+      "subscription_payment_success branch",
+    );
+    const paymentReturnPos = findFrom("return;", paymentSuccessPos);
+    const userUpdatePos = mustExist("prisma.user.update(", "prisma.user.update call");
+    assert.ok(paymentReturnPos > paymentSuccessPos, "subscription_payment_success branch must return");
+    mustBeBefore(paymentReturnPos, "subscription_payment_success return", userUpdatePos, "prisma.user.update");
+  });
+
+  it("keeps cancellation/expiration branch setting User.plan to FREE", () => {
+    const cancelBranchPos = mustExist(
+      /eventName === "subscription_cancelled"\s*\|\|\s*eventName === "subscription_expired"/m,
+      "subscription_cancelled/subscription_expired branch",
+    );
+    const freePlanUpdatePos = findFrom('data: { plan: "FREE" }', cancelBranchPos);
+    assert.ok(
+      freePlanUpdatePos > cancelBranchPos,
+      'cancel/expired branch must update user plan to "FREE"',
+    );
+  });
+
+  it("keeps unknown variant guard with resolvePlanFromLemonVariantId and early return", () => {
+    const resolvePlanPos = mustExist(
+      "resolvePlanFromLemonVariantId(variantId)",
+      "resolve plan from variant",
+    );
+    const unknownGuardPos = mustExist("if (!plan)", "unknown plan guard");
+    const unknownWarnPos = mustExist("unknown variant_id=", "unknown variant warning");
+    const unknownReturnPos = findFrom("return;", unknownGuardPos);
+    const effectivePlanPos = mustExist(
+      "resolveEffectiveUserPlanForSubscription(plan, status)",
+      "effective plan resolution",
+    );
+
+    mustBeBefore(resolvePlanPos, "resolvePlanFromLemonVariantId", unknownGuardPos, "if (!plan)");
+    mustBeBefore(unknownGuardPos, "if (!plan)", unknownWarnPos, "unknown variant warning");
+    assert.ok(unknownReturnPos > unknownGuardPos, "unknown variant guard must return early");
+    mustBeBefore(
+      unknownReturnPos,
+      "unknown variant return",
+      effectivePlanPos,
+      "resolveEffectiveUserPlanForSubscription",
+    );
+  });
+
+  it("uses effective entitlement for User.plan and catalog plan for Subscription.plan", () => {
+    mustExist(
+      "resolveEffectiveUserPlanForSubscription(plan, status)",
+      "effective user plan resolver usage",
+    );
+    mustExist(
+      "data: { plan: effectiveUserPlan, stripeId:",
+      "prisma.user.update uses effectiveUserPlan",
+    );
+    mustExist(
+      /prisma\.subscription\.upsert\([\s\S]*create:\s*\{[\s\S]*plan,\s*[\s\S]*update:\s*\{[\s\S]*plan,/m,
+      "prisma.subscription.upsert stores catalog plan in create/update",
+    );
+  });
+});
+
+describe("payments.ts — mapping implementation guardrails", () => {
+  it("uses mapLemonSubscriptionStatus from billing helper", () => {
+    mustExist(
+      /import\s*\{[\s\S]*mapLemonSubscriptionStatus[\s\S]*\}\s*from\s*"..\/config\/billing"/m,
+      "mapLemonSubscriptionStatus billing import",
+    );
+    mustExist(
+      "mapLemonSubscriptionStatus(String(attrs?.status ?? \"\"))",
+      "mapLemonSubscriptionStatus usage",
+    );
+  });
+
+  it("does not reintroduce local planFromVariantId or mapLemonStatus helpers", () => {
+    mustAbsent(
+      /function\s+planFromVariantId\s*\(/m,
+      "local planFromVariantId function must remain absent",
+    );
+    mustAbsent(
+      /function\s+mapLemonStatus\s*\(/m,
+      "local mapLemonStatus function must remain absent",
+    );
+  });
+});
+
+describe("index.ts — webhook raw parser ordering", () => {
+  it("mounts /api/payments/webhook with express.raw before express.json", () => {
+    const webhookRawPos = indexSrc.indexOf('"/api/payments/webhook"');
+    const rawParserPos = indexSrc.indexOf('express.raw({ type: "application/json" })');
+    const jsonParserPos = indexSrc.indexOf("app.use(express.json())");
+    assert.ok(webhookRawPos >= 0, "index.ts must mount /api/payments/webhook parser");
+    assert.ok(rawParserPos >= 0, "index.ts must use express.raw for webhook route");
+    assert.ok(jsonParserPos >= 0, "index.ts must include global express.json parser");
+    assert.ok(rawParserPos < jsonParserPos, "webhook express.raw must be mounted before express.json");
+  });
+});
