@@ -19,7 +19,7 @@ dreemi-app/
 |--------|---------|---------|
 | Node.js | 20+ | [nodejs.org](https://nodejs.org) |
 | pnpm | 9+ | `npm install -g pnpm` |
-| Stripe CLI | أحدث إصدار | [stripe.com/docs/stripe-cli](https://docs.stripe.com/stripe-cli) |
+| Lemon Squeezy Dashboard | — | [lemonsqueezy.com](https://www.lemonsqueezy.com) |
 
 ## التثبيت
 
@@ -45,13 +45,11 @@ MISTRAL_API_KEY="..."
 JWT_SECRET="..."
 JWT_REFRESH_SECRET="..."
 
-# Stripe
-STRIPE_SECRET_KEY="sk_test_..."
-STRIPE_PUBLISHABLE_KEY="pk_test_..."
-STRIPE_WEBHOOK_SECRET="whsec_..."
-STRIPE_PRICE_INDIVIDUAL_MONTHLY="price_..."
-STRIPE_PRICE_INDIVIDUAL_YEARLY="price_..."
-STRIPE_PRICE_FAMILY_MONTHLY="price_..."
+# Lemon Squeezy
+LEMONSQUEEZY_API_KEY="..."
+LEMONSQUEEZY_STORE_ID="..."
+LEMONSQUEEZY_WEBHOOK_SECRET="..."
+FRONTEND_URL="http://localhost:3000"
 
 # التطبيق
 NODE_ENV="development"
@@ -63,10 +61,7 @@ NEXT_PUBLIC_API_URL="http://localhost:3001"
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:3001
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
-NEXT_PUBLIC_STRIPE_PRICE_INDIVIDUAL_MONTHLY="price_..."
-NEXT_PUBLIC_STRIPE_PRICE_INDIVIDUAL_YEARLY="price_..."
-NEXT_PUBLIC_STRIPE_PRICE_FAMILY_MONTHLY="price_..."
+# (لا حاجة لمفاتيح Lemon Squeezy عامة في الواجهة حالياً)
 ```
 
 ## التشغيل
@@ -87,11 +82,11 @@ cd apps/web
 pnpm dev
 ```
 
-### الطرفية ٣ — Stripe Webhooks
+### الطرفية ٣ — Lemon Squeezy Webhook
 
-```bash
-stripe listen --forward-to localhost:3001/api/payments/webhook
-```
+اضبط Webhook في لوحة تحكم Lemon Squeezy إلى:
+
+`http://localhost:3001/api/payments/webhook`
 
 ## الروابط المحلية
 
@@ -154,9 +149,10 @@ pnpm db:studio
 | GET | `/api/stories` | عام | جلب القصص |
 | GET | `/api/stories/:id` | عام | قصة واحدة |
 | POST | `/api/stories/generate` | محمي | توليد قصة جديدة |
-| POST | `/api/payments/create-checkout` | محمي | بدء جلسة دفع |
-| POST | `/api/payments/create-portal` | محمي | بوابة إدارة الاشتراك |
-| POST | `/api/payments/webhook` | Stripe | أحداث Stripe |
+| POST | `/api/payments/checkout` | محمي | إنشاء رابط دفع Lemon Squeezy |
+| GET | `/api/payments/subscription` | محمي | جلب حالة الاشتراك |
+| POST | `/api/payments/cancel` | محمي | طلب إلغاء الاشتراك |
+| POST | `/api/payments/webhook` | Lemon Squeezy | أحداث Webhook |
 
 ## التقنيات
 
@@ -164,5 +160,5 @@ pnpm db:studio
 - **الخادم:** Node.js, Express, Prisma ORM
 - **قاعدة البيانات:** PostgreSQL (Supabase)
 - **الذكاء الاصطناعي:** Mistral AI
-- **المدفوعات:** Stripe
+- **المدفوعات:** Lemon Squeezy
 - **الأدوات:** pnpm, Turborepo, ESLint

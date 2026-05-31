@@ -433,7 +433,7 @@
         ],
         "bullets": [
           "AI providers (e.g., OpenAI, Mistral): to generate story text and/or illustrations from your prompts and child profile details.",
-          "Payments provider (Stripe): to process subscriptions, billing, and receipts.",
+          "Payments provider (Lemon Squeezy): to process subscriptions, billing, and receipts.",
           "Hosting/infrastructure providers: to run the app securely and reliably."
         ]
       },
@@ -512,7 +512,7 @@
         "title": "Subscriptions, billing, and refunds",
         "body": [
           "Paid plans are billed in advance on a recurring basis according to the plan you select.",
-          "Payments are processed by Stripe."
+          "Payments are processed by Lemon Squeezy."
         ],
         "bullets": [
           "You can manage or cancel your subscription from your account settings or the billing portal.",

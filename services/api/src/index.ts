@@ -33,7 +33,7 @@ app.use(
   }),
 );
 
-// Stripe webhooks need the raw body for signature verification.
+// Lemon Squeezy webhooks need the raw body for signature verification.
 // Mount it BEFORE the global express.json() parser.
 app.use(
   "/api/payments/webhook",

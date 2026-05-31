@@ -433,7 +433,7 @@
         ],
         "bullets": [
           "Fournisseurs IA (ex. OpenAI, Mistral) : génération de textes et/ou d'illustrations à partir de vos prompts et du profil enfant.",
-          "Prestataire de paiement (Stripe) : traitement des abonnements, facturation et reçus.",
+          "Prestataire de paiement (Lemon Squeezy) : traitement des abonnements, facturation et reçus.",
           "Hébergement/infrastructure : exécution sécurisée et fiable de l'application."
         ]
       },
@@ -512,7 +512,7 @@
         "title": "Abonnements, paiements et remboursements",
         "body": [
           "Les plans payants sont facturés à l'avance de manière récurrente selon le plan choisi.",
-          "Les paiements sont traités via Stripe."
+          "Les paiements sont traités via Lemon Squeezy."
         ],
         "bullets": [
           "Vous pouvez gérer ou annuler votre abonnement via les paramètres ou le portail de facturation.",
