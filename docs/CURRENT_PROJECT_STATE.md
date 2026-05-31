@@ -26,14 +26,46 @@
 - Safety and API security checks:
   - `services/api/src/services/safety.service.ts`
   - `services/api/src/routes/stories.security-regression.test.ts`
+- Billing and plan enforcement:
+  - payment route: `services/api/src/routes/payments.ts`
+  - Lemon service integration: `services/api/src/services/lemonsqueezy.service.ts`
+  - billing catalog: `services/api/src/config/billing.ts`
+  - billing helper tests: `services/api/src/config/billing.test.ts`
+  - static payments regressions: `services/api/src/routes/payments.security-regression.test.ts`
+  - story limit middleware: `services/api/src/middleware/plans.middleware.ts`
+  - children limits route: `services/api/src/routes/children.ts`
+  - frontend children limits surface: `apps/web/src/app/[locale]/children/page.tsx`
+  - plan/checkout frontend surfaces:
+    - `apps/web/src/app/[locale]/pricing/page.tsx`
+    - `apps/web/src/components/LandingPricing.tsx`
+    - `apps/web/src/app/[locale]/(auth)/login/page.tsx`
+    - `apps/web/src/app/[locale]/(auth)/register/page.tsx`
+
+## Stable Phase 4-B Billing State
+
+- Payment provider is Lemon Squeezy.
+- Checkout rejects unknown `variantId` server-side with stable error `UNKNOWN_CHECKOUT_VARIANT`.
+- Lemon variant IDs are centralized in `services/api/src/config/billing.ts`.
+- Webhook effective entitlement is status-based:
+  - `active`, `trialing`, `on_trial`, `past_due` => paid access (V1).
+  - `unpaid`, `canceled`, `cancelled`, `expired`, and unknown statuses => effective `User.plan = FREE`.
+- `subscription_payment_success` is notification-only and returns without plan updates.
+- `subscription_cancelled` and `subscription_expired` set `User.plan` to `FREE`.
+- `User.plan` stores effective entitlement.
+- `Subscription.plan` stores the catalog subscription plan.
+- No credits ledger exists; enforcement model is plan limits, not credit accounting.
+- FREE story limit is `3` stories/month (`services/api/src/middleware/plans.middleware.ts`).
+- Child limits are `FREE: 1`, `INDIVIDUAL: 1`, `FAMILY: 4`, `SCHOOL: Infinity`.
+- Provider-facing docs/text are aligned to Lemon Squeezy.
+- Legacy field names (`stripeId`, `stripeSubscriptionId`, `stripePriceId`) are intentionally retained pending a future migration.
 
 ## Latest Confirmed PDF Export State (from git history)
 
 Recent PDF commits indicate:
 
-- `53c0f61` â€” Phase 3E-C: RTL caption/paragraph grouping improvements
-- `639e8f2` â€” Phase 3E-F: Arabic byline + paragraph grouping repair
-- `3cdd104` â€” Phase 3F-A: PDF body batching optimization
+- `53c0f61` — Phase 3E-C: RTL caption/paragraph grouping improvements
+- `639e8f2` — Phase 3E-F: Arabic byline + paragraph grouping repair
+- `3cdd104` — Phase 3F-A: PDF body batching optimization
 
 Manual regression process and acceptance criteria are documented in:
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`

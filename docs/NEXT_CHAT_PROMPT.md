@@ -24,6 +24,16 @@ Read these first:
 - `services/api/src/services/image.service.ts`
 - `services/api/src/services/safety.service.ts`
 - `services/api/src/routes/stories.security-regression.test.ts`
+- `services/api/src/routes/payments.ts`
+- `services/api/src/services/lemonsqueezy.service.ts`
+- `services/api/src/config/billing.ts`
+- `services/api/src/config/billing.test.ts`
+- `services/api/src/routes/payments.security-regression.test.ts`
+- `services/api/src/middleware/plans.middleware.ts`
+- `services/api/src/routes/children.ts`
+- `apps/web/src/app/[locale]/pricing/page.tsx`
+- `apps/web/src/components/LandingPricing.tsx`
+- `apps/web/src/app/[locale]/children/page.tsx`
 
 Then run and report:
 - `git status -sb`
@@ -37,9 +47,13 @@ If local env/app is already configured, perform one manual smoke:
 - export one PDF
 
 Constraints:
+- Billing provider is Lemon Squeezy.
 - Never print/request secrets, keys, tokens, DB URLs, or credentials.
+- Do not ask for or print Lemon/Supabase/Render/Vercel/API secret values.
 - Do not modify `.env` / `.env.local`.
+- Treat `.env` files as off-limits.
 - Do not change schema/migrations/deployment unless explicitly approved.
+- No migrations/deployment changes without explicit approval.
 - Do not change PDF export behavior unless the requested task requires it.
 - Preserve Arabic RTL PDF correctness and existing performance improvements.
 - Do not commit/push unless explicitly asked.

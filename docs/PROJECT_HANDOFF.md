@@ -12,6 +12,12 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `57fa102` `fix(plans): align children limits with backend`
+  - `06d5883` `test(payments): add static route regression coverage`
+  - `00fc179` `docs(payments): align provider references with Lemon Squeezy`
+  - `7043b65` `fix(payments): enforce webhook entitlement status`
+  - `7f50b4d` `fix(payments): harden checkout variant validation`
+  - `bb8e51b` `docs: add project handoff and memory offload files`
   - `3cdd104` `fix(pdf): Phase 3F-A optimize PDF body batching`
   - `639e8f2` `fix(pdf): Phase 3E-F repair Arabic PDF byline and paragraph grouping`
   - `53c0f61` `fix(pdf): Phase 3E-C improve RTL captions and paragraph grouping`
@@ -29,6 +35,32 @@
 - Safety gate rules: `services/api/src/services/safety.service.ts`
 - Static security regression tests: `services/api/src/routes/stories.security-regression.test.ts`
 - Manual PDF checklist: `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
+
+## Billing / Payments / Plan Enforcement
+
+- Runtime/payment routes: `services/api/src/routes/payments.ts`
+- Lemon integration service: `services/api/src/services/lemonsqueezy.service.ts`
+- Central billing catalog/helpers: `services/api/src/config/billing.ts`
+- Billing helper tests: `services/api/src/config/billing.test.ts`
+- Static payments route regressions: `services/api/src/routes/payments.security-regression.test.ts`
+- Story plan limit enforcement: `services/api/src/middleware/plans.middleware.ts`
+- Children plan limit enforcement: `services/api/src/routes/children.ts`
+- Frontend children limit surface: `apps/web/src/app/[locale]/children/page.tsx`
+
+Stable facts:
+- Billing provider: Lemon Squeezy.
+- Checkout rejects unknown variant IDs server-side.
+- Webhook entitlement uses mapped subscription status:
+  - effective `User.plan` may be FREE for non-entitled statuses.
+  - `Subscription.plan` remains the catalog subscription plan.
+- FREE story limit: 3 stories/month.
+- Child limits: FREE 1, INDIVIDUAL 1, FAMILY 4, SCHOOL Infinity.
+- Legacy DB field names (`stripeId`, `stripeSubscriptionId`, `stripePriceId`) remain intentionally unchanged pending migration.
+
+Pending notes:
+- No runtime/integration webhook tests yet; current coverage is helper-level + static regression tests.
+- No credits ledger exists yet (current model is plan limits).
+- Legacy Stripe-named DB fields remain pending future migration/rename if desired.
 
 ## Known Stable Areas (repository evidence only)
 
