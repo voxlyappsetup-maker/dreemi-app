@@ -40,7 +40,7 @@ const CHILD_LIMITS: Record<string, number> = {
   FREE: 1,
   INDIVIDUAL: 1,
   FAMILY: 4,
-  SCHOOL: 999,
+  SCHOOL: Infinity,
 };
 
 const PERSONALITIES = ["curious", "brave", "calm", "energetic", "creative", "kind", "funny", "shy"] as const;

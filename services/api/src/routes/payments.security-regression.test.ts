@@ -12,8 +12,14 @@ import path from "node:path";
 
 const PAYMENTS_PATH = path.resolve(__dirname, "payments.ts");
 const INDEX_PATH = path.resolve(__dirname, "../index.ts");
+const PLANS_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/plans.middleware.ts");
+const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "children.ts");
+const FRONTEND_CHILDREN_PAGE_PATH = path.resolve(__dirname, "../../../../apps/web/src/app/[locale]/children/page.tsx");
 const src: string = fs.readFileSync(PAYMENTS_PATH, "utf-8");
 const indexSrc: string = fs.readFileSync(INDEX_PATH, "utf-8");
+const plansSrc: string = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
+const childrenRouteSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
+const frontendChildrenPageSrc: string = fs.readFileSync(FRONTEND_CHILDREN_PAGE_PATH, "utf-8");
 
 function find(pattern: string | RegExp): number {
   if (typeof pattern === "string") return src.indexOf(pattern);
@@ -244,5 +250,38 @@ describe("index.ts — webhook raw parser ordering", () => {
     assert.ok(rawParserPos >= 0, "index.ts must use express.raw for webhook route");
     assert.ok(jsonParserPos >= 0, "index.ts must include global express.json parser");
     assert.ok(rawParserPos < jsonParserPos, "webhook express.raw must be mounted before express.json");
+  });
+});
+
+describe("plan/children limits alignment regressions", () => {
+  it("keeps backend FREE monthly story limit at 3", () => {
+    assert.ok(
+      plansSrc.includes("const FREE_MONTHLY_LIMIT = 3;"),
+      "plans.middleware.ts must keep FREE_MONTHLY_LIMIT = 3",
+    );
+  });
+
+  it("keeps backend children SCHOOL limit as Infinity", () => {
+    assert.ok(
+      childrenRouteSrc.includes("SCHOOL: Infinity"),
+      "children.ts must keep SCHOOL: Infinity in CHILD_LIMITS",
+    );
+  });
+
+  it("keeps frontend children SCHOOL limit aligned to Infinity (not 999)", () => {
+    assert.ok(
+      frontendChildrenPageSrc.includes("SCHOOL: Infinity"),
+      "frontend children page must use SCHOOL: Infinity",
+    );
+    assert.equal(
+      frontendChildrenPageSrc.includes("SCHOOL: 999"),
+      false,
+      "frontend children page must not use SCHOOL: 999",
+    );
+  });
+
+  it("ensures plans.middleware.ts has no mojibake markers", () => {
+    assert.equal(plansSrc.includes("Ø"), false, "plans.middleware.ts must not contain mojibake marker Ø");
+    assert.equal(plansSrc.includes("Ù"), false, "plans.middleware.ts must not contain mojibake marker Ù");
   });
 });
