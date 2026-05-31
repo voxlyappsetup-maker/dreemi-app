@@ -12,6 +12,8 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `bfdfdc5` `test(api): guard Arabic auth and plan messages`
+  - `e967324` `docs: document billing and plan enforcement state`
   - `57fa102` `fix(plans): align children limits with backend`
   - `06d5883` `test(payments): add static route regression coverage`
   - `00fc179` `docs(payments): align provider references with Lemon Squeezy`
@@ -61,6 +63,21 @@ Pending notes:
 - No runtime/integration webhook tests yet; current coverage is helper-level + static regression tests.
 - No credits ledger exists yet (current model is plan limits).
 - Legacy Stripe-named DB fields remain pending future migration/rename if desired.
+
+## Production Readiness
+
+- Checklist path: `docs/PRODUCTION_READINESS_CHECKLIST.md`
+- Frontend deployment config path: `vercel.json`
+- API deployment config path (current repo naming): `services/api/railway.json`
+
+P0 blockers before real payments:
+- Set production API `FRONTEND_URL`.
+- Set Vercel `NEXT_PUBLIC_API_URL`.
+- Configure Lemon Squeezy webhook URL to production API `/api/payments/webhook`.
+- Verify final frontend domains are allowed by API CORS.
+
+Pending decision:
+- Render vs Railway deployment config naming/ownership is not finalized in repository docs/process.
 
 ## Known Stable Areas (repository evidence only)
 

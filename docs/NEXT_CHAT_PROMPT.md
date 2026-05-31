@@ -16,8 +16,14 @@ Read these first:
 - `turbo.json`
 - `docs/PROJECT_HANDOFF.md`
 - `docs/CURRENT_PROJECT_STATE.md`
+- `docs/PRODUCTION_READINESS_CHECKLIST.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
+- `vercel.json`
+- `services/api/railway.json`
+- `services/api/src/index.ts`
+- `apps/web/src/lib/api.ts`
+- `.env.example`
 - `apps/web/src/lib/exportStoryPdf.ts`
 - `services/api/src/services/mistral.service.ts`
 - `services/api/src/services/mistral.service.test.ts`
@@ -50,10 +56,13 @@ Constraints:
 - Billing provider is Lemon Squeezy.
 - Never print/request secrets, keys, tokens, DB URLs, or credentials.
 - Do not ask for or print Lemon/Supabase/Render/Vercel/API secret values.
+- Treat `.env.example` as safe to read, but never replace placeholders with real values.
 - Do not modify `.env` / `.env.local`.
 - Treat `.env` files as off-limits.
 - Do not change schema/migrations/deployment unless explicitly approved.
 - No migrations/deployment changes without explicit approval.
+- Do not deploy or alter deployment config without explicit approval.
+- Production env values must be handled outside chat.
 - Do not change PDF export behavior unless the requested task requires it.
 - Preserve Arabic RTL PDF correctness and existing performance improvements.
 - Do not commit/push unless explicitly asked.

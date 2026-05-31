@@ -59,6 +59,14 @@
 - Provider-facing docs/text are aligned to Lemon Squeezy.
 - Legacy field names (`stripeId`, `stripeSubscriptionId`, `stripePriceId`) are intentionally retained pending a future migration.
 
+## Production Readiness State
+
+- Reference checklist: `docs/PRODUCTION_READINESS_CHECKLIST.md`
+- Latest production-readiness commit marker in git history: `bfdfdc5` (`test(api): guard Arabic auth and plan messages`)
+- Production deploy is **not** verified in this phase.
+- P0 production items are documented in checklist form; they are not fixed in this phase.
+- No deployment/config/runtime code changes were made in this phase.
+
 ## Latest Confirmed PDF Export State (from git history)
 
 Recent PDF commits indicate:
