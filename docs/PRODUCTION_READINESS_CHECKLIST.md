@@ -63,9 +63,11 @@ Important notes:
 
 - Payment provider approval is a P0 blocker before any paid launch.
 - Lemon Squeezy production verification is paused unless Lemon approval status changes.
+- Lemon Squeezy integration exists but is not approved for production launch.
+- Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not treat any provider as production-approved until explicit provider approval and production verification are completed.
 - `FRONTEND_URL` must be set in the production API environment.
-  - Reason: checkout redirect currently falls back to `http://localhost:3000`.
+  - Reason: production checkout now fails closed when `FRONTEND_URL` is missing.
 - `NEXT_PUBLIC_API_URL` must be set explicitly in Vercel.
   - Reason: frontend API client now fails fast in production when `NEXT_PUBLIC_API_URL` is missing; local `http://localhost:3001` fallback is non-production only.
 - Lemon Squeezy webhook URL must point to production API:

@@ -3,6 +3,20 @@ import { Plan } from "@prisma/client";
 export type BillingCycle = "monthly" | "yearly";
 type PaidPlan = Exclude<Plan, "FREE">;
 export type LemonLocalSubscriptionStatus = "active" | "trialing" | "past_due" | "canceled";
+export type BillingProvider = "LEMONSQUEEZY" | "NONE";
+export type PaymentsGateErrorCode = "PAYMENTS_DISABLED" | "PROVIDER_NOT_APPROVED";
+
+export type PaymentsRuntimeState = {
+  isProduction: boolean;
+  paymentsEnabled: boolean;
+  providerApproved: boolean;
+  activeProvider: BillingProvider;
+};
+
+export type PaymentsGateDecision = PaymentsRuntimeState & {
+  canStartCheckout: boolean;
+  errorCode: PaymentsGateErrorCode | null;
+};
 
 export type LemonVariantCatalogEntry = {
   variantId: number;
@@ -26,6 +40,61 @@ const LEMON_VARIANT_LOOKUP = new Map(
 export const ALLOWED_LEMON_VARIANT_IDS = Object.freeze(
   LEMON_VARIANT_CATALOG.map((entry) => entry.variantId),
 );
+
+function parseBooleanEnv(value: string | undefined, defaultValue: boolean): boolean {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  if (!normalized) return defaultValue;
+  if (["1", "true", "yes", "on"].includes(normalized)) return true;
+  if (["0", "false", "no", "off"].includes(normalized)) return false;
+  return defaultValue;
+}
+
+function normalizeBillingProvider(value: string | undefined): BillingProvider {
+  const normalized = String(value ?? "").trim().toUpperCase();
+  if (normalized === "LEMONSQUEEZY") return "LEMONSQUEEZY";
+  return "NONE";
+}
+
+export function getPaymentsRuntimeState(env: NodeJS.ProcessEnv = process.env): PaymentsRuntimeState {
+  const isProduction = String(env.NODE_ENV ?? "").trim().toLowerCase() === "production";
+  return {
+    isProduction,
+    // Keep local workflows usable by default; production is fail-closed by default.
+    paymentsEnabled: parseBooleanEnv(env.PAYMENTS_ENABLED, !isProduction),
+    providerApproved: parseBooleanEnv(env.PAYMENT_PROVIDER_APPROVED, false),
+    activeProvider: normalizeBillingProvider(env.PAYMENT_ACTIVE_PROVIDER ?? "LEMONSQUEEZY"),
+  };
+}
+
+export function resolvePaymentsGateDecision(env: NodeJS.ProcessEnv = process.env): PaymentsGateDecision {
+  const state = getPaymentsRuntimeState(env);
+  if (!state.paymentsEnabled) {
+    return {
+      ...state,
+      canStartCheckout: false,
+      errorCode: "PAYMENTS_DISABLED",
+    };
+  }
+  if (state.activeProvider !== "LEMONSQUEEZY") {
+    return {
+      ...state,
+      canStartCheckout: false,
+      errorCode: "PROVIDER_NOT_APPROVED",
+    };
+  }
+  if (state.isProduction && !state.providerApproved) {
+    return {
+      ...state,
+      canStartCheckout: false,
+      errorCode: "PROVIDER_NOT_APPROVED",
+    };
+  }
+  return {
+    ...state,
+    canStartCheckout: true,
+    errorCode: null,
+  };
+}
 
 export function resolveLemonVariant(variantId: number): LemonVariantCatalogEntry | null {
   return LEMON_VARIANT_LOOKUP.get(Number(variantId)) ?? null;

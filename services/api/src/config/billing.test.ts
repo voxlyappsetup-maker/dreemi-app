@@ -3,8 +3,10 @@ import assert from "node:assert/strict";
 import {
   ALLOWED_LEMON_VARIANT_IDS,
   doesSubscriptionStatusGrantPaidAccess,
+  getPaymentsRuntimeState,
   isAllowedCheckoutVariantId,
   mapLemonSubscriptionStatus,
+  resolvePaymentsGateDecision,
   resolveEffectiveUserPlanForSubscription,
   resolveLemonVariant,
   resolvePlanFromLemonVariantId,
@@ -79,5 +81,53 @@ describe("subscription status entitlement policy", () => {
     assert.equal(status, "canceled");
     assert.equal(doesSubscriptionStatusGrantPaidAccess(status), false);
     assert.equal(resolveEffectiveUserPlanForSubscription("INDIVIDUAL", status), "FREE");
+  });
+});
+
+describe("payments runtime safety gate", () => {
+  it("defaults to fail-closed in production", () => {
+    const decision = resolvePaymentsGateDecision({
+      NODE_ENV: "production",
+      PAYMENTS_ENABLED: undefined,
+      PAYMENT_PROVIDER_APPROVED: undefined,
+      PAYMENT_ACTIVE_PROVIDER: undefined,
+    });
+    assert.equal(decision.canStartCheckout, false);
+    assert.equal(decision.errorCode, "PAYMENTS_DISABLED");
+    assert.equal(decision.activeProvider, "LEMONSQUEEZY");
+  });
+
+  it("blocks production checkout when provider is not approved", () => {
+    const decision = resolvePaymentsGateDecision({
+      NODE_ENV: "production",
+      PAYMENTS_ENABLED: "true",
+      PAYMENT_PROVIDER_APPROVED: "false",
+      PAYMENT_ACTIVE_PROVIDER: "LEMONSQUEEZY",
+    });
+    assert.equal(decision.canStartCheckout, false);
+    assert.equal(decision.errorCode, "PROVIDER_NOT_APPROVED");
+  });
+
+  it("allows production checkout only when enabled and approved", () => {
+    const decision = resolvePaymentsGateDecision({
+      NODE_ENV: "production",
+      PAYMENTS_ENABLED: "true",
+      PAYMENT_PROVIDER_APPROVED: "true",
+      PAYMENT_ACTIVE_PROVIDER: "LEMONSQUEEZY",
+    });
+    assert.equal(decision.canStartCheckout, true);
+    assert.equal(decision.errorCode, null);
+  });
+
+  it("keeps non-production default usable without provider approval", () => {
+    const state = getPaymentsRuntimeState({
+      NODE_ENV: "development",
+      PAYMENTS_ENABLED: undefined,
+      PAYMENT_PROVIDER_APPROVED: undefined,
+      PAYMENT_ACTIVE_PROVIDER: undefined,
+    });
+    assert.equal(state.paymentsEnabled, true);
+    assert.equal(state.providerApproved, false);
+    assert.equal(state.activeProvider, "LEMONSQUEEZY");
   });
 });

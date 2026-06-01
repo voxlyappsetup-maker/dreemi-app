@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "../i18n/routing";
-import { createCheckout, ApiError } from "../lib/api";
+import { createCheckout, ApiError, getPaymentsStatus } from "../lib/api";
 import { isAuthenticated } from "../lib/storage";
 
 const PENDING_PLAN_KEY = "pendingPlanVariantId";
@@ -37,6 +37,7 @@ export function LandingPricing() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [paymentsAvailable, setPaymentsAvailable] = useState(false);
 
   useEffect(() => {
     const auth = isAuthenticated();
@@ -49,6 +50,18 @@ export function LandingPricing() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    void getPaymentsStatus()
+      .then((payments) => {
+        if (!cancelled) setPaymentsAvailable(Boolean(payments.canStartCheckout));
+      })
+      .catch(() => {
+        if (!cancelled) setPaymentsAvailable(false);
+      });
+    return () => { cancelled = true; };
   }, []);
 
   async function startCheckout(variantId: number) {
@@ -92,6 +105,7 @@ export function LandingPricing() {
   }
 
   function buttonLabel(plan: Plan): string {
+    if (!plan.isFree && !paymentsAvailable) return tp("paymentsTemporarilyUnavailable");
     if (loadingPlan === plan.key || loadingPlan === "PENDING") return tp("redirecting");
     if (plan.isFree) return t("ctaFree");
     return t("ctaSignUp");
@@ -130,6 +144,11 @@ export function LandingPricing() {
             {error}
           </div>
         )}
+        {!paymentsAvailable && (
+          <div className="mx-auto mt-6 max-w-lg rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-700">
+            {tp("paymentsTemporarilyUnavailable")}
+          </div>
+        )}
 
         <div className="mt-12 grid gap-6 lg:grid-cols-4">
           {PLAN_DEFS.map((plan) => {
@@ -138,6 +157,7 @@ export function LandingPricing() {
             const price = cycle === "yearly" ? plan.yearlyPrice : plan.monthlyPrice;
             const sub = plan.isFree ? "" : cycle === "yearly" ? t("perYear") : t("perMonth");
             const isLoading = loadingPlan === plan.key || loadingPlan === "PENDING";
+            const paymentsBlocked = !plan.isFree && !paymentsAvailable;
 
             return (
               <div
@@ -198,7 +218,7 @@ export function LandingPricing() {
                 ) : (
                   <button
                     type="button"
-                    disabled={isLoading}
+                    disabled={isLoading || paymentsBlocked}
                     onClick={() => handlePlanClick(plan)}
                     className={`mt-8 w-full rounded-2xl py-3 text-center text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-60 ${
                       plan.highlighted

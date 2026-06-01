@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "../../../i18n/routing";
-import { createCheckout, ApiError } from "../../../lib/api";
+import { createCheckout, ApiError, getPaymentsStatus } from "../../../lib/api";
 import { getStoredUser, isAuthenticated } from "../../../lib/storage";
 import { PublicHeader } from "../../../components/PublicHeader";
 
@@ -34,6 +34,7 @@ export default function PricingPage() {
   const [error, setError] = useState<string | null>(null);
   const [userPlan, setUserPlan] = useState<string | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [paymentsAvailable, setPaymentsAvailable] = useState(false);
 
   useEffect(() => {
     const auth = isAuthenticated();
@@ -50,6 +51,18 @@ export default function PricingPage() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    void getPaymentsStatus()
+      .then((payments) => {
+        if (!cancelled) setPaymentsAvailable(Boolean(payments.canStartCheckout));
+      })
+      .catch(() => {
+        if (!cancelled) setPaymentsAvailable(false);
+      });
+    return () => { cancelled = true; };
   }, []);
 
   const PLANS: PlanCard[] = [
@@ -141,6 +154,7 @@ export default function PricingPage() {
   }
 
   function buttonLabel(plan: PlanCard): string {
+    if (!plan.isFree && !paymentsAvailable) return t("paymentsTemporarilyUnavailable");
     if (userPlan === plan.key) return t("currentPlan");
     if (loadingPlan === plan.key || loadingPlan === "PENDING") return t("redirecting");
     if (plan.isFree) return t("startFree");
@@ -181,6 +195,11 @@ export default function PricingPage() {
       {error && (
         <div className="mx-auto mt-6 max-w-lg rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-700">{error}</div>
       )}
+      {!paymentsAvailable && (
+        <div className="mx-auto mt-6 max-w-lg rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-700">
+          {t("paymentsTemporarilyUnavailable")}
+        </div>
+      )}
 
       <section className="mx-auto max-w-7xl px-6 pb-24 pt-12">
         <div className="grid gap-6 lg:grid-cols-4">
@@ -189,6 +208,7 @@ export default function PricingPage() {
             const isLoading = loadingPlan === plan.key || loadingPlan === "PENDING";
             const current = isCurrent(plan);
             const disableFreeDowngrade = loggedIn && plan.isFree && userPlan !== "FREE";
+            const paymentsBlocked = !plan.isFree && !paymentsAvailable;
             return (
               <div
                 key={plan.key}
@@ -238,7 +258,7 @@ export default function PricingPage() {
 
                 <button
                   type="button"
-                  disabled={isLoading || current || disableFreeDowngrade}
+                    disabled={isLoading || current || disableFreeDowngrade || paymentsBlocked}
                   onClick={() => handleSubscribe(plan)}
                   className={`mt-8 w-full rounded-2xl py-3 text-center text-sm font-bold transition disabled:cursor-not-allowed ${
                     current

@@ -98,6 +98,8 @@ Pending decision:
 - Production deploy remains pending and must follow `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` before any real deployment attempt.
 - Lemon Squeezy is paused for production launch unless approval status changes.
 - No paid launch should proceed until payment provider approval and production verification are completed.
+- Lemon Squeezy integration exists but is not approved for production launch.
+- Paid checkout is disabled by default until an approved payment provider is verified.
 
 ## Known Stable Areas (repository evidence only)
 

@@ -21,6 +21,9 @@ dreemi-app/
 | pnpm | 9+ | `npm install -g pnpm` |
 | Lemon Squeezy Dashboard | — | [lemonsqueezy.com](https://www.lemonsqueezy.com) |
 
+> ملاحظة مهمة: تكامل Lemon Squeezy موجود في الكود، لكنه غير معتمد للإطلاق الإنتاجي حالياً.
+> تم تعطيل الدفع المدفوع افتراضياً حتى يتم اعتماد مزود دفع والتحقق منه في الإنتاج.
+
 ## التثبيت
 
 ```bash
@@ -50,6 +53,9 @@ LEMONSQUEEZY_API_KEY="..."
 LEMONSQUEEZY_STORE_ID="..."
 LEMONSQUEEZY_WEBHOOK_SECRET="..."
 FRONTEND_URL="http://localhost:3000"
+PAYMENTS_ENABLED="false"
+PAYMENT_PROVIDER_APPROVED="false"
+PAYMENT_ACTIVE_PROVIDER="LEMONSQUEEZY"
 
 # التطبيق
 NODE_ENV="development"
@@ -87,6 +93,8 @@ pnpm dev
 اضبط Webhook في لوحة تحكم Lemon Squeezy إلى:
 
 `http://localhost:3001/api/payments/webhook`
+
+> ملاحظة: هذا مخصص للتجربة المحلية فقط. الإطلاق المدفوع في الإنتاج يبقى متوقفاً حتى اعتماد مزود دفع.
 
 ## الروابط المحلية
 

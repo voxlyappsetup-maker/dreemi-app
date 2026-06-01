@@ -9,8 +9,10 @@ import {
   verifyLemonSqueezyWebhook,
 } from "../services/lemonsqueezy.service";
 import {
+  getPaymentsRuntimeState,
   isAllowedCheckoutVariantId,
   mapLemonSubscriptionStatus,
+  resolvePaymentsGateDecision,
   resolveEffectiveUserPlanForSubscription,
   resolvePlanFromLemonVariantId,
 } from "../config/billing";
@@ -25,6 +27,22 @@ const CheckoutSchema = z.object({
   variantId: z.number().int().positive(),
 });
 
+paymentsRouter.get(
+  "/status",
+  (_req: Request, res: Response) => {
+    const gate = resolvePaymentsGateDecision();
+    const runtime = getPaymentsRuntimeState();
+    res.json({
+      success: true,
+      payments: {
+        canStartCheckout: gate.canStartCheckout,
+        errorCode: gate.errorCode,
+        activeProvider: runtime.activeProvider,
+      },
+    });
+  },
+);
+
 function getCheckoutFrontendUrl(): string | null {
   const configured = String(process.env.FRONTEND_URL ?? "").trim();
   if (configured) return configured.replace(/\/+$/, "");
@@ -38,6 +56,19 @@ paymentsRouter.post(
   async (req: Request, res: Response) => {
     try {
       const { variantId } = CheckoutSchema.parse(req.body);
+      const gate = resolvePaymentsGateDecision();
+      if (!gate.canStartCheckout) {
+        const checkoutGateError =
+          gate.errorCode === "PROVIDER_NOT_APPROVED"
+            ? "PROVIDER_NOT_APPROVED"
+            : "PAYMENTS_DISABLED";
+        res.status(503).json({
+          success: false,
+          error: checkoutGateError,
+        });
+        return;
+      }
+
       const userId = req.userId!;
       if (!isAllowedCheckoutVariantId(variantId)) {
         res.status(400).json({ success: false, error: "UNKNOWN_CHECKOUT_VARIANT" });

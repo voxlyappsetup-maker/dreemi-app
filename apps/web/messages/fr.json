@@ -206,6 +206,7 @@
     "currentPlan": "Votre plan actuel",
     "subscribeNow": "S'abonner maintenant",
     "checkoutError": "Échec du paiement, veuillez réessayer",
+    "paymentsTemporarilyUnavailable": "Les paiements sont temporairement indisponibles.",
     "priceNotConfigured": "L'identifiant de prix n'est pas configuré. Contactez le support.",
     "perMonth": "/mois",
     "perYear": "/an",

@@ -206,6 +206,7 @@
     "currentPlan": "خطتك الحالية",
     "subscribeNow": "اشترك الآن",
     "checkoutError": "فشل بدء عملية الدفع، حاول مرة أخرى",
+    "paymentsTemporarilyUnavailable": "الدفع غير متاح مؤقتاً.",
     "priceNotConfigured": "معرّف السعر غير مُعدّ. تواصل مع الدعم.",
     "perMonth": "/شهر",
     "perYear": "/سنة",

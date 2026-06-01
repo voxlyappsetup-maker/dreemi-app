@@ -119,6 +119,20 @@ describe('payments.ts — checkout route protections', () => {
     mustBeBefore(unknownErrPos, "UNKNOWN_CHECKOUT_VARIANT", checkoutCallPos, "createCheckoutUrl");
   });
 
+  it("uses centralized payments gate and blocks checkout with stable disabled errors", () => {
+    const gateCallPos = mustExist(
+      "resolvePaymentsGateDecision()",
+      "resolvePaymentsGateDecision gate call",
+    );
+    const disabledErrPos = mustExist("PAYMENTS_DISABLED", "stable PAYMENTS_DISABLED error code");
+    const notApprovedErrPos = mustExist("PROVIDER_NOT_APPROVED", "stable PROVIDER_NOT_APPROVED error code");
+    const checkoutCallPos = mustExist("createCheckoutUrl(", "createCheckoutUrl call");
+
+    mustBeBefore(gateCallPos, "resolvePaymentsGateDecision()", checkoutCallPos, "createCheckoutUrl");
+    mustBeBefore(disabledErrPos, "PAYMENTS_DISABLED", checkoutCallPos, "createCheckoutUrl");
+    mustBeBefore(notApprovedErrPos, "PROVIDER_NOT_APPROVED", checkoutCallPos, "createCheckoutUrl");
+  });
+
   it("uses FRONTEND_URL guardrail helper with production misconfiguration error", () => {
     mustExist("function getCheckoutFrontendUrl()", "getCheckoutFrontendUrl helper");
     mustExist(
@@ -133,6 +147,26 @@ describe('payments.ts — checkout route protections', () => {
     mustAbsent(
       "process.env.FRONTEND_URL ?? \"http://localhost:3000\"",
       "legacy direct FRONTEND_URL localhost fallback expression must be absent",
+    );
+  });
+});
+
+describe("payments.ts — public payments status route", () => {
+  it('registers GET "/status" without authenticateToken and returns canStartCheckout', () => {
+    const statusRoutePos = mustExist(
+      /paymentsRouter\.get\(\s*"\/status"\s*,\s*\(_req:\s*Request,\s*res:\s*Response\)\s*=>/m,
+      'paymentsRouter.get("/status", ...)',
+    );
+    const statusSlice = src.slice(statusRoutePos, statusRoutePos + 260);
+    assert.equal(
+      statusSlice.includes("authenticateToken"),
+      false,
+      "status route must not require authenticateToken",
+    );
+    assert.equal(
+      src.includes("canStartCheckout"),
+      true,
+      'status route response must include "canStartCheckout"',
     );
   });
 });
@@ -277,7 +311,7 @@ describe("payments.ts — webhook subscription policy protections", () => {
 describe("payments.ts — mapping implementation guardrails", () => {
   it("uses mapLemonSubscriptionStatus from billing helper", () => {
     mustExist(
-      /import\s*\{[\s\S]*mapLemonSubscriptionStatus[\s\S]*\}\s*from\s*"..\/config\/billing"/m,
+      /import\s*\{[\s\S]*mapLemonSubscriptionStatus[\s\S]*resolvePaymentsGateDecision[\s\S]*\}\s*from\s*"..\/config\/billing"/m,
       "mapLemonSubscriptionStatus billing import",
     );
     mustExist(

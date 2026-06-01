@@ -85,7 +85,10 @@
   - Lemon production verification is paused unless approval status changes.
   - Payment provider decision is reopened before paid launch.
   - Reference strategy: `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`.
-  - No runtime code changed in this phase.
+- Runtime safety gate note:
+  - Lemon Squeezy integration exists but is not approved for production launch.
+  - Paid checkout is disabled by default until an approved payment provider is verified.
+  - API checkout now fails closed using centralized billing gate checks.
 
 ## Latest Confirmed PDF Export State (from git history)
 

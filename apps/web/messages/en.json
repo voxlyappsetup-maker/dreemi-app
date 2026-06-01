@@ -206,6 +206,7 @@
     "currentPlan": "Your Current Plan",
     "subscribeNow": "Subscribe Now",
     "checkoutError": "Failed to start payment, please try again",
+    "paymentsTemporarilyUnavailable": "Payments are temporarily unavailable.",
     "priceNotConfigured": "Price ID is not configured. Contact support.",
     "perMonth": "/month",
     "perYear": "/year",

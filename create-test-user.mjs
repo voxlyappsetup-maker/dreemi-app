@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { readFileSync } from "fs";
 
-const env = readFileSync("C:/Projects/dreemi-app/.env", "utf8");
-const dbUrl = env.match(/DATABASE_URL="?([^"\n]+)"?/)?.[1];
-process.env.DATABASE_URL = dbUrl;
+const dbUrl = String(process.env.DATABASE_URL ?? "").trim();
+if (!dbUrl) {
+  throw new Error("DATABASE_URL is required in environment before running this local script.");
+}
 
 const prisma = new PrismaClient();
 

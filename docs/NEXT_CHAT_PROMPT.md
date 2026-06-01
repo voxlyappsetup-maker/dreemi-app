@@ -74,6 +74,8 @@ Constraints:
 - Do not request or print secrets.
 - Frontend API URL guard is expected: `apps/web/src/lib/api.ts` must not use a production fallback URL and should require `NEXT_PUBLIC_API_URL` in production.
 - Lemon is paused unless approval status changes.
+- Lemon Squeezy integration exists but is not approved for production launch.
+- Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not build new payment provider integration without an explicit approved phase.
 - Do not remove Lemon code unless explicitly approved.
 - Lemon production verification must not include secret values in chat/docs.

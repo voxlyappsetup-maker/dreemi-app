@@ -13,6 +13,15 @@ export interface StoriesListResponse {
   stories: Story[];
 }
 
+export interface PaymentsStatusResponse {
+  success: boolean;
+  payments: {
+    canStartCheckout: boolean;
+    errorCode: string | null;
+    activeProvider: "LEMONSQUEEZY" | "NONE";
+  };
+}
+
 function getApiUrl(): string {
   const configured = String(process.env.NEXT_PUBLIC_API_URL ?? "").trim();
   if (configured) return configured.replace(/\/+$/, "");
@@ -152,6 +161,11 @@ export async function getSubscription(): Promise<unknown> {
     true,
   );
   return data;
+}
+
+export async function getPaymentsStatus(): Promise<PaymentsStatusResponse["payments"]> {
+  const data = await apiFetch<PaymentsStatusResponse>("/api/payments/status");
+  return data.payments;
 }
 
 /* Children CRUD */
