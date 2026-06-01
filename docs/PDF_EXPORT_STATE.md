@@ -49,12 +49,12 @@
 
 ## Recent History Markers (PDF path)
 
-- `7cd392c` â€” switched generate-page export to `exportStoryPdf`
-- `ff60abd` â€” text block normalization + clipping protection
-- `81aaa47` â€” resilient image loading/fallback
-- `33472e1` â€” manual PDF regression checklist added
-- `7521589` / `53c0f61` / `639e8f2` â€” typography + RTL/byline/paragraph cadence fixes
-- `3cdd104` â€” body batching optimization
+- `7cd392c` — switched generate-page export to `exportStoryPdf`
+- `ff60abd` — text block normalization + clipping protection
+- `81aaa47` — resilient image loading/fallback
+- `33472e1` — manual PDF regression checklist added
+- `7521589` / `53c0f61` / `639e8f2` — typography + RTL/byline/paragraph cadence fixes
+- `3cdd104` — body batching optimization
 
 ## Safe Change Rules for Future Work
 

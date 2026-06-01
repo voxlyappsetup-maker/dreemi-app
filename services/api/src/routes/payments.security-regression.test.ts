@@ -26,6 +26,11 @@ const jwtSrc: string = fs.readFileSync(JWT_SERVICE_PATH, "utf-8");
 const childrenRouteSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
 const frontendChildrenPageSrc: string = fs.readFileSync(FRONTEND_CHILDREN_PAGE_PATH, "utf-8");
 const envExampleSrc: string = fs.readFileSync(ENV_EXAMPLE_PATH, "utf-8");
+const mojibakeMarkers = [
+  { label: "U+00D8", value: "\u00d8" },
+  { label: "U+00D9", value: "\u00d9" },
+  { label: "U+00E2+U+2020 prefix", value: "\u00e2\u2020" },
+] as const;
 
 function find(pattern: string | RegExp): number {
   if (typeof pattern === "string") return src.indexOf(pattern);
@@ -53,6 +58,16 @@ function mustBeBefore(aIdx: number, aLabel: string, bIdx: number, bLabel: string
     aIdx >= 0 && bIdx >= 0 && aIdx < bIdx,
     `ORDER VIOLATION — "${aLabel}" (pos ${aIdx}) must appear before "${bLabel}" (pos ${bIdx})`,
   );
+}
+
+function assertNoMojibakeMarkers(source: string, sourceLabel: string): void {
+  for (const marker of mojibakeMarkers) {
+    assert.equal(
+      source.includes(marker.value),
+      false,
+      `${sourceLabel} must not contain mojibake marker ${marker.label}`,
+    );
+  }
 }
 
 describe('payments.ts — checkout route protections', () => {
@@ -335,17 +350,13 @@ describe("plan/children limits alignment regressions", () => {
   });
 
   it("ensures plans.middleware.ts has no mojibake markers", () => {
-    assert.equal(plansSrc.includes("Ø"), false, "plans.middleware.ts must not contain mojibake marker Ø");
-    assert.equal(plansSrc.includes("Ù"), false, "plans.middleware.ts must not contain mojibake marker Ù");
-    assert.equal(plansSrc.includes("â†"), false, "plans.middleware.ts must not contain mojibake marker â†");
+    assertNoMojibakeMarkers(plansSrc, "plans.middleware.ts");
   });
 });
 
 describe("auth/jwt/plans Arabic mojibake regressions", () => {
   it("ensures auth.middleware.ts has no mojibake markers and keeps expected Arabic messages", () => {
-    assert.equal(authSrc.includes("Ø"), false, "auth.middleware.ts must not contain mojibake marker Ø");
-    assert.equal(authSrc.includes("Ù"), false, "auth.middleware.ts must not contain mojibake marker Ù");
-    assert.equal(authSrc.includes("â†"), false, "auth.middleware.ts must not contain mojibake marker â†");
+    assertNoMojibakeMarkers(authSrc, "auth.middleware.ts");
     assert.ok(authSrc.includes("رمز الوصول مطلوب"), 'auth.middleware.ts must include "رمز الوصول مطلوب"');
     assert.ok(authSrc.includes("خطأ في إعداد الخادم"), 'auth.middleware.ts must include "خطأ في إعداد الخادم"');
     assert.ok(
@@ -355,9 +366,7 @@ describe("auth/jwt/plans Arabic mojibake regressions", () => {
   });
 
   it("ensures jwt.service.ts has no mojibake markers and keeps expected Arabic messages", () => {
-    assert.equal(jwtSrc.includes("Ø"), false, "jwt.service.ts must not contain mojibake marker Ø");
-    assert.equal(jwtSrc.includes("Ù"), false, "jwt.service.ts must not contain mojibake marker Ù");
-    assert.equal(jwtSrc.includes("â†"), false, "jwt.service.ts must not contain mojibake marker â†");
+    assertNoMojibakeMarkers(jwtSrc, "jwt.service.ts");
     assert.ok(jwtSrc.includes("JWT_SECRET غير معرّف"), 'jwt.service.ts must include "JWT_SECRET غير معرّف"');
     assert.ok(
       jwtSrc.includes("JWT_REFRESH_SECRET غير معرّف"),

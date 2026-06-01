@@ -87,7 +87,7 @@ Important notes:
 - `create-test-user.mjs` and `test-mistral.mjs` read `.env` from an old hardcoded path:
   - `C:/Projects/dreemi-app/.env`
   - Treat as local-only/legacy helper scripts until cleaned.
-- Some comments/docs still contain mojibake markers like `â€”` or `â”€`; not runtime critical, can be cleaned later.
+- Historical mojibake markers in docs/comments should be kept out of source; broad grep audits should still exclude `pnpm-lock.yaml`.
 - `pnpm-lock.yaml` appears in broad text searches and should usually be excluded from future grep audits.
 
 ## 6) Validation Before Production Deploy

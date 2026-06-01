@@ -7,11 +7,11 @@ This policy defines where and how to persist operational context between session
 
 ## Canonical Docs
 
-- `docs/PROJECT_HANDOFF.md` â€” high-level technical handoff and guardrails.
-- `docs/CURRENT_PROJECT_STATE.md` â€” current focus and immediate operational state.
-- `docs/PDF_EXPORT_STATE.md` â€” PDF-specific implementation and quality/perf state.
-- `docs/NEXT_CHAT_PROMPT.md` â€” copy-ready bootstrap prompt for next session.
-- `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md` â€” manual PDF validation contract.
+- `docs/PROJECT_HANDOFF.md` — high-level technical handoff and guardrails.
+- `docs/CURRENT_PROJECT_STATE.md` — current focus and immediate operational state.
+- `docs/PDF_EXPORT_STATE.md` — PDF-specific implementation and quality/perf state.
+- `docs/NEXT_CHAT_PROMPT.md` — copy-ready bootstrap prompt for next session.
+- `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md` — manual PDF validation contract.
 
 ## Required Session Startup
 
