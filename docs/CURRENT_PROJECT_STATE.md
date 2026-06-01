@@ -63,11 +63,17 @@
 
 - Reference checklist: `docs/PRODUCTION_READINESS_CHECKLIST.md`
 - Reference Lemon manual verification plan: `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
+- Reference deployment provider state: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Latest production-readiness commit marker in git history: `14cb1dc` (`fix(api): add production checkout and cors guardrails`)
 - Production deploy is **not** verified in this phase.
 - P0 production items are documented in checklist form; they are not fixed in this phase.
 - Lemon production verification has **not** been completed in this phase.
 - No deployment/config/runtime code changes were made in this phase.
+- Deployment provider state currently documented:
+  - frontend config present: `vercel.json`
+  - API config present: `services/api/railway.json`
+  - no Render config currently present
+  - deployment provider switch not performed in this phase
 
 ## Latest Confirmed PDF Export State (from git history)
 

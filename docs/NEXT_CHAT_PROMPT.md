@@ -18,6 +18,7 @@ Read these first:
 - `docs/CURRENT_PROJECT_STATE.md`
 - `docs/PRODUCTION_READINESS_CHECKLIST.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
+- `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
 - `vercel.json`
@@ -63,6 +64,8 @@ Constraints:
 - Do not change schema/migrations/deployment unless explicitly approved.
 - No migrations/deployment changes without explicit approval.
 - Do not deploy or alter deployment config without explicit approval.
+- Do not add, remove, rename, or modify deployment provider config without explicit approval.
+- Treat Render vs Railway as unresolved unless a later commit/document states otherwise.
 - Production env values must be handled outside chat.
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.

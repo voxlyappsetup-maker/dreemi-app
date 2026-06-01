@@ -2,6 +2,7 @@
 
 Related manual payment verification plan:
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
+- `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 
 ## 1) Current Deployment Files
 
@@ -16,8 +17,9 @@ Related manual payment verification plan:
   - Healthcheck path: `/health`
 
 Notes:
-- Project planning may reference Render, but the repository currently contains Railway-named API config (`services/api/railway.json`).
-- Before production deploy, decide whether Railway config remains active or whether Render documentation/config is needed.
+- Current repository truth: frontend deployment is configured via `vercel.json`, and API deployment is configured via `services/api/railway.json`.
+- Render is not currently configured in the repository.
+- API hosting target must be finalized before payment production verification.
 - Do not change deployment config without explicit approval.
 
 ## 2) Required Production Environment Variable Names
@@ -75,8 +77,8 @@ Important notes:
   - `https://dreemi-app-web.vercel.app`
 - Production should set `ALLOWED_ORIGINS` explicitly to final frontend domain(s).
 - Clarify API hosting target:
-  - Repo has `services/api/railway.json`
-  - Project planning mentions Render
+  - Repo currently has `services/api/railway.json` for API deploy settings
+  - Render remains unconfigured until an explicit future phase
 - Confirm Vercel production domain and preview deployment policy.
 - Confirm `/health` is reachable on the production API domain.
 - Confirm API `NODE_ENV=production`.
