@@ -137,7 +137,7 @@ paymentsRouter.post(
 );
 
 /* ------------------------------------------------------------------ */
-/*  POST /api/payments/webhook  (NOT protected — called by Lemon)     */
+/*  POST /api/payments/webhook  (NOT protected - called by Lemon)     */
 /* ------------------------------------------------------------------ */
 
 paymentsRouter.post(
@@ -196,7 +196,7 @@ async function resolveUserIdFromWebhook(event: any): Promise<string | null> {
 async function handleLemonSubscriptionEvent(eventName: string, event: any): Promise<void> {
   // Payment success is notification-only; payload has no variant_id and must not touch plan.
   if (eventName === "subscription_payment_success") {
-    console.log("[Webhook] ✓ subscription_payment_success: acknowledged (no plan update)");
+    console.log("[Webhook] [ok] subscription_payment_success: acknowledged (no plan update)");
     return;
   }
 
@@ -223,7 +223,7 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
     } else if (userId) {
       await prisma.user.update({ where: { id: userId }, data: { plan: "FREE" } });
     }
-    console.log(`[Webhook] ✓ ${eventName}: sub=${subId} → FREE`);
+    console.log(`[Webhook] [ok] ${eventName}: sub=${subId} -> FREE`);
     return;
   }
 
@@ -275,6 +275,6 @@ async function handleLemonSubscriptionEvent(eventName: string, event: any): Prom
   });
 
   console.log(
-    `[Webhook] ✓ ${eventName}: user=${userId} subscriptionPlan=${plan} effectiveUserPlan=${effectiveUserPlan} sub=${subId}`,
+    `[Webhook] [ok] ${eventName}: user=${userId} subscriptionPlan=${plan} effectiveUserPlan=${effectiveUserPlan} sub=${subId}`,
   );
 }

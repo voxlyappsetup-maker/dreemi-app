@@ -17,6 +17,7 @@ const AUTH_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/auth.middlew
 const JWT_SERVICE_PATH = path.resolve(__dirname, "../services/jwt.service.ts");
 const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "children.ts");
 const FRONTEND_CHILDREN_PAGE_PATH = path.resolve(__dirname, "../../../../apps/web/src/app/[locale]/children/page.tsx");
+const FRONTEND_API_LIB_PATH = path.resolve(__dirname, "../../../../apps/web/src/lib/api.ts");
 const ENV_EXAMPLE_PATH = path.resolve(__dirname, "../../../../.env.example");
 const src: string = fs.readFileSync(PAYMENTS_PATH, "utf-8");
 const indexSrc: string = fs.readFileSync(INDEX_PATH, "utf-8");
@@ -25,11 +26,19 @@ const authSrc: string = fs.readFileSync(AUTH_MIDDLEWARE_PATH, "utf-8");
 const jwtSrc: string = fs.readFileSync(JWT_SERVICE_PATH, "utf-8");
 const childrenRouteSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
 const frontendChildrenPageSrc: string = fs.readFileSync(FRONTEND_CHILDREN_PAGE_PATH, "utf-8");
+const frontendApiLibSrc: string = fs.readFileSync(FRONTEND_API_LIB_PATH, "utf-8");
 const envExampleSrc: string = fs.readFileSync(ENV_EXAMPLE_PATH, "utf-8");
 const mojibakeMarkers = [
   { label: "U+00D8", value: "\u00d8" },
   { label: "U+00D9", value: "\u00d9" },
   { label: "U+00E2+U+2020 prefix", value: "\u00e2\u2020" },
+] as const;
+const sourceHygieneMojibakeMarkers = [
+  { label: "U+00E2", value: "\u00e2" },
+  { label: "U+00C2", value: "\u00c2" },
+  { label: "U+00C3", value: "\u00c3" },
+  { label: "U+00D8", value: "\u00d8" },
+  { label: "U+00D9", value: "\u00d9" },
 ] as const;
 
 function find(pattern: string | RegExp): number {
@@ -62,6 +71,16 @@ function mustBeBefore(aIdx: number, aLabel: string, bIdx: number, bLabel: string
 
 function assertNoMojibakeMarkers(source: string, sourceLabel: string): void {
   for (const marker of mojibakeMarkers) {
+    assert.equal(
+      source.includes(marker.value),
+      false,
+      `${sourceLabel} must not contain mojibake marker ${marker.label}`,
+    );
+  }
+}
+
+function assertNoSourceHygieneMojibakeMarkers(source: string, sourceLabel: string): void {
+  for (const marker of sourceHygieneMojibakeMarkers) {
     assert.equal(
       source.includes(marker.value),
       false,
@@ -387,6 +406,41 @@ describe("auth/jwt/plans Arabic mojibake regressions", () => {
       "plans.middleware.ts must include the readable Arabic story-limit message",
     );
     assert.ok(plansSrc.includes("خطأ في التحقق من الخطة"), 'plans.middleware.ts must include "خطأ في التحقق من الخطة"');
+  });
+});
+
+describe("frontend api URL production guard regressions", () => {
+  it("keeps NEXT_PUBLIC_API_URL guard with production failure and local fallback", () => {
+    const legacyOnrenderApiFallback = ["https://dreemi-app", "onrender.com"].join(".");
+
+    assert.ok(
+      frontendApiLibSrc.includes("process.env.NEXT_PUBLIC_API_URL"),
+      "api.ts must reference process.env.NEXT_PUBLIC_API_URL",
+    );
+    assert.equal(
+      frontendApiLibSrc.includes(legacyOnrenderApiFallback),
+      false,
+      "api.ts must not include legacy onrender fallback",
+    );
+    assert.ok(
+      frontendApiLibSrc.includes("NEXT_PUBLIC_API_URL is not configured"),
+      "api.ts must include clear production misconfiguration error",
+    );
+    assert.ok(
+      frontendApiLibSrc.includes("http://localhost:3001"),
+      "api.ts must keep non-production localhost fallback",
+    );
+    assert.ok(
+      frontendApiLibSrc.includes('process.env.NODE_ENV === "production"'),
+      "api.ts must include production guard",
+    );
+  });
+});
+
+describe("targeted source hygiene regressions", () => {
+  it("keeps targeted sources free of mojibake-prone markers", () => {
+    assertNoSourceHygieneMojibakeMarkers(frontendApiLibSrc, "apps/web/src/lib/api.ts");
+    assertNoSourceHygieneMojibakeMarkers(src, "services/api/src/routes/payments.ts");
   });
 });
 

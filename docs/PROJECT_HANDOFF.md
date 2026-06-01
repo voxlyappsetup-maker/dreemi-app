@@ -1,4 +1,4 @@
-﻿# Dreemi / Qisas Project Handoff
+# Dreemi / Qisas Project Handoff
 
 ## Project Summary
 
@@ -78,9 +78,12 @@ Pending notes:
 
 P0 blockers before real payments:
 - Set production API `FRONTEND_URL`.
-- Set Vercel `NEXT_PUBLIC_API_URL`.
+- Set Vercel `NEXT_PUBLIC_API_URL` (frontend now fails fast in production if missing).
 - Configure Lemon Squeezy webhook URL to production API `/api/payments/webhook`.
 - Verify final frontend domains are allowed by API CORS.
+
+Phase 4-C7 note:
+- `apps/web/src/lib/api.ts` removed the legacy hardcoded production API fallback and now keeps `http://localhost:3001` fallback only outside production.
 
 Pending decision:
 - Render vs Railway deployment config naming/ownership is not finalized in repository docs/process.

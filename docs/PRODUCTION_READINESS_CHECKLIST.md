@@ -62,7 +62,7 @@ Important notes:
 - `FRONTEND_URL` must be set in the production API environment.
   - Reason: checkout redirect currently falls back to `http://localhost:3000`.
 - `NEXT_PUBLIC_API_URL` must be set explicitly in Vercel.
-  - Reason: frontend API client has a fallback to `https://dreemi-app.onrender.com`, but production should not rely on fallback.
+  - Reason: frontend API client now fails fast in production when `NEXT_PUBLIC_API_URL` is missing; local `http://localhost:3001` fallback is non-production only.
 - Lemon Squeezy webhook URL must point to production API:
   - `https://<production-api-domain>/api/payments/webhook`
 - Lemon Squeezy webhook secret must match production provider settings.

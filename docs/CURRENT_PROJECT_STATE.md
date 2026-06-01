@@ -74,6 +74,8 @@
   - API config present: `services/api/railway.json`
   - no Render config currently present
   - deployment provider switch not performed in this phase
+- Phase 4-C7 guardrail:
+  - `apps/web/src/lib/api.ts` now enforces `NEXT_PUBLIC_API_URL` in production (no legacy onrender fallback), while retaining `http://localhost:3001` fallback outside production.
 
 ## Latest Confirmed PDF Export State (from git history)
 

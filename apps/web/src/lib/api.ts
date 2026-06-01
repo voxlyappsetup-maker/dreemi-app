@@ -13,8 +13,16 @@ export interface StoriesListResponse {
   stories: Story[];
 }
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://dreemi-app.onrender.com";
+function getApiUrl(): string {
+  const configured = String(process.env.NEXT_PUBLIC_API_URL ?? "").trim();
+  if (configured) return configured.replace(/\/+$/, "");
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("NEXT_PUBLIC_API_URL is not configured");
+  }
+  return "http://localhost:3001";
+}
+
+const API_URL = getApiUrl();
 
 export function pingBackend() {
   return fetch(`${API_URL}/health`, { method: "GET" }).catch(() => {});
@@ -146,7 +154,7 @@ export async function getSubscription(): Promise<unknown> {
   return data;
 }
 
-/* ── Children CRUD ─────────────────────────────────────── */
+/* Children CRUD */
 
 export interface Child {
   id: string;
@@ -221,7 +229,7 @@ export async function deleteChild(id: string): Promise<void> {
   );
 }
 
-/** Fetch a single story by ID. Requires authentication — only the story owner can read it. */
+/** Fetch a single story by ID. Requires authentication - only the story owner can read it. */
 export async function getStoryById(id: string): Promise<Story> {
   const data = await apiFetch<{ success: boolean; story: Story }>(
     `/api/stories/${encodeURIComponent(id)}`,

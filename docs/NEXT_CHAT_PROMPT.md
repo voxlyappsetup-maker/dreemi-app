@@ -67,6 +67,7 @@ Constraints:
 - Do not add, remove, rename, or modify deployment provider config without explicit approval.
 - Treat Render vs Railway as unresolved unless a later commit/document states otherwise.
 - Production env values must be handled outside chat.
+- Frontend API URL guard is expected: `apps/web/src/lib/api.ts` must not use a production fallback URL and should require `NEXT_PUBLIC_API_URL` in production.
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Do not change PDF export behavior unless the requested task requires it.
