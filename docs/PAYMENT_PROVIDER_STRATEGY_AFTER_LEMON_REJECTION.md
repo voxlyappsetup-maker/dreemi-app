@@ -5,6 +5,8 @@
 - Document the payment-provider state after Lemon Squeezy rejected the store application.
 - Prevent accidental paid launch assuming Lemon is approved.
 - Define fallback provider candidates and required future phases.
+- Cross-reference provider-neutral entitlement requirements:
+  - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - This document does not remove any existing Lemon Squeezy code.
 - This document does not approve any payment provider for production.
 
@@ -37,6 +39,9 @@
 ## 5. Fallback Provider Candidates
 
 Document candidates without committing to implementation:
+
+- Any future Paddle/PayPal/Stripe path must fit the provider-neutral entitlement model in `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`.
+- Replacing Lemon as a web provider alone is not sufficient for native mobile paid launch.
 
 Primary candidate:
 - Paddle

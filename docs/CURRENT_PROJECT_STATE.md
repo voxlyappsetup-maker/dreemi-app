@@ -91,6 +91,11 @@
   - Payment provider decision remains reopened.
   - Next recommended phase is Phase 4-D1C - payment provider abstraction audit.
   - No runtime code changed in this documentation phase.
+- Phase 4-D1D-A note:
+  - Provider-neutral entitlement design lock is documented at `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`.
+  - Provider-neutral entitlement design is now the next architectural foundation before Apple/Google/web provider implementation.
+  - Lemon remains paused, and existing Lemon code remains implementation detail only for now.
+  - No runtime, schema, or provider implementation happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

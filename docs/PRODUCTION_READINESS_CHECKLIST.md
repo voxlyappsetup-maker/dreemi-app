@@ -5,6 +5,7 @@ Related manual payment verification plan:
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 - `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
+- `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 
 ## 1) Current Deployment Files
 
@@ -65,6 +66,11 @@ Important notes:
 - Lemon Squeezy is not approved and reconsideration was denied.
 - Lemon Squeezy production verification is paused unless Lemon approval status changes.
 - Production payment verification must move to a replacement provider strategy before paid launch.
+- Provider-neutral entitlement design lock is a blocker before mobile paid launch:
+  - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
+- Web production deploy and mobile paid launch are separate tracks:
+  - web deploy readiness alone is not sufficient for native mobile monetization readiness.
+- Mobile paid launch requires Apple IAP and Google Play Billing readiness, not only web provider readiness.
 - Lemon Squeezy integration exists but is not approved for production launch.
 - Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not treat any provider as production-approved until explicit provider approval and production verification are completed.

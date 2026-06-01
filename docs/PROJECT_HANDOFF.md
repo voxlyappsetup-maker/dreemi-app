@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `7c6f0ea` `docs(payments): document Lemon reconsideration denial`
   - `70f5614` `Add payments runtime safety gate`
   - `30919b4` `docs: add production deployment dry-run checklist`
   - `9fc9e22` `fix(web): guard production API URL configuration`
@@ -77,6 +78,7 @@ Pending notes:
 - Dry-run checklist: `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 - Lemon verification plan: `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - Payment provider strategy: `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
+- Entitlement model design lock: `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
@@ -104,7 +106,10 @@ Pending decision:
 - Lemon Squeezy integration exists but is not approved for production launch.
 - Do not remove Lemon code until a separate explicit phase is approved.
 - Paid checkout is disabled by default until an approved payment provider is verified.
-- Next recommended phase: Phase 4-D1C - payment provider abstraction audit.
+- Mobile-first monetization requires provider-neutral entitlement design before Apple IAP, Google Play Billing, or web provider implementation.
+- Lemon remains paused, and Lemon code remains in place for now.
+- Phase 4-D1D-A documentation lock reference: `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`.
+- Next recommended phase: Phase 4-D1D - mobile monetization and parent-first product design lock.
 
 ## Known Stable Areas (repository evidence only)
 
