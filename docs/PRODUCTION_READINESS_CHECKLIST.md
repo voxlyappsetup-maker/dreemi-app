@@ -43,7 +43,10 @@ Potentially local/legacy or currently not used by runtime scan:
 - `ANTHROPIC_API_KEY`
 
 Important notes:
+- `DATABASE_URL` and `DIRECT_URL` are required production database connection variable names.
+- Configure production values in the hosting provider environment settings, not in docs or chat.
 - `.env.example` currently shows local-development values.
+- `.env.example` is placeholder-only and local-development oriented.
 - Do not paste secret values into docs.
 - Do not ask users to provide secret values in chat.
 - `DIRECT_URL` appears in `prisma/schema.prisma`; ensure production environment has it if Prisma requires it.
