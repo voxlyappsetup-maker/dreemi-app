@@ -57,7 +57,7 @@ If local env/app is already configured, perform one manual smoke:
 - export one PDF
 
 Constraints:
-- Billing provider is Lemon Squeezy.
+- Current implemented payment integration is Lemon Squeezy, but it is paused and not approved for production launch.
 - Never print/request secrets, keys, tokens, DB URLs, or credentials.
 - Do not ask for or print Lemon/Supabase/Render/Vercel/API secret values.
 - Treat `.env.example` as safe to read, but never replace placeholders with real values.
@@ -74,10 +74,13 @@ Constraints:
 - Do not request or print secrets.
 - Frontend API URL guard is expected: `apps/web/src/lib/api.ts` must not use a production fallback URL and should require `NEXT_PUBLIC_API_URL` in production.
 - Lemon is paused unless approval status changes.
+- Lemon rejection and reconsideration denial are documented.
+- Do not proceed with Lemon production verification unless approval changes.
 - Lemon Squeezy integration exists but is not approved for production launch.
 - Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not build new payment provider integration without an explicit approved phase.
 - Do not remove Lemon code unless explicitly approved.
+- Next recommended step is a read-only payment provider abstraction audit.
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Do not change PDF export behavior unless the requested task requires it.

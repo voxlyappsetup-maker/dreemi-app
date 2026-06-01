@@ -1,9 +1,11 @@
 # Lemon Squeezy Production Verification Plan
 
-## Status Update (Phase 4-D1B)
+## Status Update (Phase 4-D1B-2)
 
 - Lemon Squeezy store application was rejected at this time.
-- This verification plan is paused unless approval status changes.
+- Reconsideration/clarification was also denied.
+- This verification plan is paused unless Lemon explicitly approves the store in the future.
+- Do not use this plan as an active production path.
 - Do not treat Lemon Squeezy as approved for production.
 
 ## 1. Purpose

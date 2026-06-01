@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `70f5614` `Add payments runtime safety gate`
   - `30919b4` `docs: add production deployment dry-run checklist`
   - `9fc9e22` `fix(web): guard production API URL configuration`
   - `396367d` `chore(docs): clean mojibake markers`
@@ -56,7 +57,7 @@
 - Frontend children limit surface: `apps/web/src/app/[locale]/children/page.tsx`
 
 Stable facts:
-- Billing provider: Lemon Squeezy.
+- Implemented payment integration: Lemon Squeezy, not approved for production launch.
 - Checkout rejects unknown variant IDs server-side.
 - Webhook entitlement uses mapped subscription status:
   - effective `User.plan` may be FREE for non-entitled statuses.
@@ -97,9 +98,13 @@ Pending decision:
   - Render remains future/unconfigured unless explicitly approved in a later phase
 - Production deploy remains pending and must follow `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` before any real deployment attempt.
 - Lemon Squeezy is paused for production launch unless approval status changes.
+- Lemon reconsideration was denied after the initial rejection.
+- Do not treat Lemon as the launch provider in current planning.
 - No paid launch should proceed until payment provider approval and production verification are completed.
 - Lemon Squeezy integration exists but is not approved for production launch.
+- Do not remove Lemon code until a separate explicit phase is approved.
 - Paid checkout is disabled by default until an approved payment provider is verified.
+- Next recommended phase: Phase 4-D1C - payment provider abstraction audit.
 
 ## Known Stable Areas (repository evidence only)
 

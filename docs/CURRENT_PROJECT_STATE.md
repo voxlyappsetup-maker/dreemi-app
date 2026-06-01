@@ -43,7 +43,7 @@
 
 ## Stable Phase 4-B Billing State
 
-- Payment provider is Lemon Squeezy.
+- Implemented legacy/current payment integration is Lemon Squeezy, but it is not approved for production launch.
 - Checkout rejects unknown `variantId` server-side with stable error `UNKNOWN_CHECKOUT_VARIANT`.
 - Lemon variant IDs are centralized in `services/api/src/config/billing.ts`.
 - Webhook effective entitlement is status-based:
@@ -85,6 +85,12 @@
   - Lemon production verification is paused unless approval status changes.
   - Payment provider decision is reopened before paid launch.
   - Reference strategy: `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`.
+- Phase 4-D1B-2 note:
+  - Lemon reconsideration was denied after clarification/reconsideration was attempted.
+  - Lemon remains paused and should not be treated as the launch provider.
+  - Payment provider decision remains reopened.
+  - Next recommended phase is Phase 4-D1C - payment provider abstraction audit.
+  - No runtime code changed in this documentation phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

@@ -62,7 +62,9 @@ Important notes:
 ## 3) P0 Blockers Before Real Payments
 
 - Payment provider approval is a P0 blocker before any paid launch.
+- Lemon Squeezy is not approved and reconsideration was denied.
 - Lemon Squeezy production verification is paused unless Lemon approval status changes.
+- Production payment verification must move to a replacement provider strategy before paid launch.
 - Lemon Squeezy integration exists but is not approved for production launch.
 - Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not treat any provider as production-approved until explicit provider approval and production verification are completed.
@@ -115,10 +117,11 @@ Production smoke checks after deploy:
 - Register/login flow
 - Generate story flow
 - Children create limit behavior
-- Pricing checkout redirects to Lemon Squeezy
-- Lemon webhook receives signed event
-- Subscription update changes effective `User.plan`
-- Cancel/expired subscription returns effective `User.plan` to `FREE`
+- Pricing page payment behavior follows current approved-provider state.
+- Lemon checkout/webhook smoke steps are blocked unless Lemon approval status changes.
+- If a replacement provider is selected and implemented in an explicit later phase, run that provider's checkout/webhook smoke flow instead.
+- Subscription update changes effective `User.plan` (for approved provider path only).
+- Cancel/expired subscription returns effective `User.plan` to `FREE` (for approved provider path only).
 - PDF export smoke
 - Lemon Squeezy checkout/webhook verification should follow:
   - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`

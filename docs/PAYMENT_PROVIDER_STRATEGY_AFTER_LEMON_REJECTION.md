@@ -11,8 +11,10 @@
 ## 2. Current Status
 
 - Lemon Squeezy store application was rejected at this time.
-- Lemon Squeezy production verification is paused.
+- Clarification/reconsideration was attempted and Lemon Squeezy confirmed they cannot take on the store at this point.
+- Lemon Squeezy production verification is paused indefinitely unless approval status changes in the future.
 - Existing Lemon Squeezy integration remains in the codebase but is not approved for commercial production use.
+- Payment provider decision is reopened.
 - No production payment verification has been completed.
 - No paid launch should proceed until a provider is approved and verified.
 
@@ -23,15 +25,14 @@
 - Reopen the payment-provider decision before any commercial launch.
 - Any new provider integration requires a separate explicit phase.
 
-## 4. Reconsideration Response
+## 4. Reconsideration Outcome
 
-- One professional reconsideration email may be sent to Lemon Squeezy.
-- The response should clarify:
-  - Dreemi/Qisas is a SaaS application for AI-assisted children's story generation.
-  - Paid products are subscriptions and/or in-app story-generation credits.
-  - No physical goods, resale-rights content, adult content, marketplace goods, financial products, or manually delivered services are sold.
-  - Product documentation, demo video, policies, and KYC/KYB information can be provided.
-- Do not include secrets, API keys, tokens, or private credentials in the response.
+- A clarification/reconsideration response was attempted after the initial rejection.
+- Lemon Squeezy responded again and confirmed they cannot take on the store at this point.
+- The response referenced total risk assessment, possible disputes, customer support/supportability concerns, and payment processor requirements from Stripe/PayPal.
+- This is treated as a commercial/payment-provider denial, not a technical bug.
+- Do not continue pursuing Lemon Squeezy for the current launch unless approval status changes in the future.
+- Keep Lemon code in place for now until a separate provider abstraction/removal phase is explicitly approved.
 
 ## 5. Fallback Provider Candidates
 
@@ -54,6 +55,11 @@ Long-term direct processor candidate:
 - Only if using a valid supported legal entity.
 - No workaround or inaccurate business information should be used.
 - Requires separate entity/payment-provider decision.
+
+Potential future research candidate:
+- Regional gateways
+- Consider only if Merchant-of-Record options fail.
+- Not approved in this phase.
 
 ## 6. Technical Impact
 
@@ -94,6 +100,7 @@ P0 blockers:
 
 ## 9. Current Status
 
-- Lemon Squeezy is paused.
+- Lemon Squeezy is rejected and reconsideration was denied.
+- Lemon production verification is paused indefinitely unless approval changes.
 - Payment provider decision is reopened.
 - No paid launch should proceed yet.
