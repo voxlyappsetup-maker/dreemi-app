@@ -3,6 +3,7 @@
 Related manual payment verification plan:
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
+- `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 
 ## 1) Current Deployment Files
 
@@ -100,6 +101,7 @@ Required local checks:
 - `pnpm test`
 - `pnpm lint`
 - `pnpm build`
+- Complete `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` before any real production deploy.
 
 Production smoke checks after deploy:
 - API `/health`

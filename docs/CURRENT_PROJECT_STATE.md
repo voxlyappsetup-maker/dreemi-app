@@ -62,6 +62,7 @@
 ## Production Readiness State
 
 - Reference checklist: `docs/PRODUCTION_READINESS_CHECKLIST.md`
+- Reference dry-run checklist: `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 - Reference Lemon manual verification plan: `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - Reference deployment provider state: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Latest production-readiness commit marker in git history: `14cb1dc` (`fix(api): add production checkout and cors guardrails`)
@@ -76,6 +77,9 @@
   - deployment provider switch not performed in this phase
 - Phase 4-C7 guardrail:
   - `apps/web/src/lib/api.ts` now enforces `NEXT_PUBLIC_API_URL` in production (no legacy onrender fallback), while retaining `http://localhost:3001` fallback outside production.
+- Phase 4-C8 note:
+  - Production deployment dry-run checklist added at `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`.
+  - Production deployment remains unverified and pending explicit approval plus checklist completion.
 
 ## Latest Confirmed PDF Export State (from git history)
 

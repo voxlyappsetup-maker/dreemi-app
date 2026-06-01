@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `9fc9e22` `fix(web): guard production API URL configuration`
   - `396367d` `chore(docs): clean mojibake markers`
   - `14cb1dc` `fix(api): add production checkout and cors guardrails`
   - `2821123` `docs(env): add DIRECT_URL production placeholder`
@@ -71,6 +72,7 @@ Pending notes:
 ## Production Readiness
 
 - Checklist path: `docs/PRODUCTION_READINESS_CHECKLIST.md`
+- Dry-run checklist: `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 - Lemon verification plan: `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
@@ -91,6 +93,7 @@ Pending decision:
   - frontend config exists for Vercel (`vercel.json`)
   - API config exists as Railway-named (`services/api/railway.json`)
   - Render remains future/unconfigured unless explicitly approved in a later phase
+- Production deploy remains pending and must follow `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` before any real deployment attempt.
 
 ## Known Stable Areas (repository evidence only)
 

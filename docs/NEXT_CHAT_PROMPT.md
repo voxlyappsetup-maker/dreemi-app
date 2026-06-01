@@ -17,6 +17,7 @@ Read these first:
 - `docs/PROJECT_HANDOFF.md`
 - `docs/CURRENT_PROJECT_STATE.md`
 - `docs/PRODUCTION_READINESS_CHECKLIST.md`
+- `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
@@ -64,9 +65,12 @@ Constraints:
 - Do not change schema/migrations/deployment unless explicitly approved.
 - No migrations/deployment changes without explicit approval.
 - Do not deploy or alter deployment config without explicit approval.
+- Do not deploy without explicit approval.
 - Do not add, remove, rename, or modify deployment provider config without explicit approval.
 - Treat Render vs Railway as unresolved unless a later commit/document states otherwise.
 - Production env values must be handled outside chat.
+- Production deployment must follow `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`.
+- Do not request or print secrets.
 - Frontend API URL guard is expected: `apps/web/src/lib/api.ts` must not use a production fallback URL and should require `NEXT_PUBLIC_API_URL` in production.
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
