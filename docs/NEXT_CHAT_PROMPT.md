@@ -19,6 +19,7 @@ Read these first:
 - `docs/PRODUCTION_READINESS_CHECKLIST.md`
 - `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
+- `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
@@ -72,6 +73,9 @@ Constraints:
 - Production deployment must follow `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`.
 - Do not request or print secrets.
 - Frontend API URL guard is expected: `apps/web/src/lib/api.ts` must not use a production fallback URL and should require `NEXT_PUBLIC_API_URL` in production.
+- Lemon is paused unless approval status changes.
+- Do not build new payment provider integration without an explicit approved phase.
+- Do not remove Lemon code unless explicitly approved.
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Do not change PDF export behavior unless the requested task requires it.

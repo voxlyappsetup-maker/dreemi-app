@@ -47,8 +47,10 @@ Before deployment:
 - Confirm final frontend production domain.
 - Confirm whether preview deployments are allowed.
 - Confirm no deployment config changes are being made without approval.
+- Confirm payment provider account approval before any paid launch.
 - Reference:
   - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
+  - `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 
 ## 5. Frontend/Vercel dry-run checklist
 
@@ -99,8 +101,10 @@ Names only, no values:
 
 Reference:
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
+- `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 
 Checklist:
+- Lemon webhook/payment smoke steps are blocked unless Lemon approval status changes or a replacement provider is selected in an explicit phase.
 - Confirm Lemon production store.
 - Confirm product/variant IDs match `services/api/src/config/billing.ts`.
 - Confirm production webhook URL will be:

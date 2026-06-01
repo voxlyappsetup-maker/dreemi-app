@@ -4,6 +4,7 @@ Related manual payment verification plan:
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
+- `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 
 ## 1) Current Deployment Files
 
@@ -60,6 +61,9 @@ Important notes:
 
 ## 3) P0 Blockers Before Real Payments
 
+- Payment provider approval is a P0 blocker before any paid launch.
+- Lemon Squeezy production verification is paused unless Lemon approval status changes.
+- Do not treat any provider as production-approved until explicit provider approval and production verification are completed.
 - `FRONTEND_URL` must be set in the production API environment.
   - Reason: checkout redirect currently falls back to `http://localhost:3000`.
 - `NEXT_PUBLIC_API_URL` must be set explicitly in Vercel.

@@ -80,6 +80,12 @@
 - Phase 4-C8 note:
   - Production deployment dry-run checklist added at `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`.
   - Production deployment remains unverified and pending explicit approval plus checklist completion.
+- Phase 4-D1B note:
+  - Lemon Squeezy rejected the store application at this time.
+  - Lemon production verification is paused unless approval status changes.
+  - Payment provider decision is reopened before paid launch.
+  - Reference strategy: `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`.
+  - No runtime code changed in this phase.
 
 ## Latest Confirmed PDF Export State (from git history)
 

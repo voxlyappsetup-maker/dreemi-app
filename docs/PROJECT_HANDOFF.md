@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `30919b4` `docs: add production deployment dry-run checklist`
   - `9fc9e22` `fix(web): guard production API URL configuration`
   - `396367d` `chore(docs): clean mojibake markers`
   - `14cb1dc` `fix(api): add production checkout and cors guardrails`
@@ -74,6 +75,7 @@ Pending notes:
 - Checklist path: `docs/PRODUCTION_READINESS_CHECKLIST.md`
 - Dry-run checklist: `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
 - Lemon verification plan: `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
+- Payment provider strategy: `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
@@ -94,6 +96,8 @@ Pending decision:
   - API config exists as Railway-named (`services/api/railway.json`)
   - Render remains future/unconfigured unless explicitly approved in a later phase
 - Production deploy remains pending and must follow `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` before any real deployment attempt.
+- Lemon Squeezy is paused for production launch unless approval status changes.
+- No paid launch should proceed until payment provider approval and production verification are completed.
 
 ## Known Stable Areas (repository evidence only)
 
