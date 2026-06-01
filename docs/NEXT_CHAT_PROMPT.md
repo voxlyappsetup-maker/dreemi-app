@@ -17,6 +17,7 @@ Read these first:
 - `docs/PROJECT_HANDOFF.md`
 - `docs/CURRENT_PROJECT_STATE.md`
 - `docs/PRODUCTION_READINESS_CHECKLIST.md`
+- `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
 - `vercel.json`
@@ -63,6 +64,8 @@ Constraints:
 - No migrations/deployment changes without explicit approval.
 - Do not deploy or alter deployment config without explicit approval.
 - Production env values must be handled outside chat.
+- Lemon production verification must not include secret values in chat/docs.
+- Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Do not change PDF export behavior unless the requested task requires it.
 - Preserve Arabic RTL PDF correctness and existing performance improvements.
 - Do not commit/push unless explicitly asked.

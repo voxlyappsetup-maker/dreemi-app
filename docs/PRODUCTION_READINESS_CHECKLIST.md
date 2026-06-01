@@ -1,5 +1,8 @@
 # Production Readiness Checklist
 
+Related manual payment verification plan:
+- `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
+
 ## 1) Current Deployment Files
 
 - Frontend deployment config:
@@ -107,6 +110,8 @@ Production smoke checks after deploy:
 - Subscription update changes effective `User.plan`
 - Cancel/expired subscription returns effective `User.plan` to `FREE`
 - PDF export smoke
+- Lemon Squeezy checkout/webhook verification should follow:
+  - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 
 ## 7) Forbidden in Chat/Docs
 

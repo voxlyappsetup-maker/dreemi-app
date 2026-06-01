@@ -12,6 +12,9 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `14cb1dc` `fix(api): add production checkout and cors guardrails`
+  - `2821123` `docs(env): add DIRECT_URL production placeholder`
+  - `5eb70e5` `docs: add production readiness checklist`
   - `bfdfdc5` `test(api): guard Arabic auth and plan messages`
   - `e967324` `docs: document billing and plan enforcement state`
   - `57fa102` `fix(plans): align children limits with backend`
@@ -67,6 +70,7 @@ Pending notes:
 ## Production Readiness
 
 - Checklist path: `docs/PRODUCTION_READINESS_CHECKLIST.md`
+- Lemon verification plan: `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
 
