@@ -31,6 +31,7 @@ API/server:
 - `LEMONSQUEEZY_STORE_ID`
 - `LEMONSQUEEZY_WEBHOOK_SECRET`
 - `FRONTEND_URL`
+- `ALLOWED_ORIGINS`
 - `NODE_ENV`
 - `PORT` or `API_PORT`
 
@@ -64,12 +65,12 @@ Important notes:
 
 ## 4) P1 Production-Readiness Items
 
-- CORS is currently hardcoded in `services/api/src/index.ts`:
+- CORS in `services/api/src/index.ts` now supports `ALLOWED_ORIGINS` (comma-separated) with fallback defaults:
   - `http://localhost:3000`
   - `https://dreemi.app`
   - `https://www.dreemi.app`
   - `https://dreemi-app-web.vercel.app`
-- Decide whether to keep hardcoded origins for V1 or introduce an explicit `ALLOWED_ORIGINS` environment variable in a later code phase.
+- Production should set `ALLOWED_ORIGINS` explicitly to final frontend domain(s).
 - Clarify API hosting target:
   - Repo has `services/api/railway.json`
   - Project planning mentions Render

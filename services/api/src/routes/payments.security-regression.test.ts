@@ -17,6 +17,7 @@ const AUTH_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/auth.middlew
 const JWT_SERVICE_PATH = path.resolve(__dirname, "../services/jwt.service.ts");
 const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "children.ts");
 const FRONTEND_CHILDREN_PAGE_PATH = path.resolve(__dirname, "../../../../apps/web/src/app/[locale]/children/page.tsx");
+const ENV_EXAMPLE_PATH = path.resolve(__dirname, "../../../../.env.example");
 const src: string = fs.readFileSync(PAYMENTS_PATH, "utf-8");
 const indexSrc: string = fs.readFileSync(INDEX_PATH, "utf-8");
 const plansSrc: string = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
@@ -24,6 +25,7 @@ const authSrc: string = fs.readFileSync(AUTH_MIDDLEWARE_PATH, "utf-8");
 const jwtSrc: string = fs.readFileSync(JWT_SERVICE_PATH, "utf-8");
 const childrenRouteSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
 const frontendChildrenPageSrc: string = fs.readFileSync(FRONTEND_CHILDREN_PAGE_PATH, "utf-8");
+const envExampleSrc: string = fs.readFileSync(ENV_EXAMPLE_PATH, "utf-8");
 
 function find(pattern: string | RegExp): number {
   if (typeof pattern === "string") return src.indexOf(pattern);
@@ -81,6 +83,23 @@ describe('payments.ts — checkout route protections', () => {
 
     mustBeBefore(allowedCheckPos, "allowed variant check", checkoutCallPos, "createCheckoutUrl");
     mustBeBefore(unknownErrPos, "UNKNOWN_CHECKOUT_VARIANT", checkoutCallPos, "createCheckoutUrl");
+  });
+
+  it("uses FRONTEND_URL guardrail helper with production misconfiguration error", () => {
+    mustExist("function getCheckoutFrontendUrl()", "getCheckoutFrontendUrl helper");
+    mustExist(
+      "process.env.NODE_ENV === \"production\"",
+      "production guard in checkout frontend URL helper",
+    );
+    mustExist("FRONTEND_URL_NOT_CONFIGURED", "stable FRONTEND_URL_NOT_CONFIGURED error code");
+    mustExist(
+      "http://localhost:3000",
+      "non-production localhost fallback remains for checkout redirect",
+    );
+    mustAbsent(
+      "process.env.FRONTEND_URL ?? \"http://localhost:3000\"",
+      "legacy direct FRONTEND_URL localhost fallback expression must be absent",
+    );
   });
 });
 
@@ -257,6 +276,37 @@ describe("index.ts — webhook raw parser ordering", () => {
   });
 });
 
+describe("index.ts — CORS allowed origins guardrails", () => {
+  it("supports ALLOWED_ORIGINS env parsing with fallback defaults", () => {
+    assert.ok(
+      indexSrc.includes("process.env.ALLOWED_ORIGINS"),
+      "index.ts must reference process.env.ALLOWED_ORIGINS",
+    );
+    assert.ok(indexSrc.includes("function parseAllowedOrigins"), "index.ts must define parseAllowedOrigins");
+    assert.ok(indexSrc.includes("const allowedOrigins"), "index.ts must compute allowedOrigins");
+    assert.ok(
+      indexSrc.includes("origin: allowedOrigins"),
+      "cors config must use computed allowedOrigins",
+    );
+  });
+
+  it("keeps default CORS origins including localhost and known production domains", () => {
+    assert.ok(
+      indexSrc.includes("http://localhost:3000"),
+      "default CORS origins must include localhost",
+    );
+    assert.ok(indexSrc.includes("https://dreemi.app"), "default CORS origins must include https://dreemi.app");
+    assert.ok(
+      indexSrc.includes("https://www.dreemi.app"),
+      "default CORS origins must include https://www.dreemi.app",
+    );
+    assert.ok(
+      indexSrc.includes("https://dreemi-app-web.vercel.app"),
+      "default CORS origins must include https://dreemi-app-web.vercel.app",
+    );
+  });
+});
+
 describe("plan/children limits alignment regressions", () => {
   it("keeps backend FREE monthly story limit at 3", () => {
     assert.ok(
@@ -328,5 +378,14 @@ describe("auth/jwt/plans Arabic mojibake regressions", () => {
       "plans.middleware.ts must include the readable Arabic story-limit message",
     );
     assert.ok(plansSrc.includes("خطأ في التحقق من الخطة"), 'plans.middleware.ts must include "خطأ في التحقق من الخطة"');
+  });
+});
+
+describe(".env.example production alignment guards", () => {
+  it("includes ALLOWED_ORIGINS placeholder", () => {
+    assert.ok(
+      envExampleSrc.includes("ALLOWED_ORIGINS="),
+      ".env.example must include ALLOWED_ORIGINS placeholder",
+    );
   });
 });

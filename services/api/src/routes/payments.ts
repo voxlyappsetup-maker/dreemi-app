@@ -25,6 +25,13 @@ const CheckoutSchema = z.object({
   variantId: z.number().int().positive(),
 });
 
+function getCheckoutFrontendUrl(): string | null {
+  const configured = String(process.env.FRONTEND_URL ?? "").trim();
+  if (configured) return configured.replace(/\/+$/, "");
+  if (process.env.NODE_ENV === "production") return null;
+  return "http://localhost:3000";
+}
+
 paymentsRouter.post(
   "/checkout",
   authenticateToken,
@@ -43,7 +50,13 @@ paymentsRouter.post(
         return;
       }
 
-      const redirectUrl = `${process.env.FRONTEND_URL ?? "http://localhost:3000"}/dashboard?success=true`;
+      const frontendUrl = getCheckoutFrontendUrl();
+      if (!frontendUrl) {
+        console.error("[Payments] FRONTEND_URL is missing in production environment");
+        res.status(500).json({ success: false, error: "FRONTEND_URL_NOT_CONFIGURED" });
+        return;
+      }
+      const redirectUrl = `${frontendUrl}/dashboard?success=true`;
       const url = await createCheckoutUrl({
         variantId,
         userId,

@@ -19,16 +19,27 @@ try { dotenv.config({ path: "../../.env" }); } catch { /* ignore if .env missing
 
 const app = express();
 const PORT = Number(process.env.PORT) || Number(process.env.API_PORT) || 3001;
+const DEFAULT_ALLOWED_ORIGINS = [
+  "http://localhost:3000",
+  "https://dreemi.app",
+  "https://www.dreemi.app",
+  "https://dreemi-app-web.vercel.app",
+] as const;
+
+function parseAllowedOrigins(value?: string): string[] {
+  const parsed = String(value ?? "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+  return parsed.length > 0 ? parsed : [...DEFAULT_ALLOWED_ORIGINS];
+}
+
+const allowedOrigins = parseAllowedOrigins(process.env.ALLOWED_ORIGINS);
 
 app.use(helmet());
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://dreemi.app",
-      "https://www.dreemi.app",
-      "https://dreemi-app-web.vercel.app",
-    ],
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
