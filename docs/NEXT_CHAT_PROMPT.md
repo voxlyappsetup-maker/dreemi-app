@@ -27,6 +27,7 @@ Read these first:
 - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
+- `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
@@ -103,6 +104,9 @@ Constraints:
 - Do not implement Play Billing Library, Google Play Developer API, RTDN, Google product IDs, schema changes, migrations, or package changes without an explicit approved phase.
 - Google Play Billing planning must map into the provider-neutral entitlement model.
 - Android paywall must remain parent-facing and avoid child-facing checkout.
+- Do not implement Google Play Billing Library, Google Play Developer API, RTDN, Play Console setup, Android application ID changes, schema changes, migrations, package changes, or runtime code without an explicit approved phase.
+- Google product IDs/base plans in docs are placeholders unless later finalized in an approved phase.
+- Android paid launch requires entitlement readiness, safety readiness, privacy readiness, and Play Console readiness.
 - Do not implement reporting UI, backend report routes, schema changes, migrations, AI provider changes, admin tooling, or PDF/export safety gating without an explicit approved phase.
 - Mobile release requires unsafe story reporting and AI safety readiness.
 - Public/community story features remain out of mobile v1 unless separately designed.

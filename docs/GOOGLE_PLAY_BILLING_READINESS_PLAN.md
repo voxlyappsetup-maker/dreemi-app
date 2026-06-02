@@ -9,6 +9,8 @@
   - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - Cross-reference privacy/data safety inventory:
   - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
+- Cross-reference Android Play Console product and subscription mapping design:
+  - `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 - This document is planning only.
 - It does not implement Google Play Billing Library, Google Play Developer API, Real-time Developer Notifications, schema, migrations, code, packages, or deployment.
 
@@ -138,6 +140,7 @@ Future Google Play adapter should handle:
 - Future Android release needs unsafe generated story reporting and AI safety readiness.
 - Future Android release also requires Google Play Data Safety inventory readiness, not only Play Billing planning.
 - Public/community story features should stay out of mobile v1 unless moderation/reporting is designed.
+- The narrower product/subscription mapping planning artifact is documented in `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`.
 
 ## 12. Google Play Billing Testing Readiness
 

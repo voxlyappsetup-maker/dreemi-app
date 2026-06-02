@@ -12,6 +12,7 @@ Related manual payment verification plan:
 - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
+- `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 
 ## 1) Current Deployment Files
 
@@ -82,6 +83,8 @@ Important notes:
   - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
 - Google Play Billing readiness plan is a blocker before Android paid launch:
   - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
+- Android Play Console product and subscription mapping design is a blocker before Android paid launch:
+  - `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 - AI safety and unsafe story reporting readiness is a blocker before mobile release:
   - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - Privacy and data safety inventory is a blocker before mobile submission:
@@ -98,6 +101,7 @@ Important notes:
 - iOS paid launch requires StoreKit/App Store planning and parent-facing paywall design.
 - iOS paid launch also requires product mapping, entitlement mapping, safety readiness, and privacy readiness.
 - Android paid launch requires Play Billing/Play Console planning and parent-facing paywall design.
+- Android paid launch also requires product mapping, entitlement mapping, safety readiness, privacy readiness, and Play Console readiness.
 - Mobile submission should not proceed until unsafe story reporting and safety review design are accepted.
 - Mobile submission should not proceed until privacy/data safety inventory is accepted.
 - Lemon Squeezy integration exists but is not approved for production launch.

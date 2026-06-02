@@ -8,6 +8,8 @@
 - Identify privacy-sensitive flows before mobile implementation.
 - Cross-reference iOS App Store product/subscription mapping design:
   - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
+- Cross-reference Android Play Console product/subscription mapping design:
+  - `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 - This document is planning and inventory only.
 - It does not implement code, schema, migrations, policies, provider changes, or deployment.
 
@@ -105,6 +107,7 @@ This inventory covers:
 - Future Apple IAP data flow may include transaction evidence and server notification data.
 - Future Google Play Billing data flow may include purchase tokens and RTDN-related data.
 - Future Apple purchase evidence and subscription metadata from iOS product mapping flows must be included in privacy/App Privacy review when implemented.
+- Future Google purchase token evidence, RTDN metadata, and subscription metadata from Android product mapping flows must be included in privacy/Google Play Data Safety review when implemented.
 - Payment tokens, provider secrets, signed payloads, and purchase tokens should not be logged.
 - Web provider decisions must fit the entitlement model and this privacy inventory.
 

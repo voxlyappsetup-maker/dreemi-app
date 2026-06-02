@@ -126,6 +126,11 @@
   - iOS App Store product/subscription mapping is now documented as a planning artifact for Apple IAP implementation readiness.
   - Apple product IDs remain placeholders in this phase.
   - No implementation happened in this phase.
+- Phase 4-D1J note:
+  - Android Play Console product/subscription mapping design is documented at `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`.
+  - Android Play Console product/subscription mapping is now documented as a planning artifact for Google Play Billing implementation readiness.
+  - Google product IDs and base plans remain placeholders in this phase.
+  - No implementation happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
