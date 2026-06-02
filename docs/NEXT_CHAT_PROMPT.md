@@ -21,6 +21,7 @@ Read these first:
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
+- `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
@@ -85,8 +86,10 @@ Constraints:
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Entitlement model design lock must guide future payment work.
+- Parent-first mobile monetization design must guide future payment and packaging work.
 - Web provider must not control the mobile entitlement model.
-- Do not implement Apple IAP, Google Play Billing, Paddle, PayPal, or schema changes without an explicit approved phase.
+- Do not implement Apple IAP, Google Play Billing, Paddle, PayPal, schema changes, migrations, or provider code without an explicit approved phase.
+- Child-facing checkout is not allowed in the intended product direction.
 - Do not change PDF export behavior unless the requested task requires it.
 - Preserve Arabic RTL PDF correctness and existing performance improvements.
 - Do not commit/push unless explicitly asked.

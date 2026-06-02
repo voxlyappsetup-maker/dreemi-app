@@ -7,6 +7,8 @@
 - Define fallback provider candidates and required future phases.
 - Cross-reference provider-neutral entitlement requirements:
   - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
+- Cross-reference parent-first mobile monetization product lock:
+  - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - This document does not remove any existing Lemon Squeezy code.
 - This document does not approve any payment provider for production.
 
@@ -41,7 +43,9 @@
 Document candidates without committing to implementation:
 
 - Any future Paddle/PayPal/Stripe path must fit the provider-neutral entitlement model in `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`.
+- Any future Paddle/PayPal/Stripe path must also fit parent-first mobile monetization rules in `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`.
 - Replacing Lemon as a web provider alone is not sufficient for native mobile paid launch.
+- Choosing Paddle/PayPal/Stripe for web does not solve native mobile monetization by itself.
 
 Primary candidate:
 - Paddle

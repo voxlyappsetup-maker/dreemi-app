@@ -5,6 +5,8 @@
 - Define a provider-neutral entitlement model before adding Apple IAP, Google Play Billing, Paddle, PayPal, or any other provider.
 - Prevent Lemon Squeezy or any web provider from becoming the canonical entitlement model.
 - Preserve the parent-first mobile-first commercial strategy.
+- Cross-reference parent-first monetization product lock:
+  - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - This document is a design lock only.
 - It does not implement schema, code, migrations, providers, or deployment.
 
@@ -35,6 +37,7 @@
 
 The application must decide access from effective entitlement state, not from a specific payment provider.
 
+- This entitlement model exists to support parent-first mobile monetization across Apple, Google, web, and internal/admin sources.
 - Apple, Google, Web, and manual/admin grants are possible sources.
 - Backend access checks should consume normalized entitlement state.
 - Provider-specific events should be adapters into normalized entitlement events.

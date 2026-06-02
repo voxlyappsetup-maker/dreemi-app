@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `7d76ee8` `docs(payments): add entitlement model design lock`
   - `7c6f0ea` `docs(payments): document Lemon reconsideration denial`
   - `70f5614` `Add payments runtime safety gate`
   - `30919b4` `docs: add production deployment dry-run checklist`
@@ -79,6 +80,7 @@ Pending notes:
 - Lemon verification plan: `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - Payment provider strategy: `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 - Entitlement model design lock: `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
+- Mobile monetization parent-first design lock: `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
@@ -107,9 +109,11 @@ Pending decision:
 - Do not remove Lemon code until a separate explicit phase is approved.
 - Paid checkout is disabled by default until an approved payment provider is verified.
 - Mobile-first monetization requires provider-neutral entitlement design before Apple IAP, Google Play Billing, or web provider implementation.
+- Mobile paid launch requires Apple/Google monetization planning and parent-facing paywall constraints.
 - Lemon remains paused, and Lemon code remains in place for now.
 - Phase 4-D1D-A documentation lock reference: `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`.
-- Next recommended phase: Phase 4-D1D - mobile monetization and parent-first product design lock.
+- Phase 4-D1D documentation lock reference: `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`.
+- No Apple IAP, Google Play Billing, Paddle, or PayPal implementation has started.
 
 ## Known Stable Areas (repository evidence only)
 
