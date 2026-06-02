@@ -114,6 +114,8 @@ Important notes:
 - Mobile paid launch requires Apple IAP and Google Play Billing readiness, not only web provider readiness.
 - Mobile paid launch requires entitlement implementation planning, platform product mapping, safety readiness, privacy readiness, and provider/platform verification.
 - Mobile paid launch requires schema review, service interface design, projection compatibility, runtime readiness, platform product mapping, safety readiness, privacy readiness, and platform/provider verification.
+- Entitlement skeleton code alone does not enable paid launch or provider approval.
+- Paid launch still requires schema, projection, adapters, platform/provider verification, safety/privacy readiness, and deployment verification.
 - Entitlement schema implementation requires a separate approved schema phase with migration, backfill, and rollback approval before execution.
 - Mobile paid launch also requires parent-facing paywall design and child-surface checkout boundaries.
 - iOS paid launch requires StoreKit/App Store planning and parent-facing paywall design.

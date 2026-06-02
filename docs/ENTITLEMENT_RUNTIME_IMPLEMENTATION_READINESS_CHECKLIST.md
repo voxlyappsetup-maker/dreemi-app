@@ -287,7 +287,10 @@ Clarifications:
 ## 21. Current Status
 
 - This readiness checklist is documentation-only.
-- Entitlement runtime implementation has not started.
+- Phase 4-D3A status: additive entitlement skeleton implementation is complete as non-wired service/types/tests and remains revertible.
+- Phase 4-D3A status: skeleton implementation does not change routes, middleware, payments, access checks, schema, or provider integrations.
+- Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
+- Entitlement runtime wiring into application behavior has not started.
 - Entitlement schema implementation has not started.
 - Provider adapters have not started.
 - User.plan remains current compatibility projection.

@@ -54,6 +54,9 @@ Read these first:
 - `services/api/src/routes/payments.security-regression.test.ts`
 - `services/api/src/middleware/plans.middleware.ts`
 - `services/api/src/routes/children.ts`
+- `services/api/src/types/entitlement.ts`
+- `services/api/src/services/entitlement.service.ts`
+- `services/api/src/services/entitlement.service.test.ts`
 - `apps/web/src/app/[locale]/pricing/page.tsx`
 - `apps/web/src/components/LandingPricing.tsx`
 - `apps/web/src/app/[locale]/children/page.tsx`
@@ -110,6 +113,8 @@ Constraints:
 - Do not implement User.plan projection, EntitlementService, access-check changes, schema, migrations, provider adapters, package changes, or env changes without explicit phase.
 - Do not implement entitlement runtime, schema, migrations, provider adapters, access-check changes, package changes, or env changes without explicit phase.
 - First future runtime phase should be code skeleton only unless explicitly changed.
+- Do not wire EntitlementService into routes, middleware, payments, or access checks without explicit future phase.
+- Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.
 - Do not remove or change User.plan semantics without explicit schema/migration approval.

@@ -151,6 +151,11 @@
   - Entitlement runtime implementation readiness is documented at `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`.
   - Runtime implementation readiness gate is now documented, including first-phase code-skeleton scope, blocked scope, fail-closed requirements, test gate, and rollback gate.
   - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
+- Phase 4-D3A note:
+  - Entitlement runtime skeleton files are added at `services/api/src/types/entitlement.ts`, `services/api/src/services/entitlement.service.ts`, and `services/api/src/services/entitlement.service.test.ts`.
+  - EntitlementService skeleton now exists but is not wired into routes, middleware, payments, Prisma, or access checks.
+  - No behavior change was introduced in this phase.
+  - No schema/migration/provider/env/deployment/mobile project changes happened in this phase. `services/api/package.json` test file list was updated only to include the new entitlement service test.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

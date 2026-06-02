@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `92dc506` `docs(payments): add entitlement runtime readiness checklist`
   - `30500e0` `docs(payments): add User plan projection compatibility plan`
   - `cdf6822` `docs(payments): add entitlement service interface design`
   - `2a72210` `docs(payments): add entitlement schema design review`
@@ -103,6 +104,9 @@ Pending notes:
 - Entitlement service interface design: `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - User.plan projection compatibility plan: `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
 - Entitlement runtime implementation readiness checklist: `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
+- Entitlement skeleton type file: `services/api/src/types/entitlement.ts`
+- Entitlement skeleton service file: `services/api/src/services/entitlement.service.ts`
+- Entitlement skeleton test file: `services/api/src/services/entitlement.service.test.ts`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
@@ -149,6 +153,7 @@ Pending decision:
 - Phase 4-D2B planning reference: `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`.
 - Phase 4-D2C planning reference: `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`.
 - Phase 4-D2D planning reference: `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`.
+- Phase 4-D3A implementation reference: `services/api/src/types/entitlement.ts`, `services/api/src/services/entitlement.service.ts`, `services/api/src/services/entitlement.service.test.ts`.
 - No Apple IAP, Google Play Billing, Paddle, or PayPal implementation has started.
 - Entitlement implementation has not started.
 - Entitlement schema implementation has not started.
@@ -158,7 +163,10 @@ Pending decision:
 - User.plan projection implementation has not started.
 - First future runtime implementation should start with code skeleton only, not schema/provider/access-check migration.
 - Entitlement runtime implementation has not started.
+- First runtime skeleton exists only as non-wired additive code and tests.
 - User.plan and current Subscription persistence remain untouched.
+- User.plan remains the current compatibility/effective access projection.
+- Access checks remain unchanged.
 - Apple product IDs remain placeholders and are not finalized.
 - Google product IDs and base plans remain placeholders and are not finalized.
 - No StoreKit/App Store Server API/App Store Server Notifications implementation has started.
