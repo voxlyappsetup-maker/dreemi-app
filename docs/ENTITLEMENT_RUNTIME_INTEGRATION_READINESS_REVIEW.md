@@ -213,15 +213,19 @@
   - `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`
 - Phase `4-D3G` is implemented as the first single-surface runtime wiring:
   - `services/api/src/routes/children.ts` child-limit decision path only.
-- Recommended next phase: `Phase 4-D3H — child-limit runtime verification and rollback-readiness review` before any second runtime surface wiring.
-- D3H should verify:
-  - parity and guardrail evidence remains stable,
-  - stories/plans/payments remain non-wired,
-  - rollback-to-legacy path remains straightforward.
+- Phase `4-D3H` is documented at:
+  - `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
+- D3H documents:
+  - D3G verification scope and preserved child-limit behavior,
+  - untouched runtime surfaces,
+  - external Supabase RLS remediation note and manual verification requirement,
+  - rollback-readiness plan and second-surface gating criteria.
+- Recommended next phase: `Phase 4-D3I` proposal/review only for selecting the next runtime surface after D3H acceptance.
+- No second runtime wiring should occur before D3I review and explicit approval.
 
 ## 10. Current Status
 
 - This review is documentation-only.
-- Runtime behavior remains unchanged.
-- EntitlementService remains non-wired.
-- Access checks remain on legacy `User.plan` logic.
+- Runtime behavior in this D3D review remains unchanged.
+- Historical D3D baseline statement ("EntitlementService remains non-wired") is superseded by D3G child-limit-only wiring.
+- Current post-D3H status is tracked in `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.

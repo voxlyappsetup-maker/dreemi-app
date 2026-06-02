@@ -177,6 +177,12 @@
   - Existing child-count query, block condition, and API response shape remain unchanged.
   - Stories path, plans middleware, payments path, schema, migrations, providers, frontend, deployment, package, and env configuration remain unchanged.
   - Next recommended phase is Phase 4-D3H runtime verification/rollback-readiness review before any second runtime surface wiring.
+- Phase 4-D3H note:
+  - Runtime verification and rollback-readiness review is documented at `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+  - D3G verification confirms `b46af7a` scope remains child-limit wiring only in `services/api/src/routes/children.ts`.
+  - Child-limit decision call, block condition (`currentCount >= limit`), and `403` response shape (`success`, `error`, `limit`, `current`) are documented as preserved.
+  - External Supabase RLS remediation is documented (RLS enabled on `public.users`, `public.children`, `public.stories`, `public.subscriptions`; no public policies added), with runtime manual verification required.
+  - No second runtime wiring is allowed until D3H verification is accepted; next recommended phase is D3I proposal/review only.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

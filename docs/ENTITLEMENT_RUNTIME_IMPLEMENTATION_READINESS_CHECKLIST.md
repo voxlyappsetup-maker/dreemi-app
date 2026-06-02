@@ -296,11 +296,14 @@ Clarifications:
 - Phase 4-D3F status: child-limit single-surface wiring proposal/review is documented at `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md` with implementation scope, tests, rollback, and acceptance criteria.
 - Phase 4-D3G status: child-limit runtime wiring is implemented in `services/api/src/routes/children.ts` only, using EntitlementService for limit decision while preserving current behavior and response shape.
 - Phase 4-D3G status: stories, plans middleware, payments, schema, providers, checkout, webhook, apps/web, deployment, packages, and env configuration remain unchanged.
-- Next recommended phase is Phase 4-D3H runtime verification/rollback-readiness review before any second runtime surface is wired.
+- Phase 4-D3H status: runtime verification and rollback-readiness review is documented at `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+- Phase 4-D3H status: manual runtime smoke checklist, rollback plan, Supabase RLS remediation note, and second-surface gating criteria are documented.
+- Next recommended phase is Phase 4-D3I proposal/review only after D3H is committed and accepted.
+- No second runtime wiring should occur until D3H verification is accepted.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
-- Entitlement runtime wiring into application behavior has not started.
+- Entitlement runtime wiring has started only for the child-limit decision surface in D3G.
 - Entitlement schema implementation has not started.
 - Provider adapters have not started.
 - User.plan remains current compatibility projection.
-- Current access checks remain unchanged.
+- Story generation, plans middleware, and payments access/runtime paths remain unchanged.
 - Paid access remains fail-closed unless explicitly approved and verified.

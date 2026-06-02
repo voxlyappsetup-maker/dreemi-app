@@ -152,9 +152,9 @@
 
 ## 9. Recommended Next Phase
 
-- `Phase 4-D3G` should be a narrowly scoped child-limit runtime wiring phase only if explicitly approved.
-- D3G should follow this proposal as the exact implementation and review gate.
-- D3F remains documentation-only.
+- `Phase 4-D3G` was the approved narrowly scoped child-limit runtime wiring phase and is now complete.
+- Post-implementation verification should be handled in D3H before selecting any second runtime surface.
+- D3F remains documentation-only; this file remains a proposal plus implementation record.
 
 ## 10. D3G Implementation Outcome
 
@@ -172,4 +172,16 @@
   - unknown/unsupported plan handling remains fail-closed to limit `1`.
 - Out-of-scope areas remained unchanged:
   - stories, plans middleware, payments, checkout, webhook, schema, migrations, providers, apps/web, deployment, packages, env configuration.
+
+## 11. D3H Verification Outcome Link
+
+- Post-wiring verification and rollback-readiness review is documented at:
+  - `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
+- D3H records:
+  - D3G scope verification at `b46af7a`,
+  - external Supabase RLS remediation note (outside Git),
+  - manual smoke checklist,
+  - rollback-readiness plan,
+  - second-surface gating criteria.
+- Next step after D3H should be D3I proposal/review only, with no automatic second runtime wiring selection.
 
