@@ -156,3 +156,20 @@
 - D3G should follow this proposal as the exact implementation and review gate.
 - D3F remains documentation-only.
 
+## 10. D3G Implementation Outcome
+
+- Phase `4-D3G` implemented the approved first runtime wiring exception.
+- Runtime wiring scope implemented: `services/api/src/routes/children.ts` only.
+- Implemented decision source:
+  - `createEntitlementService()`
+  - `getChildLimit(userId, user.plan)`
+- Preserved behavior:
+  - `User.plan` read from Prisma is still used as compatibility input.
+  - child count query is unchanged.
+  - block condition remains `currentCount >= limit`.
+  - `403` response shape remains `success`, `error`, `limit`, `current`.
+  - child limits remain `FREE:1`, `INDIVIDUAL:1`, `FAMILY:4`, `SCHOOL:Infinity` via service mapping.
+  - unknown/unsupported plan handling remains fail-closed to limit `1`.
+- Out-of-scope areas remained unchanged:
+  - stories, plans middleware, payments, checkout, webhook, schema, migrations, providers, apps/web, deployment, packages, env configuration.
+

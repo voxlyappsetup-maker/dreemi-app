@@ -294,7 +294,9 @@ Clarifications:
 - Phase 4-D3E status: preflight static/unit guardrails are strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime wiring.
 - Phase 4-D3E status: recommended first future wiring surface is child-limit path (`services/api/src/routes/children.ts`) as single-surface rollout with revert-first rollback direction.
 - Phase 4-D3F status: child-limit single-surface wiring proposal/review is documented at `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md` with implementation scope, tests, rollback, and acceptance criteria.
-- Next recommended phase is Phase 4-D3G (child-limit runtime wiring) only if explicitly approved.
+- Phase 4-D3G status: child-limit runtime wiring is implemented in `services/api/src/routes/children.ts` only, using EntitlementService for limit decision while preserving current behavior and response shape.
+- Phase 4-D3G status: stories, plans middleware, payments, schema, providers, checkout, webhook, apps/web, deployment, packages, and env configuration remain unchanged.
+- Next recommended phase is Phase 4-D3H runtime verification/rollback-readiness review before any second runtime surface is wired.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
 - Entitlement runtime wiring into application behavior has not started.
 - Entitlement schema implementation has not started.

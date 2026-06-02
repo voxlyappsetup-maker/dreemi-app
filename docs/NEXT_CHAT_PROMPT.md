@@ -117,9 +117,9 @@ Constraints:
 - Do not implement entitlement runtime, schema, migrations, provider adapters, access-check changes, package changes, or env changes without explicit phase.
 - First future runtime phase should be code skeleton only unless explicitly changed.
 - Do not wire EntitlementService into routes, middleware, payments, or access checks without explicit future phase.
-- Phase 4-D3F is documentation-only and records the approved child-limit single-surface wiring proposal/review in `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`.
-- The next recommended entitlement phase is Phase 4-D3G child-limit runtime wiring only if explicitly approved.
-- First runtime wiring candidate remains child-limit path in `services/api/src/routes/children.ts` as a single-surface rollout before story-generation wiring.
+- Phase 4-D3G is implemented and wires EntitlementService only in child-limit decision path in `services/api/src/routes/children.ts`.
+- Stories path, plans middleware, payments path, schema, provider logic, frontend, deployment, package, and env configuration remain unchanged in D3G.
+- The next recommended entitlement phase is Phase 4-D3H runtime verification/rollback-readiness review before any second runtime surface wiring.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.

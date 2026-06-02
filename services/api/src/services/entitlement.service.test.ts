@@ -204,11 +204,11 @@ describe("EntitlementService static guardrails", () => {
     }
   });
 
-  it("routes and middleware do not import entitlement.service.ts in this phase", () => {
+  it("only children route may reference EntitlementService wiring in D3G", () => {
     const pattern =
       /entitlement\.service|createEntitlementService|EntitlementService|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
+    assert.equal(pattern.test(childrenRouteSource), true);
     assert.equal(pattern.test(paymentsRouteSource), false);
-    assert.equal(pattern.test(childrenRouteSource), false);
     assert.equal(pattern.test(storiesRouteSource), false);
     assert.equal(pattern.test(plansMiddlewareSource), false);
   });
@@ -222,13 +222,13 @@ describe("EntitlementService static guardrails", () => {
   });
 });
 
-describe("EntitlementService runtime wiring preflight guardrails (D3E)", () => {
-  it("plans/stories/children/payments still do not import or call EntitlementService", () => {
+describe("EntitlementService runtime wiring guardrails (D3G)", () => {
+  it("only children route imports/calls EntitlementService; stories/plans/payments remain untouched", () => {
     const entitlementTokens =
       /entitlement\.service|createEntitlementService|EntitlementService|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
     assert.equal(entitlementTokens.test(plansMiddlewareSource), false);
     assert.equal(entitlementTokens.test(storiesRouteSource), false);
-    assert.equal(entitlementTokens.test(childrenRouteSource), false);
+    assert.equal(entitlementTokens.test(childrenRouteSource), true);
     assert.equal(entitlementTokens.test(paymentsRouteSource), false);
   });
 
@@ -246,14 +246,20 @@ describe("EntitlementService runtime wiring preflight guardrails (D3E)", () => {
     );
   });
 
-  it("children route keeps legacy User.plan read and child-limit map", () => {
-    assert.match(childrenRouteSource, /const\s+CHILD_LIMITS:\s*Record<string,\s*number>\s*=\s*\{/);
-    assert.match(childrenRouteSource, /FREE:\s*1/);
-    assert.match(childrenRouteSource, /INDIVIDUAL:\s*1/);
-    assert.match(childrenRouteSource, /FAMILY:\s*4/);
-    assert.match(childrenRouteSource, /SCHOOL:\s*Infinity/);
+  it("children route wires child-limit decision through EntitlementService and keeps legacy inputs", () => {
+    assert.match(childrenRouteSource, /createEntitlementService/);
+    assert.match(childrenRouteSource, /getChildLimit\(\s*userId,\s*user\.plan\s*\)/);
     assert.match(childrenRouteSource, /select:\s*\{\s*plan:\s*true\s*\}/);
-    assert.match(childrenRouteSource, /const\s+limit\s*=\s*CHILD_LIMITS\[user\.plan\]\s*\?\?\s*1/);
+    assert.match(childrenRouteSource, /prisma\.child\.count\(\{\s*where:\s*\{\s*userId\s*\}\s*\}\)/);
+    assert.match(childrenRouteSource, /const\s+limit\s*=\s*childLimitDecision\.limit/);
+    assert.match(childrenRouteSource, /if\s*\(\s*currentCount\s*>=\s*limit\s*\)/);
+  });
+
+  it("children route keeps 403 response shape fields: success, error, limit, current", () => {
+    assert.match(
+      childrenRouteSource,
+      /res\.status\(403\)\.json\(\{\s*success:\s*false,\s*error:\s*"Child limit reached for your plan",\s*limit,\s*current:\s*currentCount,\s*\}\)/,
+    );
   });
 
   it("payments route keeps User.plan projection writes through billing helpers", () => {
@@ -271,11 +277,13 @@ describe("EntitlementService runtime wiring preflight guardrails (D3E)", () => {
     assert.equal(providerIdPolicyTokens.test(childrenRouteSource), false);
   });
 
-  it("static guardrails preserve current story and child limits", () => {
+  it("static guardrails preserve current story limits and entitlement child-limit mapping", () => {
     assert.match(plansMiddlewareSource, /const\s+FREE_MONTHLY_LIMIT\s*=\s*3\s*;/);
-    assert.match(childrenRouteSource, /FREE:\s*1/);
-    assert.match(childrenRouteSource, /INDIVIDUAL:\s*1/);
-    assert.match(childrenRouteSource, /FAMILY:\s*4/);
-    assert.match(childrenRouteSource, /SCHOOL:\s*Infinity/);
+    assert.match(serviceSource, /if\s*\(\s*plan\s*===\s*"FAMILY"\s*\)\s*return\s*4/);
+    assert.match(
+      serviceSource,
+      /if\s*\(\s*plan\s*===\s*"SCHOOL"\s*\)\s*return\s*Number\.POSITIVE_INFINITY/,
+    );
+    assert.match(serviceSource, /return\s*1/);
   });
 });

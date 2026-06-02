@@ -2,15 +2,10 @@ import { Router, Request, Response } from "express";
 import { z } from "zod";
 import { prisma } from "../services/prisma.service";
 import { authenticateToken } from "../middleware/auth.middleware";
+import { createEntitlementService } from "../services/entitlement.service";
 
 export const childrenRouter = Router();
-
-const CHILD_LIMITS: Record<string, number> = {
-  FREE: 1,
-  INDIVIDUAL: 1,
-  FAMILY: 4,
-  SCHOOL: Infinity,
-};
+const entitlementService = createEntitlementService();
 
 const PERSONALITIES = ["curious", "brave", "calm", "energetic", "creative", "kind", "funny", "shy"] as const;
 const ANIMALS = ["cat", "dog", "rabbit", "horse", "bird", "fish", "turtle", "dinosaur"] as const;
@@ -80,7 +75,8 @@ childrenRouter.post("/", authenticateToken, async (req: Request, res: Response) 
     }
 
     const currentCount = await prisma.child.count({ where: { userId } });
-    const limit = CHILD_LIMITS[user.plan] ?? 1;
+    const childLimitDecision = await entitlementService.getChildLimit(userId, user.plan);
+    const limit = childLimitDecision.limit;
 
     if (currentCount >= limit) {
       res.status(403).json({

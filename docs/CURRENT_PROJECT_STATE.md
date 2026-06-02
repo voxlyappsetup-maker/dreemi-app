@@ -171,6 +171,12 @@
   - Proposal documents current child-limit behavior, future wiring scope, parity tests, acceptance criteria, rollback plan, and blocked items.
   - D3F remains documentation-only; no runtime wiring was implemented.
   - Next recommended phase is Phase 4-D3G child-limit runtime wiring only if explicitly approved.
+- Phase 4-D3G note:
+  - Child-limit runtime wiring is implemented in `services/api/src/routes/children.ts` only.
+  - Child-limit decision now uses EntitlementService compatibility call path with `User.plan` as input.
+  - Existing child-count query, block condition, and API response shape remain unchanged.
+  - Stories path, plans middleware, payments path, schema, migrations, providers, frontend, deployment, package, and env configuration remain unchanged.
+  - Next recommended phase is Phase 4-D3H runtime verification/rollback-readiness review before any second runtime surface wiring.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

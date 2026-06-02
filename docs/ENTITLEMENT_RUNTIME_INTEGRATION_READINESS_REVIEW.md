@@ -211,12 +211,13 @@
 - Phase `4-D3E` is complete (preflight tests and guardrails).
 - Phase `4-D3F` is complete as documentation-only proposal:
   - `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`
-- Recommended next phase: `Phase 4-D3G — child-limit single-surface runtime wiring` only if explicitly approved.
-- D3G should follow the D3F proposal constraints:
-  - touch `services/api/src/routes/children.ts` only for runtime wiring,
-  - preserve response shape and current limits,
-  - keep stories and payments paths unchanged,
-  - keep rollback as direct revert to legacy `User.plan` route logic.
+- Phase `4-D3G` is implemented as the first single-surface runtime wiring:
+  - `services/api/src/routes/children.ts` child-limit decision path only.
+- Recommended next phase: `Phase 4-D3H — child-limit runtime verification and rollback-readiness review` before any second runtime surface wiring.
+- D3H should verify:
+  - parity and guardrail evidence remains stable,
+  - stories/plans/payments remain non-wired,
+  - rollback-to-legacy path remains straightforward.
 
 ## 10. Current Status
 

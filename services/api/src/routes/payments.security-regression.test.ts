@@ -16,6 +16,7 @@ const PLANS_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/plans.middl
 const AUTH_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/auth.middleware.ts");
 const JWT_SERVICE_PATH = path.resolve(__dirname, "../services/jwt.service.ts");
 const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "children.ts");
+const ENTITLEMENT_SERVICE_PATH = path.resolve(__dirname, "../services/entitlement.service.ts");
 const FRONTEND_CHILDREN_PAGE_PATH = path.resolve(__dirname, "../../../../apps/web/src/app/[locale]/children/page.tsx");
 const FRONTEND_API_LIB_PATH = path.resolve(__dirname, "../../../../apps/web/src/lib/api.ts");
 const ENV_EXAMPLE_PATH = path.resolve(__dirname, "../../../../.env.example");
@@ -25,6 +26,7 @@ const plansSrc: string = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
 const authSrc: string = fs.readFileSync(AUTH_MIDDLEWARE_PATH, "utf-8");
 const jwtSrc: string = fs.readFileSync(JWT_SERVICE_PATH, "utf-8");
 const childrenRouteSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
+const entitlementServiceSrc: string = fs.readFileSync(ENTITLEMENT_SERVICE_PATH, "utf-8");
 const frontendChildrenPageSrc: string = fs.readFileSync(FRONTEND_CHILDREN_PAGE_PATH, "utf-8");
 const frontendApiLibSrc: string = fs.readFileSync(FRONTEND_API_LIB_PATH, "utf-8");
 const envExampleSrc: string = fs.readFileSync(ENV_EXAMPLE_PATH, "utf-8");
@@ -383,10 +385,14 @@ describe("plan/children limits alignment regressions", () => {
     );
   });
 
-  it("keeps backend children SCHOOL limit as Infinity", () => {
+  it("keeps backend SCHOOL child limit as Infinity through EntitlementService", () => {
     assert.ok(
-      childrenRouteSrc.includes("SCHOOL: Infinity"),
-      "children.ts must keep SCHOOL: Infinity in CHILD_LIMITS",
+      entitlementServiceSrc.includes('if (plan === "SCHOOL") return Number.POSITIVE_INFINITY;'),
+      "entitlement.service.ts must keep SCHOOL mapped to Infinity for child limits",
+    );
+    assert.ok(
+      childrenRouteSrc.includes("getChildLimit(userId, user.plan)"),
+      "children.ts must use EntitlementService.getChildLimit(userId, user.plan)",
     );
   });
 
