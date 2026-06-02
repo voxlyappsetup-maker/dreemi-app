@@ -10,6 +10,8 @@
 - It does not modify Prisma schema, create migrations, implement code, add providers, change packages, change env files, or deploy.
 - Cross-reference entitlement service interface design:
   - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
+- Cross-reference User.plan projection compatibility plan:
+  - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
 
 ## 2. Current Database Position
 
@@ -44,7 +46,7 @@ Careful wording constraints:
 ## 4. Proposed Future Models Overview
 
 Names are conceptual. Final Prisma model names may differ. This phase does not add any model.
-Schema records are designed to support future service behavior, but this phase does not implement service code.
+Schema records are designed to support future safe projection and audit behavior, but this phase does not implement schema or service code.
 
 | Proposed Model | Purpose | Required in First Schema Phase? | Sensitivity | Notes |
 | --- | --- | --- | --- | --- |

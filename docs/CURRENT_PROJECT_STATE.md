@@ -143,6 +143,10 @@
   - Entitlement service interface design is documented at `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`.
   - Provider-neutral service boundary direction is now documented, including EffectiveEntitlement lookup, User.plan projection compatibility, adapter boundaries, and fail-closed behavior for access checks.
   - No service implementation, runtime code changes, Prisma schema changes, migrations, provider code changes, package changes, env changes, deployment, or mobile project changes happened in this phase.
+- Phase 4-D2C note:
+  - User.plan projection compatibility planning is documented at `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`.
+  - Compatibility projection strategy is now documented, including safe EffectiveEntitlement to User.plan projection behavior, staged access-check migration, and fail-closed fallback rules.
+  - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

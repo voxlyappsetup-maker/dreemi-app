@@ -9,6 +9,8 @@
 - Define adapter boundaries for Apple, Google, web provider, Lemon legacy/web integration, and manual/internal sources.
 - This document is planning only.
 - It does not implement runtime code, schema, migrations, package changes, env changes, provider integrations, or deployment.
+- Cross-reference User.plan projection compatibility plan:
+  - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
 
 ## 2. Current Project Position
 
@@ -205,6 +207,7 @@ Adapters normalize provider-specific state. Adapters do not directly grant acces
 
 - User.plan remains the current compatibility projection.
 - EntitlementService can compute EffectiveEntitlement and project plan into User.plan during staged migration.
+- EntitlementService migration should preserve User.plan projection compatibility until access checks are safely moved.
 - User.plan projection must be deterministic.
 - Projection updates should be idempotent.
 - Direct semantics of User.plan must not be changed without a separate schema/runtime phase.

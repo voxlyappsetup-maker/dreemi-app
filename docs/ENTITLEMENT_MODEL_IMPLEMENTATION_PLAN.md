@@ -10,6 +10,8 @@
   - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - Cross-reference entitlement service interface design:
   - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
+- Cross-reference User.plan projection compatibility plan:
+  - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
 - This document is planning only.
 - It does not implement code, schema, migrations, provider integrations, package changes, env changes, or deployment.
 
@@ -264,6 +266,7 @@ Clarifications:
 - This document does not start any stage.
 - Phase 4-D2A reviews schema design before any Prisma/migration phase.
 - Phase 4-D2B designs the service boundary before runtime implementation.
+- Phase 4-D2C defines User.plan compatibility projection before runtime migration.
 - Each stage needs separate phase, tests, and review.
 
 ## 18. Regression Test Strategy
