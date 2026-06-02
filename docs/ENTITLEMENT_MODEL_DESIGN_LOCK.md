@@ -19,10 +19,13 @@
   - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
 - Cross-reference entitlement schema design review:
   - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
+- Cross-reference entitlement service interface design:
+  - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - This document is a design lock only.
 - It does not implement schema, code, migrations, providers, or deployment.
 - The implementation plan defines safe staged execution and User.plan compatibility without starting implementation.
 - The schema design review does not start schema implementation, Prisma changes, or migrations.
+- The service interface design defines the backend boundary for effective entitlement without starting implementation.
 
 ## 2. Strategic Product Position
 

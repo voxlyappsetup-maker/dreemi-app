@@ -8,6 +8,8 @@
 - Preserve safe behavior while User.plan still exists.
 - Cross-reference entitlement schema design review:
   - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
+- Cross-reference entitlement service interface design:
+  - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - This document is planning only.
 - It does not implement code, schema, migrations, provider integrations, package changes, env changes, or deployment.
 
@@ -261,6 +263,7 @@ Clarifications:
 
 - This document does not start any stage.
 - Phase 4-D2A reviews schema design before any Prisma/migration phase.
+- Phase 4-D2B designs the service boundary before runtime implementation.
 - Each stage needs separate phase, tests, and review.
 
 ## 18. Regression Test Strategy

@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `2a72210` `docs(payments): add entitlement schema design review`
   - `ae744fa` `docs(payments): add entitlement implementation plan`
   - `e2442ec` `docs(android): add Play Console product mapping design`
   - `a1aaddb` `docs(ios): add App Store product mapping design`
@@ -97,6 +98,7 @@ Pending notes:
 - Android Play Console product mapping design: `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 - Entitlement implementation plan: `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
 - Entitlement schema design review: `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
+- Entitlement service interface design: `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
@@ -140,9 +142,11 @@ Pending decision:
 - Phase 4-D1J planning reference: `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`.
 - Phase 4-D2 planning reference: `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`.
 - Phase 4-D2A planning reference: `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`.
+- Phase 4-D2B planning reference: `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`.
 - No Apple IAP, Google Play Billing, Paddle, or PayPal implementation has started.
 - Entitlement implementation has not started.
 - Entitlement schema implementation has not started.
+- EntitlementService implementation has not started.
 - User.plan remains the current compatibility/effective access projection until future implementation phases.
 - User.plan and current Subscription persistence remain untouched.
 - Apple product IDs remain placeholders and are not finalized.

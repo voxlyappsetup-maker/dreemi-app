@@ -14,6 +14,8 @@
   - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
 - Cross-reference entitlement schema design review:
   - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
+- Cross-reference entitlement service interface design:
+  - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - This document is planning and inventory only.
 - It does not implement code, schema, migrations, policies, provider changes, or deployment.
 
@@ -146,6 +148,7 @@ This inventory covers:
   - future entitlement audit records where policy/accounting requires special handling
   - future report records
 - Future entitlement source/evidence/audit records must be included in privacy/data export/account deletion review before implementation.
+- Future service outputs and derived entitlement evidence/audit records must be reviewed for export/deletion/privacy implications when implemented.
 - Retention exceptions, if any, must be disclosed in future policy/legal review.
 
 ## 11. Logs and Operational Data
