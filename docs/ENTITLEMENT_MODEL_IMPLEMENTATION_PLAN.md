@@ -6,6 +6,8 @@
 - Convert the entitlement design lock and platform mapping docs into an engineering plan.
 - Keep Apple, Google, web provider, and manual/internal sources normalized.
 - Preserve safe behavior while User.plan still exists.
+- Cross-reference entitlement schema design review:
+  - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - This document is planning only.
 - It does not implement code, schema, migrations, provider integrations, package changes, env changes, or deployment.
 
@@ -258,6 +260,7 @@ Staged path:
 Clarifications:
 
 - This document does not start any stage.
+- Phase 4-D2A reviews schema design before any Prisma/migration phase.
 - Each stage needs separate phase, tests, and review.
 
 ## 18. Regression Test Strategy

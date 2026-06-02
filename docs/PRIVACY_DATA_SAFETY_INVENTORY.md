@@ -12,6 +12,8 @@
   - `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 - Cross-reference entitlement implementation planning:
   - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
+- Cross-reference entitlement schema design review:
+  - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - This document is planning and inventory only.
 - It does not implement code, schema, migrations, policies, provider changes, or deployment.
 
@@ -132,6 +134,7 @@ This inventory covers:
   - exports or export metadata
   - subscription state where appropriate
   - future entitlement source/evidence records where appropriate
+  - future entitlement audit records where appropriate
   - future report records where appropriate
 - Future account deletion should account for:
   - user account
@@ -140,7 +143,9 @@ This inventory covers:
   - generated assets
   - subscription records where policy/accounting requires special handling
   - future entitlement source/evidence records where policy/accounting requires special handling
+  - future entitlement audit records where policy/accounting requires special handling
   - future report records
+- Future entitlement source/evidence/audit records must be included in privacy/data export/account deletion review before implementation.
 - Retention exceptions, if any, must be disclosed in future policy/legal review.
 
 ## 11. Logs and Operational Data

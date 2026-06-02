@@ -7,6 +7,7 @@ Related manual payment verification plan:
 - `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
+- `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -78,6 +79,8 @@ Important notes:
   - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - Provider-neutral entitlement implementation plan is a blocker before mobile paid launch:
   - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
+- Entitlement schema design review is a blocker before entitlement implementation and mobile paid launch:
+  - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - Parent-first mobile monetization design lock is a blocker before mobile paid launch:
   - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - Apple IAP readiness plan is a blocker before iOS paid launch:
@@ -101,6 +104,7 @@ Important notes:
 - Web production deploy, web payments, iOS paid launch, Android paid launch, mobile safety readiness, and mobile privacy readiness are separate tracks.
 - Mobile paid launch requires Apple IAP and Google Play Billing readiness, not only web provider readiness.
 - Mobile paid launch requires entitlement implementation planning, platform product mapping, safety readiness, privacy readiness, and provider/platform verification.
+- Entitlement schema implementation requires a separate approved schema phase with migration, backfill, and rollback approval before execution.
 - Mobile paid launch also requires parent-facing paywall design and child-surface checkout boundaries.
 - iOS paid launch requires StoreKit/App Store planning and parent-facing paywall design.
 - iOS paid launch also requires product mapping, entitlement mapping, safety readiness, and privacy readiness.

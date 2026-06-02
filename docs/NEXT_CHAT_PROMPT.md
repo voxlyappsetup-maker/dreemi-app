@@ -22,6 +22,7 @@ Read these first:
 - `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
 - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
+- `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -94,11 +95,16 @@ Constraints:
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Entitlement model design lock must guide future payment work.
 - Entitlement model implementation plan must guide future staged execution and compatibility decisions.
+- Entitlement schema design review must guide future Prisma model planning before any schema/migration phase.
 - Parent-first mobile monetization design must guide future payment and packaging work.
 - Web provider must not control the mobile entitlement model.
 - User.plan remains the current compatibility projection until an explicit implementation phase updates that behavior.
 - Provider-specific IDs must not become direct access-check logic.
 - Do not implement entitlement schema, migrations, entitlement service, Apple adapter, Google adapter, provider replacement, package changes, or runtime access-check changes without an explicit approved phase.
+- Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
+- Do not rename/remove current Subscription fields without explicit schema phase approval.
+- Do not remove or change User.plan semantics without explicit schema/migration approval.
+- Do not store raw provider secrets, purchase tokens, signed payloads, JWTs, or private story content in entitlement records or logs.
 - Do not implement Apple IAP, Google Play Billing, Paddle, PayPal, schema changes, migrations, or provider code without an explicit approved phase.
 - Do not implement StoreKit, App Store Server API, App Store Server Notifications, Apple product IDs, schema changes, migrations, or package changes without an explicit approved phase.
 - Apple IAP planning must map into the provider-neutral entitlement model.

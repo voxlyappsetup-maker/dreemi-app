@@ -135,6 +135,10 @@
   - Entitlement model implementation planning is documented at `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`.
   - Provider-neutral entitlement implementation strategy is now documented, including User.plan compatibility, fail-closed rules, idempotency, and staged migration order.
   - No schema changes, migrations, runtime code changes, provider integration changes, or deployment happened in this phase.
+- Phase 4-D2A note:
+  - Entitlement schema design review is documented at `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`.
+  - Provider-neutral entitlement schema direction is now documented, including model candidates, relationships, idempotency keys, migration risk, and rollback constraints.
+  - No Prisma schema changes, migrations, runtime code changes, provider code changes, package changes, env changes, deployment, or mobile project changes happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

@@ -17,9 +17,12 @@
   - `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
 - Cross-reference entitlement implementation planning:
   - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
+- Cross-reference entitlement schema design review:
+  - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - This document is a design lock only.
 - It does not implement schema, code, migrations, providers, or deployment.
 - The implementation plan defines safe staged execution and User.plan compatibility without starting implementation.
+- The schema design review does not start schema implementation, Prisma changes, or migrations.
 
 ## 2. Strategic Product Position
 
