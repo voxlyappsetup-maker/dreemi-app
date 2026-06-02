@@ -18,6 +18,8 @@
   - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - Cross-reference User.plan projection compatibility plan:
   - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
+- Cross-reference entitlement runtime implementation readiness checklist:
+  - `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
 - This document is planning and inventory only.
 - It does not implement code, schema, migrations, policies, provider changes, or deployment.
 
@@ -152,6 +154,7 @@ This inventory covers:
 - Future entitlement source/evidence/audit records must be included in privacy/data export/account deletion review before implementation.
 - Future service outputs and derived entitlement evidence/audit records must be reviewed for export/deletion/privacy implications when implemented.
 - Future User.plan projection and projection audit records must be included in export/deletion/privacy review when implemented.
+- Runtime implementation must preserve privacy/secrets/export/deletion guardrails defined in this inventory and the readiness checklist.
 - Retention exceptions, if any, must be disclosed in future policy/legal review.
 
 ## 11. Logs and Operational Data

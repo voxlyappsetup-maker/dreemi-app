@@ -25,6 +25,7 @@ Read these first:
 - `docs/ENTITLEMENT_SCHEMA_DESIGN_REVIEW.md`
 - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
+- `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -107,12 +108,15 @@ Constraints:
 - Do not implement entitlement schema, migrations, entitlement service, Apple adapter, Google adapter, provider replacement, package changes, or runtime access-check changes without an explicit approved phase.
 - Do not implement EntitlementService, provider adapters, access-check runtime changes, schema, migrations, package changes, or env changes without an explicit approved phase.
 - Do not implement User.plan projection, EntitlementService, access-check changes, schema, migrations, provider adapters, package changes, or env changes without explicit phase.
+- Do not implement entitlement runtime, schema, migrations, provider adapters, access-check changes, package changes, or env changes without explicit phase.
+- First future runtime phase should be code skeleton only unless explicitly changed.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.
 - Do not remove or change User.plan semantics without explicit schema/migration approval.
 - Do not store raw provider secrets, purchase tokens, signed payloads, JWTs, or private story content in entitlement records or logs.
 - User.plan remains current compatibility projection.
 - Unknown entitlement must behave as FREE.
+- Paid access remains fail-closed.
 - Access checks must not use provider-specific IDs directly.
 - Do not implement Apple IAP, Google Play Billing, Paddle, PayPal, schema changes, migrations, or provider code without an explicit approved phase.
 - Do not implement StoreKit, App Store Server API, App Store Server Notifications, Apple product IDs, schema changes, migrations, or package changes without an explicit approved phase.

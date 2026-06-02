@@ -6,6 +6,8 @@
 - Preserve current access enforcement behavior while EntitlementService and provider-neutral records are introduced later.
 - Prevent provider-specific IDs from entering access checks.
 - Keep paid access fail-closed unless explicitly approved and verified.
+- Cross-reference runtime implementation readiness checklist:
+  - `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
 - This document is planning only.
 - It does not implement runtime code, Prisma schema, migrations, provider integrations, package changes, env changes, mobile project changes, or deployment.
 
@@ -241,6 +243,7 @@ Future tests:
 Clarifications:
 
 - This phase only documents the path.
+- Projection implementation must not start before runtime readiness gate acceptance.
 - Each future stage requires explicit approval.
 
 ## 20. Rollback Strategy

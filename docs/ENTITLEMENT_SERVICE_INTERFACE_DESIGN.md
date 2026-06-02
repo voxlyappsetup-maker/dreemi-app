@@ -11,6 +11,8 @@
 - It does not implement runtime code, schema, migrations, package changes, env changes, provider integrations, or deployment.
 - Cross-reference User.plan projection compatibility plan:
   - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
+- Cross-reference entitlement runtime implementation readiness checklist:
+  - `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
 
 ## 2. Current Project Position
 
@@ -301,6 +303,7 @@ Proposed phases:
 Clarifications:
 
 - This document starts none of these phases.
+- Service interface implementation must not start before runtime readiness gate acceptance.
 - Each future phase requires explicit approval.
 
 ## 23. P0 Blockers Before Service Implementation

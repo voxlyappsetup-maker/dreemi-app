@@ -147,6 +147,10 @@
   - User.plan projection compatibility planning is documented at `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`.
   - Compatibility projection strategy is now documented, including safe EffectiveEntitlement to User.plan projection behavior, staged access-check migration, and fail-closed fallback rules.
   - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
+- Phase 4-D2D note:
+  - Entitlement runtime implementation readiness is documented at `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`.
+  - Runtime implementation readiness gate is now documented, including first-phase code-skeleton scope, blocked scope, fail-closed requirements, test gate, and rollback gate.
+  - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
