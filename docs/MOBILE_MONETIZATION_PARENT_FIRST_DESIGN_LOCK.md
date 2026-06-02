@@ -24,6 +24,8 @@
 - Apple IAP and Google Play Billing should be treated as first-class future monetization paths.
 - Cross-reference Apple IAP readiness planning:
   - `docs/APPLE_IAP_READINESS_PLAN.md`
+- Cross-reference Google Play Billing readiness planning:
+  - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - A web provider replacement alone is not enough for native mobile paid launch.
 
 ## 4. Parent vs Child Boundaries
@@ -59,6 +61,7 @@
 - Web provider decisions must fit `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`.
 - Web provider replacement does not remove the need for Apple/Google mobile billing readiness.
 - iOS paid launch planning starts with Apple IAP readiness, not web provider checkout.
+- Android paid launch planning starts with Google Play Billing readiness, not web provider checkout.
 - Lemon remains paused and not approved for production launch.
 
 ## 8. Entitlement Dependency

@@ -106,6 +106,11 @@
   - Apple IAP readiness is now documented as future iOS paid launch planning.
   - Apple IAP planning must map into provider-neutral entitlement design.
   - No implementation happened in this phase.
+- Phase 4-D1F note:
+  - Google Play Billing readiness planning is documented at `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`.
+  - Google Play Billing readiness is now documented as future Android paid launch planning.
+  - Google Play Billing planning must map into provider-neutral entitlement design.
+  - No implementation happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

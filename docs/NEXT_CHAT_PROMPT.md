@@ -23,6 +23,7 @@ Read these first:
 - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
+- `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
@@ -93,6 +94,9 @@ Constraints:
 - Do not implement StoreKit, App Store Server API, App Store Server Notifications, Apple product IDs, schema changes, migrations, or package changes without an explicit approved phase.
 - Apple IAP planning must map into the provider-neutral entitlement model.
 - iOS paywall must remain parent-facing and avoid child-facing checkout.
+- Do not implement Play Billing Library, Google Play Developer API, RTDN, Google product IDs, schema changes, migrations, or package changes without an explicit approved phase.
+- Google Play Billing planning must map into the provider-neutral entitlement model.
+- Android paywall must remain parent-facing and avoid child-facing checkout.
 - Child-facing checkout is not allowed in the intended product direction.
 - Do not change PDF export behavior unless the requested task requires it.
 - Preserve Arabic RTL PDF correctness and existing performance improvements.

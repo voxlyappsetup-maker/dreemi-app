@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `b004818` `docs(ios): add Apple IAP readiness plan`
   - `d73d730` `docs(mobile): add parent-first monetization design lock`
   - `7d76ee8` `docs(payments): add entitlement model design lock`
   - `7c6f0ea` `docs(payments): document Lemon reconsideration denial`
@@ -83,6 +84,7 @@ Pending notes:
 - Entitlement model design lock: `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - Mobile monetization parent-first design lock: `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - Apple IAP readiness plan: `docs/APPLE_IAP_READINESS_PLAN.md`
+- Google Play Billing readiness plan: `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
@@ -113,12 +115,15 @@ Pending decision:
 - Mobile-first monetization requires provider-neutral entitlement design before Apple IAP, Google Play Billing, or web provider implementation.
 - Mobile paid launch requires Apple/Google monetization planning and parent-facing paywall constraints.
 - Apple IAP is the planned future iOS monetization path.
+- Google Play Billing is the planned future Android monetization path.
 - Lemon remains paused, and Lemon code remains in place for now.
 - Phase 4-D1D-A documentation lock reference: `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`.
 - Phase 4-D1D documentation lock reference: `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`.
 - Phase 4-D1E planning reference: `docs/APPLE_IAP_READINESS_PLAN.md`.
+- Phase 4-D1F planning reference: `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`.
 - No Apple IAP, Google Play Billing, Paddle, or PayPal implementation has started.
 - No StoreKit/App Store Server API/App Store Server Notifications implementation has started.
+- No Play Billing/Google Play Developer API/Real-time Developer Notifications implementation has started.
 
 ## Known Stable Areas (repository evidence only)
 
