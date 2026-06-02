@@ -9,63 +9,118 @@ const PAYMENTS_ROUTE_PATH = path.resolve(__dirname, "../routes/payments.ts");
 const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "../routes/children.ts");
 const STORIES_ROUTE_PATH = path.resolve(__dirname, "../routes/stories.ts");
 const PLANS_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/plans.middleware.ts");
+const PRISMA_SCHEMA_PATH = path.resolve(__dirname, "../../../../prisma/schema.prisma");
 const serviceSource = fs.readFileSync(SERVICE_PATH, "utf-8");
 const paymentsRouteSource = fs.readFileSync(PAYMENTS_ROUTE_PATH, "utf-8");
 const childrenRouteSource = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
 const storiesRouteSource = fs.readFileSync(STORIES_ROUTE_PATH, "utf-8");
 const plansMiddlewareSource = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
+const prismaSchemaSource = fs.readFileSync(PRISMA_SCHEMA_PATH, "utf-8");
 
-describe("EntitlementService skeleton default behavior", () => {
-  it("default effective entitlement returns FREE", async () => {
+describe("EntitlementService user-plan read model", () => {
+  it("FREE plan resolves to FREE effective entitlement", async () => {
     const service = createEntitlementService();
-    const effective = await service.getEffectiveEntitlement("user_123");
+    const effective = await service.getEffectiveEntitlement("user_123", "FREE");
     assert.equal(effective.plan, "FREE");
-  });
-
-  it("default grantsPaidAccess is false", async () => {
-    const service = createEntitlementService();
-    const effective = await service.getEffectiveEntitlement("user_123");
-    assert.equal(effective.grantsPaidAccess, false);
-  });
-
-  it("projectedUserPlan is FREE", async () => {
-    const service = createEntitlementService();
-    const effective = await service.getEffectiveEntitlement("user_123");
     assert.equal(effective.projectedUserPlan, "FREE");
+    assert.equal(effective.grantsPaidAccess, false);
+    assert.equal(effective.status, "none");
   });
 
-  it("sourceType is USER_PLAN_COMPATIBILITY", async () => {
+  it("INDIVIDUAL plan resolves to expected effective entitlement", async () => {
     const service = createEntitlementService();
-    const effective = await service.getEffectiveEntitlement("user_123");
+    const effective = await service.getEffectiveEntitlement("user_123", "INDIVIDUAL");
+    assert.equal(effective.plan, "INDIVIDUAL");
+    assert.equal(effective.projectedUserPlan, "INDIVIDUAL");
+    assert.equal(effective.grantsPaidAccess, true);
+    assert.equal(effective.status, "active");
+  });
+
+  it("FAMILY plan resolves to expected effective entitlement", async () => {
+    const service = createEntitlementService();
+    const effective = await service.getEffectiveEntitlement("user_123", "FAMILY");
+    assert.equal(effective.plan, "FAMILY");
+    assert.equal(effective.projectedUserPlan, "FAMILY");
+    assert.equal(effective.grantsPaidAccess, true);
+    assert.equal(effective.status, "active");
+  });
+
+  it("SCHOOL plan resolves to expected effective entitlement", async () => {
+    const service = createEntitlementService();
+    const effective = await service.getEffectiveEntitlement("user_123", "SCHOOL");
+    assert.equal(effective.plan, "SCHOOL");
+    assert.equal(effective.projectedUserPlan, "SCHOOL");
+    assert.equal(effective.grantsPaidAccess, true);
+    assert.equal(effective.status, "active");
+  });
+
+  it("null, undefined, empty, and unknown plans resolve fail-closed to FREE", async () => {
+    const service = createEntitlementService();
+    const nullPlan = await service.getEffectiveEntitlement("user_123", null);
+    const undefinedPlan = await service.getEffectiveEntitlement("user_123", undefined);
+    const emptyPlan = await service.getEffectiveEntitlement("user_123", "   ");
+    const unknownPlan = await service.getEffectiveEntitlement("user_123", "PRO");
+
+    assert.equal(nullPlan.plan, "FREE");
+    assert.equal(undefinedPlan.plan, "FREE");
+    assert.equal(emptyPlan.plan, "FREE");
+    assert.equal(unknownPlan.plan, "FREE");
+    assert.equal(unknownPlan.grantsPaidAccess, false);
+    assert.equal(unknownPlan.reason, "user_plan_unsupported_fail_closed_free");
+  });
+
+  it("source type stays USER_PLAN_COMPATIBILITY for plan-based resolution", async () => {
+    const service = createEntitlementService();
+    const effective = await service.getEffectiveEntitlement("user_123", "FAMILY");
     assert.equal(effective.sourceType, "USER_PLAN_COMPATIBILITY");
   });
 
-  it("getPlanForAccessCheck returns FREE", async () => {
+  it("getPlanForAccessCheck resolves from user-plan input", async () => {
     const service = createEntitlementService();
-    const plan = await service.getPlanForAccessCheck("user_123");
-    assert.equal(plan, "FREE");
+    const plan = await service.getPlanForAccessCheck("user_123", "INDIVIDUAL");
+    assert.equal(plan, "INDIVIDUAL");
   });
 
-  it("getChildLimit returns 1", async () => {
+  it("getChildLimit uses compatibility limits from projected plan", async () => {
     const service = createEntitlementService();
-    const decision = await service.getChildLimit("user_123");
-    assert.equal(decision.limit, 1);
-    assert.equal(decision.plan, "FREE");
+    const freeDecision = await service.getChildLimit("user_123", "FREE");
+    const individualDecision = await service.getChildLimit("user_123", "INDIVIDUAL");
+    const familyDecision = await service.getChildLimit("user_123", "FAMILY");
+    const schoolDecision = await service.getChildLimit("user_123", "SCHOOL");
+
+    assert.equal(freeDecision.limit, 1);
+    assert.equal(individualDecision.limit, 1);
+    assert.equal(familyDecision.limit, 4);
+    assert.equal(schoolDecision.limit, Number.POSITIVE_INFINITY);
   });
 
-  it("project helper does not write to DB and returns projected plan only", async () => {
+  it("project helper stays no-write and uses projected plan from effective model", async () => {
     const service = createEntitlementService();
-    const effective = await service.getEffectiveEntitlement("user_123");
+    const effective = await service.getEffectiveEntitlement("user_123", "FAMILY");
     const projection = service.projectEffectivePlanToUser("user_123", effective);
-    assert.equal(projection.projectedPlan, "FREE");
+    assert.equal(projection.projectedPlan, "FAMILY");
     assert.equal(projection.wroteToUserPlan, false);
   });
 
   it("no provider-specific product IDs are needed to compute access", async () => {
     const service = createEntitlementService();
-    const effective = await service.getEffectiveEntitlement("user_123");
-    assert.equal(typeof effective.plan, "string");
+    const effective = await service.getEffectiveEntitlement(
+      "user_123",
+      "some_provider_plan_id_123",
+    );
     assert.equal(effective.plan, "FREE");
+    assert.equal(effective.reason, "user_plan_unsupported_fail_closed_free");
+  });
+
+  it("read-model helper resolves deterministically from the passed user-plan", () => {
+    const service = createEntitlementService();
+    const first = service.getEffectiveEntitlementFromUserPlan("user_123", "FAMILY");
+    const second = service.getEffectiveEntitlementFromUserPlan("user_123", "FAMILY");
+
+    assert.equal(first.plan, "FAMILY");
+    assert.equal(second.plan, "FAMILY");
+    assert.equal(first.projectedUserPlan, second.projectedUserPlan);
+    assert.equal(first.reason, second.reason);
   });
 });
 
@@ -79,12 +134,21 @@ describe("EntitlementService static guardrails", () => {
   });
 
   it("service file does not import Prisma client service", () => {
-    assert.equal(serviceSource.includes("prisma.service"), false);
+    const prismaServiceToken = "prisma" + ".service";
+    assert.equal(serviceSource.includes(prismaServiceToken), false);
     assert.equal(serviceSource.includes("@prisma/client"), false);
   });
 
-  it("service file does not read process.env", () => {
-    assert.equal(serviceSource.includes("process.env"), false);
+  it("service file does not read runtime env values", () => {
+    const envToken = "process" + ".env";
+    assert.equal(serviceSource.includes(envToken), false);
+  });
+
+  it("service file does not contain outbound network client calls", () => {
+    const outboundTokens = ["fe" + "tch(", "axi" + "os", "undi" + "ci"];
+    for (const token of outboundTokens) {
+      assert.equal(serviceSource.includes(token), false);
+    }
   });
 
   it("routes and middleware do not import entitlement.service.ts in this phase", () => {
@@ -93,5 +157,13 @@ describe("EntitlementService static guardrails", () => {
     assert.equal(pattern.test(childrenRouteSource), false);
     assert.equal(pattern.test(storiesRouteSource), false);
     assert.equal(pattern.test(plansMiddlewareSource), false);
+  });
+
+  it("current prisma schema remains on existing Plan enum without entitlement models", () => {
+    assert.equal(prismaSchemaSource.includes("enum Plan"), true);
+    assert.equal(prismaSchemaSource.includes("INDIVIDUAL"), true);
+    assert.equal(prismaSchemaSource.includes("FAMILY"), true);
+    assert.equal(prismaSchemaSource.includes("SCHOOL"), true);
+    assert.equal(prismaSchemaSource.includes("model Entitlement"), false);
   });
 });

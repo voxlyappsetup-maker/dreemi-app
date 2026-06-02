@@ -26,6 +26,7 @@ export function createFreeEffectiveEntitlement(
 }
 
 type EntitlementServiceErrorCode = "INVALID_USER_ID";
+type UserPlanCompatibilityInput = EntitlementPlan | string | null | undefined;
 
 type StoryAccessDecision = {
   allowed: boolean;
@@ -55,7 +56,64 @@ export class EntitlementService {
     return normalized.length > 0 ? normalized : null;
   }
 
-  async getEffectiveEntitlement(userId: string): Promise<EffectiveEntitlement> {
+  private resolvePlanFromUserPlan(userPlan: UserPlanCompatibilityInput): EntitlementPlan {
+    const normalizedPlan = String(userPlan ?? "").trim().toUpperCase();
+    if (normalizedPlan === "INDIVIDUAL") return "INDIVIDUAL";
+    if (normalizedPlan === "FAMILY") return "FAMILY";
+    if (normalizedPlan === "SCHOOL") return "SCHOOL";
+    if (normalizedPlan === "FREE") return "FREE";
+    return "FREE";
+  }
+
+  private resolveStatusFromPlan(plan: EntitlementPlan): EffectiveEntitlement["status"] {
+    return plan === "FREE" ? "none" : "active";
+  }
+
+  private resolveReasonFromUserPlan(
+    userPlan: UserPlanCompatibilityInput,
+    resolvedPlan: EntitlementPlan,
+  ): string {
+    const normalizedPlan = String(userPlan ?? "").trim().toUpperCase();
+    if (normalizedPlan.length === 0) {
+      return "user_plan_missing_fail_closed_free";
+    }
+    if (normalizedPlan !== resolvedPlan) {
+      return "user_plan_unsupported_fail_closed_free";
+    }
+    return "user_plan_compatibility_projection";
+  }
+
+  private createEffectiveEntitlementFromResolvedPlan(
+    userId: string,
+    plan: EntitlementPlan,
+    reason: string,
+  ): EffectiveEntitlement {
+    return {
+      userId,
+      plan,
+      status: this.resolveStatusFromPlan(plan),
+      sourceType: "USER_PLAN_COMPATIBILITY",
+      sourceRecordId: null,
+      validFrom: null,
+      validUntil: null,
+      computedAt: new Date().toISOString(),
+      grantsPaidAccess: plan !== "FREE",
+      reason,
+      safeErrorCode: null,
+      projectedUserPlan: plan,
+    };
+  }
+
+  private resolveChildLimitFromPlan(plan: EntitlementPlan): number {
+    if (plan === "FAMILY") return 4;
+    if (plan === "SCHOOL") return Number.POSITIVE_INFINITY;
+    return 1;
+  }
+
+  getEffectiveEntitlementFromUserPlan(
+    userId: string,
+    userPlan: UserPlanCompatibilityInput,
+  ): EffectiveEntitlement {
     const normalizedUserId = this.validateUserId(userId);
     if (!normalizedUserId) {
       return createFreeEffectiveEntitlement({
@@ -65,19 +123,45 @@ export class EntitlementService {
       });
     }
 
-    return createFreeEffectiveEntitlement({
-      userId: normalizedUserId,
-      reason: "skeleton_default_free",
-      safeErrorCode: null,
-    });
+    const resolvedPlan = this.resolvePlanFromUserPlan(userPlan);
+    const reason = this.resolveReasonFromUserPlan(userPlan, resolvedPlan);
+    return this.createEffectiveEntitlementFromResolvedPlan(
+      normalizedUserId,
+      resolvedPlan,
+      reason,
+    );
   }
 
-  async getPlanForAccessCheck(userId: string): Promise<EntitlementPlan> {
-    const entitlement = await this.getEffectiveEntitlement(userId);
+  async getEffectiveEntitlement(
+    userId: string,
+    userPlan?: UserPlanCompatibilityInput,
+  ): Promise<EffectiveEntitlement> {
+    const normalizedUserId = this.validateUserId(userId);
+    if (!normalizedUserId) {
+      return createFreeEffectiveEntitlement({
+        userId: "unknown",
+        reason: "fail_closed_invalid_user_id",
+        safeErrorCode: "INVALID_USER_ID",
+      });
+    }
+
+    const resolvedPlan = this.resolvePlanFromUserPlan(userPlan);
+    const reason = this.resolveReasonFromUserPlan(userPlan, resolvedPlan);
+    return this.createEffectiveEntitlementFromResolvedPlan(normalizedUserId, resolvedPlan, reason);
+  }
+
+  async getPlanForAccessCheck(
+    userId: string,
+    userPlan?: UserPlanCompatibilityInput,
+  ): Promise<EntitlementPlan> {
+    const entitlement = await this.getEffectiveEntitlement(userId, userPlan);
     return entitlement.projectedUserPlan;
   }
 
-  async canGenerateStory(userId: string): Promise<StoryAccessDecision> {
+  async canGenerateStory(
+    userId: string,
+    userPlan?: UserPlanCompatibilityInput,
+  ): Promise<StoryAccessDecision> {
     const normalizedUserId = this.validateUserId(userId);
     if (!normalizedUserId) {
       return {
@@ -88,15 +172,19 @@ export class EntitlementService {
       };
     }
 
+    const entitlement = await this.getEffectiveEntitlement(normalizedUserId, userPlan);
     return {
       allowed: true,
-      plan: "FREE",
-      reason: "free_policy_no_behavior_change",
+      plan: entitlement.projectedUserPlan,
+      reason: "user_plan_compatibility_access_check",
       safeErrorCode: null,
     };
   }
 
-  async getChildLimit(userId: string): Promise<ChildLimitDecision> {
+  async getChildLimit(
+    userId: string,
+    userPlan?: UserPlanCompatibilityInput,
+  ): Promise<ChildLimitDecision> {
     const normalizedUserId = this.validateUserId(userId);
     if (!normalizedUserId) {
       return {
@@ -107,10 +195,11 @@ export class EntitlementService {
       };
     }
 
+    const entitlement = await this.getEffectiveEntitlement(normalizedUserId, userPlan);
     return {
-      limit: 1,
-      plan: "FREE",
-      reason: "free_policy_no_behavior_change",
+      limit: this.resolveChildLimitFromPlan(entitlement.projectedUserPlan),
+      plan: entitlement.projectedUserPlan,
+      reason: "user_plan_compatibility_child_limit",
       safeErrorCode: null,
     };
   }
