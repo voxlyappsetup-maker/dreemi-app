@@ -130,6 +130,21 @@
 4. Keep webhook `User.plan` projection behavior stable while validating parity.
 5. Only after parity evidence, consider broader route/middleware adoption.
 
+## 5.2.1 Recommended first wiring surface (for future phase)
+
+- First candidate: child-limit path in `services/api/src/routes/children.ts`.
+- Why child-limit first:
+  - single route surface with deterministic plan-to-limit mapping (`1/1/4/Infinity`),
+  - lower coupling than story-generation flow, which includes additional middleware and monthly counting logic,
+  - faster parity verification before touching the more complex story path.
+- Why only one surface first:
+  - reduces blast radius and makes regressions attributable to one change set,
+  - keeps rollback simple and fast if parity drift appears.
+- Rollback direction for first wiring attempt:
+  - revert child-limit path to direct legacy `User.plan` read,
+  - keep story path and payments/webhook path unchanged,
+  - preserve all current limits and fail-closed checkout behavior.
+
 ## 5.3 Rollback plan (for future wiring phase)
 
 - Rollback target: immediate return to direct `User.plan` reads in routes/middleware.

@@ -344,7 +344,9 @@ Proposed future phases:
 - This plan is documentation-only.
 - Entitlement implementation has not started.
 - Runtime integration readiness review is documented in `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
-- Recommended immediate follow-up remains a no-runtime-change preflight test/guardrail phase before any route or middleware wiring.
+- Phase 4-D3E preflight tests/guardrails are complete; the next recommended entitlement phase is a child-limit single-surface wiring proposal/review before implementation.
+- Runtime wiring preflight tests/guardrails are now strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime behavior change.
+- Recommended first future runtime wiring surface is the child-limit path (`services/api/src/routes/children.ts`) before story-generation path.
 - Schema design has not been finalized.
 - Migrations have not started.
 - Apple and Google adapters have not started.

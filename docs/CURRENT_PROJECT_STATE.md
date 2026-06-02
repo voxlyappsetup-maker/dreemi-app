@@ -161,6 +161,11 @@
   - Current legacy access-check map is now documented for story generation, child limits, and webhook User.plan projection points.
   - Future EntitlementService integration candidates, invariant safety constraints, rollback direction, and risk controls are documented with no runtime wiring.
   - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
+- Phase 4-D3E note:
+  - Entitlement runtime wiring preflight tests and static guardrails are strengthened in `services/api/src/services/entitlement.service.test.ts`.
+  - Preflight guardrails now explicitly verify legacy User.plan access paths, limit invariants, no route/middleware wiring, and no provider-ID policy leakage in access-check files.
+  - Recommended first future wiring surface is child-limit path first (`services/api/src/routes/children.ts`) with rollback-to-legacy direction before touching story-generation path.
+  - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

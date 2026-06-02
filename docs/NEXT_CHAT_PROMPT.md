@@ -1,4 +1,4 @@
-﻿# Next Chat Prompt (Copy-Ready)
+# Next Chat Prompt (Copy-Ready)
 
 Use this prompt for the next ChatGPT/Cursor session:
 
@@ -98,6 +98,7 @@ Constraints:
 - Do not build new payment provider integration without an explicit approved phase.
 - Do not remove Lemon code unless explicitly approved.
 - Entitlement runtime integration readiness review is documented in `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
+- Preflight guardrails for future runtime wiring are strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime wiring.
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Entitlement model design lock must guide future payment work.
@@ -115,7 +116,8 @@ Constraints:
 - Do not implement entitlement runtime, schema, migrations, provider adapters, access-check changes, package changes, or env changes without explicit phase.
 - First future runtime phase should be code skeleton only unless explicitly changed.
 - Do not wire EntitlementService into routes, middleware, payments, or access checks without explicit future phase.
-- Next recommended entitlement phase after D3D is a no-runtime-change preflight tests/guardrails phase before any runtime wiring.
+- Phase 4-D3E preflight tests/guardrails are complete; the next recommended entitlement phase is a child-limit single-surface wiring proposal/review before implementation.
+- First future runtime wiring candidate is child-limit path in `services/api/src/routes/children.ts` as a single-surface rollout before story-generation wiring.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.

@@ -221,3 +221,61 @@ describe("EntitlementService static guardrails", () => {
     assert.equal(prismaSchemaSource.includes("model Entitlement"), false);
   });
 });
+
+describe("EntitlementService runtime wiring preflight guardrails (D3E)", () => {
+  it("plans/stories/children/payments still do not import or call EntitlementService", () => {
+    const entitlementTokens =
+      /entitlement\.service|createEntitlementService|EntitlementService|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
+    assert.equal(entitlementTokens.test(plansMiddlewareSource), false);
+    assert.equal(entitlementTokens.test(storiesRouteSource), false);
+    assert.equal(entitlementTokens.test(childrenRouteSource), false);
+    assert.equal(entitlementTokens.test(paymentsRouteSource), false);
+  });
+
+  it("plans middleware keeps legacy User.plan read and FREE monthly limit enforcement", () => {
+    assert.match(plansMiddlewareSource, /const\s+FREE_MONTHLY_LIMIT\s*=\s*3\s*;/);
+    assert.match(plansMiddlewareSource, /select:\s*\{\s*plan:\s*true\s*\}/);
+    assert.match(plansMiddlewareSource, /if\s*\(\s*user\.plan\s*!==\s*"FREE"\s*\)/);
+    assert.match(plansMiddlewareSource, /count\s*>=\s*FREE_MONTHLY_LIMIT/);
+  });
+
+  it("stories route keeps checkStoryLimit in POST /generate middleware order", () => {
+    assert.match(
+      storiesRouteSource,
+      /storiesRouter\.post\(\s*"\/generate",[\s\S]*authenticateToken,[\s\S]*generateRateLimit,[\s\S]*checkStoryLimit,[\s\S]*async\s*\(/,
+    );
+  });
+
+  it("children route keeps legacy User.plan read and child-limit map", () => {
+    assert.match(childrenRouteSource, /const\s+CHILD_LIMITS:\s*Record<string,\s*number>\s*=\s*\{/);
+    assert.match(childrenRouteSource, /FREE:\s*1/);
+    assert.match(childrenRouteSource, /INDIVIDUAL:\s*1/);
+    assert.match(childrenRouteSource, /FAMILY:\s*4/);
+    assert.match(childrenRouteSource, /SCHOOL:\s*Infinity/);
+    assert.match(childrenRouteSource, /select:\s*\{\s*plan:\s*true\s*\}/);
+    assert.match(childrenRouteSource, /const\s+limit\s*=\s*CHILD_LIMITS\[user\.plan\]\s*\?\?\s*1/);
+  });
+
+  it("payments route keeps User.plan projection writes through billing helpers", () => {
+    assert.match(paymentsRouteSource, /resolvePlanFromLemonVariantId/);
+    assert.match(paymentsRouteSource, /resolveEffectiveUserPlanForSubscription/);
+    assert.match(paymentsRouteSource, /data:\s*\{\s*plan:\s*"FREE"\s*\}/);
+    assert.match(paymentsRouteSource, /data:\s*\{\s*plan:\s*effectiveUserPlan,/);
+  });
+
+  it("access-check policy files do not contain provider-specific id policy logic", () => {
+    const providerIdPolicyTokens =
+      /variantId|variant_id|productId|product_id|LEMON_VARIANT|stripePriceId|PAYMENT_ACTIVE_PROVIDER/;
+    assert.equal(providerIdPolicyTokens.test(plansMiddlewareSource), false);
+    assert.equal(providerIdPolicyTokens.test(storiesRouteSource), false);
+    assert.equal(providerIdPolicyTokens.test(childrenRouteSource), false);
+  });
+
+  it("static guardrails preserve current story and child limits", () => {
+    assert.match(plansMiddlewareSource, /const\s+FREE_MONTHLY_LIMIT\s*=\s*3\s*;/);
+    assert.match(childrenRouteSource, /FREE:\s*1/);
+    assert.match(childrenRouteSource, /INDIVIDUAL:\s*1/);
+    assert.match(childrenRouteSource, /FAMILY:\s*4/);
+    assert.match(childrenRouteSource, /SCHOOL:\s*Infinity/);
+  });
+});

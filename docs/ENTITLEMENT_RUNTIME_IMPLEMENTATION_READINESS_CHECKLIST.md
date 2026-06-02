@@ -291,6 +291,8 @@ Clarifications:
 - Phase 4-D3A status: skeleton implementation does not change routes, middleware, payments, access checks, schema, or provider integrations.
 - Phase 4-D3D status: runtime integration readiness review is documented at `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
 - Phase 4-D3D status: review identifies legacy access-check map, integration candidates, invariants, and risk controls without runtime wiring.
+- Phase 4-D3E status: preflight static/unit guardrails are strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime wiring.
+- Phase 4-D3E status: recommended first future wiring surface is child-limit path (`services/api/src/routes/children.ts`) as single-surface rollout with revert-first rollback direction.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
 - Entitlement runtime wiring into application behavior has not started.
 - Entitlement schema implementation has not started.
