@@ -156,6 +156,11 @@
   - EntitlementService skeleton now exists but is not wired into routes, middleware, payments, Prisma, or access checks.
   - No behavior change was introduced in this phase.
   - No schema/migration/provider/env/deployment/mobile project changes happened in this phase. `services/api/package.json` test file list was updated only to include the new entitlement service test.
+- Phase 4-D3D note:
+  - Entitlement runtime integration readiness review is documented at `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
+  - Current legacy access-check map is now documented for story generation, child limits, and webhook User.plan projection points.
+  - Future EntitlementService integration candidates, invariant safety constraints, rollback direction, and risk controls are documented with no runtime wiring.
+  - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

@@ -26,6 +26,7 @@ Read these first:
 - `docs/ENTITLEMENT_SERVICE_INTERFACE_DESIGN.md`
 - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
 - `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
+- `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -96,7 +97,7 @@ Constraints:
 - Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not build new payment provider integration without an explicit approved phase.
 - Do not remove Lemon code unless explicitly approved.
-- Next recommended step is a read-only payment provider abstraction audit.
+- Entitlement runtime integration readiness review is documented in `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
 - Lemon production verification must not include secret values in chat/docs.
 - Do not claim Lemon production verification passed unless manual evidence has been provided.
 - Entitlement model design lock must guide future payment work.
@@ -114,6 +115,7 @@ Constraints:
 - Do not implement entitlement runtime, schema, migrations, provider adapters, access-check changes, package changes, or env changes without explicit phase.
 - First future runtime phase should be code skeleton only unless explicitly changed.
 - Do not wire EntitlementService into routes, middleware, payments, or access checks without explicit future phase.
+- Next recommended entitlement phase after D3D is a no-runtime-change preflight tests/guardrails phase before any runtime wiring.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.

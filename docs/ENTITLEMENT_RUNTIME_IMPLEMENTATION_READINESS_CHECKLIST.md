@@ -224,7 +224,7 @@ Recommended future sequence:
 - Phase 4-D3B: EffectiveEntitlement read model from current User.plan only, no provider calls.
 - Phase 4-D3C: projection compatibility tests and optional internal projection helper, no access-check migration.
 - Phase 4-D3D: access-check adapter planning and static regression coverage.
-- Phase 4-D3E: schema implementation readiness revisit.
+- Phase 4-D3E: runtime wiring preflight tests and guardrails, no runtime behavior change.
 - Phase 4-D4: provider adapter planning/implementation only after approval.
 
 Clarifications:
@@ -289,6 +289,8 @@ Clarifications:
 - This readiness checklist is documentation-only.
 - Phase 4-D3A status: additive entitlement skeleton implementation is complete as non-wired service/types/tests and remains revertible.
 - Phase 4-D3A status: skeleton implementation does not change routes, middleware, payments, access checks, schema, or provider integrations.
+- Phase 4-D3D status: runtime integration readiness review is documented at `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
+- Phase 4-D3D status: review identifies legacy access-check map, integration candidates, invariants, and risk controls without runtime wiring.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
 - Entitlement runtime wiring into application behavior has not started.
 - Entitlement schema implementation has not started.

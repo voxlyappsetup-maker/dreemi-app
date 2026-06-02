@@ -14,6 +14,8 @@
   - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
 - Cross-reference entitlement runtime implementation readiness checklist:
   - `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
+- Cross-reference entitlement runtime integration readiness review:
+  - `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`
 - This document is planning only.
 - It does not implement code, schema, migrations, provider integrations, package changes, env changes, or deployment.
 
@@ -341,6 +343,8 @@ Proposed future phases:
 
 - This plan is documentation-only.
 - Entitlement implementation has not started.
+- Runtime integration readiness review is documented in `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
+- Recommended immediate follow-up remains a no-runtime-change preflight test/guardrail phase before any route or middleware wiring.
 - Schema design has not been finalized.
 - Migrations have not started.
 - Apple and Google adapters have not started.
