@@ -6,6 +6,8 @@
 - Translate the Apple IAP readiness plan into a concrete product mapping design.
 - Ensure Apple product IDs map into the provider-neutral entitlement model.
 - Keep all monetization parent-facing.
+- Cross-reference entitlement implementation planning:
+  - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
 - This document is planning only.
 - It does not implement StoreKit, App Store Server API, App Store Server Notifications, schema, migrations, runtime code, package changes, env changes, or deployment.
 
@@ -159,6 +161,7 @@ Future setup tasks:
 - Future backend should recompute effective entitlement.
 - Future backend should support idempotency.
 - Future backend should not log signed payloads, shared secrets, API keys, JWTs, or private story content.
+- Apple product mapping must be implemented through the future provider-neutral entitlement service, not through provider-specific access checks.
 - This phase does not design final database schema.
 
 ## 13. Cross-Platform Entitlement Behavior

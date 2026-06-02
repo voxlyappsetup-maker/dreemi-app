@@ -6,6 +6,8 @@
 - Translate the Google Play Billing readiness plan into a concrete product mapping design.
 - Ensure Google Play product IDs and base plans map into the provider-neutral entitlement model.
 - Keep all monetization parent-facing.
+- Cross-reference entitlement implementation planning:
+  - `docs/ENTITLEMENT_MODEL_IMPLEMENTATION_PLAN.md`
 - This document is planning only.
 - It does not implement Google Play Billing Library, Google Play Developer API, Real-time Developer Notifications, schema, migrations, runtime code, package changes, env changes, Android project changes, or deployment.
 
@@ -198,6 +200,7 @@ Future setup tasks:
 - Future backend should support idempotency.
 - Future backend should handle RTDN safely.
 - Future backend should not log purchase tokens, service account credentials, signed payloads, JWTs, provider secrets, or private story content.
+- Google product/base plan mapping must be implemented through the future provider-neutral entitlement service, not through provider-specific access checks.
 - This phase does not design final database schema.
 
 ## 16. Cross-Platform Entitlement Behavior
