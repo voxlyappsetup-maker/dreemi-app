@@ -81,6 +81,55 @@ describe("EntitlementService user-plan read model", () => {
     assert.equal(plan, "INDIVIDUAL");
   });
 
+  it("canGenerateStory remains behavior-compatible for FREE user plan", async () => {
+    const service = createEntitlementService();
+    const decision = await service.canGenerateStory("user_123", "FREE");
+    assert.equal(decision.allowed, true);
+    assert.equal(decision.plan, "FREE");
+    assert.equal(decision.safeErrorCode, null);
+  });
+
+  it("canGenerateStory remains behavior-compatible for INDIVIDUAL user plan", async () => {
+    const service = createEntitlementService();
+    const decision = await service.canGenerateStory("user_123", "INDIVIDUAL");
+    assert.equal(decision.allowed, true);
+    assert.equal(decision.plan, "INDIVIDUAL");
+    assert.equal(decision.safeErrorCode, null);
+  });
+
+  it("canGenerateStory remains behavior-compatible for FAMILY user plan", async () => {
+    const service = createEntitlementService();
+    const decision = await service.canGenerateStory("user_123", "FAMILY");
+    assert.equal(decision.allowed, true);
+    assert.equal(decision.plan, "FAMILY");
+    assert.equal(decision.safeErrorCode, null);
+  });
+
+  it("canGenerateStory remains behavior-compatible for SCHOOL user plan", async () => {
+    const service = createEntitlementService();
+    const decision = await service.canGenerateStory("user_123", "SCHOOL");
+    assert.equal(decision.allowed, true);
+    assert.equal(decision.plan, "SCHOOL");
+    assert.equal(decision.safeErrorCode, null);
+  });
+
+  it("canGenerateStory remains fail-closed FREE for unknown or missing plans", async () => {
+    const service = createEntitlementService();
+    const unknownDecision = await service.canGenerateStory("user_123", "SOME_UNKNOWN_PLAN");
+    const missingDecision = await service.canGenerateStory("user_123", undefined);
+    const emptyDecision = await service.canGenerateStory("user_123", "   ");
+
+    assert.equal(unknownDecision.allowed, true);
+    assert.equal(missingDecision.allowed, true);
+    assert.equal(emptyDecision.allowed, true);
+    assert.equal(unknownDecision.plan, "FREE");
+    assert.equal(missingDecision.plan, "FREE");
+    assert.equal(emptyDecision.plan, "FREE");
+    assert.equal(unknownDecision.safeErrorCode, null);
+    assert.equal(missingDecision.safeErrorCode, null);
+    assert.equal(emptyDecision.safeErrorCode, null);
+  });
+
   it("getChildLimit uses compatibility limits from projected plan", async () => {
     const service = createEntitlementService();
     const freeDecision = await service.getChildLimit("user_123", "FREE");
@@ -129,6 +178,10 @@ describe("EntitlementService static guardrails", () => {
     assert.equal(serviceSource.includes("../routes/"), false);
   });
 
+  it("service file does not import middleware", () => {
+    assert.equal(serviceSource.includes("../middleware/"), false);
+  });
+
   it("service file does not import payments.ts", () => {
     assert.equal(serviceSource.includes("../routes/payments"), false);
   });
@@ -152,7 +205,8 @@ describe("EntitlementService static guardrails", () => {
   });
 
   it("routes and middleware do not import entitlement.service.ts in this phase", () => {
-    const pattern = /entitlement\.service|EntitlementService|getEffectiveEntitlement/;
+    const pattern =
+      /entitlement\.service|createEntitlementService|EntitlementService|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
     assert.equal(pattern.test(paymentsRouteSource), false);
     assert.equal(pattern.test(childrenRouteSource), false);
     assert.equal(pattern.test(storiesRouteSource), false);
