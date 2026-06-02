@@ -12,6 +12,7 @@
 
 - Branch status should be checked with `git status -sb` before starting work.
 - Recent commit trail (newest first) includes:
+  - `a1a3954` `docs(safety): add AI safety mobile readiness plan`
   - `a53534b` `docs(android): add Google Play Billing readiness plan`
   - `b004818` `docs(ios): add Apple IAP readiness plan`
   - `d73d730` `docs(mobile): add parent-first monetization design lock`
@@ -87,6 +88,7 @@ Pending notes:
 - Apple IAP readiness plan: `docs/APPLE_IAP_READINESS_PLAN.md`
 - Google Play Billing readiness plan: `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - AI safety mobile readiness plan: `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
+- Privacy and data safety inventory: `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - Deployment provider decision: `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - Frontend deployment config path: `vercel.json`
 - API deployment config path (current repo naming): `services/api/railway.json`
@@ -125,10 +127,13 @@ Pending decision:
 - Phase 4-D1E planning reference: `docs/APPLE_IAP_READINESS_PLAN.md`.
 - Phase 4-D1F planning reference: `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`.
 - Phase 4-D1G planning reference: `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`.
+- Phase 4-D1H planning reference: `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`.
 - No Apple IAP, Google Play Billing, Paddle, or PayPal implementation has started.
 - No StoreKit/App Store Server API/App Store Server Notifications implementation has started.
 - No Play Billing/Google Play Developer API/Real-time Developer Notifications implementation has started.
 - No reporting UI/backend/admin implementation has started.
+- No providers, SDKs, privacy policy, or runtime implementation changed in Phase 4-D1H.
+- Privacy/data safety inventory is required before iOS/Android submission planning can be treated as ready.
 - Public/community story features remain out of mobile v1.
 
 ## Known Stable Areas (repository evidence only)

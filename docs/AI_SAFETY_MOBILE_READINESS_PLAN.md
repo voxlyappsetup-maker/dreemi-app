@@ -6,6 +6,8 @@
 - Ensure future iOS and Android releases include a parent-facing way to report or flag unsafe generated stories.
 - Preserve the parent-first product model.
 - Keep mobile v1 safer by avoiding public/community story features until moderation is designed.
+- Cross-reference privacy/data safety inventory:
+  - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - This document is planning only.
 - It does not implement runtime code, schema, migrations, AI provider changes, PDF changes, reporting UI, moderation tooling, or deployment.
 
@@ -124,6 +126,7 @@ Intended future pipeline:
 - Safety audit metadata should be useful but privacy-aware.
 - Data export and account deletion must account for future report records.
 - Privacy/Data Safety/App Privacy inventory must include reporting and AI safety data flows later.
+- Future unsafe story reporting data categories must be included in privacy/data safety review before mobile submission.
 
 ## 11. AI Provider and Prompt Safety
 

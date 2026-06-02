@@ -116,6 +116,11 @@
   - Unsafe story reporting and AI safety mobile readiness are now documented as P0 mobile launch requirements.
   - Public/community story features remain out of intended mobile v1 until separately designed.
   - No implementation happened in this phase.
+- Phase 4-D1H note:
+  - Privacy and data safety inventory is documented at `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`.
+  - Privacy and data safety inventory is now documented as a P0 mobile submission requirement.
+  - Apple App Privacy and Google Play Data Safety answers are not finalized in this phase.
+  - No implementation happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

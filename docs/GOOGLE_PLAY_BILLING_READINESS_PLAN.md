@@ -7,6 +7,8 @@
 - Keep the product parent-first and avoid child-facing checkout.
 - Cross-reference mobile AI safety/reporting readiness:
   - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
+- Cross-reference privacy/data safety inventory:
+  - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - This document is planning only.
 - It does not implement Google Play Billing Library, Google Play Developer API, Real-time Developer Notifications, schema, migrations, code, packages, or deployment.
 
@@ -134,6 +136,7 @@ Future Google Play adapter should handle:
 - Data collected by app, backend, AI providers, storage, analytics, and payment providers must be inventoried later.
 - If the app is positioned for kids or family use, age-appropriate design and parental boundaries must be reviewed.
 - Future Android release needs unsafe generated story reporting and AI safety readiness.
+- Future Android release also requires Google Play Data Safety inventory readiness, not only Play Billing planning.
 - Public/community story features should stay out of mobile v1 unless moderation/reporting is designed.
 
 ## 12. Google Play Billing Testing Readiness

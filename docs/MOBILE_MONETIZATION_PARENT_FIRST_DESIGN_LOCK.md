@@ -28,6 +28,8 @@
   - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - Cross-reference AI safety mobile readiness planning:
   - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
+- Cross-reference privacy/data safety inventory:
+  - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - A web provider replacement alone is not enough for native mobile paid launch.
 
 ## 4. Parent vs Child Boundaries
@@ -65,6 +67,7 @@
 - iOS paid launch planning starts with Apple IAP readiness, not web provider checkout.
 - Android paid launch planning starts with Google Play Billing readiness, not web provider checkout.
 - Parent-first monetization readiness must be paired with parent-facing safety and unsafe-story reporting readiness.
+- Parent-first monetization readiness must also be paired with privacy/data safety readiness before mobile submission.
 - Lemon remains paused and not approved for production launch.
 
 ## 8. Entitlement Dependency

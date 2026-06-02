@@ -25,6 +25,7 @@ Read these first:
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
+- `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
@@ -101,6 +102,9 @@ Constraints:
 - Do not implement reporting UI, backend report routes, schema changes, migrations, AI provider changes, admin tooling, or PDF/export safety gating without an explicit approved phase.
 - Mobile release requires unsafe story reporting and AI safety readiness.
 - Public/community story features remain out of mobile v1 unless separately designed.
+- Do not finalize App Privacy or Google Play Data Safety answers without reviewing actual implemented data flows.
+- Do not add analytics/crash/payment/AI SDKs without an explicit approved phase.
+- Do not modify privacy policy, schema, providers, SDKs, or logging behavior without an explicit approved phase.
 - Child-facing checkout is not allowed in the intended product direction.
 - Do not change PDF export behavior unless the requested task requires it.
 - Preserve Arabic RTL PDF correctness and existing performance improvements.
