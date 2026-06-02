@@ -9,6 +9,8 @@
   - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - Cross-reference Apple IAP readiness plan:
   - `docs/APPLE_IAP_READINESS_PLAN.md`
+- Cross-reference iOS App Store product and subscription mapping design:
+  - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
 - Cross-reference Google Play Billing readiness plan:
   - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - This document is a design lock only.
@@ -44,6 +46,7 @@ The application must decide access from effective entitlement state, not from a 
 - This entitlement model exists to support parent-first mobile monetization across Apple, Google, web, and internal/admin sources.
 - Apple, Google, Web, and manual/admin grants are possible sources.
 - Apple IAP is a future `EntitlementSource` adapter that must map Apple lifecycle inputs into normalized entitlement events.
+- Apple product IDs must map into normalized `EntitlementPlan` values and must not be used directly in access checks.
 - Google Play Billing is a future `EntitlementSource` adapter that must map Google lifecycle inputs into normalized entitlement events.
 - Backend access checks should consume normalized entitlement state.
 - Provider-specific events should be adapters into normalized entitlement events.

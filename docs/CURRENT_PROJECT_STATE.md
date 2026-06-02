@@ -121,6 +121,11 @@
   - Privacy and data safety inventory is now documented as a P0 mobile submission requirement.
   - Apple App Privacy and Google Play Data Safety answers are not finalized in this phase.
   - No implementation happened in this phase.
+- Phase 4-D1I note:
+  - iOS App Store product/subscription mapping design is documented at `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`.
+  - iOS App Store product/subscription mapping is now documented as a planning artifact for Apple IAP implementation readiness.
+  - Apple product IDs remain placeholders in this phase.
+  - No implementation happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

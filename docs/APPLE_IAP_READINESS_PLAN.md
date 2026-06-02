@@ -9,6 +9,8 @@
   - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - Cross-reference privacy/data safety inventory:
   - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
+- Cross-reference iOS App Store product and subscription mapping design:
+  - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
 - This document is planning only.
 - It does not implement StoreKit, Apple server APIs, notifications, schema, migrations, code, packages, or deployment.
 
@@ -130,6 +132,7 @@ Future Apple adapter should handle:
 - Future iOS release needs unsafe generated story reporting and AI safety readiness.
 - Future iOS release also requires App Privacy inventory readiness, not only StoreKit planning.
 - Public/community story features should stay out of mobile v1 unless moderation/reporting is designed.
+- The narrower product/subscription mapping planning artifact is documented in `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`.
 
 ## 12. Apple IAP Testing Readiness
 

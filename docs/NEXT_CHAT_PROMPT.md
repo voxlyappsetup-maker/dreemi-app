@@ -26,6 +26,7 @@ Read these first:
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
+- `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
@@ -96,6 +97,9 @@ Constraints:
 - Do not implement StoreKit, App Store Server API, App Store Server Notifications, Apple product IDs, schema changes, migrations, or package changes without an explicit approved phase.
 - Apple IAP planning must map into the provider-neutral entitlement model.
 - iOS paywall must remain parent-facing and avoid child-facing checkout.
+- Do not implement App Store Connect setup, schema changes, migrations, package changes, or runtime code changes without an explicit approved phase.
+- Apple product IDs in docs are placeholders unless later finalized in an approved phase.
+- iOS paid launch requires entitlement readiness, safety readiness, privacy readiness, and App Store readiness.
 - Do not implement Play Billing Library, Google Play Developer API, RTDN, Google product IDs, schema changes, migrations, or package changes without an explicit approved phase.
 - Google Play Billing planning must map into the provider-neutral entitlement model.
 - Android paywall must remain parent-facing and avoid child-facing checkout.

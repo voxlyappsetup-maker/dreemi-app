@@ -11,6 +11,7 @@ Related manual payment verification plan:
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
+- `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
 
 ## 1) Current Deployment Files
 
@@ -77,6 +78,8 @@ Important notes:
   - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - Apple IAP readiness plan is a blocker before iOS paid launch:
   - `docs/APPLE_IAP_READINESS_PLAN.md`
+- iOS App Store product and subscription mapping design is a blocker before iOS paid launch:
+  - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
 - Google Play Billing readiness plan is a blocker before Android paid launch:
   - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
 - AI safety and unsafe story reporting readiness is a blocker before mobile release:
@@ -93,6 +96,7 @@ Important notes:
 - Mobile paid launch requires Apple IAP and Google Play Billing readiness, not only web provider readiness.
 - Mobile paid launch also requires parent-facing paywall design and child-surface checkout boundaries.
 - iOS paid launch requires StoreKit/App Store planning and parent-facing paywall design.
+- iOS paid launch also requires product mapping, entitlement mapping, safety readiness, and privacy readiness.
 - Android paid launch requires Play Billing/Play Console planning and parent-facing paywall design.
 - Mobile submission should not proceed until unsafe story reporting and safety review design are accepted.
 - Mobile submission should not proceed until privacy/data safety inventory is accepted.
