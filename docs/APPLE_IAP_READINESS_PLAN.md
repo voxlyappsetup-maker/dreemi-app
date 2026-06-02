@@ -5,6 +5,8 @@
 - Define the future iOS monetization readiness plan before implementation.
 - Ensure Apple IAP maps into the provider-neutral entitlement model.
 - Keep the product parent-first and avoid child-facing checkout.
+- Cross-reference mobile AI safety/reporting readiness:
+  - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - This document is planning only.
 - It does not implement StoreKit, Apple server APIs, notifications, schema, migrations, code, packages, or deployment.
 
@@ -23,6 +25,7 @@
 - Web checkout should not be the default iOS native purchase path.
 - Apple IAP should be treated as an `EntitlementSource`, not as the canonical entitlement model.
 - Backend access checks should continue to consume effective entitlement state.
+- iOS paid launch readiness includes safety/reporting readiness, not only StoreKit planning.
 
 ## 4. Proposed Apple Product Model
 

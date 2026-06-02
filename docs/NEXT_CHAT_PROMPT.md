@@ -24,6 +24,7 @@ Read these first:
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
+- `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PDF_EXPORT_STATE.md`
 - `docs/PDF_EXPORT_REGRESSION_CHECKLIST.md`
@@ -97,6 +98,9 @@ Constraints:
 - Do not implement Play Billing Library, Google Play Developer API, RTDN, Google product IDs, schema changes, migrations, or package changes without an explicit approved phase.
 - Google Play Billing planning must map into the provider-neutral entitlement model.
 - Android paywall must remain parent-facing and avoid child-facing checkout.
+- Do not implement reporting UI, backend report routes, schema changes, migrations, AI provider changes, admin tooling, or PDF/export safety gating without an explicit approved phase.
+- Mobile release requires unsafe story reporting and AI safety readiness.
+- Public/community story features remain out of mobile v1 unless separately designed.
 - Child-facing checkout is not allowed in the intended product direction.
 - Do not change PDF export behavior unless the requested task requires it.
 - Preserve Arabic RTL PDF correctness and existing performance improvements.

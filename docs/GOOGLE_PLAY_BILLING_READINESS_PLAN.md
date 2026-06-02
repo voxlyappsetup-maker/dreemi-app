@@ -5,6 +5,8 @@
 - Define the future Android monetization readiness plan before implementation.
 - Ensure Google Play Billing maps into the provider-neutral entitlement model.
 - Keep the product parent-first and avoid child-facing checkout.
+- Cross-reference mobile AI safety/reporting readiness:
+  - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - This document is planning only.
 - It does not implement Google Play Billing Library, Google Play Developer API, Real-time Developer Notifications, schema, migrations, code, packages, or deployment.
 
@@ -24,6 +26,7 @@
 - Web checkout should not be the default Android native purchase path.
 - Google Play Billing should be treated as an `EntitlementSource`, not as the canonical entitlement model.
 - Backend access checks should continue to consume effective entitlement state.
+- Android paid launch readiness includes safety/reporting readiness, not only Play Billing planning.
 - Any alternative billing or external payment option must be evaluated separately against current Google Play policy before implementation.
 
 ## 4. Proposed Google Play Product Model

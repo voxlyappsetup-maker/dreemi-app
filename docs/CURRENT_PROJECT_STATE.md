@@ -111,6 +111,11 @@
   - Google Play Billing readiness is now documented as future Android paid launch planning.
   - Google Play Billing planning must map into provider-neutral entitlement design.
   - No implementation happened in this phase.
+- Phase 4-D1G note:
+  - AI safety and unsafe story reporting mobile readiness planning is documented at `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`.
+  - Unsafe story reporting and AI safety mobile readiness are now documented as P0 mobile launch requirements.
+  - Public/community story features remain out of intended mobile v1 until separately designed.
+  - No implementation happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

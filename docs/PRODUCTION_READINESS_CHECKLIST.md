@@ -9,6 +9,7 @@ Related manual payment verification plan:
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
+- `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 
 ## 1) Current Deployment Files
 
@@ -77,15 +78,19 @@ Important notes:
   - `docs/APPLE_IAP_READINESS_PLAN.md`
 - Google Play Billing readiness plan is a blocker before Android paid launch:
   - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
+- AI safety and unsafe story reporting readiness is a blocker before mobile release:
+  - `docs/AI_SAFETY_MOBILE_READINESS_PLAN.md`
 - Web production deploy and mobile paid launch are separate tracks:
   - web deploy readiness alone is not sufficient for native mobile monetization readiness.
 - Web payments readiness is separate from native mobile billing readiness.
 - Web production deploy, web payments, and iOS paid launch are separate tracks.
 - Web production deploy, web payments, iOS paid launch, and Android paid launch are separate tracks.
+- Web production deploy, web payments, iOS paid launch, Android paid launch, and mobile safety readiness are separate tracks.
 - Mobile paid launch requires Apple IAP and Google Play Billing readiness, not only web provider readiness.
 - Mobile paid launch also requires parent-facing paywall design and child-surface checkout boundaries.
 - iOS paid launch requires StoreKit/App Store planning and parent-facing paywall design.
 - Android paid launch requires Play Billing/Play Console planning and parent-facing paywall design.
+- Mobile submission should not proceed until unsafe story reporting and safety review design are accepted.
 - Lemon Squeezy integration exists but is not approved for production launch.
 - Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not treat any provider as production-approved until explicit provider approval and production verification are completed.
