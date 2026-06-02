@@ -101,6 +101,11 @@
   - Mobile monetization and parent-first product lock is documented at `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`.
   - Mobile paid launch planning now requires Apple/Google billing readiness and parent-facing paywall constraints.
   - No implementation happened in this phase.
+- Phase 4-D1E note:
+  - Apple IAP readiness planning is documented at `docs/APPLE_IAP_READINESS_PLAN.md`.
+  - Apple IAP readiness is now documented as future iOS paid launch planning.
+  - Apple IAP planning must map into provider-neutral entitlement design.
+  - No implementation happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

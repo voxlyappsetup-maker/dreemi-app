@@ -7,6 +7,8 @@
 - Preserve the parent-first mobile-first commercial strategy.
 - Cross-reference parent-first monetization product lock:
   - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
+- Cross-reference Apple IAP readiness plan:
+  - `docs/APPLE_IAP_READINESS_PLAN.md`
 - This document is a design lock only.
 - It does not implement schema, code, migrations, providers, or deployment.
 
@@ -39,6 +41,7 @@ The application must decide access from effective entitlement state, not from a 
 
 - This entitlement model exists to support parent-first mobile monetization across Apple, Google, web, and internal/admin sources.
 - Apple, Google, Web, and manual/admin grants are possible sources.
+- Apple IAP is a future `EntitlementSource` adapter that must map Apple lifecycle inputs into normalized entitlement events.
 - Backend access checks should consume normalized entitlement state.
 - Provider-specific events should be adapters into normalized entitlement events.
 - `User.plan` may remain a simple effective plan projection, but should not be the full entitlement history/audit source forever.
