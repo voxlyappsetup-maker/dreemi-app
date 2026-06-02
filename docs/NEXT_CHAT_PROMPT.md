@@ -27,6 +27,7 @@ Read these first:
 - `docs/USER_PLAN_PROJECTION_COMPATIBILITY_PLAN.md`
 - `docs/ENTITLEMENT_RUNTIME_IMPLEMENTATION_READINESS_CHECKLIST.md`
 - `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`
+- `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -116,8 +117,9 @@ Constraints:
 - Do not implement entitlement runtime, schema, migrations, provider adapters, access-check changes, package changes, or env changes without explicit phase.
 - First future runtime phase should be code skeleton only unless explicitly changed.
 - Do not wire EntitlementService into routes, middleware, payments, or access checks without explicit future phase.
-- Phase 4-D3E preflight tests/guardrails are complete; the next recommended entitlement phase is a child-limit single-surface wiring proposal/review before implementation.
-- First future runtime wiring candidate is child-limit path in `services/api/src/routes/children.ts` as a single-surface rollout before story-generation wiring.
+- Phase 4-D3F is documentation-only and records the approved child-limit single-surface wiring proposal/review in `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`.
+- The next recommended entitlement phase is Phase 4-D3G child-limit runtime wiring only if explicitly approved.
+- First runtime wiring candidate remains child-limit path in `services/api/src/routes/children.ts` as a single-surface rollout before story-generation wiring.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.

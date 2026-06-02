@@ -208,12 +208,15 @@
 
 ## 9. Recommended Next Phase
 
-- Recommended next phase: `Phase 4-D3E — Entitlement runtime wiring preflight tests and guardrails (no runtime behavior change)`.
-- Scope recommendation:
-  - add/strengthen static and integration-parity tests that prove safe future route wiring targets.
-  - document exact one-surface-first wiring plan (child or story) and explicit rollback steps.
-- Reason for no-runtime-change recommendation:
-  - current docs and code show clear candidate touchpoints but still carry high regression risk if multiple access surfaces are wired at once.
+- Phase `4-D3E` is complete (preflight tests and guardrails).
+- Phase `4-D3F` is complete as documentation-only proposal:
+  - `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`
+- Recommended next phase: `Phase 4-D3G — child-limit single-surface runtime wiring` only if explicitly approved.
+- D3G should follow the D3F proposal constraints:
+  - touch `services/api/src/routes/children.ts` only for runtime wiring,
+  - preserve response shape and current limits,
+  - keep stories and payments paths unchanged,
+  - keep rollback as direct revert to legacy `User.plan` route logic.
 
 ## 10. Current Status
 

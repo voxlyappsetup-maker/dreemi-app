@@ -166,6 +166,11 @@
   - Preflight guardrails now explicitly verify legacy User.plan access paths, limit invariants, no route/middleware wiring, and no provider-ID policy leakage in access-check files.
   - Recommended first future wiring surface is child-limit path first (`services/api/src/routes/children.ts`) with rollback-to-legacy direction before touching story-generation path.
   - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
+- Phase 4-D3F note:
+  - Child-limit single-surface runtime wiring proposal/review is documented at `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`.
+  - Proposal documents current child-limit behavior, future wiring scope, parity tests, acceptance criteria, rollback plan, and blocked items.
+  - D3F remains documentation-only; no runtime wiring was implemented.
+  - Next recommended phase is Phase 4-D3G child-limit runtime wiring only if explicitly approved.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
