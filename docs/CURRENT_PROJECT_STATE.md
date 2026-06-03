@@ -183,6 +183,11 @@
   - Child-limit decision call, block condition (`currentCount >= limit`), and `403` response shape (`success`, `error`, `limit`, `current`) are documented as preserved.
   - External Supabase RLS remediation is documented (RLS enabled on `public.users`, `public.children`, `public.stories`, `public.subscriptions`; no public policies added), with runtime manual verification required.
   - No second runtime wiring is allowed until D3H verification is accepted; next recommended phase is D3I proposal/review only.
+- Phase 4-D3I note:
+  - Next runtime surface proposal/review is documented at `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
+  - D3I compares story generation, plans middleware, and payments/checkout/webhook as candidate second wiring surfaces.
+  - D3I keeps runtime unchanged and selects recommendation direction only.
+  - D3I recommends D3J as proposal/test-plan first (no automatic second runtime wiring).
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

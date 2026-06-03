@@ -350,8 +350,9 @@ Proposed future phases:
 - D3G wiring scope is limited to child-limit decision through EntitlementService with User.plan compatibility input preserved.
 - Phase 4-D3H runtime verification and rollback-readiness review is documented at `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - D3H confirms D3G behavior scope, untouched surfaces, manual smoke checklist, rollback plan, and second-surface gating criteria.
-- Next recommended entitlement phase is Phase 4-D3I proposal/review only after D3H is committed and accepted.
-- No second runtime wiring should occur until D3H verification is accepted.
+- Phase 4-D3I next-surface proposal/review is documented at `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
+- D3I recommends D3J as a proposal/test-plan phase before any second runtime wiring.
+- No second runtime wiring should occur until D3I is accepted and D3J is explicitly approved.
 - Runtime wiring preflight tests/guardrails are now strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime behavior change.
 - Recommended first future runtime wiring surface is the child-limit path (`services/api/src/routes/children.ts`) before story-generation path.
 - Schema design has not been finalized.

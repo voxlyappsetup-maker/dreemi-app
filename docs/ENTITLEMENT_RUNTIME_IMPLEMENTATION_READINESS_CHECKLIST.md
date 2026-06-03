@@ -298,8 +298,9 @@ Clarifications:
 - Phase 4-D3G status: stories, plans middleware, payments, schema, providers, checkout, webhook, apps/web, deployment, packages, and env configuration remain unchanged.
 - Phase 4-D3H status: runtime verification and rollback-readiness review is documented at `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - Phase 4-D3H status: manual runtime smoke checklist, rollback plan, Supabase RLS remediation note, and second-surface gating criteria are documented.
-- Next recommended phase is Phase 4-D3I proposal/review only after D3H is committed and accepted.
-- No second runtime wiring should occur until D3H verification is accepted.
+- Phase 4-D3I status: next-surface proposal/review is documented at `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
+- Phase 4-D3I status: candidate surfaces are compared and D3J proposal/test-plan is recommended before any second runtime wiring.
+- No second runtime wiring should occur until D3I is accepted and D3J is explicitly approved.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
 - Entitlement runtime wiring has started only for the child-limit decision surface in D3G.
 - Entitlement schema implementation has not started.

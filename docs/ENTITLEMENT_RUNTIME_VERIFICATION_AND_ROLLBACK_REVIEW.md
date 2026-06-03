@@ -82,7 +82,7 @@ Before wiring story generation, plans middleware, or payments to EntitlementServ
 
 ## 8. Recommended Next Phase
 
-- Next phase should be `Phase 4-D3I` only after D3H is committed and accepted.
-- D3I should be proposal/review only for selecting the next runtime surface.
-- No second runtime wiring should occur until D3H verification is accepted.
-- The next runtime surface should not be selected automatically without D3I review.
+- D3I proposal/review is now documented at `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
+- D3J should be proposal/test-plan first for the selected surface, unless explicit approval authorizes implementation scope.
+- No second runtime wiring should occur until D3I is accepted and D3J is explicitly approved.
+- The next runtime surface must not be selected automatically without D3I review.
