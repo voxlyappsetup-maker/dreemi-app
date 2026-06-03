@@ -21,6 +21,12 @@ import path from "node:path";
 
 const STORIES_PATH = path.resolve(__dirname, "stories.ts");
 const src: string = fs.readFileSync(STORIES_PATH, "utf-8");
+const PLANS_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/plans.middleware.ts");
+const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "children.ts");
+const PAYMENTS_ROUTE_PATH = path.resolve(__dirname, "payments.ts");
+const plansSrc: string = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
+const childrenSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
+const paymentsSrc: string = fs.readFileSync(PAYMENTS_ROUTE_PATH, "utf-8");
 
 // ── Helper utilities ─────────────────────────────────────────────────────────
 
@@ -183,6 +189,119 @@ describe("stories.ts — POST /generate middleware stack", () => {
     mustBeBefore(authPos,       "authenticateToken",  rateLimitPos,     "generateRateLimit");
     mustBeBefore(rateLimitPos,  "generateRateLimit",  planLimitPos,     "checkStoryLimit");
     mustBeBefore(planLimitPos,  "checkStoryLimit",    asyncHandlerPos,  "async handler");
+  });
+});
+
+// ── 4B. Pre-D3K story-limit baseline lock (middleware source of truth) ───────
+
+describe("plans.middleware.ts — pre-D3K story-limit baseline lock", () => {
+  it("keeps checkStoryLimit defined in plans middleware", () => {
+    assert.match(
+      plansSrc,
+      /export\s+async\s+function\s+checkStoryLimit\s*\(/,
+      "checkStoryLimit must remain defined in plans.middleware.ts for pre-D3K baseline",
+    );
+  });
+
+  it("keeps FREE_MONTHLY_LIMIT set to 3", () => {
+    assert.match(
+      plansSrc,
+      /const\s+FREE_MONTHLY_LIMIT\s*=\s*3\s*;/,
+      "FREE_MONTHLY_LIMIT must remain 3 in pre-D3K baseline",
+    );
+  });
+
+  it("keeps non-FREE bypass in legacy story-limit path", () => {
+    assert.match(
+      plansSrc,
+      /if\s*\(\s*user\.plan\s*!==\s*"FREE"\s*\)\s*\{[\s\S]*next\(\);[\s\S]*return;[\s\S]*\}/,
+      "non-FREE bypass must remain in plans.middleware.ts before any D3K wiring",
+    );
+  });
+
+  it("keeps user identity source on req.userId and not query/body userId", () => {
+    assert.match(
+      plansSrc,
+      /const\s+userId\s*=\s*req\.userId\s*;/,
+      "plans middleware must use authenticated req.userId",
+    );
+    assert.equal(
+      /req\.query\.userId|req\.body\.userId/.test(plansSrc),
+      false,
+      "plans middleware must not use query/body userId for story limit counting",
+    );
+  });
+
+  it("keeps month-start window counting via createdAt >= monthStart", () => {
+    assert.match(
+      plansSrc,
+      /const\s+monthStart\s*=\s*new\s+Date\(\s*now\.getFullYear\(\),\s*now\.getMonth\(\),\s*1\s*\)\s*;/,
+      "monthStart computation must remain in legacy story-limit path",
+    );
+    assert.match(
+      plansSrc,
+      /createdAt:\s*\{\s*gte:\s*monthStart\s*\}/,
+      "story count must remain bounded by createdAt >= monthStart",
+    );
+  });
+
+  it("keeps STORY_LIMIT_REACHED code and blocked response shape fields", () => {
+    assert.match(
+      plansSrc,
+      /res\.status\(403\)\.json\(\{[\s\S]*success:\s*false,[\s\S]*error:[\s\S]*code:\s*"STORY_LIMIT_REACHED"[\s\S]*\}\)/,
+      "blocked story-limit response must keep success/error/code with STORY_LIMIT_REACHED",
+    );
+  });
+});
+
+// ── 4C. Pre-D3K non-wiring lock for runtime surfaces ──────────────────────────
+
+describe("pre-D3K runtime non-wiring lock for story-generation surface", () => {
+  it("keeps plans.middleware.ts non-wired to EntitlementService pre-D3K", () => {
+    assert.equal(
+      /EntitlementService|createEntitlementService|entitlement\.service|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/.test(
+        plansSrc,
+      ),
+      false,
+      "plans.middleware.ts must remain non-wired before D3K implementation",
+    );
+  });
+
+  it("keeps stories.ts non-wired to EntitlementService pre-D3K", () => {
+    assert.equal(
+      /EntitlementService|createEntitlementService|entitlement\.service|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/.test(
+        src,
+      ),
+      false,
+      "stories.ts must remain non-wired before D3K implementation",
+    );
+  });
+
+  it("keeps payments.ts non-wired to EntitlementService pre-D3K", () => {
+    assert.equal(
+      /EntitlementService|createEntitlementService|entitlement\.service|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/.test(
+        paymentsSrc,
+      ),
+      false,
+      "payments.ts must remain non-wired before D3K implementation",
+    );
+  });
+
+  it("keeps children.ts as the only runtime EntitlementService wiring surface", () => {
+    const entitlementSurfacePattern =
+      /EntitlementService|createEntitlementService|entitlement\.service|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
+    assert.equal(entitlementSurfacePattern.test(childrenSrc), true);
+    assert.equal(entitlementSurfacePattern.test(src), false);
+    assert.equal(entitlementSurfacePattern.test(plansSrc), false);
+    assert.equal(entitlementSurfacePattern.test(paymentsSrc), false);
+  });
+
+  it("keeps D3G child-limit entitlement call unchanged", () => {
+    assert.match(childrenSrc, /createEntitlementService/);
+    assert.match(childrenSrc, /getChildLimit\(\s*userId,\s*user\.plan\s*\)/);
+    // Pre-D3K baseline note: if D3K wires plans.middleware, update only that
+    // specific guardrail and keep stories.ts/payments.ts non-wired unless
+    // explicit approval expands scope.
   });
 });
 

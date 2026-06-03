@@ -81,6 +81,16 @@ describe("EntitlementService user-plan read model", () => {
     assert.equal(plan, "INDIVIDUAL");
   });
 
+  it("getPlanForAccessCheck remains fail-closed FREE for missing/unknown inputs", async () => {
+    const service = createEntitlementService();
+    const missingPlan = await service.getPlanForAccessCheck("user_123", undefined);
+    const emptyPlan = await service.getPlanForAccessCheck("user_123", "   ");
+    const unknownPlan = await service.getPlanForAccessCheck("user_123", "UNKNOWN_PLAN");
+    assert.equal(missingPlan, "FREE");
+    assert.equal(emptyPlan, "FREE");
+    assert.equal(unknownPlan, "FREE");
+  });
+
   it("canGenerateStory remains behavior-compatible for FREE user plan", async () => {
     const service = createEntitlementService();
     const decision = await service.canGenerateStory("user_123", "FREE");

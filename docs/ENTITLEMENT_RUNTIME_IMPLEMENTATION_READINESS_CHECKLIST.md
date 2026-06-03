@@ -302,6 +302,8 @@ Clarifications:
 - Phase 4-D3I status: candidate surfaces are compared and D3J proposal/test-plan is recommended before any second runtime wiring.
 - Phase 4-D3J status: story-generation wiring proposal/test-plan is documented at `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
 - Phase 4-D3J status: future scope is limited to one story-generation surface with parity, rollback, and acceptance gates defined.
+- Phase 4-D3K0 status: story-generation static guardrail preflight is complete as test-only hardening before any second runtime wiring.
+- Phase 4-D3K0 status: no runtime wiring was added; baseline locks now explicitly protect middleware order, FREE monthly limit, month-window counting, response shape, and pre-D3K non-wiring scope.
 - No second runtime wiring should occur until D3I is accepted and D3J is explicitly approved.
 - D3K implementation phase must not start automatically and requires explicit approval after D3J acceptance.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.

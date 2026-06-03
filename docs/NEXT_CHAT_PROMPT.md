@@ -125,8 +125,10 @@ Constraints:
 - Phase 4-D3H runtime verification/rollback-readiness review is documented in `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - D3I next-surface proposal/review is documented in `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
 - D3J story-generation proposal/test-plan is documented in `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
-- The next recommended entitlement phase is Phase 4-D3K narrow implementation only if D3J is accepted and explicit approval is provided.
+- D3K0 story-generation static guardrail preflight is complete as test-only hardening with no runtime wiring.
+- The next recommended entitlement phase may be Phase 4-D3K narrow runtime implementation only after explicit approval.
 - D3K must not start automatically.
+- If explicit approval is not given, continue review/test-hardening only.
 - No second runtime wiring should occur until D3I and D3J are accepted and D3K scope is explicitly approved.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.

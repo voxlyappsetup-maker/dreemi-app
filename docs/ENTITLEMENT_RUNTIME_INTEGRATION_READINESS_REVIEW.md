@@ -224,6 +224,9 @@
   - `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`
 - D3J proposal/test-plan is now documented at:
   - `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`
+- D3K0 static-guardrail preflight is complete as test-only hardening:
+  - no runtime wiring changes were introduced,
+  - story-generation legacy baseline is now more tightly locked by static tests before any D3K runtime phase.
 - Recommended next phase: `Phase 4-D3K` narrow implementation only if D3J is accepted and explicit approval is provided.
 - No second runtime wiring should occur before D3I/D3J are accepted and D3K scope is explicitly approved.
 

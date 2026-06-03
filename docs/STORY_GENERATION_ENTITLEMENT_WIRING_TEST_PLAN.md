@@ -142,8 +142,24 @@
 - D3K must not start automatically.
 - If risk remains high, run one extra test-only/static-guardrail phase before D3K implementation.
 
+## 8.1 D3K0 preflight status update
+
+- D3K0 is completed as a test-only/static-guardrail preflight phase.
+- D3K0 adds no runtime wiring and no production behavior changes.
+- D3K0 hardens baseline locks for:
+  - route middleware order on `POST /generate`,
+  - `FREE_MONTHLY_LIMIT = 3`,
+  - non-FREE bypass behavior,
+  - authenticated `req.userId` counting,
+  - month-window query (`createdAt >= monthStart`),
+  - stable blocked response fields (`success`, `error`, `code`) and `STORY_LIMIT_REACHED`,
+  - pre-D3K non-wiring scope (`plans.middleware.ts`, `stories.ts`, `payments.ts` remain non-wired).
+- Future D3K implementation must update only the specific guardrail that currently forbids plans-middleware wiring.
+- D3K must continue forbidding stories.ts direct wiring, payments/checkout/webhook wiring, schema/provider/apps changes, and second-surface runtime wiring unless explicitly approved.
+
 ## 9. Current Status
 
 - This document is documentation-only.
 - Runtime behavior is unchanged in D3J.
 - Story generation, plans middleware, payments, schema, migrations, providers, checkout, webhook, and apps/web are unchanged in D3J.
+- D3K0 test-only hardening is complete and keeps runtime behavior unchanged.

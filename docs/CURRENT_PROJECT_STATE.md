@@ -193,6 +193,11 @@
   - D3J defines future one-surface implementation scope, parity requirements, tests, rollback plan, and acceptance criteria for the story-generation monthly limit path.
   - D3J is documentation-only; no story-generation runtime wiring is implemented.
   - D3K may be a future narrow implementation phase only after D3J acceptance and explicit approval.
+- Phase 4-D3K0 note:
+  - Story-generation entitlement static guardrail preflight is implemented as test-only hardening.
+  - D3K0 strengthens static baseline coverage for story-limit middleware order, FREE limit invariants, month-window counting, response contract, and pre-D3K non-wiring scope.
+  - D3K0 adds no runtime wiring and no production code behavior changes.
+  - D3K implementation must not start automatically and still requires explicit approval.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
