@@ -148,3 +148,10 @@
 - D3I must be committed and accepted first.
 - D3J must start as proposal/test-plan unless explicit approval upgrades it.
 - No runtime implementation starts until user gives explicit approval after D3J review.
+
+## 9. D3J Outcome Update
+
+- D3J proposal/test-plan is documented at `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
+- D3J remains documentation-only and adds no runtime wiring.
+- D3K may be a future one-surface implementation phase only with explicit approval after D3J acceptance.
+- If risk remains high, run an extra test-only/static-guardrail phase before D3K implementation.

@@ -83,6 +83,7 @@ Before wiring story generation, plans middleware, or payments to EntitlementServ
 ## 8. Recommended Next Phase
 
 - D3I proposal/review is now documented at `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
-- D3J should be proposal/test-plan first for the selected surface, unless explicit approval authorizes implementation scope.
-- No second runtime wiring should occur until D3I is accepted and D3J is explicitly approved.
+- D3J story-generation proposal/test-plan is now documented at `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
+- D3K may be a narrow implementation phase only if D3J is accepted and explicit approval authorizes implementation scope.
+- No second runtime wiring should occur until D3I and D3J are accepted and D3K is explicitly approved.
 - The next runtime surface must not be selected automatically without D3I review.

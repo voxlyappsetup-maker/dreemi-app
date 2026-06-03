@@ -352,7 +352,10 @@ Proposed future phases:
 - D3H confirms D3G behavior scope, untouched surfaces, manual smoke checklist, rollback plan, and second-surface gating criteria.
 - Phase 4-D3I next-surface proposal/review is documented at `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
 - D3I recommends D3J as a proposal/test-plan phase before any second runtime wiring.
+- Phase 4-D3J story-generation proposal/test-plan is documented at `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
+- D3J defines the future story-generation monthly-limit wiring scope, parity tests, rollback, and acceptance criteria without runtime changes.
 - No second runtime wiring should occur until D3I is accepted and D3J is explicitly approved.
+- D3K implementation must not start automatically and requires explicit approval after D3J acceptance.
 - Runtime wiring preflight tests/guardrails are now strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime behavior change.
 - Recommended first future runtime wiring surface is the child-limit path (`services/api/src/routes/children.ts`) before story-generation path.
 - Schema design has not been finalized.

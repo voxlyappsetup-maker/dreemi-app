@@ -30,6 +30,7 @@ Read these first:
 - `docs/CHILD_LIMIT_ENTITLEMENT_WIRING_PROPOSAL.md`
 - `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
 - `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`
+- `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -123,9 +124,10 @@ Constraints:
 - Stories path, plans middleware, payments path, schema, provider logic, frontend, deployment, package, and env configuration remain unchanged in D3G.
 - Phase 4-D3H runtime verification/rollback-readiness review is documented in `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - D3I next-surface proposal/review is documented in `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
-- The next recommended entitlement phase is Phase 4-D3J proposal/test-plan for the selected surface.
-- D3J must not become runtime implementation unless D3I recommendation is accepted and explicit approval is provided.
-- No second runtime wiring should occur until D3I is committed, accepted, and D3J scope is explicitly approved.
+- D3J story-generation proposal/test-plan is documented in `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
+- The next recommended entitlement phase is Phase 4-D3K narrow implementation only if D3J is accepted and explicit approval is provided.
+- D3K must not start automatically.
+- No second runtime wiring should occur until D3I and D3J are accepted and D3K scope is explicitly approved.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.

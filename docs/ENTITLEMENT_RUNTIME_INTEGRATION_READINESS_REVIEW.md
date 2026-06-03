@@ -222,8 +222,10 @@
   - rollback-readiness plan and second-surface gating criteria.
 - D3I proposal/review is now documented at:
   - `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`
-- Recommended next phase: `Phase 4-D3J` proposal/test-plan for the selected second surface, with explicit approval required before any runtime implementation.
-- No second runtime wiring should occur before D3I is accepted and D3J scope is explicitly approved.
+- D3J proposal/test-plan is now documented at:
+  - `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`
+- Recommended next phase: `Phase 4-D3K` narrow implementation only if D3J is accepted and explicit approval is provided.
+- No second runtime wiring should occur before D3I/D3J are accepted and D3K scope is explicitly approved.
 
 ## 10. Current Status
 

@@ -188,6 +188,11 @@
   - D3I compares story generation, plans middleware, and payments/checkout/webhook as candidate second wiring surfaces.
   - D3I keeps runtime unchanged and selects recommendation direction only.
   - D3I recommends D3J as proposal/test-plan first (no automatic second runtime wiring).
+- Phase 4-D3J note:
+  - Story-generation entitlement wiring proposal/test-plan is documented at `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
+  - D3J defines future one-surface implementation scope, parity requirements, tests, rollback plan, and acceptance criteria for the story-generation monthly limit path.
+  - D3J is documentation-only; no story-generation runtime wiring is implemented.
+  - D3K may be a future narrow implementation phase only after D3J acceptance and explicit approval.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
