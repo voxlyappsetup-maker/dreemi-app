@@ -127,3 +127,8 @@ If a future localization fix causes regression:
 - D3K and D3G runtime wiring surfaces remain unchanged.
 - No backend, payment/provider, schema/migration, or image-generation files were changed in this phase.
 - Manual smoke verification is still required for EN/AR/FR limit-message display.
+
+## 12. D3M-Triage-A1 smoke status update
+
+- D3M-Triage-A1 manual smoke verification is PASS for EN/AR/FR locale-specific limit-message display.
+- Smoke evidence is documented at `docs/D3M_LOCALIZATION_SMOKE_RESULTS.md`.

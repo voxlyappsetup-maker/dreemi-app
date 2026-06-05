@@ -36,6 +36,7 @@ Read these first:
 - `docs/D3M_MANUAL_SMOKE_RUN_RESULTS.md`
 - `docs/D3M_SMOKE_FAILURE_TRIAGE.md`
 - `docs/D3M_LOCALIZATION_FIX_PROPOSAL.md`
+- `docs/D3M_LOCALIZATION_SMOKE_RESULTS.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -148,10 +149,10 @@ Constraints:
 - D3M-Triage-A is documentation-only and adds no runtime/code/test/i18n changes.
 - D3M-Triage-A1 frontend localization fix is implemented for `STORY_LIMIT_REACHED` display mapping in the generate flow.
 - D3M-Triage-A1 keeps backend contract and D3K/D3G runtime wiring unchanged.
-- Manual smoke verification is still required for EN/AR/FR limit-message display.
+- D3M-Triage-A1-Smoke is PASS and documented at `docs/D3M_LOCALIZATION_SMOKE_RESULTS.md` (EN/AR/FR locale-correct limit messages).
 - The next recommended phase should be either:
-  - localization manual smoke verification/evidence capture, or
-  - `D3M-Triage-B` payment config/readiness clarification.
+  - `D3M-Triage-B` payment config/readiness clarification, or
+  - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.

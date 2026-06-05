@@ -253,6 +253,14 @@
   - No backend, payment/provider, schema/migration, or image-generation changes were made.
   - Manual smoke is still required for EN/AR/FR limit-message display verification.
   - Next recommended phase is localization manual smoke verification and/or `D3M-Triage-B` payment config/readiness clarification.
+- Phase 4-D3M-Triage-A1-Smoke note:
+  - Manual localization smoke evidence is documented at `docs/D3M_LOCALIZATION_SMOKE_RESULTS.md`.
+  - Commit under smoke verification: `72c183b` (`Localize story limit error display`).
+  - Smoke result: PASS for EN/AR/FR generate-flow monthly-limit message display.
+  - Original D3M localization warning is resolved.
+  - Backend contract and D3K/D3G entitlement wiring remain unchanged.
+  - Remaining separate triage tracks are payment config/readiness and image-generation triage.
+  - Next recommended phase is `4-D3M-Triage-B` (payment config/readiness), with `4-D3M-Triage-C` as alternative.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
