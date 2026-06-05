@@ -150,7 +150,11 @@ function GenerateContent() {
         router.replace("/login");
         return;
       }
-      setError(err instanceof ApiError ? err.message : t("errorGenerate"));
+      if (err instanceof ApiError && err.code === "STORY_LIMIT_REACHED") {
+        setError(t("storyLimitReached"));
+      } else {
+        setError(err instanceof ApiError ? err.message : t("errorGenerate"));
+      }
       setStep(2);
     } finally {
       setLoading(false);

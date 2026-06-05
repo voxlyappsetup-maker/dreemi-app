@@ -119,3 +119,11 @@ If a future localization fix causes regression:
 - Recommended: `D3M-Triage-A1` - implement localization fix for `STORY_LIMIT_REACHED` display.
 - Alternative: proceed to `D3M-Triage-B` payment config/readiness clarification.
 - No third runtime wiring surface should proceed by default.
+
+## 11. D3M-Triage-A1 implementation status update
+
+- D3M-Triage-A1 frontend localization mapping is now implemented.
+- Implementation keeps backend response contract unchanged, including `code: "STORY_LIMIT_REACHED"`.
+- D3K and D3G runtime wiring surfaces remain unchanged.
+- No backend, payment/provider, schema/migration, or image-generation files were changed in this phase.
+- Manual smoke verification is still required for EN/AR/FR limit-message display.

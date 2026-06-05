@@ -146,8 +146,11 @@ Constraints:
 - D3M-Triage confirms no rollback and no runtime/code/test/config/env changes in this phase.
 - D3M-Triage-A localization proposal/test plan is documented at `docs/D3M_LOCALIZATION_FIX_PROPOSAL.md`.
 - D3M-Triage-A is documentation-only and adds no runtime/code/test/i18n changes.
+- D3M-Triage-A1 frontend localization fix is implemented for `STORY_LIMIT_REACHED` display mapping in the generate flow.
+- D3M-Triage-A1 keeps backend contract and D3K/D3G runtime wiring unchanged.
+- Manual smoke verification is still required for EN/AR/FR limit-message display.
 - The next recommended phase should be either:
-  - `D3M-Triage-A1` localization implementation (explicitly approved), or
+  - localization manual smoke verification/evidence capture, or
   - `D3M-Triage-B` payment config/readiness clarification.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

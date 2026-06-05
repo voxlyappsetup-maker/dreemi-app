@@ -40,7 +40,8 @@ export function pingBackend() {
 export class ApiError extends Error {
   constructor(
     public status: number,
-    message: string
+    message: string,
+    public code: string | null = null,
   ) {
     super(message);
     this.name = "ApiError";
@@ -73,7 +74,7 @@ async function apiFetch<T>(
     headers: { ...headers, ...(options.headers as Record<string, string>) },
   });
 
-  const data = (await res.json()) as T & { error?: string };
+  const data = (await res.json()) as T & { error?: string; code?: string };
 
   if (!res.ok) {
     const message =
@@ -83,7 +84,14 @@ async function apiFetch<T>(
       typeof data.error === "string"
         ? data.error
         : "An unexpected error occurred";
-    throw new ApiError(res.status, message);
+    const code =
+      typeof data === "object" &&
+      data !== null &&
+      "code" in data &&
+      typeof data.code === "string"
+        ? data.code
+        : null;
+    throw new ApiError(res.status, message, code);
   }
 
   return data;

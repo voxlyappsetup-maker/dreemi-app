@@ -188,7 +188,8 @@
     "errorChildName": "Veuillez entrer le nom de l'enfant",
     "errorAge": "L'âge doit être entre 2 et 12",
     "errorTheme": "Veuillez entrer un thème d'histoire",
-    "errorGenerate": "Échec de la génération, veuillez réessayer"
+    "errorGenerate": "Échec de la génération, veuillez réessayer",
+    "storyLimitReached": "Vous avez atteint votre limite mensuelle d'histoires. Mettez votre offre à niveau pour créer plus d'histoires."
   },
   "pricing": {
     "title": "Des plans adaptés à votre famille",

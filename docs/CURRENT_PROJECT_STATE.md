@@ -246,6 +246,13 @@
   - D3K rollback remains not recommended; entitlement access-control behavior is treated as intact.
   - Next recommended phase is `D3M-Triage-A1` localization implementation (explicit approval), or `D3M-Triage-B` payment config/readiness clarification.
   - No third entitlement runtime wiring surface should proceed by default.
+- Phase 4-D3M-Triage-A1 note:
+  - Frontend localized display fix for `STORY_LIMIT_REACHED` is implemented in `apps/web` generate flow/message handling.
+  - Backend contract is unchanged, including stable code `STORY_LIMIT_REACHED` and D3K runtime behavior.
+  - D3G/D3K entitlement wiring surfaces are unchanged.
+  - No backend, payment/provider, schema/migration, or image-generation changes were made.
+  - Manual smoke is still required for EN/AR/FR limit-message display verification.
+  - Next recommended phase is localization manual smoke verification and/or `D3M-Triage-B` payment config/readiness clarification.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
