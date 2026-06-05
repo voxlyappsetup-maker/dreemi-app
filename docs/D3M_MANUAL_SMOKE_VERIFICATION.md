@@ -7,6 +7,8 @@
 - This phase is documentation-only.
 - No runtime, test, schema, provider, frontend, deployment, package, or env changes are included.
 - Smoke checks are to be executed manually later by the user, not by Cursor in this phase.
+- User-reported execution evidence for this checklist is documented in:
+  - `docs/D3M_MANUAL_SMOKE_RUN_RESULTS.md`
 
 ## B. Current entitlement surfaces to protect
 

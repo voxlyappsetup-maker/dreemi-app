@@ -218,6 +218,13 @@
   - D3M adds a practical post-D3K checklist and evidence log template for user-executed verification.
   - D3M is documentation-only and introduces no runtime/code/test changes.
   - Stable baseline remains after D3K/D3L sequence, with latest accepted state tracked at `7361a77` (`Document D3K runtime verification and rollback review`).
+- Phase 4-D3M-Run note:
+  - Manual smoke run evidence is documented at `docs/D3M_MANUAL_SMOKE_RUN_RESULTS.md`.
+  - Run commit: `46eabc4` (`Add D3M manual smoke verification checklist`), environment: Local, browser/device: Chrome / Windows.
+  - Overall result: `PARTIAL PASS / NON-D3K BLOCKERS FOUND`.
+  - D3K rollback is not recommended from this run.
+  - Non-D3K triage items recorded: localization warning on limit message language, local Lemon checkout config blocker (`LEMONSQUEEZY_STORE_ID` not set), payment status/subscription blocked by checkout failure, image generation failure requiring separate triage.
+  - Next recommended phase is `4-D3M-Triage` (documentation-first investigation), with no third runtime wiring by default.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

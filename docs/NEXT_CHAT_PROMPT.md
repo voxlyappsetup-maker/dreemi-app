@@ -33,6 +33,7 @@ Read these first:
 - `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`
 - `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
 - `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`
+- `docs/D3M_MANUAL_SMOKE_RUN_RESULTS.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -137,7 +138,9 @@ Constraints:
 - No third runtime wiring surface should occur until D3L is accepted and a separate proposal/test-plan is completed.
 - D3M manual smoke documentation is complete at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
 - D3M adds a checklist and evidence template only; no runtime/code/test changes were made in D3M.
-- The next recommended entitlement phase is `D3M-Run` (user-executed smoke and evidence capture), or payment-provider readiness review, or entitlement schema proposal review.
+- D3M-Run manual smoke evidence is documented at `docs/D3M_MANUAL_SMOKE_RUN_RESULTS.md`.
+- D3M-Run overall status is `PARTIAL PASS / NON-D3K BLOCKERS FOUND`; D3K rollback is not recommended from this run.
+- The next recommended entitlement phase is `D3M-Triage` (documentation-first smoke failure triage).
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
