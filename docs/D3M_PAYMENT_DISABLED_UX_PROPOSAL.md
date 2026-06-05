@@ -162,3 +162,6 @@ If a future UX/payment-disabled change causes regression:
   - `D3M-Triage-B1-Implement` payment disabled/config-missing UX implementation (explicit approval only).
 - Alternative:
   - `D3M-Triage-C` image generation triage.
+
+Follow-up:
+- D3M-Triage-B2 no-purchase smoke plan is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_PLAN.md`.

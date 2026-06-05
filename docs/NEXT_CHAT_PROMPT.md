@@ -39,6 +39,7 @@ Read these first:
 - `docs/D3M_LOCALIZATION_SMOKE_RESULTS.md`
 - `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md`
 - `docs/D3M_PAYMENT_DISABLED_UX_PROPOSAL.md`
+- `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_PLAN.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -155,9 +156,10 @@ Constraints:
 - D3M-Triage-B payment config/readiness clarification is documented at `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md`.
 - D3M-Triage-B classifies local checkout `CHECKOUT_CREATE_FAILED` with missing `LEMONSQUEEZY_STORE_ID` as a local provider config blocker, not D3K regression.
 - D3M-Triage-B1 payment disabled/config-missing UX proposal/test plan is documented at `docs/D3M_PAYMENT_DISABLED_UX_PROPOSAL.md`.
+- D3M-Triage-B2 safe no-purchase payment smoke plan is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_PLAN.md`.
 - The next recommended phase should be either:
-  - `D3M-Triage-B2` safe no-purchase payment status/subscription smoke plan, or
-  - `D3M-Triage-B1-Implement` payment disabled UX implementation, or
+  - `D3M-Triage-B2-Run` no-purchase smoke evidence capture, then
+  - `D3M-Triage-B1-Implement` payment disabled UX implementation if supported, or
   - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

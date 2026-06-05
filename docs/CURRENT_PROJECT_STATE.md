@@ -273,6 +273,11 @@
   - D3M-Triage-B1 is documentation-only and introduces no code/runtime/env/provider changes.
   - D3K rollback remains not recommended.
   - Next recommended phase is `D3M-Triage-B2` (safe no-purchase payment status/subscription smoke plan), or `D3M-Triage-B1-Implement` (explicitly approved UX implementation), with `D3M-Triage-C` as alternative.
+- Phase 4-D3M-Triage-B2 note:
+  - Safe no-purchase payment smoke plan is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_PLAN.md`.
+  - D3M-Triage-B2 is documentation-only and introduces no code/runtime/env/provider changes.
+  - Plan requires no checkout, no purchase, and no provider secrets.
+  - Next recommended phase is `D3M-Triage-B2-Run` evidence capture, then `D3M-Triage-B1-Implement` if supported by evidence, with `D3M-Triage-C` as alternative.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

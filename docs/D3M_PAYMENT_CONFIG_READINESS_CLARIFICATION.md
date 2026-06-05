@@ -121,3 +121,4 @@ Option D - Safe provider-readiness smoke:
 
 Follow-up:
 - D3M-Triage-B1 proposal/test plan is documented at `docs/D3M_PAYMENT_DISABLED_UX_PROPOSAL.md`.
+- D3M-Triage-B2 no-purchase smoke plan is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_PLAN.md`.
