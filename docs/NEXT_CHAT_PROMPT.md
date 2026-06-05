@@ -34,6 +34,7 @@ Read these first:
 - `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
 - `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`
 - `docs/D3M_MANUAL_SMOKE_RUN_RESULTS.md`
+- `docs/D3M_SMOKE_FAILURE_TRIAGE.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -140,7 +141,12 @@ Constraints:
 - D3M adds a checklist and evidence template only; no runtime/code/test changes were made in D3M.
 - D3M-Run manual smoke evidence is documented at `docs/D3M_MANUAL_SMOKE_RUN_RESULTS.md`.
 - D3M-Run overall status is `PARTIAL PASS / NON-D3K BLOCKERS FOUND`; D3K rollback is not recommended from this run.
-- The next recommended entitlement phase is `D3M-Triage` (documentation-first smoke failure triage).
+- D3M-Triage documentation-first review is documented at `docs/D3M_SMOKE_FAILURE_TRIAGE.md`.
+- D3M-Triage confirms no rollback and no runtime/code/test/config/env changes in this phase.
+- The next recommended phase should be one selected triage follow-up:
+  - `D3M-Triage-A` localization proposal/test plan, or
+  - `D3M-Triage-B` payment config/readiness clarification, or
+  - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.

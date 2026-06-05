@@ -6,6 +6,8 @@
 - Scope: document user-provided manual smoke execution evidence after D3K/D3M.
 - This document records observed outcomes only.
 - No runtime, test, schema, provider, frontend, deployment, package, or env changes are included.
+- Documentation-first triage follow-up for these findings is documented at:
+  - `docs/D3M_SMOKE_FAILURE_TRIAGE.md`
 
 ## 2. Run metadata
 

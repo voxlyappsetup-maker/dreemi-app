@@ -225,6 +225,20 @@
   - D3K rollback is not recommended from this run.
   - Non-D3K triage items recorded: localization warning on limit message language, local Lemon checkout config blocker (`LEMONSQUEEZY_STORE_ID` not set), payment status/subscription blocked by checkout failure, image generation failure requiring separate triage.
   - Next recommended phase is `4-D3M-Triage` (documentation-first investigation), with no third runtime wiring by default.
+- Phase 4-D3M-Triage note:
+  - Documentation-first triage review is documented at `docs/D3M_SMOKE_FAILURE_TRIAGE.md`.
+  - D3M-Triage is documentation-only and introduces no runtime/code/test/config/env changes.
+  - D3K rollback remains not recommended from current evidence.
+  - Triage findings tracked:
+    - English UI shows Arabic limit message (localization warning),
+    - local checkout config blocker (`LEMONSQUEEZY_STORE_ID` not set),
+    - payment status/subscription verification blocked by checkout dependency,
+    - image generation failure requiring dedicated triage.
+  - Recommended next phase ordering:
+    - `D3M-Triage-A` localization proposal/test plan,
+    - `D3M-Triage-B` payment config/readiness clarification,
+    - `D3M-Triage-C` image generation triage.
+  - No third entitlement runtime wiring surface should proceed by default.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
