@@ -198,6 +198,13 @@
   - D3K0 strengthens static baseline coverage for story-limit middleware order, FREE limit invariants, month-window counting, response contract, and pre-D3K non-wiring scope.
   - D3K0 adds no runtime wiring and no production code behavior changes.
   - D3K implementation must not start automatically and still requires explicit approval.
+- Phase 4-D3K note:
+  - Story-generation monthly-limit decision in `services/api/src/middleware/plans.middleware.ts` is now wired through EntitlementService compatibility projection.
+  - D3K uses `getPlanForAccessCheck(userId, user.plan)` while preserving `User.plan` read, `FREE_MONTHLY_LIMIT = 3`, month-window counting, and blocked response shape.
+  - D3K runtime surface scope is limited to `plans.middleware.ts`; `children.ts` remains D3G wiring surface and is unchanged.
+  - `stories.ts` remains non-wired directly, and payments/checkout/webhook remain non-wired to EntitlementService.
+  - No schema, migrations, provider logic, apps/web, deployment config, package, or env changes were introduced in D3K.
+  - Next recommended phase is D3L runtime verification and rollback-readiness review only.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

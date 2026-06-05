@@ -154,5 +154,7 @@
 - D3J proposal/test-plan is documented at `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
 - D3J remains documentation-only and adds no runtime wiring.
 - D3K0 static guardrail preflight is complete as a test-only phase and adds no runtime wiring.
-- D3K may be a future one-surface implementation phase only with explicit approval after D3J acceptance.
-- If risk remains high, run an extra test-only/static-guardrail phase before D3K implementation.
+- D3K is now implemented as a one-surface runtime change in `services/api/src/middleware/plans.middleware.ts` only.
+- D3K keeps stories.ts non-wired directly and keeps payments/checkout/webhook non-wired.
+- Next recommended phase is D3L runtime verification/rollback-readiness review only.
+- No third runtime wiring surface should occur until D3K verification is accepted.

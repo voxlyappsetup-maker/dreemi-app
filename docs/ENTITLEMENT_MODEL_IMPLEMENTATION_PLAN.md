@@ -357,6 +357,11 @@ Proposed future phases:
 - No second runtime wiring should occur until D3I is accepted and D3J is explicitly approved.
 - Phase 4-D3K0 story-generation static guardrail preflight is complete as test-only hardening before any story-limit runtime wiring.
 - D3K0 adds no runtime wiring, no schema/provider changes, and no production behavior changes.
+- Phase 4-D3K story-generation runtime wiring is now implemented in `services/api/src/middleware/plans.middleware.ts` only.
+- D3K replaces only the plan decision source with `getPlanForAccessCheck(userId, user.plan)` and keeps monthly count logic in middleware.
+- D3K preserves User.plan compatibility projection input and does not wire stories.ts directly or payments/checkout/webhook paths.
+- D3K rollback direction is to revert the D3K commit to restore direct `User.plan` decision logic in `checkStoryLimit`.
+- Recommended next phase is D3L runtime verification/rollback-readiness review only before any additional runtime surface.
 - D3K implementation must not start automatically and requires explicit approval after D3J acceptance.
 - Runtime wiring preflight tests/guardrails are now strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime behavior change.
 - Recommended first future runtime wiring surface is the child-limit path (`services/api/src/routes/children.ts`) before story-generation path.

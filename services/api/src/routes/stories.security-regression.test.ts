@@ -192,14 +192,32 @@ describe("stories.ts — POST /generate middleware stack", () => {
   });
 });
 
-// ── 4B. Pre-D3K story-limit baseline lock (middleware source of truth) ───────
+// ── 4B. D3K story-limit baseline lock (middleware source of truth) ───────────
 
-describe("plans.middleware.ts — pre-D3K story-limit baseline lock", () => {
+describe("plans.middleware.ts — D3K story-limit baseline lock", () => {
   it("keeps checkStoryLimit defined in plans middleware", () => {
     assert.match(
       plansSrc,
       /export\s+async\s+function\s+checkStoryLimit\s*\(/,
-      "checkStoryLimit must remain defined in plans.middleware.ts for pre-D3K baseline",
+      "checkStoryLimit must remain defined in plans.middleware.ts for D3K baseline",
+    );
+  });
+
+  it("wires plans.middleware.ts through EntitlementService compatibility projection", () => {
+    assert.match(
+      plansSrc,
+      /import\s*\{\s*createEntitlementService\s*\}\s*from\s*"..\/services\/entitlement\.service"/,
+      "plans.middleware.ts must import createEntitlementService in D3K",
+    );
+    assert.match(
+      plansSrc,
+      /const\s+entitlementService\s*=\s*createEntitlementService\(\)\s*;/,
+      "plans.middleware.ts must initialize module-level EntitlementService in D3K",
+    );
+    assert.match(
+      plansSrc,
+      /getPlanForAccessCheck\(\s*userId,\s*user\.plan\s*\)/,
+      "plans.middleware.ts must call getPlanForAccessCheck(userId, user.plan) in D3K",
     );
   });
 
@@ -214,8 +232,8 @@ describe("plans.middleware.ts — pre-D3K story-limit baseline lock", () => {
   it("keeps non-FREE bypass in legacy story-limit path", () => {
     assert.match(
       plansSrc,
-      /if\s*\(\s*user\.plan\s*!==\s*"FREE"\s*\)\s*\{[\s\S]*next\(\);[\s\S]*return;[\s\S]*\}/,
-      "non-FREE bypass must remain in plans.middleware.ts before any D3K wiring",
+      /if\s*\(\s*accessPlan\s*!==\s*"FREE"\s*\)\s*\{[\s\S]*next\(\);[\s\S]*return;[\s\S]*\}/,
+      "non-FREE bypass must remain via projected accessPlan in D3K",
     );
   });
 
@@ -252,18 +270,28 @@ describe("plans.middleware.ts — pre-D3K story-limit baseline lock", () => {
       "blocked story-limit response must keep success/error/code with STORY_LIMIT_REACHED",
     );
   });
+
+  it("does not read provider-specific ids or payment runtime state", () => {
+    const providerIdPolicyTokens =
+      /variantId|variant_id|productId|product_id|LEMON_VARIANT|stripePriceId|PAYMENT_ACTIVE_PROVIDER|resolvePlanFromLemonVariantId|resolveEffectiveUserPlanForSubscription/;
+    assert.equal(
+      providerIdPolicyTokens.test(plansSrc),
+      false,
+      "plans.middleware.ts must stay provider-neutral for access policy",
+    );
+  });
 });
 
-// ── 4C. Pre-D3K non-wiring lock for runtime surfaces ──────────────────────────
+// ── 4C. D3K runtime wiring scope lock for runtime surfaces ────────────────────
 
-describe("pre-D3K runtime non-wiring lock for story-generation surface", () => {
-  it("keeps plans.middleware.ts non-wired to EntitlementService pre-D3K", () => {
+describe("D3K runtime wiring scope lock for story-generation surface", () => {
+  it("requires plans.middleware.ts wiring to EntitlementService in D3K", () => {
     assert.equal(
       /EntitlementService|createEntitlementService|entitlement\.service|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/.test(
         plansSrc,
       ),
-      false,
-      "plans.middleware.ts must remain non-wired before D3K implementation",
+      true,
+      "plans.middleware.ts must be wired in D3K",
     );
   });
 
@@ -273,7 +301,7 @@ describe("pre-D3K runtime non-wiring lock for story-generation surface", () => {
         src,
       ),
       false,
-      "stories.ts must remain non-wired before D3K implementation",
+      "stories.ts must remain non-wired directly in D3K",
     );
   });
 
@@ -283,25 +311,22 @@ describe("pre-D3K runtime non-wiring lock for story-generation surface", () => {
         paymentsSrc,
       ),
       false,
-      "payments.ts must remain non-wired before D3K implementation",
+      "payments.ts must remain non-wired in D3K",
     );
   });
 
-  it("keeps children.ts as the only runtime EntitlementService wiring surface", () => {
+  it("allows EntitlementService runtime references only in children.ts and plans.middleware.ts", () => {
     const entitlementSurfacePattern =
       /EntitlementService|createEntitlementService|entitlement\.service|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
     assert.equal(entitlementSurfacePattern.test(childrenSrc), true);
     assert.equal(entitlementSurfacePattern.test(src), false);
-    assert.equal(entitlementSurfacePattern.test(plansSrc), false);
+    assert.equal(entitlementSurfacePattern.test(plansSrc), true);
     assert.equal(entitlementSurfacePattern.test(paymentsSrc), false);
   });
 
   it("keeps D3G child-limit entitlement call unchanged", () => {
     assert.match(childrenSrc, /createEntitlementService/);
     assert.match(childrenSrc, /getChildLimit\(\s*userId,\s*user\.plan\s*\)/);
-    // Pre-D3K baseline note: if D3K wires plans.middleware, update only that
-    // specific guardrail and keep stories.ts/payments.ts non-wired unless
-    // explicit approval expands scope.
   });
 });
 

@@ -126,10 +126,12 @@ Constraints:
 - D3I next-surface proposal/review is documented in `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`.
 - D3J story-generation proposal/test-plan is documented in `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`.
 - D3K0 story-generation static guardrail preflight is complete as test-only hardening with no runtime wiring.
-- The next recommended entitlement phase may be Phase 4-D3K narrow runtime implementation only after explicit approval.
-- D3K must not start automatically.
-- If explicit approval is not given, continue review/test-hardening only.
-- No second runtime wiring should occur until D3I and D3J are accepted and D3K scope is explicitly approved.
+- D3K is now implemented by wiring only `services/api/src/middleware/plans.middleware.ts` story-limit plan decision through `getPlanForAccessCheck(userId, user.plan)`.
+- D3K preserves route order, FREE monthly limit constant, month-window count logic, blocked response shape, and User.plan compatibility projection input.
+- children.ts remains the D3G runtime wiring surface and was not edited in D3K.
+- stories.ts remains non-wired directly; payments/checkout/webhook remain non-wired.
+- No third runtime wiring surface should occur until D3K verification is accepted.
+- The next recommended entitlement phase is D3L runtime verification/rollback-readiness review only.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.

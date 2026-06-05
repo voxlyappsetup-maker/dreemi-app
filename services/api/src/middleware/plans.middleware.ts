@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { prisma } from "../services/prisma.service";
+import { createEntitlementService } from "../services/entitlement.service";
 
 const FREE_MONTHLY_LIMIT = 3;
+const entitlementService = createEntitlementService();
 
 /**
  * Enforce story generation limits based on user plan.
@@ -30,7 +32,8 @@ export async function checkStoryLimit(
       return;
     }
 
-    if (user.plan !== "FREE") {
+    const accessPlan = await entitlementService.getPlanForAccessCheck(userId, user.plan);
+    if (accessPlan !== "FREE") {
       next();
       return;
     }

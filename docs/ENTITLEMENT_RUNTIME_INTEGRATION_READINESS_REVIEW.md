@@ -227,8 +227,12 @@
 - D3K0 static-guardrail preflight is complete as test-only hardening:
   - no runtime wiring changes were introduced,
   - story-generation legacy baseline is now more tightly locked by static tests before any D3K runtime phase.
-- Recommended next phase: `Phase 4-D3K` narrow implementation only if D3J is accepted and explicit approval is provided.
-- No second runtime wiring should occur before D3I/D3J are accepted and D3K scope is explicitly approved.
+- D3K runtime implementation is now complete with one additional surface:
+  - `services/api/src/middleware/plans.middleware.ts` story-limit plan decision only.
+- D3K preserves route order, User.plan read, FREE monthly limit, month-window count logic, and blocked response shape.
+- D3K keeps stories.ts non-wired directly and keeps payments/checkout/webhook non-wired.
+- Recommended next phase: `Phase 4-D3L` runtime verification and rollback-readiness review only.
+- No third runtime wiring surface should occur until D3K verification is accepted.
 
 ## 10. Current Status
 

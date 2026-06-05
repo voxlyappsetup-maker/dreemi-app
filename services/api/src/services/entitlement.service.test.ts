@@ -214,13 +214,13 @@ describe("EntitlementService static guardrails", () => {
     }
   });
 
-  it("only children route may reference EntitlementService wiring in D3G", () => {
+  it("runtime EntitlementService wiring scope allows only children route and plans middleware in D3K", () => {
     const pattern =
       /entitlement\.service|createEntitlementService|EntitlementService|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
     assert.equal(pattern.test(childrenRouteSource), true);
     assert.equal(pattern.test(paymentsRouteSource), false);
     assert.equal(pattern.test(storiesRouteSource), false);
-    assert.equal(pattern.test(plansMiddlewareSource), false);
+    assert.equal(pattern.test(plansMiddlewareSource), true);
   });
 
   it("current prisma schema remains on existing Plan enum without entitlement models", () => {
@@ -232,20 +232,22 @@ describe("EntitlementService static guardrails", () => {
   });
 });
 
-describe("EntitlementService runtime wiring guardrails (D3G)", () => {
-  it("only children route imports/calls EntitlementService; stories/plans/payments remain untouched", () => {
+describe("EntitlementService runtime wiring guardrails (D3K)", () => {
+  it("children route and plans middleware import/call EntitlementService; stories/payments remain non-wired", () => {
     const entitlementTokens =
       /entitlement\.service|createEntitlementService|EntitlementService|getEffectiveEntitlement|getPlanForAccessCheck|canGenerateStory|getChildLimit/;
-    assert.equal(entitlementTokens.test(plansMiddlewareSource), false);
+    assert.equal(entitlementTokens.test(plansMiddlewareSource), true);
     assert.equal(entitlementTokens.test(storiesRouteSource), false);
     assert.equal(entitlementTokens.test(childrenRouteSource), true);
     assert.equal(entitlementTokens.test(paymentsRouteSource), false);
   });
 
-  it("plans middleware keeps legacy User.plan read and FREE monthly limit enforcement", () => {
+  it("plans middleware keeps User.plan read, D3K compatibility projection call, and FREE monthly limit enforcement", () => {
     assert.match(plansMiddlewareSource, /const\s+FREE_MONTHLY_LIMIT\s*=\s*3\s*;/);
     assert.match(plansMiddlewareSource, /select:\s*\{\s*plan:\s*true\s*\}/);
-    assert.match(plansMiddlewareSource, /if\s*\(\s*user\.plan\s*!==\s*"FREE"\s*\)/);
+    assert.match(plansMiddlewareSource, /createEntitlementService/);
+    assert.match(plansMiddlewareSource, /getPlanForAccessCheck\(\s*userId,\s*user\.plan\s*\)/);
+    assert.match(plansMiddlewareSource, /if\s*\(\s*accessPlan\s*!==\s*"FREE"\s*\)/);
     assert.match(plansMiddlewareSource, /count\s*>=\s*FREE_MONTHLY_LIMIT/);
   });
 

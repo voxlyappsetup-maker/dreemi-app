@@ -163,3 +163,13 @@
 - Runtime behavior is unchanged in D3J.
 - Story generation, plans middleware, payments, schema, migrations, providers, checkout, webhook, and apps/web are unchanged in D3J.
 - D3K0 test-only hardening is complete and keeps runtime behavior unchanged.
+- D3K is now implemented as one-surface runtime wiring in `services/api/src/middleware/plans.middleware.ts`.
+- D3K wires only the story-limit plan decision through `getPlanForAccessCheck(userId, user.plan)` and keeps monthly count logic in middleware.
+- D3K preserves:
+  - `FREE_MONTHLY_LIMIT = 3`,
+  - month-window counting (`createdAt >= monthStart`),
+  - blocked response shape (`success`, `error`, `code` with `STORY_LIMIT_REACHED`),
+  - existing route order in `stories.ts`.
+- D3K keeps `children.ts` D3G wiring unchanged and keeps `stories.ts`/payments/checkout/webhook non-wired directly.
+- D3K rollback direction: revert the D3K commit to restore direct `User.plan` plan decision in `checkStoryLimit`.
+- Next recommended phase is D3L runtime verification/rollback-readiness review only.
