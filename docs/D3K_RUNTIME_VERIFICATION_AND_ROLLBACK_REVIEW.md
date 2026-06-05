@@ -86,10 +86,9 @@ The D3K implementation was manually validated before commit with the following k
 
 ## 8. Next-Phase Gate
 
-- Next recommended phase is `D3M` only after D3L is committed and accepted.
-- D3M must not be another runtime wiring surface by default.
-- Recommended D3M options:
-  - manual smoke verification documentation, or
+- D3M manual smoke verification documentation is now available at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
+- Next recommended execution phase is `D3M-Run` (user-executed manual smoke and evidence capture).
+- Alternative next non-wiring options remain:
   - payment-provider production readiness review, or
   - entitlement schema proposal review.
-- No third runtime wiring surface is allowed until D3K verification is accepted and a separate proposal/test-plan is completed.
+- No third runtime wiring surface is allowed by default until D3K verification is accepted and a separate proposal/test-plan is completed.

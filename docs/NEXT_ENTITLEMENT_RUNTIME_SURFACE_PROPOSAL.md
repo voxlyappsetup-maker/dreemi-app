@@ -160,5 +160,8 @@
 - No third runtime wiring surface should occur until D3K verification is accepted.
 - D3L runtime verification/rollback-readiness review is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - D3L is documentation-only and confirms exactly two runtime entitlement surfaces (D3G + D3K).
-- Next recommended phase after D3L is D3M and should not be another runtime wiring surface by default.
+- D3M manual smoke verification documentation is now available at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
+- D3M is documentation-only and adds a checklist/evidence template with no runtime/code/test changes.
+- Next recommended phase after D3M is `D3M-Run` (user-executed smoke evidence capture), or payment-provider readiness review, or entitlement schema proposal review.
+- No third runtime wiring surface should proceed by default.
 - No third runtime wiring surface should occur until D3L is accepted and a separate proposal/test-plan is completed.

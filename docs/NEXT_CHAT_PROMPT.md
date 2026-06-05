@@ -32,6 +32,7 @@ Read these first:
 - `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`
 - `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`
 - `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
+- `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -134,7 +135,10 @@ Constraints:
 - D3L runtime verification/rollback-readiness review is documented in `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - D3L is documentation-only and adds no runtime/code changes.
 - No third runtime wiring surface should occur until D3L is accepted and a separate proposal/test-plan is completed.
-- The next recommended entitlement phase is D3M and must not be automatic runtime wiring.
+- D3M manual smoke documentation is complete at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
+- D3M adds a checklist and evidence template only; no runtime/code/test changes were made in D3M.
+- The next recommended entitlement phase is `D3M-Run` (user-executed smoke and evidence capture), or payment-provider readiness review, or entitlement schema proposal review.
+- No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.

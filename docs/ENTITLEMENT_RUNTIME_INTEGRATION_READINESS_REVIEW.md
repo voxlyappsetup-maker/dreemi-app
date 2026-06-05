@@ -236,7 +236,9 @@
 - D3L runtime verification/rollback-readiness review is now documented at:
   - `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
 - D3L confirms exactly two runtime entitlement surfaces (D3G `children.ts`, D3K `plans.middleware.ts`) and no additional runtime wiring.
-- Recommended next phase after D3L: `Phase 4-D3M` as non-runtime-wiring by default (verification documentation, readiness review, or schema proposal review).
+- D3M manual smoke verification documentation is now available at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
+- D3M adds a practical checklist and evidence template only; no runtime/code/test changes.
+- Recommended next phase after D3M: `Phase 4-D3M-Run` (user-executed smoke run and evidence capture), or payment-provider readiness review, or entitlement schema proposal review.
 - No third runtime wiring surface should occur until D3L is accepted and a separate proposal/test-plan is completed.
 
 ## 10. Current Status

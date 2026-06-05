@@ -365,6 +365,9 @@ Proposed future phases:
 - Phase 4-D3L runtime verification/rollback-readiness review is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - D3L confirms exactly two runtime EntitlementService surfaces (D3G `children.ts`, D3K `plans.middleware.ts`) and adds no runtime/code changes.
 - No third runtime wiring surface should proceed until D3L is accepted and a separate proposal/test-plan is completed.
+- Phase 4-D3M manual smoke verification documentation is now available at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
+- D3M provides a user-run checklist plus evidence template only and adds no runtime/code/test changes.
+- Next recommended phase after D3M is `D3M-Run` evidence capture (or non-wiring readiness/schema review work).
 - Runtime wiring preflight tests/guardrails are now strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime behavior change.
 - Recommended first future runtime wiring surface is the child-limit path (`services/api/src/routes/children.ts`) before story-generation path.
 - Schema design has not been finalized.

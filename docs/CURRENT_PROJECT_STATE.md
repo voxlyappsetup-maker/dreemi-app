@@ -213,6 +213,11 @@
     - D3K: `services/api/src/middleware/plans.middleware.ts` story-limit plan decision path.
   - D3L is documentation-only and introduces no runtime/code changes.
   - No third runtime wiring surface is allowed until D3L is accepted and a separate proposal/test-plan is completed.
+- Phase 4-D3M note:
+  - Manual smoke verification documentation is now provided at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
+  - D3M adds a practical post-D3K checklist and evidence log template for user-executed verification.
+  - D3M is documentation-only and introduces no runtime/code/test changes.
+  - Stable baseline remains after D3K/D3L sequence, with latest accepted state tracked at `7361a77` (`Document D3K runtime verification and rollback review`).
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

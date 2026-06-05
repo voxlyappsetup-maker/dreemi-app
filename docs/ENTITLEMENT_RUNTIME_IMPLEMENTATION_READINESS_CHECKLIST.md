@@ -312,7 +312,10 @@ Clarifications:
 - Next recommended phase is D3L runtime verification/rollback-readiness review only.
 - Phase 4-D3L status: D3K runtime verification/rollback-readiness review is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
 - Phase 4-D3L status: review confirms exactly two runtime entitlement surfaces (D3G `children.ts`, D3K `plans.middleware.ts`) with no additional runtime wiring.
-- Next recommended phase after D3L is D3M and must not default to another runtime wiring surface.
+- Phase 4-D3M status: manual smoke verification documentation is now available at `docs/D3M_MANUAL_SMOKE_VERIFICATION.md`.
+- Phase 4-D3M status: checklist and evidence template are ready for user-executed run; no runtime/code/test changes were made.
+- Next recommended phase after D3M is `D3M-Run` evidence capture, or a non-wiring readiness/schema review phase.
+- No third runtime wiring surface should proceed by default.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
 - Entitlement runtime wiring currently exists in two approved surfaces: child-limit decision (D3G) and story-limit plan decision (D3K).
 - Entitlement schema implementation has not started.
