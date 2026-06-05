@@ -362,7 +362,9 @@ Proposed future phases:
 - D3K preserves User.plan compatibility projection input and does not wire stories.ts directly or payments/checkout/webhook paths.
 - D3K rollback direction is to revert the D3K commit to restore direct `User.plan` decision logic in `checkStoryLimit`.
 - Recommended next phase is D3L runtime verification/rollback-readiness review only before any additional runtime surface.
-- D3K implementation must not start automatically and requires explicit approval after D3J acceptance.
+- Phase 4-D3L runtime verification/rollback-readiness review is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+- D3L confirms exactly two runtime EntitlementService surfaces (D3G `children.ts`, D3K `plans.middleware.ts`) and adds no runtime/code changes.
+- No third runtime wiring surface should proceed until D3L is accepted and a separate proposal/test-plan is completed.
 - Runtime wiring preflight tests/guardrails are now strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime behavior change.
 - Recommended first future runtime wiring surface is the child-limit path (`services/api/src/routes/children.ts`) before story-generation path.
 - Schema design has not been finalized.

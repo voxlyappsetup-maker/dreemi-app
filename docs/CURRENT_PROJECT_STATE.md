@@ -205,6 +205,14 @@
   - `stories.ts` remains non-wired directly, and payments/checkout/webhook remain non-wired to EntitlementService.
   - No schema, migrations, provider logic, apps/web, deployment config, package, or env changes were introduced in D3K.
   - Next recommended phase is D3L runtime verification and rollback-readiness review only.
+- Phase 4-D3L note:
+  - Runtime verification and rollback-readiness review for D3K is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+  - Stable baseline for this review is `543b4ad` (`Wire story generation limit to entitlement service`).
+  - Confirmed runtime EntitlementService surfaces remain exactly two:
+    - D3G: `services/api/src/routes/children.ts` child-limit decision path.
+    - D3K: `services/api/src/middleware/plans.middleware.ts` story-limit plan decision path.
+  - D3L is documentation-only and introduces no runtime/code changes.
+  - No third runtime wiring surface is allowed until D3L is accepted and a separate proposal/test-plan is completed.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

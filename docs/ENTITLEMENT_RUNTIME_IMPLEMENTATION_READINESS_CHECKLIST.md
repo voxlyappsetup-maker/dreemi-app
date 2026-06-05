@@ -310,10 +310,13 @@ Clarifications:
 - D3K rollback direction is to revert the D3K commit and restore direct `User.plan` decision logic in `checkStoryLimit`.
 - No third runtime wiring surface should occur until D3K runtime verification is accepted.
 - Next recommended phase is D3L runtime verification/rollback-readiness review only.
+- Phase 4-D3L status: D3K runtime verification/rollback-readiness review is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+- Phase 4-D3L status: review confirms exactly two runtime entitlement surfaces (D3G `children.ts`, D3K `plans.middleware.ts`) with no additional runtime wiring.
+- Next recommended phase after D3L is D3M and must not default to another runtime wiring surface.
 - Future phases are still required before projection wiring, access-check migration, schema work, or provider adapters.
-- Entitlement runtime wiring has started only for the child-limit decision surface in D3G.
+- Entitlement runtime wiring currently exists in two approved surfaces: child-limit decision (D3G) and story-limit plan decision (D3K).
 - Entitlement schema implementation has not started.
 - Provider adapters have not started.
 - User.plan remains current compatibility projection.
-- Story generation, plans middleware, and payments access/runtime paths remain unchanged.
+- `stories.ts` and payments access/runtime paths remain non-wired directly to EntitlementService.
 - Paid access remains fail-closed unless explicitly approved and verified.

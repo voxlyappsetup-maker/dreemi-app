@@ -173,3 +173,7 @@
 - D3K keeps `children.ts` D3G wiring unchanged and keeps `stories.ts`/payments/checkout/webhook non-wired directly.
 - D3K rollback direction: revert the D3K commit to restore direct `User.plan` plan decision in `checkStoryLimit`.
 - Next recommended phase is D3L runtime verification/rollback-readiness review only.
+- D3L runtime verification/rollback-readiness review is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+- D3L confirms exactly two runtime entitlement surfaces (D3G + D3K) with no runtime/code changes in the review phase.
+- Next recommended phase after D3L is D3M and should not default to a third runtime wiring surface.
+- No third runtime wiring surface should proceed until D3L is accepted and a separate proposal/test-plan is completed.

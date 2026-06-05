@@ -158,3 +158,7 @@
 - D3K keeps stories.ts non-wired directly and keeps payments/checkout/webhook non-wired.
 - Next recommended phase is D3L runtime verification/rollback-readiness review only.
 - No third runtime wiring surface should occur until D3K verification is accepted.
+- D3L runtime verification/rollback-readiness review is documented at `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+- D3L is documentation-only and confirms exactly two runtime entitlement surfaces (D3G + D3K).
+- Next recommended phase after D3L is D3M and should not be another runtime wiring surface by default.
+- No third runtime wiring surface should occur until D3L is accepted and a separate proposal/test-plan is completed.

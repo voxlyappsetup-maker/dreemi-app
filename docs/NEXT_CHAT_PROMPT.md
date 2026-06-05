@@ -31,6 +31,7 @@ Read these first:
 - `docs/ENTITLEMENT_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
 - `docs/NEXT_ENTITLEMENT_RUNTIME_SURFACE_PROPOSAL.md`
 - `docs/STORY_GENERATION_ENTITLEMENT_WIRING_TEST_PLAN.md`
+- `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -130,8 +131,10 @@ Constraints:
 - D3K preserves route order, FREE monthly limit constant, month-window count logic, blocked response shape, and User.plan compatibility projection input.
 - children.ts remains the D3G runtime wiring surface and was not edited in D3K.
 - stories.ts remains non-wired directly; payments/checkout/webhook remain non-wired.
-- No third runtime wiring surface should occur until D3K verification is accepted.
-- The next recommended entitlement phase is D3L runtime verification/rollback-readiness review only.
+- D3L runtime verification/rollback-readiness review is documented in `docs/D3K_RUNTIME_VERIFICATION_AND_ROLLBACK_REVIEW.md`.
+- D3L is documentation-only and adds no runtime/code changes.
+- No third runtime wiring surface should occur until D3L is accepted and a separate proposal/test-plan is completed.
+- The next recommended entitlement phase is D3M and must not be automatic runtime wiring.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.
 - Do not rename/remove current Subscription fields without explicit schema phase approval.
