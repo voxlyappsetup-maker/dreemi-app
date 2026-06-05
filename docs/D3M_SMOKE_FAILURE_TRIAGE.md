@@ -40,6 +40,7 @@
 - Preferred future fix direction:
   - UI should rely on stable backend error code `STORY_LIMIT_REACHED` and render locale-specific copy.
   - Avoid using backend human-readable text directly for localized UI display.
+  - Detailed proposal/test plan for this finding: `docs/D3M_LOCALIZATION_FIX_PROPOSAL.md`.
 - D3K rollback assessment:
   - Not a rollback trigger.
   - D3K should not be reverted for message localization alone.

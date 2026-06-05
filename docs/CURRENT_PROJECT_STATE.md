@@ -239,6 +239,13 @@
     - `D3M-Triage-B` payment config/readiness clarification,
     - `D3M-Triage-C` image generation triage.
   - No third entitlement runtime wiring surface should proceed by default.
+- Phase 4-D3M-Triage-A note:
+  - Localization fix proposal/test plan is documented at `docs/D3M_LOCALIZATION_FIX_PROPOSAL.md`.
+  - D3M-Triage-A is documentation-only and introduces no code/runtime/test/i18n changes.
+  - Scope focuses on WARN finding: English UI showing Arabic limit message for `STORY_LIMIT_REACHED`.
+  - D3K rollback remains not recommended; entitlement access-control behavior is treated as intact.
+  - Next recommended phase is `D3M-Triage-A1` localization implementation (explicit approval), or `D3M-Triage-B` payment config/readiness clarification.
+  - No third entitlement runtime wiring surface should proceed by default.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
