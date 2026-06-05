@@ -8,6 +8,8 @@
 - No runtime, test, schema, provider, frontend, deployment, package, or env changes are included.
 - Documentation-first triage follow-up for these findings is documented at:
   - `docs/D3M_SMOKE_FAILURE_TRIAGE.md`
+- Payment blocker follow-up clarification is documented at:
+  - `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md`
 
 ## 2. Run metadata
 

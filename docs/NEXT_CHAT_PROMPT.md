@@ -37,6 +37,7 @@ Read these first:
 - `docs/D3M_SMOKE_FAILURE_TRIAGE.md`
 - `docs/D3M_LOCALIZATION_FIX_PROPOSAL.md`
 - `docs/D3M_LOCALIZATION_SMOKE_RESULTS.md`
+- `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -150,8 +151,10 @@ Constraints:
 - D3M-Triage-A1 frontend localization fix is implemented for `STORY_LIMIT_REACHED` display mapping in the generate flow.
 - D3M-Triage-A1 keeps backend contract and D3K/D3G runtime wiring unchanged.
 - D3M-Triage-A1-Smoke is PASS and documented at `docs/D3M_LOCALIZATION_SMOKE_RESULTS.md` (EN/AR/FR locale-correct limit messages).
+- D3M-Triage-B payment config/readiness clarification is documented at `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md`.
+- D3M-Triage-B classifies local checkout `CHECKOUT_CREATE_FAILED` with missing `LEMONSQUEEZY_STORE_ID` as a local provider config blocker, not D3K regression.
 - The next recommended phase should be either:
-  - `D3M-Triage-B` payment config/readiness clarification, or
+  - `D3M-Triage-B1` payment disabled/config-missing UX proposal/test plan, or
   - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

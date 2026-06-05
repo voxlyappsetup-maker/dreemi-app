@@ -59,6 +59,7 @@
 - Relevant docs:
   - `docs/PRODUCTION_READINESS_CHECKLIST.md`
   - `docs/PAYMENT_PROVIDER_STRATEGY_AFTER_LEMON_REJECTION.md`
+  - `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md`
 - Preferred future action:
   - Do not add secrets to repo.
   - Do not paste secrets in chat.
@@ -77,6 +78,7 @@
 - Future investigation:
   - Separately test public payments status route and authenticated subscription route with a safe local account.
   - Do not infer they are broken solely from checkout blocker.
+  - Use `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md` as the payment blocker/readiness reference.
 - D3K rollback assessment:
   - No rollback from current evidence.
 

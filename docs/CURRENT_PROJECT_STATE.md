@@ -261,6 +261,13 @@
   - Backend contract and D3K/D3G entitlement wiring remain unchanged.
   - Remaining separate triage tracks are payment config/readiness and image-generation triage.
   - Next recommended phase is `4-D3M-Triage-B` (payment config/readiness), with `4-D3M-Triage-C` as alternative.
+- Phase 4-D3M-Triage-B note:
+  - Payment config/readiness clarification is documented at `docs/D3M_PAYMENT_CONFIG_READINESS_CLARIFICATION.md`.
+  - Checkout smoke failure is classified as a local provider config blocker (`LEMONSQUEEZY_STORE_ID` missing), not as D3K regression.
+  - Missing `LEMONSQUEEZY_STORE_ID` is recorded as an env/config prerequisite reference only (no secret value).
+  - No D3K rollback is recommended from this finding.
+  - No code/runtime/env/provider changes were made in this clarification phase.
+  - Next recommended phase is `D3M-Triage-B1` (payment disabled/config-missing UX proposal/test plan), or `D3M-Triage-C` (image generation triage).
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
