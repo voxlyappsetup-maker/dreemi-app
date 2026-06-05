@@ -268,6 +268,11 @@
   - No D3K rollback is recommended from this finding.
   - No code/runtime/env/provider changes were made in this clarification phase.
   - Next recommended phase is `D3M-Triage-B1` (payment disabled/config-missing UX proposal/test plan), or `D3M-Triage-C` (image generation triage).
+- Phase 4-D3M-Triage-B1 note:
+  - Payment disabled/config-missing UX proposal/test plan is documented at `docs/D3M_PAYMENT_DISABLED_UX_PROPOSAL.md`.
+  - D3M-Triage-B1 is documentation-only and introduces no code/runtime/env/provider changes.
+  - D3K rollback remains not recommended.
+  - Next recommended phase is `D3M-Triage-B2` (safe no-purchase payment status/subscription smoke plan), or `D3M-Triage-B1-Implement` (explicitly approved UX implementation), with `D3M-Triage-C` as alternative.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

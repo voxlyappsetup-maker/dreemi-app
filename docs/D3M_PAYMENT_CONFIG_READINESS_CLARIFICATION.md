@@ -118,3 +118,6 @@ Option D - Safe provider-readiness smoke:
 
 - Recommended: `D3M-Triage-B1` - Payment disabled/config-missing UX proposal/test plan.
 - Alternative: `D3M-Triage-C` - Image generation triage.
+
+Follow-up:
+- D3M-Triage-B1 proposal/test plan is documented at `docs/D3M_PAYMENT_DISABLED_UX_PROPOSAL.md`.
