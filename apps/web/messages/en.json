@@ -189,7 +189,8 @@
     "errorAge": "Age must be between 2 and 12",
     "errorTheme": "Please enter a story theme",
     "errorGenerate": "Failed to generate story, please try again",
-    "storyLimitReached": "You have reached your monthly story limit. Upgrade your plan to create more stories."
+    "storyLimitReached": "You have reached your monthly story limit. Upgrade your plan to create more stories.",
+    "storyIllustrationUnavailable": "Story illustration unavailable"
   },
   "pricing": {
     "title": "Plans That Fit Your Family",

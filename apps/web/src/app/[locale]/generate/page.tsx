@@ -12,7 +12,7 @@ import { DashboardSidebar } from "../../../components/DashboardSidebar";
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
 import { FormError } from "../../../components/FormError";
 import { INPUT_CLASS } from "../../../components/PasswordInput";
-import { IconCopy, IconHeart, IconMail, IconPrinter, IconShare, IconSparkle } from "../../../components/icons";
+import { IconBook, IconCopy, IconHeart, IconMail, IconPrinter, IconShare, IconSparkle } from "../../../components/icons";
 import { StoryContent } from "../../../components/StoryContent";
 import { exportStoryPdf } from "../../../lib/exportStoryPdf";
 
@@ -64,6 +64,7 @@ function GenerateContent() {
   const [fav, setFav] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
+  const [imgError, setImgError] = useState(false);
   const [userPlan, setUserPlan] = useState<"FREE" | "INDIVIDUAL" | "FAMILY" | "SCHOOL">("FREE");
   const [childrenList, setChildrenList] = useState<Child[]>([]);
   const [selectedChildId, setSelectedChildId] = useState<string | null>(null);
@@ -95,6 +96,10 @@ function GenerateContent() {
     }).catch(() => {});
   }, [router, searchParams]);
 
+  useEffect(() => {
+    setImgError(false);
+  }, [story?.imageUrl]);
+
   function handleSelectChild(id: string | null) {
     setSelectedChildId(id);
     if (id) {
@@ -124,6 +129,7 @@ function GenerateContent() {
   async function runGenerate() {
     setError(null);
     setStory(null);
+    setImgError(false);
     setStep(3);
     setLoading(true);
     try {
@@ -234,6 +240,7 @@ function GenerateContent() {
   function startOver() {
     setStep(1);
     setStory(null);
+    setImgError(false);
     setError(null);
     setShareMsg(null);
     setSelectedChildId(null);
@@ -506,16 +513,26 @@ function GenerateContent() {
               {loading && <LoadingSpinner label={t("generating")} />}
               {story && !loading && (
                 <article data-story-print className="overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 to-white">
-                  {story.imageUrl && (
+                  {story.imageUrl && !imgError ? (
                     <div className="relative aspect-square w-full overflow-hidden bg-violet-100" data-story-print>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={story.imageUrl}
                         alt={story.title}
                         className="h-full w-full object-cover"
+                        referrerPolicy="no-referrer"
+                        onError={() => setImgError(true)}
                       />
                     </div>
-                  )}
+                  ) : story.imageUrl ? (
+                    <div
+                      className="flex aspect-square w-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-violet-100 via-purple-50 to-violet-100 px-4 text-center"
+                      data-story-print
+                    >
+                      <IconBook className="h-10 w-10 text-violet-300" />
+                      <p className="text-sm font-medium text-slate-600">{t("storyIllustrationUnavailable")}</p>
+                    </div>
+                  ) : null}
                   <div className="border-b border-violet-100 bg-white/80 px-6 py-5">
                     <p className="text-sm font-medium text-violet-700">{t("storyFor", { name: story.childName })}</p>
                     <h2 className="mt-1 text-2xl font-bold text-slate-900">{story.title}</h2>

@@ -683,12 +683,10 @@ describe("frontend/pdf image fallback static guardrails", () => {
     assert.match(pdfExportSrc, /Story illustration unavailable/);
   });
 
-  it("generate page current state is image-if-present with no explicit onError fallback (known C3 gap)", () => {
-    assert.match(generatePageSrc, /\{story\.imageUrl && \(/);
-    assert.equal(
-      /onError=\{/.test(generatePageSrc),
-      false,
-      "generate/page explicit image onError fallback remains a later C3 scope",
-    );
+  it("generate page keeps explicit image onError fallback with localized fallback branch", () => {
+    assert.match(generatePageSrc, /\{story\.imageUrl && !imgError \?/);
+    assert.match(generatePageSrc, /onError=\{\(\)\s*=>\s*setImgError\(true\)\}/);
+    assert.match(generatePageSrc, /storyIllustrationUnavailable/);
+    assert.match(generatePageSrc, /setImgError\(false\)/);
   });
 });

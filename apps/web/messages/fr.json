@@ -189,7 +189,8 @@
     "errorAge": "L'âge doit être entre 2 et 12",
     "errorTheme": "Veuillez entrer un thème d'histoire",
     "errorGenerate": "Échec de la génération, veuillez réessayer",
-    "storyLimitReached": "Vous avez atteint votre limite mensuelle d'histoires. Mettez votre offre à niveau pour créer plus d'histoires."
+    "storyLimitReached": "Vous avez atteint votre limite mensuelle d'histoires. Mettez votre offre à niveau pour créer plus d'histoires.",
+    "storyIllustrationUnavailable": "Illustration de l’histoire indisponible"
   },
   "pricing": {
     "title": "Des plans adaptés à votre famille",

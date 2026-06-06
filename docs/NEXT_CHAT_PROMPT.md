@@ -200,17 +200,21 @@ Constraints:
 - C2 validates no-provider image-service fallback behavior with mocked fetch, async image update non-blocking route guardrails, and story-detail/card/PDF fallback static coverage.
 - C2 does not run Pollinations/provider calls, runtime image generation calls, or runtime story generation calls.
 - C2 does not change runtime behavior.
-- Known generate-page explicit image `onError` fallback gap remains and should be handled in `D3M-Triage-C3`.
+- D3M-Triage-C3 generate-page fallback polish is implemented in `apps/web/src/app/[locale]/generate/page.tsx` with explicit image `onError` fallback and localized fallback copy.
+- C3 updates static regression guard coverage in `services/api/src/routes/stories.security-regression.test.ts` to assert generate-page fallback presence.
+- C3 does not change backend runtime/image-service/payment/provider/env/schema behavior.
+- C3 does not run Pollinations/provider calls, runtime image generation calls, or runtime story generation calls.
+- C3 does not claim production image readiness.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
 - Future phases can run `.\tooling\validate_phase.ps1` from repo root.
 - For docs-only phases, `.\tooling\validate_phase.ps1 -StrictScope` can be used when runtime changes are not expected.
 - `-StrictScope` should not be used for phases that intentionally modify runtime files.
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
-- Latest commit placeholder after C2 commit: `<LATEST_COMMIT_AFTER_C2>`.
+- Latest commit placeholder after C3 commit: `<LATEST_COMMIT_AFTER_C3>`.
 - The next recommended phase should be either:
   - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
-  - `D3M-Triage-C3` generate-page image fallback polish (runtime code only for fallback/UI surface), or
   - `D3M-Triage-C4` safe image runtime smoke plan (docs-only), or
+  - `D3M-Triage-C3-followup` (only if a new image fallback gap appears), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

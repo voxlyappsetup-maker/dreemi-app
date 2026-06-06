@@ -173,8 +173,8 @@ Important notes:
   - reference triage: `docs/D3M_IMAGE_GENERATION_TRIAGE.md`
   - hardening plan reference: `docs/D3M_IMAGE_FALLBACK_HARDENING_PLAN.md`
   - no-provider/static regression coverage reference: `services/api/src/routes/stories.security-regression.test.ts` (`D3M-Triage-C2`)
-  - no-provider/static regression phase (`D3M-Triage-C2`) should complete before any runtime image smoke phase
-  - known generate-page explicit image `onError` fallback gap remains for follow-up phase (`D3M-Triage-C3`)
+  - generate-page explicit image `onError` fallback is now implemented (`D3M-Triage-C3`)
+  - no-provider/static regression and generate-page fallback polish phases (`D3M-Triage-C2`, `D3M-Triage-C3`) should be accepted before any runtime image smoke phase
   - provider behavior must not be treated as verified without a dedicated safe runtime smoke phase.
 
 ## 5) P2/P3 Cleanup Items
