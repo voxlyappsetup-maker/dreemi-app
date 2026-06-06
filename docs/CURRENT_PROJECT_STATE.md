@@ -300,6 +300,13 @@
   - B4 is documentation-only and introduces no runtime/code/test/config/env/provider changes.
   - Payment readiness gap remains unresolved at runtime in this phase.
   - Next step is explicit code-phase decision/prompt (`D3M-Triage-B4-Implement`) or alternative `D3M-Triage-C` image generation triage.
+- Phase 4-D3M-Triage-B4-Implement-A note:
+  - Runtime/payment behavior updates are implemented for payment readiness contract and safe unavailable pricing UX.
+  - `payments/status` now fails closed with stable code `CHECKOUT_PROVIDER_CONFIG_INCOMPLETE` when checkout provider config is incomplete.
+  - Checkout route now returns stable machine-readable code `CHECKOUT_PROVIDER_CONFIG_INCOMPLETE` for provider-config-incomplete preconditions instead of relying only on raw provider failure text.
+  - Pricing UI now blocks checkout when unavailable and shows safe localized unavailable messaging for `en/ar/fr`.
+  - No real checkout/purchase/webhook test/provider API call was executed in this phase.
+  - Webhook behavior, D3K entitlement wiring surfaces, and `plans.middleware.ts` remain unchanged.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

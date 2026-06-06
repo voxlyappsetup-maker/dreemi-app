@@ -79,6 +79,7 @@ Important notes:
 - Lemon Squeezy production verification is paused unless Lemon approval status changes.
 - Production payment verification must move to a replacement provider strategy before paid launch.
 - Payment readiness contract/UX alignment should follow `docs/D3M_PAYMENT_READINESS_GAP_IMPLEMENTATION_PLAN.md` before any checkout-readiness runtime changes.
+- After readiness/UX contract implementation, run no-purchase verification first; do not treat this as real checkout/provider production verification.
 - Provider-neutral entitlement design lock is a blocker before mobile paid launch:
   - `docs/ENTITLEMENT_MODEL_DESIGN_LOCK.md`
 - Provider-neutral entitlement implementation plan is a blocker before mobile paid launch:

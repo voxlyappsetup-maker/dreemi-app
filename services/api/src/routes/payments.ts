@@ -35,6 +35,10 @@ paymentsRouter.get(
     res.json({
       success: true,
       payments: {
+        providerSelected: gate.providerSelected,
+        providerRuntimeEnabled: gate.providerRuntimeEnabled,
+        checkoutProviderConfigComplete: gate.checkoutProviderConfigComplete,
+        checkoutOfferable: gate.checkoutOfferable,
         canStartCheckout: gate.canStartCheckout,
         errorCode: gate.errorCode,
         activeProvider: runtime.activeProvider,
@@ -58,13 +62,16 @@ paymentsRouter.post(
       const { variantId } = CheckoutSchema.parse(req.body);
       const gate = resolvePaymentsGateDecision();
       if (!gate.canStartCheckout) {
-        const checkoutGateError =
+        const checkoutGateCode =
           gate.errorCode === "PROVIDER_NOT_APPROVED"
             ? "PROVIDER_NOT_APPROVED"
-            : "PAYMENTS_DISABLED";
+            : gate.errorCode === "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE"
+              ? "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE"
+              : "PAYMENTS_DISABLED";
         res.status(503).json({
           success: false,
-          error: checkoutGateError,
+          error: checkoutGateCode,
+          code: checkoutGateCode,
         });
         return;
       }
@@ -99,6 +106,18 @@ paymentsRouter.post(
     } catch (err) {
       if (err instanceof z.ZodError) {
         res.status(400).json({ success: false, error: err.errors });
+        return;
+      }
+      if (
+        err instanceof Error &&
+        (err.message.includes("LEMONSQUEEZY_STORE_ID is not set") ||
+          err.message.includes("LEMONSQUEEZY_API_KEY is not set"))
+      ) {
+        res.status(503).json({
+          success: false,
+          error: "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE",
+          code: "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE",
+        });
         return;
       }
       console.error("[Payments] checkout error:", err);

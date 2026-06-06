@@ -128,11 +128,21 @@ describe('payments.ts — checkout route protections', () => {
     );
     const disabledErrPos = mustExist("PAYMENTS_DISABLED", "stable PAYMENTS_DISABLED error code");
     const notApprovedErrPos = mustExist("PROVIDER_NOT_APPROVED", "stable PROVIDER_NOT_APPROVED error code");
+    const configIncompleteErrPos = mustExist(
+      "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE",
+      "stable CHECKOUT_PROVIDER_CONFIG_INCOMPLETE error code",
+    );
     const checkoutCallPos = mustExist("createCheckoutUrl(", "createCheckoutUrl call");
 
     mustBeBefore(gateCallPos, "resolvePaymentsGateDecision()", checkoutCallPos, "createCheckoutUrl");
     mustBeBefore(disabledErrPos, "PAYMENTS_DISABLED", checkoutCallPos, "createCheckoutUrl");
     mustBeBefore(notApprovedErrPos, "PROVIDER_NOT_APPROVED", checkoutCallPos, "createCheckoutUrl");
+    mustBeBefore(
+      configIncompleteErrPos,
+      "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE",
+      checkoutCallPos,
+      "createCheckoutUrl",
+    );
   });
 
   it("uses FRONTEND_URL guardrail helper with production misconfiguration error", () => {
@@ -169,6 +179,21 @@ describe("payments.ts — public payments status route", () => {
       src.includes("canStartCheckout"),
       true,
       'status route response must include "canStartCheckout"',
+    );
+    assert.equal(
+      src.includes("checkoutProviderConfigComplete"),
+      true,
+      'status route response must include "checkoutProviderConfigComplete"',
+    );
+    assert.equal(
+      src.includes("providerRuntimeEnabled"),
+      true,
+      'status route response must include "providerRuntimeEnabled"',
+    );
+    assert.equal(
+      src.includes("providerSelected"),
+      true,
+      'status route response must include "providerSelected"',
     );
   });
 });

@@ -35,6 +35,7 @@ export default function PricingPage() {
   const [userPlan, setUserPlan] = useState<string | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [paymentsAvailable, setPaymentsAvailable] = useState(false);
+  const [paymentsErrorCode, setPaymentsErrorCode] = useState<string | null>(null);
 
   useEffect(() => {
     const auth = isAuthenticated();
@@ -57,10 +58,16 @@ export default function PricingPage() {
     let cancelled = false;
     void getPaymentsStatus()
       .then((payments) => {
-        if (!cancelled) setPaymentsAvailable(Boolean(payments.canStartCheckout));
+        if (!cancelled) {
+          setPaymentsAvailable(Boolean(payments.canStartCheckout));
+          setPaymentsErrorCode(payments.errorCode ?? null);
+        }
       })
       .catch(() => {
-        if (!cancelled) setPaymentsAvailable(false);
+        if (!cancelled) {
+          setPaymentsAvailable(false);
+          setPaymentsErrorCode(null);
+        }
       });
     return () => { cancelled = true; };
   }, []);
@@ -125,7 +132,11 @@ export default function PricingPage() {
       const url = await createCheckout(variantId);
       if (url) window.open(url, "_blank", "noopener,noreferrer");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : t("checkoutError"));
+      if (err instanceof ApiError && err.code === "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE") {
+        setError(t("paymentsTemporarilyUnavailable"));
+      } else {
+        setError(err instanceof ApiError ? err.message : t("checkoutError"));
+      }
     } finally {
       setLoadingPlan(null);
     }
@@ -147,14 +158,18 @@ export default function PricingPage() {
       const url = await createCheckout(variantId);
       if (url) window.open(url, "_blank", "noopener,noreferrer");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : t("checkoutError"));
+      if (err instanceof ApiError && err.code === "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE") {
+        setError(t("paymentsTemporarilyUnavailable"));
+      } else {
+        setError(err instanceof ApiError ? err.message : t("checkoutError"));
+      }
     } finally {
       setLoadingPlan(null);
     }
   }
 
   function buttonLabel(plan: PlanCard): string {
-    if (!plan.isFree && !paymentsAvailable) return t("paymentsTemporarilyUnavailable");
+    if (!plan.isFree && !paymentsAvailable) return t("paymentsUnavailableLabel");
     if (userPlan === plan.key) return t("currentPlan");
     if (loadingPlan === plan.key || loadingPlan === "PENDING") return t("redirecting");
     if (plan.isFree) return t("startFree");
@@ -164,6 +179,8 @@ export default function PricingPage() {
   }
 
   const isCurrent = (plan: PlanCard) => userPlan === plan.key;
+  const isCheckoutConfigIncomplete =
+    paymentsErrorCode === "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-200 via-violet-50 to-white">
@@ -208,7 +225,9 @@ export default function PricingPage() {
             const isLoading = loadingPlan === plan.key || loadingPlan === "PENDING";
             const current = isCurrent(plan);
             const disableFreeDowngrade = loggedIn && plan.isFree && userPlan !== "FREE";
-            const paymentsBlocked = !plan.isFree && !paymentsAvailable;
+            const paymentsBlocked =
+              !plan.isFree &&
+              (!paymentsAvailable || isCheckoutConfigIncomplete);
             return (
               <div
                 key={plan.key}

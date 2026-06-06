@@ -4,7 +4,10 @@ export type BillingCycle = "monthly" | "yearly";
 type PaidPlan = Exclude<Plan, "FREE">;
 export type LemonLocalSubscriptionStatus = "active" | "trialing" | "past_due" | "canceled";
 export type BillingProvider = "LEMONSQUEEZY" | "NONE";
-export type PaymentsGateErrorCode = "PAYMENTS_DISABLED" | "PROVIDER_NOT_APPROVED";
+export type PaymentsGateErrorCode =
+  | "PAYMENTS_DISABLED"
+  | "PROVIDER_NOT_APPROVED"
+  | "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE";
 
 export type PaymentsRuntimeState = {
   isProduction: boolean;
@@ -14,6 +17,10 @@ export type PaymentsRuntimeState = {
 };
 
 export type PaymentsGateDecision = PaymentsRuntimeState & {
+  providerSelected: boolean;
+  providerRuntimeEnabled: boolean;
+  checkoutProviderConfigComplete: boolean;
+  checkoutOfferable: boolean;
   canStartCheckout: boolean;
   errorCode: PaymentsGateErrorCode | null;
 };
@@ -66,11 +73,29 @@ export function getPaymentsRuntimeState(env: NodeJS.ProcessEnv = process.env): P
   };
 }
 
+export function isCheckoutProviderConfigComplete(
+  env: NodeJS.ProcessEnv = process.env,
+): boolean {
+  const state = getPaymentsRuntimeState(env);
+  if (state.activeProvider !== "LEMONSQUEEZY") return false;
+  const hasApiKey = Boolean(String(env.LEMONSQUEEZY_API_KEY ?? "").trim());
+  const hasStoreId = Boolean(String(env.LEMONSQUEEZY_STORE_ID ?? "").trim());
+  return hasApiKey && hasStoreId;
+}
+
 export function resolvePaymentsGateDecision(env: NodeJS.ProcessEnv = process.env): PaymentsGateDecision {
   const state = getPaymentsRuntimeState(env);
+  const providerSelected = state.activeProvider !== "NONE";
+  const providerRuntimeEnabled = state.paymentsEnabled && providerSelected;
+  const checkoutProviderConfigComplete = isCheckoutProviderConfigComplete(env);
+
   if (!state.paymentsEnabled) {
     return {
       ...state,
+      providerSelected,
+      providerRuntimeEnabled,
+      checkoutProviderConfigComplete,
+      checkoutOfferable: false,
       canStartCheckout: false,
       errorCode: "PAYMENTS_DISABLED",
     };
@@ -78,6 +103,10 @@ export function resolvePaymentsGateDecision(env: NodeJS.ProcessEnv = process.env
   if (state.activeProvider !== "LEMONSQUEEZY") {
     return {
       ...state,
+      providerSelected,
+      providerRuntimeEnabled,
+      checkoutProviderConfigComplete,
+      checkoutOfferable: false,
       canStartCheckout: false,
       errorCode: "PROVIDER_NOT_APPROVED",
     };
@@ -85,12 +114,31 @@ export function resolvePaymentsGateDecision(env: NodeJS.ProcessEnv = process.env
   if (state.isProduction && !state.providerApproved) {
     return {
       ...state,
+      providerSelected,
+      providerRuntimeEnabled,
+      checkoutProviderConfigComplete,
+      checkoutOfferable: false,
       canStartCheckout: false,
       errorCode: "PROVIDER_NOT_APPROVED",
     };
   }
+  if (!checkoutProviderConfigComplete) {
+    return {
+      ...state,
+      providerSelected,
+      providerRuntimeEnabled,
+      checkoutProviderConfigComplete,
+      checkoutOfferable: false,
+      canStartCheckout: false,
+      errorCode: "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE",
+    };
+  }
   return {
     ...state,
+    providerSelected,
+    providerRuntimeEnabled,
+    checkoutProviderConfigComplete,
+    checkoutOfferable: true,
     canStartCheckout: true,
     errorCode: null,
   };

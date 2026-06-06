@@ -166,8 +166,11 @@ Constraints:
 - D3M-Triage-B4 payment readiness gap implementation plan is documented at `docs/D3M_PAYMENT_READINESS_GAP_IMPLEMENTATION_PLAN.md`.
 - D3M-Triage-B4 is docs-only planning and adds no payment runtime/frontend runtime/provider/env changes.
 - Latest commit placeholder after B4 commit: `<LATEST_COMMIT_AFTER_B4>`.
+- D3M-Triage-B4-Implement-A applies runtime-ready payment status/readiness contract and safe unavailable pricing UX behavior.
+- B4-Implement-A introduces stable code `CHECKOUT_PROVIDER_CONFIG_INCOMPLETE` for provider-config-incomplete checkout readiness/failure handling.
+- B4-Implement-A keeps webhook behavior unchanged and does not add real checkout/purchase/webhook/provider API verification evidence.
 - The next recommended phase should be either:
-  - `D3M-Triage-B4-Implement` payment readiness/UX contract implementation (explicit approval), or
+  - `D3M-Triage-B4-Implement-A-Smoke` no-purchase verification run for status/checkout-unavailable UX behavior, or
   - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

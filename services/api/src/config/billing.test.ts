@@ -114,12 +114,27 @@ describe("payments runtime safety gate", () => {
       PAYMENTS_ENABLED: "true",
       PAYMENT_PROVIDER_APPROVED: "true",
       PAYMENT_ACTIVE_PROVIDER: "LEMONSQUEEZY",
+      LEMONSQUEEZY_API_KEY: "configured",
+      LEMONSQUEEZY_STORE_ID: "configured",
     });
     assert.equal(decision.canStartCheckout, true);
     assert.equal(decision.errorCode, null);
   });
 
-  it("keeps non-production default usable without provider approval", () => {
+  it("blocks checkout when provider config is incomplete even if enabled and approved", () => {
+    const decision = resolvePaymentsGateDecision({
+      NODE_ENV: "production",
+      PAYMENTS_ENABLED: "true",
+      PAYMENT_PROVIDER_APPROVED: "true",
+      PAYMENT_ACTIVE_PROVIDER: "LEMONSQUEEZY",
+      LEMONSQUEEZY_API_KEY: "configured",
+      LEMONSQUEEZY_STORE_ID: "",
+    });
+    assert.equal(decision.canStartCheckout, false);
+    assert.equal(decision.errorCode, "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE");
+  });
+
+  it("keeps non-production runtime enabled by default", () => {
     const state = getPaymentsRuntimeState({
       NODE_ENV: "development",
       PAYMENTS_ENABLED: undefined,
@@ -129,5 +144,17 @@ describe("payments runtime safety gate", () => {
     assert.equal(state.paymentsEnabled, true);
     assert.equal(state.providerApproved, false);
     assert.equal(state.activeProvider, "LEMONSQUEEZY");
+  });
+
+  it("marks non-production checkout unavailable when Lemon checkout config is incomplete", () => {
+    const decision = resolvePaymentsGateDecision({
+      NODE_ENV: "development",
+      PAYMENTS_ENABLED: "true",
+      PAYMENT_ACTIVE_PROVIDER: "LEMONSQUEEZY",
+      LEMONSQUEEZY_API_KEY: "",
+      LEMONSQUEEZY_STORE_ID: "",
+    });
+    assert.equal(decision.canStartCheckout, false);
+    assert.equal(decision.errorCode, "CHECKOUT_PROVIDER_CONFIG_INCOMPLETE");
   });
 });
