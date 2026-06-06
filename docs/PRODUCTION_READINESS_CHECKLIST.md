@@ -93,6 +93,7 @@ Important notes:
 - External provider eligibility and KYC/KYB verification are required before any runtime/provider integration phase.
 - External legal/accounting review is required before any paid launch or payment activation claim.
 - Provider application package is required before implementation-phase approval.
+- Reconciliation note: payment-track implementation/docs checkpoints were reconciled at `docs/D3M_PAYMENT_TRACK_STATE_RECONCILIATION.md`; production readiness still requires separate verification gates.
 - Payment readiness contract/UX alignment should follow `docs/D3M_PAYMENT_READINESS_GAP_IMPLEMENTATION_PLAN.md` before any checkout-readiness runtime changes.
 - After readiness/UX contract implementation, run no-purchase verification first; do not treat this as real checkout/provider production verification.
 - Provider-neutral entitlement design lock is a blocker before mobile paid launch:

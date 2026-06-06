@@ -332,6 +332,12 @@
   - Lemon remains rejected/unavailable, and payment production readiness remains blocked pending provider/legal/payout verification.
   - B8 introduces no runtime/provider/env/schema/package changes.
   - Next recommended phase is `4-D3M-Triage-B9` payment provider application package draft (documentation-only by default).
+- Phase 4-D3M-Checkpoint note:
+  - Payment track reconciliation is documented at `docs/D3M_PAYMENT_TRACK_STATE_RECONCILIATION.md`.
+  - Checkpoint confirms mixed-origin payment-track phases (including work from another chat context) are now reconciled against current repo/runtime/docs state.
+  - `ae93337` is treated as implemented runtime payment-readiness unavailable-state scope based on current read-only runtime evidence.
+  - Payment production readiness remains blocked; no production payment verification is claimed.
+  - Next recommended phase is `4-D3M-Triage-B4-Implement-A-Smoke` (no-purchase runtime verification), with provider/legal continuation as alternative.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
