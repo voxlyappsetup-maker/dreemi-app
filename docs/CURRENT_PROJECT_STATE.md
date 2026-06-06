@@ -309,11 +309,17 @@
   - No real checkout/purchase/webhook test/provider API call was executed in this phase.
   - Webhook behavior, D3K entitlement wiring surfaces, and `plans.middleware.ts` remain unchanged.
 - Phase 4-D3M-Triage-B5 note:
+  - B5 commit reference: `dc4a73c` (`Document Lemon rejection payment recovery plan`).
   - Lemon rejection recovery and alternative provider planning is documented at `docs/D3M_PAYMENT_PROVIDER_REJECTION_RECOVERY_PLAN.md`.
   - Lemon remains rejected/unavailable as a production path for this app and must not be treated as activation-ready.
   - Payment production readiness remains blocked pending alternative provider/legal payout path selection.
   - B5 is documentation-only and introduces no runtime/provider/env/schema/package changes.
-  - Next recommended phase is `4-D3M-Triage-B6` alternative payment provider selection matrix (planning/research by default).
+- Phase 4-D3M-Triage-B6 note:
+  - Alternative payment provider selection matrix is documented at `docs/D3M_ALTERNATIVE_PAYMENT_PROVIDER_SELECTION_MATRIX.md`.
+  - B6 is documentation/research-only and compares MoR/processor/local/fallback paths with conservative `requires external verification` guardrails.
+  - Lemon remains rejected/unavailable, and payment production readiness remains blocked pending provider selection and legal payout-path confirmation.
+  - B6 introduces no runtime/provider/env/schema/package changes.
+  - Next recommended phase is `4-D3M-Triage-B7` payment legal/payout path decision pack (planning/legal-readiness by default).
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

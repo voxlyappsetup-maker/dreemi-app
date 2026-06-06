@@ -43,6 +43,7 @@ Read these first:
 - `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_RESULTS.md`
 - `docs/D3M_PAYMENT_READINESS_GAP_PROPOSAL.md`
 - `docs/D3M_PAYMENT_PROVIDER_REJECTION_RECOVERY_PLAN.md`
+- `docs/D3M_ALTERNATIVE_PAYMENT_PROVIDER_SELECTION_MATRIX.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -113,6 +114,7 @@ Constraints:
 - Paid checkout is disabled by default until an approved payment provider is verified.
 - Do not build new payment provider integration without an explicit approved phase.
 - Do not run provider API calls, checkout flows, purchase flows, or webhook tests in planning/research-only phases.
+- Do not make runtime code changes in planning/legal-readiness phases unless explicitly approved.
 - Do not remove Lemon code unless explicitly approved.
 - Entitlement runtime integration readiness review is documented in `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
 - Preflight guardrails for future runtime wiring are strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime wiring.
@@ -173,8 +175,10 @@ Constraints:
 - B4-Implement-A keeps webhook behavior unchanged and does not add real checkout/purchase/webhook/provider API verification evidence.
 - D3M-Triage-B5 documents Lemon rejection recovery and alternative provider planning at `docs/D3M_PAYMENT_PROVIDER_REJECTION_RECOVERY_PLAN.md`.
 - Lemon is not an active production payment path for this app and remains blocked pending alternative provider/legal payout path selection.
+- D3M-Triage-B6 documents alternative provider comparison and conservative recommendation guardrails at `docs/D3M_ALTERNATIVE_PAYMENT_PROVIDER_SELECTION_MATRIX.md`.
+- B6 keeps payment blocked pending legal payout-path decision, provider selection, and external eligibility/KYC/KYB verification.
 - The next recommended phase should be either:
-  - `D3M-Triage-B6` alternative payment provider selection matrix (planning/research only unless an explicit code phase is approved), or
+  - `D3M-Triage-B7` payment legal/payout path decision pack (planning/legal-readiness only unless an explicit runtime code phase is approved), or
   - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
