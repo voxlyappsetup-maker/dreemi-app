@@ -302,11 +302,18 @@
   - Next step is explicit code-phase decision/prompt (`D3M-Triage-B4-Implement`) or alternative `D3M-Triage-C` image generation triage.
 - Phase 4-D3M-Triage-B4-Implement-A note:
   - Runtime/payment behavior updates are implemented for payment readiness contract and safe unavailable pricing UX.
+  - B4-Implement-A commit reference: `ae93337` (`Implement D3M payment readiness unavailable state`).
   - `payments/status` now fails closed with stable code `CHECKOUT_PROVIDER_CONFIG_INCOMPLETE` when checkout provider config is incomplete.
   - Checkout route now returns stable machine-readable code `CHECKOUT_PROVIDER_CONFIG_INCOMPLETE` for provider-config-incomplete preconditions instead of relying only on raw provider failure text.
   - Pricing UI now blocks checkout when unavailable and shows safe localized unavailable messaging for `en/ar/fr`.
   - No real checkout/purchase/webhook test/provider API call was executed in this phase.
   - Webhook behavior, D3K entitlement wiring surfaces, and `plans.middleware.ts` remain unchanged.
+- Phase 4-D3M-Triage-B5 note:
+  - Lemon rejection recovery and alternative provider planning is documented at `docs/D3M_PAYMENT_PROVIDER_REJECTION_RECOVERY_PLAN.md`.
+  - Lemon remains rejected/unavailable as a production path for this app and must not be treated as activation-ready.
+  - Payment production readiness remains blocked pending alternative provider/legal payout path selection.
+  - B5 is documentation-only and introduces no runtime/provider/env/schema/package changes.
+  - Next recommended phase is `4-D3M-Triage-B6` alternative payment provider selection matrix (planning/research by default).
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

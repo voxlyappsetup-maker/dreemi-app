@@ -76,8 +76,11 @@ Important notes:
 
 - Payment provider approval is a P0 blocker before any paid launch.
 - Lemon Squeezy is not approved and reconsideration was denied.
+- Lemon is rejected/unavailable for this app as a production payment path and should be treated as blocked unless future explicit acceptance occurs.
 - Lemon Squeezy production verification is paused unless Lemon approval status changes.
 - Production payment verification must move to a replacement provider strategy before paid launch.
+- Alternative provider/legal payout recovery planning must be completed before any provider activation path:
+  - `docs/D3M_PAYMENT_PROVIDER_REJECTION_RECOVERY_PLAN.md`
 - Payment readiness contract/UX alignment should follow `docs/D3M_PAYMENT_READINESS_GAP_IMPLEMENTATION_PLAN.md` before any checkout-readiness runtime changes.
 - After readiness/UX contract implementation, run no-purchase verification first; do not treat this as real checkout/provider production verification.
 - Provider-neutral entitlement design lock is a blocker before mobile paid launch:
