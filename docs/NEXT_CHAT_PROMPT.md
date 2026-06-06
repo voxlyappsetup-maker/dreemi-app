@@ -205,15 +205,19 @@ Constraints:
 - C3 does not change backend runtime/image-service/payment/provider/env/schema behavior.
 - C3 does not run Pollinations/provider calls, runtime image generation calls, or runtime story generation calls.
 - C3 does not claim production image readiness.
+- D3M-Triage-C4 safe image runtime smoke plan is documented at `docs/D3M_IMAGE_RUNTIME_SMOKE_PLAN.md`.
+- C4 is docs-only planning and does not execute runtime smoke or any Pollinations/provider/image/story generation calls.
+- C4 does not change backend/runtime/provider/env/schema behavior and does not claim production image provider readiness.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
 - Future phases can run `.\tooling\validate_phase.ps1` from repo root.
 - For docs-only phases, `.\tooling\validate_phase.ps1 -StrictScope` can be used when runtime changes are not expected.
 - `-StrictScope` should not be used for phases that intentionally modify runtime files.
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
-- Latest commit placeholder after C3 commit: `<LATEST_COMMIT_AFTER_C3>`.
+- Latest commit placeholder after C4 commit: `<LATEST_COMMIT_AFTER_C4>`.
 - The next recommended phase should be either:
   - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
-  - `D3M-Triage-C4` safe image runtime smoke plan (docs-only), or
+  - `D3M-Triage-C5` execute safe local image runtime smoke (explicit approval required), or
+  - `D3M-Triage-D` continue non-image production readiness track, or
   - `D3M-Triage-C3-followup` (only if a new image fallback gap appears), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.
 - No third runtime wiring surface should proceed by default.

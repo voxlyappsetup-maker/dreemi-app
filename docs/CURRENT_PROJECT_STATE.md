@@ -374,7 +374,14 @@
   - No Pollinations/provider runtime calls were executed in this phase.
   - No runtime image/story generation route execution was performed in this phase.
   - Production image readiness is not claimed in this phase.
-  - Next recommended phase is `D3M-Triage-C4` (safe image runtime smoke plan), or `D3M-Triage-C3-followup` only if a new static/runtime gap appears.
+- Phase 4-D3M-Triage-C4 note:
+  - Safe image runtime smoke planning document is added at `docs/D3M_IMAGE_RUNTIME_SMOKE_PLAN.md`.
+  - C4 is docs-only planning and defines scope/non-goals/safety/privacy/provider boundaries, preconditions, smoke matrix, evidence criteria, and stop/rollback conditions.
+  - No runtime smoke was executed in this phase.
+  - No Pollinations/provider/image-generation/story-generation runtime calls were executed in this phase.
+  - No runtime/service/schema/migration/provider/package/env/deployment changes were made in this phase.
+  - Production image provider readiness is not claimed in this phase.
+  - Next recommended phase is `D3M-Triage-C5` (execute safe local image runtime smoke) only with explicit approval, or `D3M-Triage-D` (continue non-image production readiness track).
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

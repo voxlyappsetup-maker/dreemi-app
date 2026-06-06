@@ -172,10 +172,13 @@ Important notes:
 - Image generation reliability/fallback path should be reviewed before production claim:
   - reference triage: `docs/D3M_IMAGE_GENERATION_TRIAGE.md`
   - hardening plan reference: `docs/D3M_IMAGE_FALLBACK_HARDENING_PLAN.md`
+  - safe runtime smoke planning reference: `docs/D3M_IMAGE_RUNTIME_SMOKE_PLAN.md` (`D3M-Triage-C4`)
   - no-provider/static regression coverage reference: `services/api/src/routes/stories.security-regression.test.ts` (`D3M-Triage-C2`)
   - generate-page explicit image `onError` fallback is now implemented (`D3M-Triage-C3`)
   - no-provider/static regression and generate-page fallback polish phases (`D3M-Triage-C2`, `D3M-Triage-C3`) should be accepted before any runtime image smoke phase
+  - runtime image smoke execution remains pending and requires explicit approved execution phase (`D3M-Triage-C5`)
   - provider behavior must not be treated as verified without a dedicated safe runtime smoke phase.
+  - image provider must not be treated as production-ready until controlled smoke execution is completed and documented.
 
 ## 5) P2/P3 Cleanup Items
 
