@@ -388,6 +388,13 @@
   - No runtime/service/schema/migration/provider/package/env/deployment changes were made in this phase.
   - Production image provider readiness remains unverified and not claimed.
   - Next recommended phase is rerun `D3M-Triage-C5` after shell reliability is restored, or move to `D3M-Triage-D` if image runtime smoke is deferred.
+- Phase 4-D3M-Triage-D note:
+  - Non-image production readiness triage is documented at `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`.
+  - D3M-Triage-D is docs-only and consolidates stable areas, blockers, deferred items, risk register, and go/no-go position for non-image tracks.
+  - No runtime changes were made in this phase.
+  - No provider/payment/image/story runtime calls were executed in this phase.
+  - Production launch position remains No-Go pending required evidence gates.
+  - Next recommended phase is `D3M-Triage-D1` (production launch gate checklist consolidation) or `D3M-Triage-D2` (deployment/env verification plan).
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

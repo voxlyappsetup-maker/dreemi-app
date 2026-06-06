@@ -1,6 +1,7 @@
 # Production Readiness Checklist
 
 Related manual payment verification plan:
+- `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
 - `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`
@@ -180,6 +181,9 @@ Important notes:
   - latest C5 attempt record: `docs/D3M_IMAGE_RUNTIME_SMOKE_RESULTS.md` (blocked run; rerun required after local shell reliability is restored)
   - provider behavior must not be treated as verified without a dedicated safe runtime smoke phase.
   - image provider must not be treated as production-ready until controlled smoke execution is completed and documented.
+- Non-image launch readiness triage reference:
+  - `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`
+  - full production launch remains No-Go until blocker categories (payment/provider, deployment/env, security/qa, monitoring, and required smoke evidence) are closed with explicit evidence.
 
 ## 5) P2/P3 Cleanup Items
 
