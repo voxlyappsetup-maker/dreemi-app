@@ -368,6 +368,11 @@
   - No runtime behavior change was introduced in this phase.
   - Known generate-page explicit image `onError` fallback gap remains for later phase (`D3M-Triage-C3`).
   - Next recommended phase is `D3M-Triage-C3` (generate-page fallback polish), with `D3M-Triage-C4` runtime smoke planning only after static gates are accepted.
+- Phase 4-D3M-Tooling-A note:
+  - Local validation helper script is added at `tooling/validate_phase.ps1`.
+  - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
+  - No runtime/service/app/schema/payment/image-generation behavior changes were made in this phase.
+  - No provider calls and no env/secrets changes were made in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

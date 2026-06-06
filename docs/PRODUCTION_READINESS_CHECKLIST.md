@@ -193,6 +193,7 @@ Required local checks:
 - `pnpm test`
 - `pnpm lint`
 - `pnpm build`
+- Optional local helper: `.\tooling\validate_phase.ps1` (convenience only; does not replace CI or manual review).
 - Complete `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` before any real production deploy.
 
 Production smoke checks after deploy:

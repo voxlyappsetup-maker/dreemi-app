@@ -201,6 +201,10 @@ Constraints:
 - C2 does not run Pollinations/provider calls, runtime image generation calls, or runtime story generation calls.
 - C2 does not change runtime behavior.
 - Known generate-page explicit image `onError` fallback gap remains and should be handled in `D3M-Triage-C3`.
+- D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
+- Future phases can run `.\tooling\validate_phase.ps1` from repo root.
+- For docs-only phases, `.\tooling\validate_phase.ps1 -StrictScope` can be used when runtime changes are not expected.
+- `-StrictScope` should not be used for phases that intentionally modify runtime files.
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after C2 commit: `<LATEST_COMMIT_AFTER_C2>`.
 - The next recommended phase should be either:
