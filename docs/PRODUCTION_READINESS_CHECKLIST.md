@@ -169,6 +169,9 @@ Important notes:
 - Confirm `/health` is reachable on the production API domain.
 - Confirm API `NODE_ENV=production`.
 - Confirm frontend and backend domains match CORS and checkout redirect settings.
+- Image generation reliability/fallback path should be reviewed before production claim:
+  - reference triage: `docs/D3M_IMAGE_GENERATION_TRIAGE.md`
+  - provider behavior must not be treated as verified without a dedicated safe runtime smoke phase.
 
 ## 5) P2/P3 Cleanup Items
 

@@ -194,9 +194,12 @@ Constraints:
   - `/api/payments/status` reports `canStartCheckout=false`, `checkoutProviderConfigComplete=false`, and `errorCode=CHECKOUT_PROVIDER_CONFIG_INCOMPLETE`.
   - Pricing `/en|ar|fr` shows localized unavailable top message and unavailable card labels.
 - No checkout/purchase/webhook/provider API calls were executed during finalized smoke verification.
+- D3M-Triage-C image generation triage is documented at `docs/D3M_IMAGE_GENERATION_TRIAGE.md`.
+- Any next image phase must start from `docs/D3M_IMAGE_GENERATION_TRIAGE.md`.
+- Do not run runtime image/provider calls before an explicit safe smoke plan phase (for example C3) is approved.
 - The next recommended phase should be either:
   - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
-  - `D3M-Triage-C` image generation triage, or
+  - `D3M-Triage-C1` image generation fallback hardening plan (docs-only), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

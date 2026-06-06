@@ -348,6 +348,11 @@
   - Pricing runtime evidence confirms unavailable top-message and unavailable card-label behavior for `en/ar/fr`.
   - Checkout/purchase/webhook/provider API calls were not executed in this smoke.
   - No secrets were printed, and no production deployment activity was performed.
+- Phase 4-D3M-Triage-C note:
+  - Image generation triage is documented at `docs/D3M_IMAGE_GENERATION_TRIAGE.md`.
+  - D3M-Triage-C is docs-only and maps current backend/frontend image-generation flow, provider boundary, fallbacks, timeout/content-type checks, safety/privacy considerations, and test coverage gaps.
+  - No runtime image/provider/story-generation calls were executed in this phase.
+  - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
