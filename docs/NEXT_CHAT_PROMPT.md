@@ -163,8 +163,11 @@ Constraints:
 - D3M-Triage-B3 readiness/status vs checkout-config gap proposal is documented at `docs/D3M_PAYMENT_READINESS_GAP_PROPOSAL.md`.
 - D3M-Triage-B3 classifies the gap as readiness/contract completeness, not D3K regression and not entitlement failure.
 - D3M-Triage-B3 does not treat auth-blocked subscription verification as proof the subscription route is broken.
+- D3M-Triage-B4 payment readiness gap implementation plan is documented at `docs/D3M_PAYMENT_READINESS_GAP_IMPLEMENTATION_PLAN.md`.
+- D3M-Triage-B4 is docs-only planning and adds no payment runtime/frontend runtime/provider/env changes.
+- Latest commit placeholder after B4 commit: `<LATEST_COMMIT_AFTER_B4>`.
 - The next recommended phase should be either:
-  - `D3M-Triage-B3-Implement` payment readiness/UX contract implementation (explicit approval), or
+  - `D3M-Triage-B4-Implement` payment readiness/UX contract implementation (explicit approval), or
   - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

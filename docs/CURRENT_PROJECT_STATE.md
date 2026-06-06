@@ -294,6 +294,12 @@
   - B3 recommends stricter readiness semantics, stable machine-readable provider-unavailable/config-incomplete codes, and safe pricing unavailable UX behavior.
   - B3 is documentation-only and introduces no runtime/code/test/config/env/provider changes.
   - Next recommended phase is `D3M-Triage-B3-Implement` (explicit approval only) or `D3M-Triage-C` image generation triage.
+- Phase 4-D3M-Triage-B4 note:
+  - Payment readiness gap implementation plan is documented at `docs/D3M_PAYMENT_READINESS_GAP_IMPLEMENTATION_PLAN.md`.
+  - B4 defines conservative implementation order (backend readiness contract -> stable checkout error code -> pricing unavailable UX -> no-purchase validation) before any runtime edits.
+  - B4 is documentation-only and introduces no runtime/code/test/config/env/provider changes.
+  - Payment readiness gap remains unresolved at runtime in this phase.
+  - Next step is explicit code-phase decision/prompt (`D3M-Triage-B4-Implement`) or alternative `D3M-Triage-C` image generation triage.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
