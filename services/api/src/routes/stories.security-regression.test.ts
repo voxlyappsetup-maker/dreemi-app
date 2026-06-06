@@ -16,6 +16,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { generateStoryImage } from "../services/image.service";
 
 // ── Load source once ─────────────────────────────────────────────────────────
 
@@ -24,9 +25,31 @@ const src: string = fs.readFileSync(STORIES_PATH, "utf-8");
 const PLANS_MIDDLEWARE_PATH = path.resolve(__dirname, "../middleware/plans.middleware.ts");
 const CHILDREN_ROUTE_PATH = path.resolve(__dirname, "children.ts");
 const PAYMENTS_ROUTE_PATH = path.resolve(__dirname, "payments.ts");
+const IMAGE_SERVICE_PATH = path.resolve(__dirname, "../services/image.service.ts");
+const STORY_DETAIL_PAGE_PATH = path.resolve(
+  __dirname,
+  "../../../../apps/web/src/app/[locale]/story/[id]/page.tsx",
+);
+const STORY_CARD_PATH = path.resolve(
+  __dirname,
+  "../../../../apps/web/src/components/StoryCard.tsx",
+);
+const GENERATE_PAGE_PATH = path.resolve(
+  __dirname,
+  "../../../../apps/web/src/app/[locale]/generate/page.tsx",
+);
+const PDF_EXPORT_PATH = path.resolve(
+  __dirname,
+  "../../../../apps/web/src/lib/exportStoryPdf.ts",
+);
 const plansSrc: string = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
 const childrenSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
 const paymentsSrc: string = fs.readFileSync(PAYMENTS_ROUTE_PATH, "utf-8");
+const imageServiceSrc: string = fs.readFileSync(IMAGE_SERVICE_PATH, "utf-8");
+const storyDetailSrc: string = fs.readFileSync(STORY_DETAIL_PAGE_PATH, "utf-8");
+const storyCardSrc: string = fs.readFileSync(STORY_CARD_PATH, "utf-8");
+const generatePageSrc: string = fs.readFileSync(GENERATE_PAGE_PATH, "utf-8");
+const pdfExportSrc: string = fs.readFileSync(PDF_EXPORT_PATH, "utf-8");
 
 // ── Helper utilities ─────────────────────────────────────────────────────────
 
@@ -468,6 +491,204 @@ describe("stories.ts — public story sharing intentionally disabled", () => {
     mustAbsent(
       'storiesRouter.get("/:id", async',
       "No unauthenticated GET /:id handler may exist until a safe share-token design is in place",
+    );
+  });
+});
+
+// ── 11. Image service no-provider behavior ────────────────────────────────────
+
+type FetchMock = (typeof globalThis.fetch);
+
+function mockFetch(impl: FetchMock): () => void {
+  const original = globalThis.fetch;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (globalThis as any).fetch = impl;
+  return () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (globalThis as any).fetch = original;
+  };
+}
+
+function baseImageReq() {
+  return {
+    childName: "Test Child",
+    childAge: 6,
+    theme: "stars",
+    storyTitle: "Star Night",
+    storyContent: "A calm bedtime walk under shining stars.",
+  };
+}
+
+function mockResponse(ok: boolean, contentType: string | null): Response {
+  return {
+    ok,
+    headers: {
+      get(name: string): string | null {
+        if (name.toLowerCase() !== "content-type") return null;
+        return contentType;
+      },
+    },
+    body: {
+      cancel: async () => {},
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any as Response;
+}
+
+describe("image.service.ts — no-provider generateStoryImage guardrails", () => {
+  it("returns null when fetch throws (provider failure fallback)", async () => {
+    const restore = mockFetch(async () => {
+      throw new Error("network down");
+    });
+    try {
+      const result = await generateStoryImage(baseImageReq());
+      assert.equal(result, null);
+    } finally {
+      restore();
+    }
+  });
+
+  it("returns null when response is not ok", async () => {
+    const restore = mockFetch(async () => mockResponse(false, "image/png"));
+    try {
+      const result = await generateStoryImage(baseImageReq());
+      assert.equal(result, null);
+    } finally {
+      restore();
+    }
+  });
+
+  it("returns null when content-type is not image/*", async () => {
+    const restore = mockFetch(async () => mockResponse(true, "application/json"));
+    try {
+      const result = await generateStoryImage(baseImageReq());
+      assert.equal(result, null);
+    } finally {
+      restore();
+    }
+  });
+
+  it("returns null for invalid response shape (missing content-type)", async () => {
+    const restore = mockFetch(async () => mockResponse(true, null));
+    try {
+      const result = await generateStoryImage(baseImageReq());
+      assert.equal(result, null);
+    } finally {
+      restore();
+    }
+  });
+
+  it("returns a pollinations URL only after verification succeeds", async () => {
+    const restore = mockFetch(async (input) => {
+      const url = String(input);
+      assert.match(url, /^https:\/\/image\.pollinations\.ai\/prompt\//);
+      return mockResponse(true, "image/png");
+    });
+    try {
+      const result = await generateStoryImage(baseImageReq());
+      assert.ok(typeof result === "string");
+      assert.match(result!, /^https:\/\/image\.pollinations\.ai\/prompt\//);
+    } finally {
+      restore();
+    }
+  });
+
+  it("passes AbortSignal to fetch (timeout/abort plumbing exists)", async () => {
+    const restore = mockFetch(async (_input, init) => {
+      assert.ok(init && typeof init === "object");
+      assert.ok(init?.signal instanceof AbortSignal);
+      return mockResponse(true, "image/png");
+    });
+    try {
+      const result = await generateStoryImage(baseImageReq());
+      assert.ok(typeof result === "string");
+    } finally {
+      restore();
+    }
+  });
+});
+
+// ── 12. stories.ts async image update contract ────────────────────────────────
+
+describe("stories.ts — async image update non-blocking contract", () => {
+  it("creates story with imageUrl null before async image generation", () => {
+    const createPos = mustExist("prisma.story.create(", "story create call");
+    const imageNullPos = mustExist("imageUrl: null", "create uses imageUrl null");
+    const generateImagePos = mustExist("generateStoryImage({", "async image generation call");
+    mustBeBefore(createPos, "prisma.story.create", generateImagePos, "generateStoryImage");
+    mustBeBefore(imageNullPos, "imageUrl: null", generateImagePos, "generateStoryImage");
+  });
+
+  it("returns 201 response before async image generation call", () => {
+    const responsePos = mustExist('res.status(201).json({ success: true, story });', "201 response");
+    const generateImagePos = mustExist("generateStoryImage({", "async image generation call");
+    mustBeBefore(responsePos, "res.status(201).json", generateImagePos, "generateStoryImage");
+  });
+
+  it("keeps async image update in then/catch non-blocking branch", () => {
+    const generatePos = mustExist("generateStoryImage({", "generateStoryImage");
+    const thenPos = findFrom("}).then(async (imageUrl) => {", generatePos);
+    const catchPos = findFrom("}).catch((err: unknown) => {", generatePos);
+    assert.ok(thenPos > generatePos, "generateStoryImage must continue in then branch");
+    assert.ok(catchPos > thenPos, "then branch must be followed by catch branch");
+    mustExist('console.error("[Stories] image failed:"', "image failure catch logging exists");
+  });
+
+  it("does not call Pollinations directly in stories route (provider boundary stays in image service)", () => {
+    mustAbsent(/pollinations\.ai/i, "stories.ts must not include direct Pollinations URL");
+    mustAbsent(/https:\/\/image\.pollinations\.ai/i, "stories.ts must not hardcode provider endpoint");
+  });
+});
+
+// ── 13. image.service static privacy/logging guardrails ───────────────────────
+
+describe("image.service.ts — static guardrails", () => {
+  it("contains timeout, AbortController, and image content-type checks", () => {
+    assert.match(imageServiceSrc, /IMAGE_VERIFY_TIMEOUT_MS\s*=\s*15_000/);
+    assert.match(imageServiceSrc, /new\s+AbortController\(\)/);
+    assert.match(imageServiceSrc, /controller\.abort\(\)/);
+    assert.match(imageServiceSrc, /ct\.startsWith\("image\/"\)/);
+  });
+
+  it("returns safe null fallback on verification or generation failure", () => {
+    assert.match(imageServiceSrc, /if\s*\(!verified\)\s*\{[\s\S]*return null;[\s\S]*\}/);
+    assert.match(imageServiceSrc, /catch\s*\{[\s\S]*return null;[\s\S]*\}/);
+  });
+
+  it("does not log full prompt contents directly", () => {
+    assert.equal(
+      /console\.(log|warn|error)\([^)]*\bprompt\b/i.test(imageServiceSrc),
+      false,
+      "image.service.ts must avoid direct prompt logging",
+    );
+  });
+});
+
+// ── 14. Frontend and PDF fallback static coverage ─────────────────────────────
+
+describe("frontend/pdf image fallback static guardrails", () => {
+  it("StoryCard keeps image onError fallback", () => {
+    assert.match(storyCardSrc, /onError=\{\(\)\s*=>\s*setImgError\(true\)\}/);
+    assert.match(storyCardSrc, /\{story\.imageUrl && !imgError \?/);
+  });
+
+  it("story detail page keeps image onError fallback", () => {
+    assert.match(storyDetailSrc, /onError=\{\(\)\s*=>\s*setImgError\(true\)\}/);
+    assert.match(storyDetailSrc, /\{story\.imageUrl && !imgError \?/);
+  });
+
+  it("PDF export keeps timeout and fallback box rendering path", () => {
+    assert.match(pdfExportSrc, /IMG_LOAD_TIMEOUT_MS\s*=\s*10_000/);
+    assert.match(pdfExportSrc, /drawImageFallback/);
+    assert.match(pdfExportSrc, /Story illustration unavailable/);
+  });
+
+  it("generate page current state is image-if-present with no explicit onError fallback (known C3 gap)", () => {
+    assert.match(generatePageSrc, /\{story\.imageUrl && \(/);
+    assert.equal(
+      /onError=\{/.test(generatePageSrc),
+      false,
+      "generate/page explicit image onError fallback remains a later C3 scope",
     );
   });
 });

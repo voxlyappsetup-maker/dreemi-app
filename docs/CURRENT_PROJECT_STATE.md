@@ -360,6 +360,14 @@
   - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
   - Production image readiness is not claimed in this phase.
   - Next recommended phase is `D3M-Triage-C2` (no-provider/static image regression tests).
+- Phase 4-D3M-Triage-C2 note:
+  - No-provider/static image regression tests are added in `services/api/src/routes/stories.security-regression.test.ts`.
+  - C2 adds image-service no-provider fallback checks (mocked fetch), stories async image-path contract guards, and frontend/PDF fallback static assertions.
+  - No Pollinations/provider runtime calls were executed in this phase.
+  - No runtime image/story generation route execution was performed in this phase.
+  - No runtime behavior change was introduced in this phase.
+  - Known generate-page explicit image `onError` fallback gap remains for later phase (`D3M-Triage-C3`).
+  - Next recommended phase is `D3M-Triage-C3` (generate-page fallback polish), with `D3M-Triage-C4` runtime smoke planning only after static gates are accepted.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

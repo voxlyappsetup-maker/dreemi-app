@@ -196,13 +196,17 @@ Constraints:
 - No checkout/purchase/webhook/provider API calls were executed during finalized smoke verification.
 - D3M-Triage-C image generation triage is documented at `docs/D3M_IMAGE_GENERATION_TRIAGE.md`.
 - D3M-Triage-C1 image fallback hardening plan is documented at `docs/D3M_IMAGE_FALLBACK_HARDENING_PLAN.md`.
-- Any next image phase must start from `docs/D3M_IMAGE_FALLBACK_HARDENING_PLAN.md`.
-- For `D3M-Triage-C2`, do not run Pollinations/provider calls; scope is no-provider/static tests only.
+- D3M-Triage-C2 no-provider/static image regression tests are implemented in `services/api/src/routes/stories.security-regression.test.ts`.
+- C2 validates no-provider image-service fallback behavior with mocked fetch, async image update non-blocking route guardrails, and story-detail/card/PDF fallback static coverage.
+- C2 does not run Pollinations/provider calls, runtime image generation calls, or runtime story generation calls.
+- C2 does not change runtime behavior.
+- Known generate-page explicit image `onError` fallback gap remains and should be handled in `D3M-Triage-C3`.
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
-- Latest commit placeholder after C1 commit: `<LATEST_COMMIT_AFTER_C1>`.
+- Latest commit placeholder after C2 commit: `<LATEST_COMMIT_AFTER_C2>`.
 - The next recommended phase should be either:
   - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
-  - `D3M-Triage-C2` no-provider/static image regression tests, or
+  - `D3M-Triage-C3` generate-page image fallback polish (runtime code only for fallback/UI surface), or
+  - `D3M-Triage-C4` safe image runtime smoke plan (docs-only), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
