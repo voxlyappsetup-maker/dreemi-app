@@ -353,6 +353,13 @@
   - D3M-Triage-C is docs-only and maps current backend/frontend image-generation flow, provider boundary, fallbacks, timeout/content-type checks, safety/privacy considerations, and test coverage gaps.
   - No runtime image/provider/story-generation calls were executed in this phase.
   - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
+- Phase 4-D3M-Triage-C1 note:
+  - Image fallback hardening plan is documented at `docs/D3M_IMAGE_FALLBACK_HARDENING_PLAN.md`.
+  - D3M-Triage-C1 is docs-only and defines conservative backend/frontend/PDF/safety/no-provider-test hardening direction before any runtime image fix.
+  - No runtime image/provider/story-generation calls were executed in this phase.
+  - No runtime/service/schema/migration/provider/package/env/deployment/mobile project changes happened in this phase.
+  - Production image readiness is not claimed in this phase.
+  - Next recommended phase is `D3M-Triage-C2` (no-provider/static image regression tests).
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
