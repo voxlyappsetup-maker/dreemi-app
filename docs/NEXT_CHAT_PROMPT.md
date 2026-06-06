@@ -189,10 +189,15 @@ Constraints:
 - B8 keeps payment blocked pending external provider eligibility/KYC/KYB/sandbox verification and explicit implementation approval.
 - D3M-Checkpoint reconciles mixed-origin payment-track history and current runtime/docs state at `docs/D3M_PAYMENT_TRACK_STATE_RECONCILIATION.md`.
 - Reconciliation confirms `ae93337` as implemented readiness unavailable-state scope in current runtime code, so implementation should not be duplicated by default.
+- D3M-Triage-B4-Implement-A-Smoke-Finalize result is documented at `docs/D3M_PAYMENT_READINESS_UNAVAILABLE_RUNTIME_SMOKE_RESULTS.md`.
+- Finalized smoke result is `PASS` with manual runtime evidence:
+  - `/api/payments/status` reports `canStartCheckout=false`, `checkoutProviderConfigComplete=false`, and `errorCode=CHECKOUT_PROVIDER_CONFIG_INCOMPLETE`.
+  - Pricing `/en|ar|fr` shows localized unavailable top message and unavailable card labels.
+- No checkout/purchase/webhook/provider API calls were executed during finalized smoke verification.
 - The next recommended phase should be either:
-  - `D3M-Triage-B4-Implement-A-Smoke` no-purchase runtime verification of unavailable-state behavior, or
   - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
-  - `D3M-Triage-C` image generation triage.
+  - `D3M-Triage-C` image generation triage, or
+  - another narrowly scoped no-purchase smoke only if a new regression is suspected.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
 - Do not modify `prisma/schema.prisma` or migrations without explicit schema phase approval.

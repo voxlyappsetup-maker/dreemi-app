@@ -338,6 +338,16 @@
   - `ae93337` is treated as implemented runtime payment-readiness unavailable-state scope based on current read-only runtime evidence.
   - Payment production readiness remains blocked; no production payment verification is claimed.
   - Next recommended phase is `4-D3M-Triage-B4-Implement-A-Smoke` (no-purchase runtime verification), with provider/legal continuation as alternative.
+- Phase 4-D3M-Triage-B4-Implement-A-Smoke-Finalize note:
+  - Final no-purchase runtime smoke result is documented at `docs/D3M_PAYMENT_READINESS_UNAVAILABLE_RUNTIME_SMOKE_RESULTS.md`.
+  - Finalized result is `PASS` for payment unavailable-state verification scope.
+  - Manual runtime evidence confirms `/api/payments/status` fail-closed shape with:
+    - `canStartCheckout=false`
+    - `errorCode=CHECKOUT_PROVIDER_CONFIG_INCOMPLETE`
+    - `checkoutProviderConfigComplete=false`
+  - Pricing runtime evidence confirms unavailable top-message and unavailable card-label behavior for `en/ar/fr`.
+  - Checkout/purchase/webhook/provider API calls were not executed in this smoke.
+  - No secrets were printed, and no production deployment activity was performed.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
