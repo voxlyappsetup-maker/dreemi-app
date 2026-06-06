@@ -177,6 +177,7 @@ Important notes:
   - generate-page explicit image `onError` fallback is now implemented (`D3M-Triage-C3`)
   - no-provider/static regression and generate-page fallback polish phases (`D3M-Triage-C2`, `D3M-Triage-C3`) should be accepted before any runtime image smoke phase
   - runtime image smoke execution remains pending and requires explicit approved execution phase (`D3M-Triage-C5`)
+  - latest C5 attempt record: `docs/D3M_IMAGE_RUNTIME_SMOKE_RESULTS.md` (blocked run; rerun required after local shell reliability is restored)
   - provider behavior must not be treated as verified without a dedicated safe runtime smoke phase.
   - image provider must not be treated as production-ready until controlled smoke execution is completed and documented.
 

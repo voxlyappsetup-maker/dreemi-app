@@ -381,7 +381,13 @@
   - No Pollinations/provider/image-generation/story-generation runtime calls were executed in this phase.
   - No runtime/service/schema/migration/provider/package/env/deployment changes were made in this phase.
   - Production image provider readiness is not claimed in this phase.
-  - Next recommended phase is `D3M-Triage-C5` (execute safe local image runtime smoke) only with explicit approval, or `D3M-Triage-D` (continue non-image production readiness track).
+- Phase 4-D3M-Triage-C5 note:
+  - Runtime smoke execution results are documented at `docs/D3M_IMAGE_RUNTIME_SMOKE_RESULTS.md`.
+  - C5 attempted controlled local smoke under C4 boundaries but is currently blocked by shell command reliability (`no exit status, result unknown`) on required non-git commands.
+  - No Pollinations/provider/image-generation/story-generation runtime calls were executed in this blocked run.
+  - No runtime/service/schema/migration/provider/package/env/deployment changes were made in this phase.
+  - Production image provider readiness remains unverified and not claimed.
+  - Next recommended phase is rerun `D3M-Triage-C5` after shell reliability is restored, or move to `D3M-Triage-D` if image runtime smoke is deferred.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

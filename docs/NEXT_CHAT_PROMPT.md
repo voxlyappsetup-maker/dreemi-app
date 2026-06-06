@@ -208,15 +208,19 @@ Constraints:
 - D3M-Triage-C4 safe image runtime smoke plan is documented at `docs/D3M_IMAGE_RUNTIME_SMOKE_PLAN.md`.
 - C4 is docs-only planning and does not execute runtime smoke or any Pollinations/provider/image/story generation calls.
 - C4 does not change backend/runtime/provider/env/schema behavior and does not claim production image provider readiness.
+- D3M-Triage-C5 smoke attempt results are documented at `docs/D3M_IMAGE_RUNTIME_SMOKE_RESULTS.md`.
+- C5 attempted local controlled smoke but is blocked in this run by shell command reliability for required non-git commands.
+- C5 blocked run did not execute Pollinations/provider/image-generation/story-generation runtime calls.
+- C5 blocked run does not claim production image provider readiness.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
 - Future phases can run `.\tooling\validate_phase.ps1` from repo root.
 - For docs-only phases, `.\tooling\validate_phase.ps1 -StrictScope` can be used when runtime changes are not expected.
 - `-StrictScope` should not be used for phases that intentionally modify runtime files.
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
-- Latest commit placeholder after C4 commit: `<LATEST_COMMIT_AFTER_C4>`.
+- Latest commit placeholder after C5 results doc commit: `<LATEST_COMMIT_AFTER_C5_RESULTS>`.
 - The next recommended phase should be either:
   - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
-  - `D3M-Triage-C5` execute safe local image runtime smoke (explicit approval required), or
+  - rerun `D3M-Triage-C5` execute safe local image runtime smoke once shell reliability is restored (explicit approval required), or
   - `D3M-Triage-D` continue non-image production readiness track, or
   - `D3M-Triage-C3-followup` (only if a new image fallback gap appears), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.
