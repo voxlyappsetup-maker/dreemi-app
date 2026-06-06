@@ -87,9 +87,12 @@ Important notes:
 - Blocker: legal payout path/entity model is not confirmed yet.
 - Blocker: payout recipient identity/entity is not selected yet.
 - Blocker: provider KYC/KYB feasibility is not verified for the selected legal path.
+- Blocker: provider external verification checklist is not completed yet.
 - Blocker: no real checkout/purchase/webhook/provider verification has been run for an approved replacement provider.
+- Blocker: provider sandbox/controlled checkout verification readiness is not confirmed.
 - External provider eligibility and KYC/KYB verification are required before any runtime/provider integration phase.
 - External legal/accounting review is required before any paid launch or payment activation claim.
+- Provider application package is required before implementation-phase approval.
 - Payment readiness contract/UX alignment should follow `docs/D3M_PAYMENT_READINESS_GAP_IMPLEMENTATION_PLAN.md` before any checkout-readiness runtime changes.
 - After readiness/UX contract implementation, run no-purchase verification first; do not treat this as real checkout/provider production verification.
 - Provider-neutral entitlement design lock is a blocker before mobile paid launch:

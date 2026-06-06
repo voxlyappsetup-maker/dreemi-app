@@ -45,6 +45,7 @@ Read these first:
 - `docs/D3M_PAYMENT_PROVIDER_REJECTION_RECOVERY_PLAN.md`
 - `docs/D3M_ALTERNATIVE_PAYMENT_PROVIDER_SELECTION_MATRIX.md`
 - `docs/D3M_PAYMENT_LEGAL_PAYOUT_PATH_DECISION_PACK.md`
+- `docs/D3M_PAYMENT_PROVIDER_EXTERNAL_VERIFICATION_CHECKLIST.md`
 - `docs/MOBILE_MONETIZATION_PARENT_FIRST_DESIGN_LOCK.md`
 - `docs/APPLE_IAP_READINESS_PLAN.md`
 - `docs/GOOGLE_PLAY_BILLING_READINESS_PLAN.md`
@@ -117,6 +118,7 @@ Constraints:
 - Do not run provider API calls, checkout flows, purchase flows, or webhook tests in planning/research-only phases.
 - Do not make runtime code changes in planning/legal-readiness phases unless explicitly approved.
 - Do not add secrets, tokens, API keys, or payout credentials in planning/legal-readiness phases.
+- Do not move into payment implementation until external provider verification checklist gates are complete.
 - Do not remove Lemon code unless explicitly approved.
 - Entitlement runtime integration readiness review is documented in `docs/ENTITLEMENT_RUNTIME_INTEGRATION_READINESS_REVIEW.md`.
 - Preflight guardrails for future runtime wiring are strengthened in `services/api/src/services/entitlement.service.test.ts` with no runtime wiring.
@@ -181,8 +183,10 @@ Constraints:
 - B6 keeps payment blocked pending legal payout-path decision, provider selection, and external eligibility/KYC/KYB verification.
 - D3M-Triage-B7 documents legal/payout-path decision requirements at `docs/D3M_PAYMENT_LEGAL_PAYOUT_PATH_DECISION_PACK.md`.
 - B7 keeps payment blocked pending payout-recipient/entity decision, qualified legal/accounting review, and provider verification readiness.
+- D3M-Triage-B8 documents external provider verification checklist gates at `docs/D3M_PAYMENT_PROVIDER_EXTERNAL_VERIFICATION_CHECKLIST.md`.
+- B8 keeps payment blocked pending external provider eligibility/KYC/KYB/sandbox verification and explicit implementation approval.
 - The next recommended phase should be either:
-  - `D3M-Triage-B8` payment provider external verification checklist (planning/research only unless an explicit runtime code phase is approved), or
+  - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
   - `D3M-Triage-C` image generation triage.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.
