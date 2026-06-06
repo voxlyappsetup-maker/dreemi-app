@@ -315,11 +315,17 @@
   - Payment production readiness remains blocked pending alternative provider/legal payout path selection.
   - B5 is documentation-only and introduces no runtime/provider/env/schema/package changes.
 - Phase 4-D3M-Triage-B6 note:
+  - B6 commit reference: `9493c2b` (`Document alternative payment provider selection matrix`).
   - Alternative payment provider selection matrix is documented at `docs/D3M_ALTERNATIVE_PAYMENT_PROVIDER_SELECTION_MATRIX.md`.
   - B6 is documentation/research-only and compares MoR/processor/local/fallback paths with conservative `requires external verification` guardrails.
   - Lemon remains rejected/unavailable, and payment production readiness remains blocked pending provider selection and legal payout-path confirmation.
   - B6 introduces no runtime/provider/env/schema/package changes.
-  - Next recommended phase is `4-D3M-Triage-B7` payment legal/payout path decision pack (planning/legal-readiness by default).
+- Phase 4-D3M-Triage-B7 note:
+  - Payment legal/payout path decision requirements are documented at `docs/D3M_PAYMENT_LEGAL_PAYOUT_PATH_DECISION_PACK.md`.
+  - B7 is documentation/research-only and defines legal/payout path options before any payment implementation phase.
+  - Lemon remains rejected/unavailable, and payment production readiness remains blocked pending legal payout-path confirmation plus provider verification.
+  - B7 introduces no runtime/provider/env/schema/package changes.
+  - Next recommended phase is `4-D3M-Triage-B8` payment provider external verification checklist (planning/research by default).
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
