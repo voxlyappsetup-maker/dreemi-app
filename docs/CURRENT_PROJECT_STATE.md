@@ -287,6 +287,13 @@
   - Secrets exposed: NO.
   - Status reported `canStartCheckout=true` while prior checkout evidence showed a provider-config blocker; readiness/status gap remains for follow-up design.
   - Next recommended phase is `D3M-Triage-B3` readiness/status vs checkout-config gap proposal/test plan, with `D3M-Triage-C` as alternative.
+- Phase 4-D3M-Triage-B3 note:
+  - Readiness/status vs checkout-config gap proposal is documented at `docs/D3M_PAYMENT_READINESS_GAP_PROPOSAL.md`.
+  - B3 classifies the issue as a contract/readiness completeness gap, not D3K regression and not entitlement failure.
+  - B3 does not treat auth-blocked subscription verification as proof that subscription route is broken.
+  - B3 recommends stricter readiness semantics, stable machine-readable provider-unavailable/config-incomplete codes, and safe pricing unavailable UX behavior.
+  - B3 is documentation-only and introduces no runtime/code/test/config/env/provider changes.
+  - Next recommended phase is `D3M-Triage-B3-Implement` (explicit approval only) or `D3M-Triage-C` image generation triage.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.
