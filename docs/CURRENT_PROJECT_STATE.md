@@ -278,6 +278,15 @@
   - D3M-Triage-B2 is documentation-only and introduces no code/runtime/env/provider changes.
   - Plan requires no checkout, no purchase, and no provider secrets.
   - Next recommended phase is `D3M-Triage-B2-Run` evidence capture, then `D3M-Triage-B1-Implement` if supported by evidence, with `D3M-Triage-C` as alternative.
+- Phase 4-D3M-Triage-B2-Run note:
+  - No-purchase smoke evidence is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_RESULTS.md`.
+  - Pricing smoke checks are PASS for EN/AR/FR.
+  - Public `payments/status` check is PASS.
+  - Subscription route check is BLOCKED by safe auth/token constraints (not proven broken).
+  - Checkout invoked: NO.
+  - Secrets exposed: NO.
+  - Status reported `canStartCheckout=true` while prior checkout evidence showed a provider-config blocker; readiness/status gap remains for follow-up design.
+  - Next recommended phase is `D3M-Triage-B3` readiness/status vs checkout-config gap proposal/test plan, with `D3M-Triage-C` as alternative.
 - Runtime safety gate note:
   - Lemon Squeezy integration exists but is not approved for production launch.
   - Paid checkout is disabled by default until an approved payment provider is verified.

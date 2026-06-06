@@ -165,3 +165,4 @@ If a future UX/payment-disabled change causes regression:
 
 Follow-up:
 - D3M-Triage-B2 no-purchase smoke plan is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_PLAN.md`.
+- D3M-Triage-B2-Run evidence is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_RESULTS.md` and supports investigating a status/readiness vs actual checkout-config gap.

@@ -135,3 +135,6 @@ Notes:
   - `D3M-Triage-B1-Implement` if status/subscription evidence supports UX fix.
 - Alternative:
   - `D3M-Triage-C` image generation triage.
+
+Follow-up:
+- D3M-Triage-B2-Run evidence is documented at `docs/D3M_PAYMENT_NO_PURCHASE_SMOKE_RESULTS.md`.
