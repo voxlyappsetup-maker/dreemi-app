@@ -154,6 +154,7 @@ Rules for usage:
 ### Allowed Next Actions
 
 - Execute a names-only, presence-only verification checklist in a dedicated phase.
+- Follow `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md` for safe presence-only protocol and environment separation rules.
 
 ### Forbidden Actions
 
@@ -181,6 +182,7 @@ Rules for usage:
 ### Allowed Next Actions
 
 - Prepare deployment/env verification plan and dry-run evidence checklist.
+- Use `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md` as the deployment/env verification reference; next step is `D3M-Triage-D2-A` inventory, then presence-only execution.
 
 ### Forbidden Actions
 
@@ -565,8 +567,8 @@ Current: NO-GO
 | --- | --- | --- | --- | --- | --- |
 | Payment provider external approval/readiness unresolved | Gate 9 | Critical | BLOCKED | Provider eligibility/KYB/KYC and legal payout closure evidence | `D3M-Payments-External-Verification` |
 | Real checkout/payment/webhook verification missing | Gate 9, Gate 10 | Critical | BLOCKED | Approved-provider checkout/purchase/webhook controlled smoke evidence | `D3M-Payments-External-Verification` |
-| Production env presence not verified safely | Gate 3 | Critical | BLOCKED | Presence-only env verification report (no values) | `D3M-Triage-D2` then D3 |
-| Production deployment smoke missing | Gate 4, Gate 16 | Critical | BLOCKED | Deployment dry-run + post-deploy smoke bundle | `D3M-Triage-D2` |
+| Production env presence not verified safely | Gate 3 | Critical | BLOCKED | Presence-only env verification report (no values) | `D3M-Triage-D2-A` then D3 |
+| Production deployment smoke missing | Gate 4, Gate 16 | Critical | BLOCKED | Deployment dry-run + post-deploy smoke bundle | `D3M-Triage-D2-A` / D2-C |
 | Monitoring/incident response readiness incomplete | Gate 15 | High | BLOCKED | Monitoring policy, alerts, runbook, incident owner evidence | `D3M-Triage-D2` or dedicated ops-readiness phase |
 | Image runtime smoke not executed (if image is launch-critical) | Gate 11 | High | PENDING | Approved C5 runtime smoke evidence | `D3M-Triage-C5` (optional/deferred unless required) |
 | Final localization/PDF smoke set incomplete | Gate 12, Gate 13, Gate 16 | High | PENDING | Final EN/AR/FR smoke evidence for PDF and fallback paths | Manual smoke pack phase |
@@ -580,18 +582,19 @@ Current: NO-GO
 
 ## Recommended Closure Order
 
-1. `D2 — Deployment/env verification plan.`
-2. `D3 — Production env presence verification protocol.`
-3. Payment provider external approval / response package.
-4. Deployment dry-run checklist.
-5. Manual smoke pack.
-6. Final launch gate review.
+1. `D2 — Deployment/env verification plan.` (complete; see `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md`)
+2. `D2-A — Deployment/env inventory checklist.`
+3. `D3 — Production env presence verification protocol execution.`
+4. Payment provider external approval / response package.
+5. Deployment dry-run checklist.
+6. Manual smoke pack.
+7. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D2 — Deployment/env verification plan`
+- Primary: `D3M-Triage-D2-A — Deployment/env inventory checklist`
 - Alternative: `D3M-Payments-External-Verification — provider/KYB response package`
 
 ## Notes For Next Chat

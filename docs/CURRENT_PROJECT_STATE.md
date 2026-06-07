@@ -403,6 +403,14 @@
   - No env/secrets were read or modified in this phase.
   - Full production launch remains No-Go until critical gates have explicit PASS evidence.
   - Next recommended phase is `D3M-Triage-D2` (deployment/env verification plan), with `D3M-Payments-External-Verification` as an alternative.
+- Phase 4-D3M-Triage-D2 note:
+  - Deployment/env verification plan is documented at `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md`.
+  - D2 is docs-only and defines safe presence-only verification protocol, environment separation, deployment target confirmation requirements, stop/rollback conditions, and verification sequence.
+  - No deploy was executed in this phase.
+  - No env/secrets were read, printed, or modified in this phase.
+  - No provider/payment/image/story runtime calls were executed in this phase.
+  - Production launch remains No-Go until launch gates pass with explicit evidence.
+  - Next recommended phase is `D3M-Triage-D2-A` (deployment/env inventory checklist), with `D3M-Payments-External-Verification` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
