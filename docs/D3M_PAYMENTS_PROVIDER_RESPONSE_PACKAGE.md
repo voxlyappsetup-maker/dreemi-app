@@ -2,7 +2,7 @@
 
 ## Status
 
-This is a docs-only provider response package.
+This is a docs-only provider response package (refined in **D3M-Payments-Provider-Response-Fill**).
 No provider dashboard was accessed.
 No payment checkout was executed.
 No payment purchase was executed.
@@ -10,6 +10,7 @@ No live webhook was executed.
 No provider API call was made.
 No env/secrets were read, printed, verified, or modified.
 No `.env` or `.env.example` file was read or modified.
+The email is **not actually sent** from this repository phase.
 Production billing remains **NO-GO** until provider approval and runtime verification evidence exist.
 
 ## Purpose
@@ -20,7 +21,7 @@ Production billing remains **NO-GO** until provider approval and runtime verific
 
 ## Current Baseline
 
-- Latest stable commit: `598151b Fix story detail SSR storage crash`
+- Latest stable commit: `5561b7d Add payment provider response package` (fill phase refines same docs)
 - Starting state: `## main...origin/main` (clean)
 - Full production launch and production billing remain **NO-GO**
 
@@ -275,6 +276,66 @@ Summary tone: professional, transparent, concise—includes demo link placeholde
 - Claims that production checkout is live
 - Internal-only architecture diagrams with secret endpoints
 
+## Send-Ready Status
+
+| Item | Status |
+| --- | --- |
+| Response package | **Prepared** |
+| Email draft | **Send-ready after placeholders filled** |
+| Demo script | **Prepared** |
+| Send checklist | **Prepared** (`docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`) |
+| Email actually sent | **No** — user sends manually |
+| Provider approval | **Pending** |
+| Production billing | **NO-GO** |
+
+## Required User Inputs Before Sending
+
+All values below remain **placeholders** until the user supplies them. Do not invent.
+
+- `[Demo video link]`
+- `[Founder social profile URL 1]` / `[Founder social profile URL 2]`
+- `[Founder legal name]`, `[Company/legal entity, if applicable]`, `[Country]`
+- `[Support email]`, `[Website/app URL]`
+- `[Individual plan price + billing interval]`, `[Family plan price + billing interval]`
+- `[School plan availability / planned-only]`
+- `[Privacy policy URL]`, `[Terms URL]`, `[Refund policy URL or wording]`
+- `[Generated-content licensing wording to confirm]`
+
+Use `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md` as the pre-send gate.
+
+## Final Email Draft Location
+
+`docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md` — polished draft addressed to Ankith with required placeholder checklist and subject line.
+
+## Final Demo Script Location
+
+`docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md` — 2–4 minute shot list and voiceover script.
+
+## Provider Submission Checklist
+
+1. Record demo video (fictional data only; no checkout/secrets).
+2. Replace all placeholders in email draft.
+3. Complete `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`.
+4. Manual second review (no secrets, no live-payment claims).
+5. Send email via Lemon support thread manually.
+6. Track reply outside repo (no secrets in docs).
+
+## Payment Readiness Position
+
+- Package prepared; **provider approval pending**.
+- Checkout/webhook/live payment verification **pending** post-approval phases.
+- Production billing **NO-GO**.
+
+## What Remains Blocked After Sending
+
+Sending the KYB email does **not** unblock:
+
+- Production checkout or live billing
+- Webhook live verification
+- Env presence / deploy smoke gates
+- Full production launch (Gate 18)
+- Payment gate PASS without controlled verification evidence
+
 ## Open Questions For User
 
 1. Are you responding to an **active Lemon Squeezy thread** or preparing materials for **another MoR provider**?
@@ -283,10 +344,9 @@ Summary tone: professional, transparent, concise—includes demo link placeholde
 4. Confirm `[Founder legal name]` and `[Company/legal entity details if applicable]`.
 5. Confirm `[Country]` and payout eligibility details.
 6. Confirm `[Support email]` and `[Website/app URL]` for the review.
-7. Confirm exact `[Plan price]` and `[Billing interval]` for INDIVIDUAL / FAMILY / SCHOOL before sending.
-8. Confirm `[Privacy policy URL]`, `[Terms URL]`, and refund policy wording.
-9. Confirm whether SCHOOL plan is offered at launch or marked “planned”.
-10. Confirm final Terms language for generated content licensing: `[Confirm final Terms wording before sending]`.
+7. Confirm `[Individual plan price + billing interval]`, `[Family plan price + billing interval]`, and `[School plan availability / planned-only]`.
+8. Confirm `[Privacy policy URL]`, `[Terms URL]`, and `[Refund policy URL or wording]`.
+9. Confirm `[Generated-content licensing wording to confirm]` matches Terms.
 
 ## Payment Launch Gate Mapping
 
@@ -332,7 +392,7 @@ Summary tone: professional, transparent, concise—includes demo link placeholde
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-Provider-Response-Fill`** — fill missing user details and finalize send-ready email
+- Primary: **`D3M-Payments-Provider-Send`** — user fills placeholders and sends Lemon response manually
 - Alternative: **`D3M-Triage-D6-PDF`** — safe local PDF smoke fixture plan (unblocks PDF demo evidence)
 
 ## Notes For Next Chat
@@ -346,5 +406,6 @@ Summary tone: professional, transparent, concise—includes demo link placeholde
 
 - Email draft: `docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md`
 - Demo script: `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md`
+- Send checklist: `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`
 - External verification checklist: `docs/D3M_PAYMENT_PROVIDER_EXTERNAL_VERIFICATION_CHECKLIST.md`
 - Payment track reconciliation: `docs/D3M_PAYMENT_TRACK_STATE_RECONCILIATION.md`

@@ -1,54 +1,76 @@
 # D3M Payment Provider Demo Video Script
 
-> Safe demo outline for Lemon Squeezy / MoR KYB review. Use fictional child names only. Do not record secrets, env values, dashboards, or checkout.
+## Status
 
-## Video Spec
+Practical 2–4 minute demo outline for Lemon Squeezy KYB review.
+Use fictional data only. Upload to `[Demo video link]` after recording.
+Do not record or send this phase from Cursor—user records manually.
 
-| Item | Guidance |
-| --- | --- |
-| Length | 2–4 minutes |
-| Format | Screen recording + optional voiceover |
-| Language | English (show AR/FR briefly if helpful) |
-| Data | Fictional only (e.g., “Test Child”, “Demo Story”) |
-| Upload | `[Demo video link]` after recording |
+## Goal
+
+Show Dreemi's product, multilingual support, child-safe positioning, and honest payment-unavailable state without checkout, secrets, or real child data.
+
+## Recording Rules
+
+- Screen recording + optional voiceover in English.
+- Use fictional names only (e.g., "Demo Child", "Test Story").
+- Show pricing as **Unavailable** if provider approval is still pending.
+- State clearly that **payments are not live yet** pending provider approval.
+- Prefer public or local demo URL—never show `.env` or internal config.
+
+## What Not To Show
+
+- `.env`, API keys, webhook secrets, database URLs
+- Lemon Squeezy or other provider dashboards
+- Tokens, cookies, request headers, raw logs
+- Real child names, photos, or customer data
+- Live checkout or test purchase
+- Provider API responses
+
+## Suggested Length
+
+**2–4 minutes** total.
 
 ## Shot List
 
-| # | Scene | Duration | Action |
+| # | Scene | ~Duration | Action |
 | --- | --- | --- | --- |
-| 1 | Title card | 10s | “Dreemi — AI-assisted bedtime stories for families (demo)” |
-| 2 | Home EN | 20s | Open `[Website/app URL]` or local demo `/en` — show branding, navigation |
-| 3 | Localization | 25s | Switch `/ar` (RTL) and `/fr` — show localized UI |
-| 4 | Pricing | 30s | Open `/en/pricing` — explain plans (FREE/INDIVIDUAL/FAMILY/SCHOOL); show **Unavailable** state; state payments not live yet |
-| 5 | Generate page | 40s | Open `/en/generate` — show form fields; **do not** submit real generation unless pre-approved safe fixture |
-| 6 | Example story | 40s | Open pre-existing **safe demo story** if available; otherwise describe PDF/story view with static screenshot |
-| 7 | Safety | 20s | Mention blocked unsafe prompts (show error copy if safe fixture exists) |
-| 8 | Privacy/legal | 15s | Show `/en/privacy` and `/en/terms` pages |
-| 9 | Closing | 20s | Restate: digital subscriptions, adult buyers, child-safe AI-assisted stories, no checkout in demo |
+| 1 | Landing/home | 20s | Open `[Website/app URL]` or `/en` — branding, navigation |
+| 2 | Languages | 25s | Show `/ar` (RTL) and `/fr` — localized UI |
+| 3 | Pricing | 30s | `/en/pricing` — plan names; **Unavailable** labels; payments not live |
+| 4 | Generate UI | 35s | `/en/generate` — form only; **do not** submit generation unless safe fixture exists |
+| 5 | Example story/PDF | 35s | Safe fictional story/PDF **only if already available**; else skip with voiceover |
+| 6 | Safety | 20s | Brief safety posture; blocked-prompt copy if safe fixture exists |
+| 7 | Closing | 25s | Subscriptions, adult buyers, support `[Support email]`, site `[Website/app URL]` |
 
-## Voiceover Script (Concise)
+## Script
 
-1. **Intro:** “This is Dreemi, a multilingual app that helps parents and educators create personalized bedtime stories for children in Arabic, English, and French.”
-2. **Product:** “Customers purchase digital subscription access—not physical goods. Plans include Individual, Family, and School tiers for different usage needs.”
-3. **How it works:** “Stories are created through our app using AI-assisted generation with automated safety checks on both prompts and outputs.”
-4. **Safety:** “We block unsafe content categories and do not operate a public marketplace or adult content.”
-5. **Payments:** “Payments are not enabled in this demo. Our pricing page shows plan information while checkout remains temporarily unavailable pending provider approval.”
-6. **Buyer:** “The purchaser is an adult parent, guardian, or school—not the child.”
-7. **Close:** “Thank you for reviewing Dreemi. Support: [Support email]. Website: [Website/app URL].”
+**Opening (15s):** "This is Dreemi—a multilingual app that helps parents and educators create personalized, child-appropriate bedtime stories in Arabic, English, and French."
 
-## Must Not Appear On Screen
+**Product (30s):** "Customers buy digital subscription access, not physical goods. Planned tiers include Individual, Family, and School plans for different family or classroom needs."
 
-- API keys, webhook secrets, `.env` values
-- Lemon Squeezy or other provider dashboards
-- Database URLs, JWTs, cookies, request headers
-- Real child names, photos, or customer data
-- Live checkout or test purchase flow
-- Provider API responses or internal logs
+**How it works (30s):** "Stories are created through our app using AI-assisted generation with automated safety checks on user input and generated output."
 
-## Evidence Checklist After Recording
+**Languages (20s):** "The app supports Arabic with RTL layout, plus English and French."
 
-- [ ] Video uploaded to `[Demo video link]`
-- [ ] No secrets visible in any frame
+**Pricing (25s):** "This pricing page shows our planned plans. Checkout is temporarily unavailable while provider approval is pending—payments are not live in this demo."
+
+**Safety (20s):** "Dreemi is designed for child-safe storytelling. We block unsafe prompts and do not offer adult content, gambling, or a user marketplace."
+
+**Closing (20s):** "Purchases are made by adults—parents, guardians, or schools—not children. Thank you for reviewing Dreemi. Support: [Support email]. Website: [Website/app URL]."
+
+## Evidence Checklist
+
+- [ ] Length 2–4 minutes
 - [ ] Fictional data only
+- [ ] No secrets on screen
 - [ ] Pricing unavailable state shown honestly
-- [ ] Link added to provider response email
+- [ ] No checkout performed
+- [ ] Uploaded to `[Demo video link]`
+
+## Before Upload Checklist
+
+- [ ] Re-watch full video for accidental secret/PII frames
+- [ ] Confirm `[Demo video link]` is accessible to reviewer
+- [ ] Paste link into `docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md` before sending email
+- [ ] Complete `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md` final review

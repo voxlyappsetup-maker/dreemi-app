@@ -475,6 +475,12 @@
   - Docs-only; no provider dashboard, checkout, webhook, or API calls; no env/secrets read or modified.
   - Production billing and full production launch remain No-Go until provider approval and runtime verification evidence exist.
   - Next recommended phase: `D3M-Payments-Provider-Response-Fill` (user fills placeholders and finalizes send-ready email).
+- Phase 4-D3M-Payments-Provider-Response-Fill note:
+  - Provider response email draft refined at `docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md` (send-ready after placeholders).
+  - Demo script refined at `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md`; send checklist added at `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`.
+  - Docs-only; no provider/payment/webhook calls; no secrets read or modified; email not sent from repo.
+  - Production billing and full production launch remain No-Go until provider approval and live verification.
+  - Next recommended phase: `D3M-Payments-Provider-Send` (user fills placeholders and sends manually).
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

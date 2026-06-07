@@ -16,7 +16,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**Prepared response artifact (post D6-Fix):** `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` with email draft and demo script. External verification and provider approval remain **pending**; this package does not mark verification complete.
+**Prepared response artifact (post D6-Fix):** `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` with refined email draft (`docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md`), demo script, and send checklist (`docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`). External submission remains **pending** until user fills placeholders and sends manually; verification not complete.
 
 ## 3) Candidate provider categories
 

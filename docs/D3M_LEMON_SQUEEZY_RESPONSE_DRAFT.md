@@ -1,87 +1,105 @@
-# D3M Lemon Squeezy Response Draft
+# Lemon Squeezy Response Draft
 
-> Send-ready draft only. Replace all `[placeholder]` values before sending. Do not send secrets or internal-only artifacts.
+## Status
 
-**To:** Lemon Squeezy Support / Merchant Review  
-**Subject:** Dreemi — Additional KYB/KYC Information and Product Details
+This draft is send-ready **after** the placeholders below are filled.
+Do not send before replacing all required placeholders.
+Do not send secrets, env values, dashboard screenshots, or internal-only artifacts.
+Payments are **not live**; this email supports KYB review only—not a claim of approval or live billing.
 
----
+## Required Placeholders Before Sending
 
-Hello Lemon Squeezy team,
+- [ ] `[Demo video link]`
+- [ ] `[Founder social profile URL 1]`
+- [ ] `[Founder social profile URL 2]`
+- [ ] `[Founder legal name]`
+- [ ] `[Company/legal entity, if applicable]`
+- [ ] `[Country]`
+- [ ] `[Support email]`
+- [ ] `[Website/app URL]`
+- [ ] `[Individual plan price + billing interval]`
+- [ ] `[Family plan price + billing interval]`
+- [ ] `[School plan availability / planned-only]`
+- [ ] `[Privacy policy URL]`
+- [ ] `[Terms URL]`
+- [ ] `[Refund policy URL or wording]`
+- [ ] `[Generated-content licensing wording to confirm]`
 
-Thank you for reviewing our application. Please find the additional information you requested below.
+Optional:
 
-## Demo video
+- [ ] `[Optional professional profile URL]`
 
-**Demo video link:** [Demo video link]
+## Email Subject
 
-The video demonstrates Dreemi’s core product flow: localized home and pricing pages, the story creation interface (using fictional test data only), child-safe content positioning, and our current fail-closed payment-unavailable state. It does **not** show checkout, provider dashboards, API keys, or internal configuration.
+Additional details for Dreemi application review
 
-## Personal social media URLs (KYB/KYC)
+## Email Draft
+
+Hi Ankith,
+
+Thank you for reviewing my Lemon Squeezy application and for outlining the additional information needed.
+
+Please find the requested details below.
+
+**Demo video:**
+
+[Demo video link]
+
+**Personal / professional social profile URLs for KYB/KYC:**
 
 - [Founder social profile URL 1]
 - [Founder social profile URL 2]
-- [LinkedIn or professional profile URL — optional]
+- [Optional professional profile URL]
 
-These profiles belong to the founder/operator responsible for Dreemi and can be used for identity verification.
+**Product overview:**
 
-## Product explanation
+Dreemi is a multilingual children's story creation app for parents, guardians, families, and educators. The app helps adult users create personalized, child-appropriate stories in Arabic, English, and French. The product is not a marketplace, does not sell physical goods, and does not involve creator payouts or resale of third-party products.
 
-### What we sell
+**Types of products I plan to sell:**
 
-Dreemi is a **digital subscription service** for parents, guardians, families, and educators. We sell **software access**, not physical goods.
+I plan to sell digital subscription access to the Dreemi app. The planned paid tiers are:
 
-Planned paid plans (digital access tiers):
+- **Individual plan:** [Individual plan price + billing interval] — access for one adult user / one child profile, depending on final plan configuration.
+- **Family plan:** [Family plan price + billing interval] — family-oriented access with support for multiple child profiles.
+- **School plan:** [School plan availability / planned-only] — intended for educational or group use if enabled at launch.
 
-| Plan | Description |
-| --- | --- |
-| **FREE** | Limited access for evaluation |
-| **INDIVIDUAL** | Expanded story-generation access for one account |
-| **FAMILY** | Family-oriented access with multiple child profiles |
-| **SCHOOL** | Education/group-oriented access (if offered at launch) |
+These are digital service subscriptions. There is no shipping, no physical product, and no user marketplace.
 
-We do **not** operate a marketplace, resell third-party goods, sell adult content, gambling, financial services, or controlled products.
+**How the product is made:**
 
-### How products are made / licensed
+Dreemi is built and maintained as a software application. Users enter story preferences through the app, and the app generates child-friendly story content through a controlled workflow. The app includes safety checks around user input and generated output, and the product is designed to avoid adult, graphic, harmful, or inappropriate content for children.
 
-- Dreemi is developed and operated by `[Company/legal entity details if applicable]` / the project founder.
-- Stories are created through a **controlled in-app workflow** using **AI-assisted generation** with **automated safety checks** on user input and generated output.
-- Users receive **generated digital story content** for personal, family, or educational use through the app.
-- Optional illustrative images may be generated in-app; we do **not** sell stock images or third-party licensed character content.
-- We do **not** promote copyrighted third-party brand characters. Final customer-facing terms will confirm permitted use of generated content: `[Confirm final Terms wording before sending]`.
+**AI usage:**
 
-### Who products are for
+The product uses AI-assisted story generation. Generated content is created through the app workflow and safety-checked before being presented to the user. The product should be understood as a software service for AI-assisted children's storytelling, not as human-authored custom books.
 
-- **Buyers/customers:** adults (parents, guardians, schools/educators)—not children purchasing directly.
-- **End users:** children consume stories under adult supervision.
-- **Languages:** Arabic, English, and French.
+**Licensing / ownership:**
 
-### Purchase model
+Dreemi provides access to the software service and generated story output for personal, family, or educational use. The service is not intended for selling third-party copyrighted characters, branded content, or licensed third-party assets. Final generated-content usage wording is being reflected in the product Terms: [Generated-content licensing wording to confirm].
 
-- **Subscriptions** (recurring digital access), not one-time physical purchases.
-- Billing intervals: `[Billing interval]` (monthly and/or annual—confirm before sending).
-- Plan prices: `[Plan price]` per plan (confirm before sending).
-- No shipping, creator payouts, or peer-to-peer marketplace transactions.
+**Target customers:**
 
-## Safety and compliance
+The customers are adults: parents, guardians, families, and educators/schools. The product is designed for child-friendly storytelling use, but purchases are intended to be made by adults or authorized institutions.
 
-- Input and output safety filtering blocks unsafe prompts and content categories (e.g., graphic violence, adult content, hate, self-harm, weapons, drugs—tested in our safety regression suite).
-- Public story sharing is intentionally disabled pending a safe share-token design.
-- Privacy and terms pages: `[Privacy policy URL]`, `[Terms URL]`.
+**Safety and compliance:**
 
-## Payment status (transparent)
+Dreemi includes child-safety and content-safety guardrails. The app is designed to block unsafe prompts and avoid unsafe generated content. It is not an adult-content product, gambling product, financial product, marketplace, or controlled-goods product.
 
-Payments are **not live** in production today. Checkout remains **fail-closed** until provider approval and complete configuration. We are providing this information to complete your review—not to claim live billing.
+**Payment status (transparent):**
 
-## Contact and links
+Payments are not live in production today. Checkout remains fail-closed until provider approval and configuration are complete. I am providing this information to complete your review.
 
-- **Website / app URL:** [Website/app URL]
-- **Support email:** [Support email]
-- **Pricing page (informational):** [Website/app URL]/en/pricing
+**Links:**
 
-We are happy to provide any additional documentation you need. Thank you again for your review.
+- Website/app: [Website/app URL]
+- Privacy policy: [Privacy policy URL]
+- Terms: [Terms URL]
+- Support contact: [Support email]
 
-Best regards,  
-[Founder legal name]  
-[Company/legal entity details if applicable]  
-[Support email]
+Please let me know if you need any further information or if there are additional KYB/KYC details I should provide.
+
+Best regards,
+
+[Founder legal name]
+[Company/legal entity, if applicable]
+[Country]
