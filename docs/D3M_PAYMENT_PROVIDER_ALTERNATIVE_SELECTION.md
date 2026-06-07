@@ -74,15 +74,13 @@ Dreemi evaluation profile for providers:
 
 ## Required User Inputs
 
-Before final provider lock-in:
+Before final provider lock-in (partial fill — see `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`):
 
-- `[Founder legal name]`, `[Company/legal entity, if applicable]`, `[Country]`
-- Tax/VAT registration posture
-- `[Individual plan price + billing interval]`, `[Family plan price + billing interval]`, `[School plan availability / planned-only]`
-- `[Refund policy URL or wording]`, `[Privacy policy URL]`, `[Terms URL]`
-- Preferred payout country/bank
-- MoR vs direct processor priority
-- Risk tolerance for applications after Lemon rejection
+- **Answered:** Individual/natural person; Saudi Arabia application path; SA bank or PayPal payout candidates; USD Individual/Family pricing; School deferred; 7-day refund; support via contact@dreemi.app
+- **Still pending:** `[Founder legal name]`; tax/VAT posture; exact Privacy/Terms URLs; refund/licensing wording
+- **PROVIDER_CONFIRMATION_REQUIRED:** FastSpring individual/SA eligibility; Saudi bank payout; PayPal payout
+
+User now prefers **individual application from Saudi Arabia**, with **Saudi bank payout or PayPal** as possible payout routes. This does **not** confirm provider eligibility. FastSpring remains primary candidate pending provider confirmation.
 
 ## Provider Evaluation Criteria
 
@@ -259,9 +257,10 @@ No provider is approved or integrated from this docs-only phase.
 ## Next Steps
 
 1. ~~If `[Country]` / entity unresolved → **`D3M-Payments-Entity-And-Payout-Decision`**~~ **Complete** — see `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`
-2. **`D3M-Payments-Entity-And-Payout-Fill`** — user confirms entity/payout/pricing/policy inputs
-3. **`D3M-Payments-Provider-Application-Pack`** (FastSpring first, Creem backup)
-4. Continue **free beta/waitlist** with checkout fail-closed
+2. ~~**`D3M-Payments-Entity-And-Payout-Fill`**~~ **Complete** — see `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`, `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`
+3. **`D3M-Payments-FastSpring-Eligibility-Preflight`** — verify individual/Saudi Arabia/payout eligibility
+4. **`D3M-Payments-Provider-Application-Pack`** (FastSpring first, Creem backup)
+5. Continue **free beta/waitlist** with checkout fail-closed
 4. Optional: **`D3M-Payments-Lemon-Appeal-Draft`** only if user explicitly requests (non-primary)
 
 ## Notes For Next Chat
@@ -273,7 +272,8 @@ No provider is approved or integrated from this docs-only phase.
 
 ## Related Artifacts
 
+- Entity/payout fill: `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`
+- Pricing/refund: `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`
 - Shortlist: `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`
-- Entity/payout decision: `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`
 - Lemon reconciliation: `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`
 - Alternatives framing: `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`

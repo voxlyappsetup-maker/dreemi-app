@@ -500,6 +500,12 @@
   - Legal/entity/payout/pricing/policy inputs marked USER_TO_CONFIRM or LEGAL/TAX_CONFIRMATION_REQUIRED.
   - No provider accounts, applications, checkout, webhook, or API calls; production billing remains No-Go.
   - Next: user fill phase, then FastSpring application pack.
+- Phase 4-D3M-Payments-Entity-And-Payout-Fill note:
+  - User answers recorded: individual/natural person; Saudi Arabia; payout candidates SA bank or PayPal (**PROVIDER_CONFIRMATION_REQUIRED**); USD pricing (Individual/Family); School deferred; 7-day refund; support via contact@dreemi.app (founder/user).
+  - Docs: `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`; updated `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`, `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`.
+  - Provider eligibility unconfirmed; no application submitted; production billing remains No-Go.
+  - Next: FastSpring eligibility preflight, then application pack.
+- Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
   - No runtime/service/app/schema/payment/image-generation behavior changes were made in this phase.

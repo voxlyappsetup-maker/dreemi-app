@@ -19,10 +19,11 @@ Production billing remains **NO-GO**.
 - Separate **confirmed product facts** from **USER_TO_CONFIRM** and **LEGAL/TAX_CONFIRMATION_REQUIRED** items.
 - Define entity/payout decision options and blockers without providing legal or tax advice.
 - Prepare inputs for **`D3M-Payments-Provider-Application-Pack`** after user answers are collected.
+- **Update (D3M-Payments-Entity-And-Payout-Fill):** user-provided entity/payout/pricing/refund answers recorded below.
 
 ## Current Baseline
 
-- Latest stable commit: `289a96a Select alternative payment provider path`
+- Latest stable commit: `770e2d9 Add entity and payout decision package`
 - Primary payment candidate: **FastSpring**
 - Backup candidate: **Creem**
 - Lemon Squeezy: **REJECTED / NOT ACTIVE**
@@ -37,7 +38,27 @@ Production billing remains **NO-GO**.
 | `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` | Available (reusable KYB kit) |
 | `docs/D3M_PAYMENT_LEGAL_PAYOUT_PATH_DECISION_PACK.md` | Available (B7 planning context) |
 | `docs/D3M_LEMON_REJECTION_RECONCILIATION.md` | Available |
-| Founder legal name / entity / bank details | **Not confirmed in repo** — USER_TO_CONFIRM |
+| Founder legal name | **USER_TO_CONFIRM** (fill phase partial) |
+| `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md` | Available (fill phase) |
+
+## User-Provided Entity / Payout Answers
+
+Recorded in **D3M-Payments-Entity-And-Payout-Fill** (user-provided; not legal/tax advice):
+
+| Input | User-provided value |
+| --- | --- |
+| Application path | **Individual / natural person** |
+| Intended application country / residence path | **Saudi Arabia** |
+| Payout path under consideration | **Saudi Arabia bank account** or **PayPal** |
+| Preferred pricing currency | **USD** |
+| Individual plan | Monthly **USD 4.99**; Yearly **USD 47.90** |
+| Family plan | Monthly **USD 9.99**; Yearly **USD 95.90** |
+| School plan | **Deferred / planned later / not launch-critical** |
+| Refund period | **7 days** |
+| Privacy and Terms | User states ready on dreemi.app — **exact URLs must be verified before provider submission** |
+| Support / disputes | Founder/user via **contact@dreemi.app** |
+
+**Payout caveat:** Provider acceptance for **individual applicants from Saudi Arabia**, **Saudi bank payout**, and **PayPal payout** is **not confirmed**. These remain **PROVIDER_CONFIRMATION_REQUIRED** before submitting a FastSpring application. Do **not** treat either payout path as approved.
 
 ## Explicit Non-Goals
 
@@ -101,19 +122,19 @@ Product/project facts confirmed for provider evaluation (no legal entity assumed
 | Item | Current Status | Why Needed | Required Before | Notes |
 | --- | --- | --- | --- | --- |
 | Founder legal name | **USER_TO_CONFIRM** | KYC/KYB identity | FastSpring application | Placeholder in KYB pack |
-| Legal entity name or individual-application decision | **USER_TO_CONFIRM** | Seller of record vs individual seller | Entity option selection | See Entity Options |
-| Country / jurisdiction (residence + seller context) | **USER_TO_CONFIRM** | Provider eligibility, payout rules | Application | B7 pack notes Lebanese resident in Saudi Arabia — **reconfirm** |
+| Legal entity name or individual-application decision | **Answered** — Individual / natural person | Seller of record vs individual seller | Application | Entity path selected |
+| Country / jurisdiction (residence + seller context) | **Answered** — Saudi Arabia (application path) | Provider eligibility, payout rules | Application | **PROVIDER_CONFIRMATION_REQUIRED** for individual/SA eligibility |
 | Tax/VAT registration status | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Application + local compliance | Application / launch | MoR does not eliminate all local obligations |
-| Bank/payout country | **USER_TO_CONFIRM** | Payout eligibility | Application | Do not store bank details in repo |
-| Payout currency preference | **USER_TO_CONFIRM** | Payout setup | Application | Often USD/EUR depending on provider |
+| Bank/payout country | **Answered** — Saudi Arabia bank or PayPal (candidates) | Payout eligibility | Application | **PROVIDER_CONFIRMATION_REQUIRED**; no bank details in repo |
+| Payout currency preference | **Answered** — USD (pricing); payout currency per provider | Payout setup | Application | Provider payout currency rules apply |
 | Support email | Confirmed project fact | Provider/support review | Application | contact@dreemi.app — reconfirm operational |
 | Website URL | Confirmed project fact | Provider review | Application | https://www.dreemi.app/ |
-| Individual plan price + billing interval | **USER_TO_CONFIRM** | Product catalog in MoR | Application | UI shows $4.99/mo, $47.90/yr — **not confirmed for application** |
-| Family plan price + billing interval | **USER_TO_CONFIRM** | Product catalog in MoR | Application | UI shows $9.99/mo, $95.90/yr — **not confirmed** |
-| School plan launch status + price | **USER_TO_CONFIRM** | Scope of sold products | Application | UI shows $29.99/mo, $287.90/yr — launch status unconfirmed |
-| Refund policy | **USER_TO_CONFIRM** | Dispute/support review | Application | URL or final wording |
-| Terms URL + final wording | **USER_TO_CONFIRM** | Legal review + provider KYB | Application | Pages exist; final text unconfirmed |
-| Privacy URL + final wording | **USER_TO_CONFIRM** | Data/privacy review | Application | Pages exist; final text unconfirmed |
+| Individual plan price + billing interval | **Answered** — USD 4.99/mo, USD 47.90/yr | Product catalog in MoR | Application | See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md` |
+| Family plan price + billing interval | **Answered** — USD 9.99/mo, USD 95.90/yr | Product catalog in MoR | Application | Same |
+| School plan launch status + price | **Answered** — deferred / not launch-critical | Scope of sold products | Application | Omit from initial application unless revised |
+| Refund policy | **Partial** — 7-day period confirmed | Dispute/support review | Application | Full wording **USER_TO_CONFIRM** |
+| Terms URL + final wording | **Partial** — user says ready; exact URL **USER_TO_CONFIRM** | Legal review + provider KYB | Application | Verify before submission |
+| Privacy URL + final wording | **Partial** — user says ready; exact URL **USER_TO_CONFIRM** | Data/privacy review | Application | Verify before submission |
 | Generated-content licensing wording | **USER_TO_CONFIRM** | IP/licensing clarity for AI stories | Application | See KYB pack conservative position |
 | Founder social profile URLs | **USER_TO_CONFIRM** | Identity verification (if requested) | Application | Placeholders in KYB pack |
 | Demo video | **USER_TO_CONFIRM** | Provider review | Application | Script at `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md` |
@@ -135,9 +156,9 @@ Prior planning context in `docs/D3M_PAYMENT_LEGAL_PAYOUT_PATH_DECISION_PACK.md` 
 | Risks / Limitations | Personal identity/tax exposure; payout-country constraints; may not fit all residency combinations. |
 | Provider Application Impact | FastSpring/Creem onboarding forms use personal legal name + tax ID + personal/sole-prop bank account. |
 | Required Inputs | Legal name, country, tax identifiers, payout bank, ID documents per provider. |
-| Decision Status | **BLOCKED_PENDING_USER_INPUT** |
+| Decision Status | **CANDIDATE** (user-selected path) — **PROVIDER_CONFIRMATION_REQUIRED** |
 
-Do **not** recommend this path until provider eligibility for the confirmed country/residency is verified.
+Do **not** submit application until FastSpring confirms individual/Saudi Arabia application and payout eligibility.
 
 ### Option 2 — Existing Legal Entity Application
 
@@ -148,7 +169,7 @@ Do **not** recommend this path until provider eligibility for the confirmed coun
 | Risks / Limitations | Entity must match product owner; third-party or informal accounts are **not recommended** (per B7 pack). |
 | Provider Application Impact | Stronger clarity for B2B/school sales; company registration + authorized representative docs. |
 | Required Inputs | Entity name, jurisdiction, registration number, tax/VAT IDs, company bank account, authorized signatory. |
-| Decision Status | **BLOCKED_PENDING_USER_INPUT** (entity existence unconfirmed) |
+| Decision Status | **NOT_RECOMMENDED_FOR_NOW** (user chose individual path) |
 
 ### Option 3 — New Legal Entity Path
 
@@ -191,11 +212,11 @@ Confirm with user and provider (never store bank details in repo):
 
 | Requirement | Status |
 | --- | --- |
-| Payout country | **USER_TO_CONFIRM** |
-| Bank account owner (individual vs company) | **USER_TO_CONFIRM** |
-| Bank account type (checking/savings; local vs international) | **USER_TO_CONFIRM** |
-| Supported payout currency | **USER_TO_CONFIRM** |
-| Whether payouts can go to individual or must go to company account | **USER_TO_CONFIRM** + provider rules |
+| Payout country | **Answered** — Saudi Arabia (bank) or PayPal — **PROVIDER_CONFIRMATION_REQUIRED** |
+| Bank account owner (individual vs company) | **Answered** — individual (natural person application) |
+| Bank account type (checking/savings; local vs international) | **USER_TO_CONFIRM** at application (not stored in repo) |
+| Supported payout currency | **Answered** — USD pricing; payout currency per provider rules |
+| Whether payouts can go to individual or must go to company account | **Answered** — individual intended; **PROVIDER_CONFIRMATION_REQUIRED** |
 | KYC/KYB documents required (ID, proof of address, company registration) | **USER_TO_CONFIRM** at application |
 | Sanctioned/restricted country checks | Provider-dependent — verify at application |
 
@@ -214,23 +235,23 @@ Confirm with user and provider (never store bank details in repo):
 
 | Input | Current Status | Notes |
 | --- | --- | --- |
-| Individual plan price + interval | **USER_TO_CONFIRM** | UI placeholder: $4.99/mo, $47.90/yr — confirm before application |
-| Family plan price + interval | **USER_TO_CONFIRM** | UI placeholder: $9.99/mo, $95.90/yr |
-| School plan availability + price | **USER_TO_CONFIRM** | UI placeholder: $29.99/mo, $287.90/yr; launch status unconfirmed |
-| Currency | **USER_TO_CONFIRM** | UI uses USD display; confirm MoR catalog currency |
+| Individual plan price + interval | **Answered** | USD 4.99/mo; USD 47.90/yr |
+| Family plan price + interval | **Answered** | USD 9.99/mo; USD 95.90/yr |
+| School plan availability + price | **Answered** — deferred | Not launch-critical; omit from initial application |
+| Currency | **Answered** | USD |
 | Trial/free plan policy | Partially defined | FREE tier exists; trial on paid tiers unconfirmed |
-| Refund period | **USER_TO_CONFIRM** | Required for provider + Terms |
+| Refund period | **Answered** — 7 days | Full policy wording **USER_TO_CONFIRM** |
 
 ## Refund / Support Policy Inputs To Confirm
 
 | Input | Status |
 | --- | --- |
-| Support channel | contact@dreemi.app (confirm monitored) |
-| Refund period / conditions | **USER_TO_CONFIRM** |
+| Support channel | **Answered** — contact@dreemi.app |
+| Refund period / conditions | **Partial** — 7-day period; conditions/wording **USER_TO_CONFIRM** |
 | Cancellation policy (end of period vs immediate) | **USER_TO_CONFIRM** |
 | Subscription renewal/cancel customer wording | **USER_TO_CONFIRM** |
-| Dispute/chargeback response owner | **USER_TO_CONFIRM** |
-| Customer support owner / SLA | **USER_TO_CONFIRM** |
+| Dispute/chargeback response owner | **Answered** — founder/user via contact@dreemi.app |
+| Customer support owner / SLA | **Partial** — founder/user; SLA **USER_TO_CONFIRM** |
 
 ## Terms / Generated Content Licensing Inputs To Confirm
 
@@ -252,12 +273,12 @@ Confirm with user and provider (never store bank details in repo):
 | Support email | Confirmed | contact@dreemi.app | Yes | Reconfirm inbox monitored |
 | Demo video | **USER_TO_CONFIRM** | Script: `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md` | Yes | Not recorded yet |
 | Product description | Partial | `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` | Yes | Adapt for FastSpring |
-| Pricing / plans | **USER_TO_CONFIRM** | UI placeholders only | Yes | Confirm amounts + School launch |
-| Legal seller identity | **USER_TO_CONFIRM** | Individual vs entity TBD | Yes | Blocker |
+| Pricing / plans | **Answered** | USD Individual/Family; School deferred | Yes | See pricing decision doc |
+| Legal seller identity | **Partial** | Individual / natural person; legal name **USER_TO_CONFIRM** | Yes | Saudi Arabia path |
 | Tax/VAT details | **LEGAL/TAX_CONFIRMATION_REQUIRED** | — | Yes | Advisor review |
-| Bank/payout details | **USER_TO_CONFIRM** | Not in repo | Yes | Provide only in secure provider form |
-| Refund/support policy | **USER_TO_CONFIRM** | — | Yes | Publish before/at application |
-| Privacy/Terms URLs | Partial | /privacy, /terms routes exist | Yes | Final wording unconfirmed |
+| Bank/payout details | **Partial** | SA bank or PayPal — **PROVIDER_CONFIRMATION_REQUIRED** | Yes | Secure portal only |
+| Refund/support policy | **Partial** | 7-day period; wording pending | Yes | Publish before/at application |
+| Privacy/Terms URLs | **Partial** | User says ready; exact URLs **USER_TO_CONFIRM** | Yes | Verify before submission |
 | AI/content safety explanation | Partial | KYB pack + safety docs | Yes | Emphasize adult buyers, safety gates |
 | Child-safety positioning | Partial | KYB pack | Yes | Adult purchasers; no child checkout |
 | Founder social URLs | **USER_TO_CONFIRM** | KYB placeholders | Maybe | If requested for KYC |
@@ -281,43 +302,45 @@ Apply to Creem only if FastSpring declines or entity constraints block FastSprin
 
 | Path | Speed | Approval Clarity | Operational Complexity | Tax/Legal Clarity | Provider Fit | Risks | Decision Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Individual MoR application | Fast if eligible | Medium | Low–Med | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Good if supported | Payout/residency limits | **BLOCKED_PENDING_USER_INPUT** |
-| Existing entity MoR application | Medium | High | Med | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Good | Entity must exist + match product | **BLOCKED_PENDING_USER_INPUT** |
+| Individual MoR application (SA) | Fast if eligible | Medium | Low–Med | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Good if supported | Payout/residency limits | **CANDIDATE** — **PROVIDER_CONFIRMATION_REQUIRED** |
+| Existing entity MoR application | Medium | High | Med | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Good | Entity must exist + match product | **NOT_RECOMMENDED_FOR_NOW** |
 | New entity then MoR | Slow | High | High | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Good long term | Cost, delay, compliance | **DEFERRED** |
 | Manual invoice bridge | Fast for pilots | N/A (non-MoR) | High manual | **LEGAL/TAX_CONFIRMATION_REQUIRED** | School/B2B only | Not scalable for consumer subs | **BRIDGE_ONLY** |
 | Free beta / waitlist | Immediate | N/A | Low | Low immediate payment complexity | N/A until MoR | No revenue | **CANDIDATE** |
 
 ## Recommended Decision Position
 
-**Decision: Do not submit FastSpring application until legal/entity/payout details are confirmed.**
+**Recommended position:** Proceed toward FastSpring application preparation **only after confirming** whether FastSpring supports the chosen **individual / Saudi Arabia** application and **Saudi bank or PayPal** payout path.
 
-**Recommended immediate path:**
+**FastSpring** remains the primary candidate; **Creem** remains backup. Production billing remains **NO-GO**.
 
-1. Collect user answers for entity option, payout country/bank, pricing confirmation, refund/support policy, and Terms/licensing wording.
-2. Obtain **LEGAL/TAX_CONFIRMATION_REQUIRED** review where jurisdiction/tax registration is unclear.
-3. Continue **free beta/waitlist** with checkout fail-closed.
-4. **FastSpring** remains primary candidate; **Creem** remains backup.
+**Completed (fill phase):** individual application path, Saudi Arabia residence/application path, payout candidates (SA bank / PayPal), USD pricing (Individual/Family), 7-day refund period, support owner.
 
-Do **not** select final entity path without user input. Do **not** treat UI pricing as confirmed application pricing.
+**Still required before submission:**
+
+1. **PROVIDER_CONFIRMATION_REQUIRED** — FastSpring individual/SA eligibility and payout support.
+2. **USER_TO_CONFIRM** — founder legal name, exact Privacy/Terms URLs, refund wording, licensing wording.
+3. **LEGAL/TAX_CONFIRMATION_REQUIRED** — tax/VAT posture for Saudi Arabia individual seller.
+4. Continue **free beta/waitlist** with checkout fail-closed until provider approval.
 
 ## Blocker Register
 
 | Blocker | Area | Severity | Current Status | Required Evidence / User Input | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| Legal/entity decision unresolved | Legal | Critical | Open | Individual vs existing vs new entity | **D3M-Payments-Entity-And-Payout-Fill** |
-| Payout country/bank unresolved | Payout | Critical | Open | Payout destination + account type | **D3M-Payments-Entity-And-Payout-Fill** |
-| Tax/VAT posture unresolved | Tax | High | Open | Advisor confirmation | Entity fill + legal review |
-| Pricing unresolved for application | Product | High | Open | Confirm plan prices, currency, School launch | **D3M-Payments-Entity-And-Payout-Fill** |
-| Refund/support policy unresolved | Ops | High | Open | Published refund/cancel policy | Entity fill |
-| Terms/licensing wording unresolved | Legal | High | Open | Final Terms/Privacy + generated-content license | Entity fill |
-| Provider application not submitted | Provider | Critical | Blocked | Complete inputs above | **D3M-Payments-Provider-Application-Pack** |
+| Legal/entity path selection | Legal | Critical | **Partial** — individual/SA path chosen | Founder legal name; provider eligibility | **D3M-Payments-FastSpring-Eligibility-Preflight** |
+| Payout path provider support | Payout | Critical | Open | **PROVIDER_CONFIRMATION_REQUIRED** (SA bank / PayPal) | **D3M-Payments-FastSpring-Eligibility-Preflight** |
+| Tax/VAT posture unresolved | Tax | High | Open | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Legal review + application pack |
+| Pricing for application | Product | Medium | **Filled** — Individual/Family USD; School deferred | — | Application pack |
+| Refund/support policy | Ops | Medium | **Partial** — 7-day period | Full refund/cancel wording | Application pack |
+| Terms/licensing wording | Legal | High | **Partial** | Exact URLs + licensing text | Application pack |
+| Provider application not submitted | Provider | Critical | Blocked | Eligibility preflight + remaining inputs | **D3M-Payments-Provider-Application-Pack** |
 | Provider approval missing | Provider | Critical | Blocked | FastSpring/Creem review outcome | Post-application phases |
 
 ## Launch Gate Impact
 
 | Gate | Status |
 | --- | --- |
-| Entity/payout decision | **Documented — user input pending** |
+| Entity/payout decision | **Partially filled** — provider eligibility pending |
 | Provider application | **Not submitted** |
 | Provider approval | **Pending** |
 | Checkout verification | **Not executed** |
@@ -328,38 +351,41 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 
 ## Required User Answers
 
-Answer in **`D3M-Payments-Entity-And-Payout-Fill`** (next phase). Practical minimum:
-
-1. **Entity path:** Individual/sole proprietor, existing company, or new entity (which jurisdiction)?
-2. **Founder legal name** (as it should appear on provider KYC).
-3. **Country/jurisdiction** for seller identity and tax residency (confirm or update B7 planning context).
-4. **Payout country** and whether account will be personal or company.
-5. **Payout currency** preference (if known).
-6. **Tax/VAT:** Any existing registration numbers? Advisor engaged? (**LEGAL/TAX_CONFIRMATION_REQUIRED**)
-7. **Confirm final prices:** Individual, Family, School — monthly/yearly USD amounts and whether School plan is launching now or later.
-8. **Refund policy:** Period, conditions, and cancellation behavior.
-9. **Terms/Privacy:** Confirm URLs and whether final legal wording is approved for provider review.
-10. **Generated-content licensing:** Approve conservative KYB wording or provide final Terms text.
-11. **Support:** Confirm contact@dreemi.app is monitored and name support/dispute owner.
-12. **Demo video:** Record per script or defer application until available?
-13. **Social profile URLs** for KYC (if comfortable providing).
-14. **Bridge preference:** Free beta/waitlist only, or also pursue manual school invoicing?
+| # | Question | Status |
+| --- | --- | --- |
+| 1 | Entity path | **Answered** — Individual / natural person |
+| 2 | Founder legal name | **USER_TO_CONFIRM** |
+| 3 | Country/jurisdiction | **Answered** — Saudi Arabia (application path) |
+| 4 | Payout path | **Answered** — SA bank or PayPal (**PROVIDER_CONFIRMATION_REQUIRED**) |
+| 5 | Pricing currency | **Answered** — USD |
+| 6 | Individual/Family prices | **Answered** — see pricing decision doc |
+| 7 | School plan | **Answered** — deferred / not launch-critical |
+| 8 | Refund period | **Answered** — 7 days (wording **USER_TO_CONFIRM**) |
+| 9 | Terms/Privacy URLs | **Partial** — user says ready; exact URLs **USER_TO_CONFIRM** |
+| 10 | Generated-content licensing | **USER_TO_CONFIRM** / **LEGAL_CONFIRMATION_REQUIRED** |
+| 11 | Support/disputes | **Answered** — founder/user via contact@dreemi.app |
+| 12 | Tax/VAT posture | **LEGAL/TAX_CONFIRMATION_REQUIRED** |
+| 13 | Identity/KYC documents | **USER_TO_CONFIRM** |
+| 14 | Demo video | **USER_TO_CONFIRM** |
+| 15 | Social profile URLs | **USER_TO_CONFIRM** |
+| 16 | FastSpring individual/SA/payout eligibility | **PROVIDER_CONFIRMATION_REQUIRED** |
 
 ## Recommended Next Phase
 
-1. **`D3M-Payments-Entity-And-Payout-Fill`** — user answers entity/payout/pricing/policy questions in structured form.
-2. **`D3M-Payments-Provider-Application-Pack`** — prepare FastSpring application packet (Creem backup) after fill phase complete.
+1. **`D3M-Payments-FastSpring-Eligibility-Preflight`** — verify individual/Saudi Arabia/payout eligibility before application.
+2. **`D3M-Payments-Provider-Application-Pack`** — prepare FastSpring application packet (Creem backup) after preflight + remaining inputs.
 
 ## Notes For Next Chat
 
-- Do not submit FastSpring/Creem applications until fill phase completes.
+- Do not submit FastSpring application until **PROVIDER_CONFIRMATION_REQUIRED** items are resolved.
 - Do not store bank account numbers, tax IDs, or identity document contents in repo/docs/chat.
 - Reuse `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; replace Lemon-specific references with FastSpring.
-- B7 founder context (Lebanese resident in Saudi Arabia) is planning-only — **user must reconfirm** before application.
+- User selected **Saudi Arabia individual** path — verify against FastSpring official onboarding rules before application.
 - Production billing remains **NO-GO** until provider approval + controlled verification phases pass.
 
 ## Related Artifacts
 
+- Pricing/refund: `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`
 - FastSpring checklist: `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`
 - Provider selection: `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`
 - B7 legal/payout planning: `docs/D3M_PAYMENT_LEGAL_PAYOUT_PATH_DECISION_PACK.md`

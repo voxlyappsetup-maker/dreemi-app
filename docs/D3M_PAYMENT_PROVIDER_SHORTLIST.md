@@ -17,7 +17,7 @@ Also viable for evaluation: **PayPro Global** (MoR SaaS), **Paddle** (MoR SaaS; 
 
 ## Primary Recommendation
 
-**FastSpring** — apply after entity/payout/pricing/policy inputs confirmed (`docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`); reusable KYB pack prepared.
+**FastSpring** — individual/natural person application from **Saudi Arabia**; payout candidates SA bank or PayPal (**PROVIDER_CONFIRMATION_REQUIRED**). See `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`.
 
 Official basis: MoR for SaaS/software/**AI**/digital goods; subscriptions; global tax as MoR ([FastSpring tax management](https://fastspring.com/tax-management/)).
 
@@ -40,6 +40,6 @@ Official basis: MoR for SaaS/software/**AI**/digital goods; subscriptions; globa
 
 ## Next Action
 
-**`D3M-Payments-Entity-And-Payout-Fill`** — user confirms entity/payout/pricing/policy answers → then **`D3M-Payments-Provider-Application-Pack`** for FastSpring.
+**`D3M-Payments-FastSpring-Eligibility-Preflight`** — confirm individual/SA/payout support → then **`D3M-Payments-Provider-Application-Pack`** for FastSpring.
 
 Do **not** send archived Lemon draft unless user explicitly chooses appeal phase.
