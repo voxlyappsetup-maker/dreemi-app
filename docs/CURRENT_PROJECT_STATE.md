@@ -461,6 +461,14 @@
   - Local evidence: public routes PASS; pricing unavailable UX PASS; API fail-closed status PASS; auth pages PASS; localization PASS; PDF BLOCKED (safe test data); story detail PARTIAL (invalid ID HTTP 500).
   - Final D6 smoke result: PARTIAL; production launch remains No-Go; no production-critical gate marked fully PASS.
   - Next recommended phase is `D3M-Payments-Provider-Response` (KYB/provider approval package).
+- Phase 4-D3M-Triage-D6-Fix note:
+  - Fixed story detail SSR crash: `apps/web/src/lib/storage.ts` now guards `localStorage` with browser-only helper (`typeof window` / `getLocalStorage()`).
+  - Static regression guard added in `services/api/src/routes/stories.security-regression.test.ts`.
+  - Targeted local re-smoke: `/en/story/test-id-placeholder` HTTP 200 (was HTTP 500); pricing unavailable and `/api/payments/status` fail-closed still PASS.
+  - No deploy, env reads, checkout, webhook, provider, story, or image generation calls.
+  - PDF remains BLOCKED_SAFE_DATA_REQUIRED; production launch remains No-Go.
+  - Changes not committed in phase; user manual commit pending (`Fix story detail SSR storage crash`).
+  - Next recommended phase: `D3M-Payments-Provider-Response` (KYB/provider approval package).
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

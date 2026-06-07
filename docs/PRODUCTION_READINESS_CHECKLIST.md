@@ -40,8 +40,9 @@ Launch gate reference:
 - Production smoke and launch evidence pack reference is `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`.
 - No-deploy manual smoke execution worksheet reference is `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`.
 - Local no-deploy manual smoke results (D6) are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
+- D6-Fix (uncommitted) fixed story detail SSR localStorage crash; targeted re-smoke PASS for `/en/story/test-id-placeholder`.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
-- Local manual smoke evidence is PARTIAL/local-only; D6 does not mark production PASS.
+- Local manual smoke evidence is PARTIAL/local-only; D6-Fix improves story detail route only.
 
 ## 1) Current Deployment Files
 

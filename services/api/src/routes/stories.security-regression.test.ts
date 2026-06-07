@@ -42,6 +42,10 @@ const PDF_EXPORT_PATH = path.resolve(
   __dirname,
   "../../../../apps/web/src/lib/exportStoryPdf.ts",
 );
+const WEB_STORAGE_PATH = path.resolve(
+  __dirname,
+  "../../../../apps/web/src/lib/storage.ts",
+);
 const plansSrc: string = fs.readFileSync(PLANS_MIDDLEWARE_PATH, "utf-8");
 const childrenSrc: string = fs.readFileSync(CHILDREN_ROUTE_PATH, "utf-8");
 const paymentsSrc: string = fs.readFileSync(PAYMENTS_ROUTE_PATH, "utf-8");
@@ -50,6 +54,7 @@ const storyDetailSrc: string = fs.readFileSync(STORY_DETAIL_PAGE_PATH, "utf-8");
 const storyCardSrc: string = fs.readFileSync(STORY_CARD_PATH, "utf-8");
 const generatePageSrc: string = fs.readFileSync(GENERATE_PAGE_PATH, "utf-8");
 const pdfExportSrc: string = fs.readFileSync(PDF_EXPORT_PATH, "utf-8");
+const webStorageSrc: string = fs.readFileSync(WEB_STORAGE_PATH, "utf-8");
 
 // ── Helper utilities ─────────────────────────────────────────────────────────
 
@@ -688,5 +693,35 @@ describe("frontend/pdf image fallback static guardrails", () => {
     assert.match(generatePageSrc, /onError=\{\(\)\s*=>\s*setImgError\(true\)\}/);
     assert.match(generatePageSrc, /storyIllustrationUnavailable/);
     assert.match(generatePageSrc, /setImgError\(false\)/);
+  });
+});
+
+// ── 15. Web storage SSR guard ─────────────────────────────────────────────────
+
+describe("apps/web storage.ts — SSR localStorage guard", () => {
+  it("guards localStorage access with typeof window check", () => {
+    assert.match(webStorageSrc, /typeof window !== "undefined"/);
+    assert.match(webStorageSrc, /typeof window\.localStorage !== "undefined"/);
+  });
+
+  it("routes storage reads/writes through a browser-only helper", () => {
+    assert.match(webStorageSrc, /function getLocalStorage\(\)/);
+    assert.doesNotMatch(
+      webStorageSrc,
+      /^\s*localStorage\./m,
+      "storage.ts must not call localStorage directly at module scope",
+    );
+    const directAccess = webStorageSrc.match(/[^.]localStorage\./g) ?? [];
+    assert.equal(
+      directAccess.length,
+      0,
+      "storage.ts must not access bare localStorage; use getLocalStorage()",
+    );
+  });
+
+  it("returns safe null/false fallbacks for auth reads on server", () => {
+    assert.match(webStorageSrc, /getAccessToken\(\): string \| null/);
+    assert.match(webStorageSrc, /if \(!storage\) return null;/);
+    assert.match(webStorageSrc, /isAuthenticated\(\): boolean/);
   });
 });

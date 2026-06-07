@@ -299,3 +299,39 @@ None.
 - D6 evidence is local-only; do not treat as production PASS.
 - Use `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md` row IDs when updating worksheet statuses in a follow-up if desired.
 - Compact Cursor reports required; no full passing logs in chat.
+
+## D6-Fix Follow-Up (Local No-Deploy Re-Smoke)
+
+**Phase:** D3M-Triage-D6-Fix — Local smoke findings fix batch
+**Baseline:** `5a6843a` (pre-fix working tree)
+**Fix:** Browser-only guards added in `apps/web/src/lib/storage.ts` via `getLocalStorage()` / `typeof window` checks; static regression guard added in `services/api/src/routes/stories.security-regression.test.ts`.
+
+### D6-Fix Targeted Smoke Results
+
+| Check | D6 Before | D6-Fix After | Status |
+| --- | --- | --- | --- |
+| `/en/story/test-id-placeholder` | HTTP 500 (`localStorage is not defined`) | HTTP 200 (safe not-found/error UI) | PASS |
+| `/en`, `/ar`, `/fr` | HTTP 200 | HTTP 200 | PASS |
+| Pricing unavailable (en/ar/fr) | labels/messages present | labels/messages present | PASS |
+| `GET /api/payments/status` | fail-closed | `canStartCheckout=false`, `errorCode=CHECKOUT_PROVIDER_CONFIG_INCOMPLETE` | PASS |
+
+### D6-Fix Validation
+
+| Command | Exit |
+| --- | --- |
+| `git diff --check` | 0 |
+| `pnpm --filter @dreemi/api test` | 0 |
+| `pnpm test` | 0 |
+| `pnpm lint` | 0 |
+| `pnpm build` | 0 |
+
+### D6-Fix Unchanged Blockers
+
+- PDF export: **BLOCKED_SAFE_DATA_REQUIRED**
+- Checkout/webhook/provider/story/image generation: **SKIPPED_BY_POLICY**
+- Production launch: **NO-GO**
+- Server cleanup: dev processes force-stopped intentionally (Windows exit `4294967295` expected on force-stop)
+
+### D6-Fix Final Result
+
+**PARTIAL → improved** — story detail SSR crash fixed locally; remaining blockers unchanged. Ready for manual commit with suggested message: `Fix story detail SSR storage crash`.
