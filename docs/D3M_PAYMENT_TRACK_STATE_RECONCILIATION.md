@@ -5,6 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
+- **Update:** Provider KYB response package prepared at `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` (after D6-Fix `598151b`). Payment production remains **BLOCKED** until approval and runtime verification evidence exist.
 
 ## Why This Checkpoint Exists
 
@@ -112,11 +113,12 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- `Phase 4-D3M-Triage-B4-Implement-A-Smoke` (no-purchase runtime verification of current unavailable-state behavior only).
+- `D3M-Payments-Provider-Response-Fill` — user fills placeholders (demo video, social URLs, pricing, legal links) and finalizes send-ready provider email.
 
 Alternative paths:
 
-- Continue provider/legal track (for example B9 documentation pack) if payment runtime verification is intentionally deferred.
+- `D3M-Triage-D6-PDF` — safe local PDF smoke fixture plan if demo needs PDF evidence.
+- Post-approval controlled checkout/webhook verification phases (separate; not in docs-only track).
 - `D3M-Triage-C` image generation triage if payment track is intentionally paused.
 
 ## Explicit Non-Goals

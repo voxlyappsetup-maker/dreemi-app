@@ -161,7 +161,7 @@ Rules for usage:
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
-- D6-Fix local evidence: story detail route LOCAL_PASS after SSR storage guard; production gates remain not fully PASS.
+- Use `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` for provider KYB response prep; payment gates remain BLOCKED/PENDING.
 
 ### Forbidden Actions
 
@@ -599,16 +599,18 @@ Current: NO-GO
 6. `D4 — Production smoke and launch evidence pack.` (complete; see `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`)
 7. `D5 — No-deploy manual smoke execution worksheet.` (complete; see `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`)
 8. `D6 — Local no-deploy manual smoke run.` (complete; PARTIAL — see `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`)
-9. `D6-Fix — Story detail SSR storage crash fix.` (complete locally; manual commit pending)
-10. Payment provider external approval / response package.
-11. Final launch gate review.
+9. `D6-Fix — Story detail SSR storage crash fix.` (complete at `598151b`)
+10. `Payments-Provider-Response — KYB/provider approval package.` (complete; see `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`)
+11. `Payments-Provider-Response-Fill — finalize send-ready email and attachments.`
+12. Payment provider external approval / runtime verification.
+13. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Payments-Provider-Response — KYB/provider approval package`
-- Alternative: `D3M-Triage-D6-Fix — Local smoke findings fix batch`
+- Primary: `D3M-Payments-Provider-Response-Fill — fill missing user details and finalize send-ready email`
+- Alternative: `D3M-Triage-D6-PDF — Safe local PDF smoke fixture plan`
 
 ## Notes For Next Chat
 

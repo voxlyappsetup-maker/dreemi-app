@@ -237,8 +237,9 @@ Constraints:
 - D5 is worksheet-only; no manual smoke executed; use as D6 runbook.
 - D3M-Triage-D6 local no-deploy manual smoke results are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - D6 executed local smoke only; final result PARTIAL; production launch remains No-Go.
-- D3M-Triage-D6-Fix fixed story detail SSR `localStorage` crash in `apps/web/src/lib/storage.ts`; targeted re-smoke PASS for story detail route.
-- D6-Fix changes await manual commit; do not auto-commit in phase.
+- D6-Fix committed at `598151b`; story detail SSR storage crash fixed.
+- D3M-Payments-Provider-Response package at `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` (email draft + demo script in sibling docs).
+- Provider approval still pending; production billing remains No-Go; fill placeholders before sending any provider email.
 - Future Cursor reports must be concise: exit codes and blockers only when validation passes; never paste full passing logs, secrets, or env values.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -248,7 +249,7 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be either:
-  - `D3M-Payments-Provider-Response` KYB/provider approval package (primary after D6-Fix), or
+  - `D3M-Payments-Provider-Response-Fill` fill missing user details (demo video, social URLs, pricing, legal links) and finalize send-ready email, or
   - `D3M-Triage-D6-PDF` safe local PDF smoke fixture plan (PDF still BLOCKED_SAFE_DATA_REQUIRED), or
   - rerun `D3M-Triage-C5` execute safe local image runtime smoke once shell reliability is restored (explicit approval required), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.

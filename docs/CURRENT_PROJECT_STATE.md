@@ -467,8 +467,14 @@
   - Targeted local re-smoke: `/en/story/test-id-placeholder` HTTP 200 (was HTTP 500); pricing unavailable and `/api/payments/status` fail-closed still PASS.
   - No deploy, env reads, checkout, webhook, provider, story, or image generation calls.
   - PDF remains BLOCKED_SAFE_DATA_REQUIRED; production launch remains No-Go.
-  - Changes not committed in phase; user manual commit pending (`Fix story detail SSR storage crash`).
+  - Committed at `598151b Fix story detail SSR storage crash`.
   - Next recommended phase: `D3M-Payments-Provider-Response` (KYB/provider approval package).
+- Phase 4-D3M-Payments-Provider-Response note:
+  - Payment provider KYB response package is documented at `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`.
+  - Supporting drafts: `docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md`, `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md`.
+  - Docs-only; no provider dashboard, checkout, webhook, or API calls; no env/secrets read or modified.
+  - Production billing and full production launch remain No-Go until provider approval and runtime verification evidence exist.
+  - Next recommended phase: `D3M-Payments-Provider-Response-Fill` (user fills placeholders and finalizes send-ready email).
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
