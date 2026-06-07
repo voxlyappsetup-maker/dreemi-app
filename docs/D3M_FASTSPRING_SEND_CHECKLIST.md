@@ -5,9 +5,11 @@
 Operational checklist for **manual** FastSpring preflight message send.
 Message in `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md` (primary), `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_DRAFT.md`, and `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`.
 
-Demo sharing **VERIFIED by user** — Google Drive video opens without permission request.
+**SUBMITTED** — user manually submitted via FastSpring Request Exemption / Request Demo form on **2026-06-07**.
 
-**Ready for manual user review and manual sending.** **Not sent** from repository. Production billing **NO-GO**.
+Submission record: `docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`
+
+FastSpring response **pending**. Production billing **NO-GO**.
 
 ## Required Before Sending
 
@@ -16,10 +18,23 @@ Demo sharing **VERIFIED by user** — Google Drive video opens without permissio
 - [x] Privacy URL — https://www.dreemi.app/en/privacy
 - [x] Terms URL — https://www.dreemi.app/en/terms
 - [x] Demo video link sharing verified — **VERIFIED by user**
+- [x] User manually submitted preflight inquiry
 - [ ] Refund draft wording reviewed (not final legal text)
 - [ ] Generated-content licensing draft reviewed (not final legal text)
 - [ ] No secrets, bank details, or PayPal private details in message
-- [ ] User approves send
+
+## Submission Record
+
+| Field | Value |
+| --- | --- |
+| Submission status | **SUBMITTED** |
+| Submission date | **2026-06-07** |
+| Channel | FastSpring Request Exemption / Request Demo form |
+| Inquiry type | Request a Demo |
+| Confirmation | “We have received your inquiry and will be reaching out very soon.” |
+| Reference/ticket ID | Not shown / not available |
+| Demo sharing | **VERIFIED** before submission |
+| FastSpring response | **Pending** |
 
 ## Filled Values
 
@@ -43,39 +58,24 @@ Demo sharing **VERIFIED by user** — Google Drive video opens without permissio
 | X (optional) | https://x.com/hadenawi2 | Filled |
 | Instagram (optional) | https://www.instagram.com/hadenawi | Filled |
 
-## Still Pending Before / After Manual Send
+## Still Pending After Submission
 
 | Item | Status |
 | --- | --- |
+| FastSpring written eligibility response | **PROVIDER_CONFIRMATION_REQUIRED** |
 | Final public refund wording | **USER_TO_FINALIZE** |
 | Generated-content licensing wording | **LEGAL/TERMS_CONFIRMATION_REQUIRED** |
 | Tax/VAT posture | **LEGAL/TAX_CONFIRMATION_REQUIRED** |
-| FastSpring written eligibility response | **PROVIDER_CONFIRMATION_REQUIRED** |
 | FastSpring application | **NOT SUBMITTED** |
 | Provider approval | **PENDING** |
-
-## Links To Verify
-
-- [ ] https://www.dreemi.app/ loads
-- [ ] https://www.dreemi.app/en/privacy loads
-- [ ] https://www.dreemi.app/en/terms loads
-- [x] Demo Google Drive link — **VERIFIED by user** (accessible without permission request)
-
-## Do Not Include
-
-- API keys, webhook secrets, `.env`, database URLs
-- Bank/IBAN/routing or PayPal credentials
-- Government ID numbers
-- Raw logs or user/child data
 
 ## Send Decision
 
 | Check | Result |
 | --- | --- |
-| Ready to send now? | **YES** — after final human review of draft refund/licensing caveats |
-| Send method | User manual email / FastSpring contact form |
-| Primary artifact | `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md` |
-| Next phase after send | **`D3M-Payments-FastSpring-Response-Record`** |
+| Submission complete? | **YES** — submitted 2026-06-07 |
+| Next phase | **`D3M-Payments-FastSpring-Response-Record`** |
+| If no response | **`D3M-Payments-FastSpring-Follow-Up-Draft`** |
 
 ## Post-Send Tracking
 

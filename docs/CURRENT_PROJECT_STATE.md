@@ -515,10 +515,11 @@
   - Demo video and social links recorded; founder legal name and exact Privacy/Terms URLs remain placeholders.
   - No message sent; no account/application/dashboard/payment action; eligibility unconfirmed; production billing No-Go.
   - Next: manual send or preflight fill, then await FastSpring response.
-- Phase 4-D3M-Payments-FastSpring-Preflight-Send-Manual note:
-  - Manual send packet at `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`; demo sharing **VERIFIED by user**.
-  - Message ready for manual review/send; not sent; no provider action; production billing No-Go.
-  - Next: user manually sends message and records FastSpring response in **`D3M-Payments-FastSpring-Response-Record`**.
+- Phase 4-D3M-Payments-FastSpring-Contact-Form-Submitted note:
+  - User manually submitted FastSpring preflight via Request Exemption / Request Demo form on **2026-06-07**; confirmation received; no ticket ID shown.
+  - Record at `docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`; FastSpring response **pending**.
+  - No account/application/dashboard/payment action; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Response-Record`** when FastSpring replies.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

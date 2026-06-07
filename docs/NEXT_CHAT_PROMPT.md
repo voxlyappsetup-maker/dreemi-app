@@ -238,9 +238,9 @@ Constraints:
 - D3M-Triage-D6 local no-deploy manual smoke results are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - D6 executed local smoke only; final result PARTIAL; production launch remains No-Go.
 - D6-Fix committed at `598151b`; story detail SSR storage crash fixed.
-- D3M-Payments-FastSpring-Preflight-Send-Manual complete: manual send packet at `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`; demo sharing **VERIFIED by user**.
-- Message not sent; FastSpring eligibility **UNCONFIRMED**; application **NOT SUBMITTED**; production billing No-Go.
-- Next: user manually sends message and records FastSpring response; compact Cursor reports required.
+- D3M-Payments-FastSpring-Contact-Form-Submitted complete: preflight form submitted manually by user; record at `docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`.
+- FastSpring response **pending**; no account/application/dashboard/payment action; production billing No-Go.
+- Next: **`D3M-Payments-FastSpring-Response-Record`** when response received; compact Cursor reports required.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -250,7 +250,8 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-FastSpring-Response-Record` — record FastSpring response after user sends message manually, or
+  - `D3M-Payments-FastSpring-Response-Record` — record FastSpring response when received, or
+  - `D3M-Payments-FastSpring-Follow-Up-Draft` — if no response after reasonable period, or
   - `D3M-Payments-Provider-Application-Pack` after FastSpring confirms eligibility, or
   - `D3M-Payments-Lemon-Appeal-Draft` **only** if user explicitly requests appeal (not primary), or
   - `D3M-Triage-D6-PDF` safe local PDF smoke fixture plan, or

@@ -2,13 +2,17 @@
 
 ## Status
 
-**Ready for manual user review and manual sending.**
+**SUBMITTED** — user manually submitted via FastSpring Request Exemption / Request Demo form on **2026-06-07**.
 
-Demo sharing status: **VERIFIED by user.** The Google Drive video was tested and opened without a permission request.
+Confirmation shown: “We have received your inquiry and will be reaching out very soon.” Ticket/reference ID: not shown.
 
-Message **not sent** from this repository. No FastSpring account created. No application submitted. No provider dashboard accessed. No payment/checkout/webhook/API calls.
+Demo sharing status: **VERIFIED by user** before submission.
+
+No FastSpring account created. No application submitted. No provider dashboard accessed from this repository. No payment/checkout/webhook/API calls.
 
 FastSpring eligibility remains **UNCONFIRMED** until response. Production billing remains **NO-GO**.
+
+**Submission record:** `docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`
 
 **Remaining caveats (not blockers for preflight send):**
 
@@ -106,10 +110,13 @@ contact@dreemi.app
 
 | Field | Value |
 | --- | --- |
-| Date sent | _(user fills after manual send)_ |
-| Channel | _(email / contact form / other)_ |
-| FastSpring contact | _(name or team if known)_ |
-| Response received | Pending |
+| Date sent | **2026-06-07** |
+| Channel | FastSpring Request Exemption / Request Demo form |
+| Inquiry type | Request a Demo |
+| Confirmation | “We have received your inquiry and will be reaching out very soon.” |
+| Reference/ticket ID | Not shown / not available |
+| FastSpring contact | Unknown |
+| Response received | **Pending** |
 | Response date | Pending |
 
 Record answers in `docs/D3M_FASTSPRING_SEND_CHECKLIST.md` post-send table.
