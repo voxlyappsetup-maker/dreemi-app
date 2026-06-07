@@ -419,6 +419,14 @@
   - No provider/payment/image/story runtime calls were executed in this phase.
   - Production launch remains No-Go until launch gates pass with explicit evidence.
   - Next recommended phase is `D3M-Triage-D2-B` (presence-only environment verification protocol), with `D3M-Payments-External-Verification` as an alternative.
+- Phase 4-D3M-Triage-D2-BC note:
+  - Combined presence-only env protocol and deployment dry-run checklist is documented at `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md`.
+  - D2-BC is docs-only and merges D2-B protocol + D2-C dry-run checklist + compact Cursor handoff/reporting rules.
+  - No deployment, real env verification, or dashboard access occurred in this phase.
+  - No env/secrets were read, printed, or modified; no `.env` or `.env.example` was read.
+  - No provider/payment/image/story runtime calls were executed in this phase.
+  - Production launch remains No-Go; future Cursor phase reports should stay concise (no full passing logs).
+  - Next recommended phase is `D3M-Triage-D2-D` (deployment readiness execution packet), with `D3M-Payments-Provider-Response` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

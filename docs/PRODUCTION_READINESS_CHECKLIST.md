@@ -4,6 +4,7 @@ Related manual payment verification plan:
 - `docs/D3M_PRODUCTION_LAUNCH_GATE_CHECKLIST.md`
 - `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md`
 - `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`
+- `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md`
 - `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
@@ -28,8 +29,9 @@ Launch gate reference:
 - Central Go/No-Go reference is `docs/D3M_PRODUCTION_LAUNCH_GATE_CHECKLIST.md`.
 - Deployment/env verification plan reference is `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md`.
 - Deployment/env inventory checklist reference is `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`.
+- Presence-only env + deployment dry-run protocol reference is `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md`.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
-- Production deploy and env presence verification remain pending until D2-B presence-only evidence is captured.
+- Production deploy and env presence verification remain pending until D2-D execution with redacted evidence.
 
 ## 1) Current Deployment Files
 

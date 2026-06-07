@@ -155,7 +155,9 @@ Rules for usage:
 
 - Execute a names-only, presence-only verification checklist in a dedicated phase.
 - Follow `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md` for safe presence-only protocol and environment separation rules.
-- Use `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md` as the inventory artifact; presence verification remains deferred to D2-B.
+- Use `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md` as the inventory artifact.
+- Use `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md` as the presence-only + dry-run protocol; next step is D2-D execution packet.
+- Future gate evidence must be compact and redacted; do not paste full passing validation logs or secret values.
 
 ### Forbidden Actions
 
@@ -184,7 +186,8 @@ Rules for usage:
 
 - Prepare deployment/env verification plan and dry-run evidence checklist.
 - Use `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md` as the deployment/env verification reference.
-- Use `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md` as the names/categories inventory; next step is D2-B presence-only execution.
+- Use `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md` for dry-run checklist; next step is D2-D execution packet.
+- Compact evidence reporting required for future phases (no full passing logs to ChatGPT).
 
 ### Forbidden Actions
 
@@ -569,8 +572,8 @@ Current: NO-GO
 | --- | --- | --- | --- | --- | --- |
 | Payment provider external approval/readiness unresolved | Gate 9 | Critical | BLOCKED | Provider eligibility/KYB/KYC and legal payout closure evidence | `D3M-Payments-External-Verification` |
 | Real checkout/payment/webhook verification missing | Gate 9, Gate 10 | Critical | BLOCKED | Approved-provider checkout/purchase/webhook controlled smoke evidence | `D3M-Payments-External-Verification` |
-| Production env presence not verified safely | Gate 3 | Critical | BLOCKED | Presence-only env verification report (no values) | `D3M-Triage-D2-B` |
-| Production deployment smoke missing | Gate 4, Gate 16 | Critical | BLOCKED | Deployment dry-run + post-deploy smoke bundle | `D3M-Triage-D2-B` / D2-C |
+| Production env presence not verified safely | Gate 3 | Critical | BLOCKED | Presence-only env verification report (no values) | `D3M-Triage-D2-D` |
+| Production deployment smoke missing | Gate 4, Gate 16 | Critical | BLOCKED | Deployment dry-run + post-deploy smoke bundle | `D3M-Triage-D2-D` |
 | Monitoring/incident response readiness incomplete | Gate 15 | High | BLOCKED | Monitoring policy, alerts, runbook, incident owner evidence | `D3M-Triage-D2` or dedicated ops-readiness phase |
 | Image runtime smoke not executed (if image is launch-critical) | Gate 11 | High | PENDING | Approved C5 runtime smoke evidence | `D3M-Triage-C5` (optional/deferred unless required) |
 | Final localization/PDF smoke set incomplete | Gate 12, Gate 13, Gate 16 | High | PENDING | Final EN/AR/FR smoke evidence for PDF and fallback paths | Manual smoke pack phase |
@@ -584,21 +587,20 @@ Current: NO-GO
 
 ## Recommended Closure Order
 
-1. `D2 — Deployment/env verification plan.` (complete; see `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md`)
-2. `D2-A — Deployment/env inventory checklist.` (complete; see `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`)
-3. `D2-B — Presence-only environment verification protocol execution.`
-4. `D3 — Production env presence verification protocol execution (if split from D2-B).`
+1. `D2 — Deployment/env verification plan.` (complete)
+2. `D2-A — Deployment/env inventory checklist.` (complete)
+3. `D2-BC — Presence-only env protocol + deployment dry-run checklist.` (complete; see `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md`)
+4. `D2-D — Deployment readiness execution packet.`
 5. Payment provider external approval / response package.
-6. Deployment dry-run checklist.
-7. Manual smoke pack.
-8. Final launch gate review.
+6. Manual smoke pack.
+7. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D2-B — Presence-only environment verification protocol`
-- Alternative: `D3M-Payments-External-Verification — provider/KYB response package`
+- Primary: `D3M-Triage-D2-D — Deployment readiness execution packet`
+- Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
 
 ## Notes For Next Chat
 
