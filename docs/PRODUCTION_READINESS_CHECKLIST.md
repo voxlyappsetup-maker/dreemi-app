@@ -51,7 +51,7 @@ Launch gate reference:
 - `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`
 - `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`
 - Alternative provider selection documented (2026-06-07): primary candidate **FastSpring**, backup **Creem** (`docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`).
-- FastSpring remains **primary candidate only**; eligibility preflight documented (`docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`). Application, approval, checkout, and webhook verification remain pending. Production billing **No-Go**.
+- FastSpring contact pack prepared (`docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`); message **not sent**; eligibility/approval/checkout/webhook remain pending. Production billing **No-Go**.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
 - Local manual smoke evidence is PARTIAL/local-only; D6-Fix improves story detail route only.
 

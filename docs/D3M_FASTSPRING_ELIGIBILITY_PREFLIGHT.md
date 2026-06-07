@@ -280,9 +280,9 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Preflight-Contact-Pack`** — finalize message for FastSpring sales/support (after any missing placeholders filled).
+**Primary:** **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — user fills placeholders and sends message manually.
 
-**Alternative if placeholders block contact:** **`D3M-Payments-FastSpring-Preflight-Fill`** — founder legal name, exact Privacy/Terms URLs, refund/licensing wording.
+**Alternative if placeholders block send:** **`D3M-Payments-FastSpring-Preflight-Fill`** — founder legal name, exact Privacy/Terms URLs, refund/licensing wording.
 
 **If FastSpring declines path:** **`D3M-Payments-Creem-Backup-Preflight`** (future phase).
 
@@ -296,6 +296,8 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 
 ## Related Artifacts
 
-- Contact draft: `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_DRAFT.md`
+- **Contact pack (send-ready):** `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`
+- Send checklist: `docs/D3M_FASTSPRING_SEND_CHECKLIST.md`
+- Contact draft (mirror): `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_DRAFT.md`
 - Application inputs: `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`
 - Entity/payout answers: `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`

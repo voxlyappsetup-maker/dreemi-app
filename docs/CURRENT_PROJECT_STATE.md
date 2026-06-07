@@ -510,6 +510,13 @@
   - Official sources confirm broad FastSpring fit (SaaS/AI/subscriptions/MoR/tax/API/webhooks); individual/Saudi Arabia/payout support remains **PROVIDER_CONFIRMATION_REQUIRED**.
   - Do not submit application yet; production billing remains No-Go.
   - Next: preflight contact pack or fill remaining placeholders.
+- Phase 4-D3M-Payments-FastSpring-Preflight-Contact-Pack note:
+  - Send-ready pack at `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`; send checklist at `docs/D3M_FASTSPRING_SEND_CHECKLIST.md`.
+  - Demo video and social links recorded; founder legal name and exact Privacy/Terms URLs remain placeholders.
+  - No message sent; no account/application/dashboard/payment action; eligibility unconfirmed; production billing No-Go.
+  - Next: manual send or preflight fill, then await FastSpring response.
+- Phase 4-D3M-Tooling-A note:
+  - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
   - No runtime/service/app/schema/payment/image-generation behavior changes were made in this phase.
   - No provider calls and no env/secrets changes were made in this phase.

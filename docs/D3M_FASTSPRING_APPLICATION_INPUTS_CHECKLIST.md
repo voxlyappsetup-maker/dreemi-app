@@ -2,8 +2,9 @@
 
 ## Status
 
-Operational checklist derived from `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md` and fill phase **D3M-Payments-Entity-And-Payout-Fill**.
-**Not ready for submission.** Blocked pending FastSpring eligibility preflight (`docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`) and remaining user/legal/policy placeholders.
+Operational checklist derived from `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md` and fill/preflight phases.
+**Not ready for submission.** Application pack **blocked** until preflight response confirms eligibility or defines required legal/entity setup.
+Contact pack: `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md` — **message not sent**.
 No FastSpring account created. No application submitted. Production billing **NO-GO**.
 
 ## Required Before Application
@@ -32,7 +33,7 @@ No FastSpring account created. No application submitted. Production billing **NO
 | Buyer profile | Confirmed | Parents, guardians, families, educators (adults) |
 | Subscription model | Confirmed | FREE + INDIVIDUAL + FAMILY at launch; SCHOOL deferred |
 | Product description | Partial | `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` |
-| Demo video | **USER_TO_CONFIRM** | `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md` |
+| Demo video | **Answered** | https://drive.google.com/file/d/1uNimZx4qD17pWrtSnYUMHSLqiRHFB2y-/view?usp=drive_link (verify sharing before send) |
 
 ## Legal / Entity Details
 
@@ -120,6 +121,7 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 | Check | Result |
 | --- | --- |
 | Ready to submit FastSpring application? | **NO** |
-| Primary blockers | Eligibility **PROVIDER_CONFIRMATION_REQUIRED**; founder legal name; exact policy URLs; tax/VAT |
-| Next phase | **`D3M-Payments-FastSpring-Preflight-Contact-Pack`** or **`D3M-Payments-FastSpring-Preflight-Fill`** |
+| Primary blockers | Preflight response pending; founder legal name; exact policy URLs |
+| Contact pack | `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md` — send manually after fill |
+| Next phase | **`D3M-Payments-FastSpring-Preflight-Send-Manual`** or **`D3M-Payments-FastSpring-Preflight-Fill`** |
 | Then | **`D3M-Payments-Provider-Application-Pack`** |

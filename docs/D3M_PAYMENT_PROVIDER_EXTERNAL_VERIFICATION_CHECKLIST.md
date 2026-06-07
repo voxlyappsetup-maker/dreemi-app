@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring preflight (2026-06-07):** `docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md` — individual/Saudi Arabia/payout questions must be answered by provider before application. External verification **not started**.
+**FastSpring preflight contact pack (2026-06-07):** `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md` — message prepared for **manual send**; external response **pending**.
 
 ## 3) Candidate provider categories
 
