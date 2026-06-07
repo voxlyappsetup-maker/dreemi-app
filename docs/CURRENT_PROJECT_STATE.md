@@ -427,6 +427,13 @@
   - No provider/payment/image/story runtime calls were executed in this phase.
   - Production launch remains No-Go; future Cursor phase reports should stay concise (no full passing logs).
   - Next recommended phase is `D3M-Triage-D2-D` (deployment readiness execution packet), with `D3M-Payments-Provider-Response` as an alternative.
+- Phase 4-D3M-Triage-D2-D note:
+  - Deployment readiness execution packet is documented at `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`.
+  - D2-D is docs-only and consolidates presence-only execution prep, dry-run evidence prep, manual smoke prep, evidence rules, gate alignment, and compact reporting handoff.
+  - No deployment, dashboard access, real env verification, or runtime/provider/payment/image/story calls occurred in this phase.
+  - No env/secrets were read, printed, verified, or modified; no `.env` or `.env.example` was read.
+  - Production launch remains No-Go; future Cursor reports must stay compact.
+  - Next recommended phase is `D3M-Triage-D3` (no-secret deployment readiness evidence pass), with `D3M-Payments-Provider-Response` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

@@ -349,13 +349,13 @@ Do not fill with invented results in D2-BC.
 
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| Production env presence not verified | Env | Critical | BLOCKED | Presence-only register (no values) | D2-D |
-| Provider choice/readiness pending | Deployment | High | PENDING | Hosting target confirmation | D2-D |
+| Production env presence not verified | Env | Critical | BLOCKED | Presence-only register (no values) | D3 |
+| Provider choice/readiness pending | Deployment | High | PENDING | Hosting target confirmation | D3 |
 | Payment provider approval pending | Payments | Critical | BLOCKED | KYB/legal package | Payments-Provider-Response |
 | Checkout/webhook not verified | Payments | Critical | BLOCKED | Controlled smoke with approval | Post-approval phase |
-| Deploy dry-run not executed | Deployment | High | PENDING | Dry-run evidence pack | D2-D |
-| Monitoring not ready | Ops | High | BLOCKED | Monitoring checklist | D2-D / ops phase |
-| Production rollback not proven | Deployment | High | PENDING | Rollback rehearsal | D2-D |
+| Deploy dry-run not executed | Deployment | High | PENDING | Dry-run evidence pack | D3 |
+| Monitoring not ready | Ops | High | BLOCKED | Monitoring checklist | D3 / ops phase |
+| Production rollback not proven | Deployment | High | PENDING | Rollback rehearsal | D3 |
 | Image runtime smoke deferred | Image | Medium | PENDING | C5 smoke if required | C5 (optional) |
 | Final localization/PDF smoke pending | QA | High | PENDING | Manual smoke pack | Production-Smoke-Pack |
 
@@ -411,7 +411,7 @@ If validation succeeds, do not paste full logs.
 
 ## Recommended Execution Sequence
 
-1. **D2-D — Deployment readiness execution packet** — presence-only checklist execution prep + dry-run evidence template completion (still no secrets).
+1. **D3M-Triage-D3 — No-secret deployment readiness evidence pass** — presence-only checklist execution, deployment target confirmation, launch gate evidence register updates; still no deploy and no secrets.
 2. **Payments-Provider-Response — KYB/provider approval package** if payment is the priority.
 3. **Production-Smoke-Pack — manual smoke plan consolidation**.
 4. **C5 — safe local image runtime smoke** only if shell/runtime stability is acceptable.
@@ -419,8 +419,10 @@ If validation succeeds, do not paste full logs.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D2-D — Deployment readiness execution packet`
+- Primary: `D3M-Triage-D3 — No-secret deployment readiness evidence pass`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
+
+Built on by: `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`
 
 ## Notes For Next Chat
 
