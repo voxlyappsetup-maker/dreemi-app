@@ -392,12 +392,14 @@ Next:
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D3 — No-secret deployment readiness evidence pass`
+- Primary: `D3M-Triage-D4 — Production smoke and launch evidence pack`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
+
+First evidence pass (complete): `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`
 
 ## Notes For Next Chat
 
-- D2-D is execution preparation only; no presence verification or deploy was executed.
-- Use this packet with inventory + protocol docs when running D3.
+- D2-D is execution preparation only; D3 evidence pass complete at `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`.
+- Use this packet with inventory + protocol + D3 evidence when running D4.
 - Keep Cursor reports compact; do not paste full passing logs to ChatGPT.
 - Update launch gate statuses only with explicit redacted evidence.

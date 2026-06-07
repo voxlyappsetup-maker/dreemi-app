@@ -229,6 +229,8 @@ Constraints:
 - D2-BC is docs-only; no real env verification, deploy, or dashboard access; compact Cursor reporting rules apply to future phases.
 - D3M-Triage-D2-D deployment readiness execution packet is at `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`.
 - D2-D is docs-only execution prep; no deploy, dashboard access, env reads, or runtime/provider/payment/image/story calls.
+- D3M-Triage-D3 no-secret deployment readiness evidence pass is at `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`.
+- D3 recorded evidence from tracked config/source and validation commands only; no env/dashboard/deploy; no critical gates marked PASS.
 - Future Cursor reports must be concise: exit codes and blockers only when validation passes; never paste full passing logs, secrets, or env values.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -238,7 +240,7 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be either:
-  - `D3M-Triage-D3` no-secret deployment readiness evidence pass (no deploy, no secrets), or
+  - `D3M-Triage-D4` production smoke and launch evidence pack (no deploy/secrets unless explicitly approved), or
   - `D3M-Payments-Provider-Response` KYB/provider approval package (documentation-first), or
   - rerun `D3M-Triage-C5` execute safe local image runtime smoke once shell reliability is restored (explicit approval required), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.

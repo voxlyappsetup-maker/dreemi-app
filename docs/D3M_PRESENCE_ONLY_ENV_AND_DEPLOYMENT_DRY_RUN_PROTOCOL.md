@@ -349,13 +349,13 @@ Do not fill with invented results in D2-BC.
 
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| Production env presence not verified | Env | Critical | BLOCKED | Presence-only register (no values) | D3 |
-| Provider choice/readiness pending | Deployment | High | PENDING | Hosting target confirmation | D3 |
+| Production env presence not verified | Env | Critical | BLOCKED | Presence-only register (no values) | D4 |
+| Provider choice/readiness pending | Deployment | High | PENDING | Hosting target confirmation | D4 |
 | Payment provider approval pending | Payments | Critical | BLOCKED | KYB/legal package | Payments-Provider-Response |
 | Checkout/webhook not verified | Payments | Critical | BLOCKED | Controlled smoke with approval | Post-approval phase |
-| Deploy dry-run not executed | Deployment | High | PENDING | Dry-run evidence pack | D3 |
-| Monitoring not ready | Ops | High | BLOCKED | Monitoring checklist | D3 / ops phase |
-| Production rollback not proven | Deployment | High | PENDING | Rollback rehearsal | D3 |
+| Deploy dry-run not executed | Deployment | High | PENDING | Dry-run evidence pack | D4 |
+| Monitoring not ready | Ops | High | BLOCKED | Monitoring checklist | D4 / ops phase |
+| Production rollback not proven | Deployment | High | PENDING | Rollback rehearsal | D4 |
 | Image runtime smoke deferred | Image | Medium | PENDING | C5 smoke if required | C5 (optional) |
 | Final localization/PDF smoke pending | QA | High | PENDING | Manual smoke pack | Production-Smoke-Pack |
 
@@ -411,21 +411,23 @@ If validation succeeds, do not paste full logs.
 
 ## Recommended Execution Sequence
 
-1. **D3M-Triage-D3 — No-secret deployment readiness evidence pass** — presence-only checklist execution, deployment target confirmation, launch gate evidence register updates; still no deploy and no secrets.
-2. **Payments-Provider-Response — KYB/provider approval package** if payment is the priority.
+1. **D3M-Triage-D3 — No-secret deployment readiness evidence pass.** (complete; see `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`)
+2. **D3M-Triage-D4 — Production smoke and launch evidence pack.**
+3. **Payments-Provider-Response — KYB/provider approval package** if payment is the priority.
 3. **Production-Smoke-Pack — manual smoke plan consolidation**.
 4. **C5 — safe local image runtime smoke** only if shell/runtime stability is acceptable.
 5. **Final Launch Gate Review**.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D3 — No-secret deployment readiness evidence pass`
+- Primary: `D3M-Triage-D4 — Production smoke and launch evidence pack`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
 
+Evidence pass (complete): `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`
 Built on by: `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`
 
 ## Notes For Next Chat
 
-- D2-BC is protocol/checklist only; no presence verification was executed.
+- D3 evidence pass complete; actual env presence/dashboard/deploy remain deferred to D4 or approved phases.
 - Use compact Cursor reports per this document; avoid pasting full passing logs to ChatGPT.
 - Full production launch remains **NO-GO** until gates pass with explicit redacted evidence.

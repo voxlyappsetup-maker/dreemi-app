@@ -421,7 +421,8 @@ Reference: `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` for dry-run rollbac
 1. **D2-A** — names-only deployment/env inventory checklist. (complete)
 2. **D2-BC** — presence-only env protocol + deployment dry-run checklist. (complete; see `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md`)
 3. **D2-D** — deployment readiness execution packet. (complete; see `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`)
-4. **D3** — no-secret deployment readiness evidence pass.
+4. **D3** — no-secret deployment readiness evidence pass. (complete; see `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`)
+5. **D4** — production smoke and launch evidence pack.
 3. **D2-C** — deployment dry-run checklist (`docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`).
 4. **D2-D** — local/staging smoke pack (controlled, no secrets).
 5. Payment provider external approval/response package (`D3M-Payments-External-Verification`).
@@ -431,9 +432,10 @@ Actual production deploy remains separate, blocked, and requires explicit approv
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D3 — No-secret deployment readiness evidence pass`
+- Primary: `D3M-Triage-D4 — Production smoke and launch evidence pack`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
 
+Evidence pass (complete): `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`
 Execution packet (complete): `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`
 Protocol/checklist bridge (complete): `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md`
 Inventory artifact (complete): `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`

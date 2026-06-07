@@ -157,8 +157,9 @@ Rules for usage:
 - Follow `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md` for safe presence-only protocol and environment separation rules.
 - Use `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md` as the inventory artifact.
 - Use `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md` as the presence-only + dry-run protocol.
-- Use `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md` as the execution packet linked to relevant gates; next step is D3 evidence pass.
-- Future gate evidence must be compact and redacted; do not paste full passing validation logs or secret values.
+- Use `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md` as the execution packet linked to relevant gates.
+- Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass; next step is D4 smoke/launch evidence pack.
+- Do not mark critical gates PASS without complete evidence; D3 left gates EVIDENCE_PARTIAL/PENDING/BLOCKED only.
 
 ### Forbidden Actions
 
@@ -573,8 +574,8 @@ Current: NO-GO
 | --- | --- | --- | --- | --- | --- |
 | Payment provider external approval/readiness unresolved | Gate 9 | Critical | BLOCKED | Provider eligibility/KYB/KYC and legal payout closure evidence | `D3M-Payments-External-Verification` |
 | Real checkout/payment/webhook verification missing | Gate 9, Gate 10 | Critical | BLOCKED | Approved-provider checkout/purchase/webhook controlled smoke evidence | `D3M-Payments-External-Verification` |
-| Production env presence not verified safely | Gate 3 | Critical | BLOCKED | Presence-only env verification report (no values) | `D3M-Triage-D3` |
-| Production deployment smoke missing | Gate 4, Gate 16 | Critical | BLOCKED | Deployment dry-run + post-deploy smoke bundle | `D3M-Triage-D3` |
+| Production env presence not verified safely | Gate 3 | Critical | BLOCKED | Presence-only env verification report (no values) | `D3M-Triage-D4` / approved env phase |
+| Production deployment smoke missing | Gate 4, Gate 16 | Critical | BLOCKED | Deployment dry-run + post-deploy smoke bundle | `D3M-Triage-D4` |
 | Monitoring/incident response readiness incomplete | Gate 15 | High | BLOCKED | Monitoring policy, alerts, runbook, incident owner evidence | `D3M-Triage-D2` or dedicated ops-readiness phase |
 | Image runtime smoke not executed (if image is launch-critical) | Gate 11 | High | PENDING | Approved C5 runtime smoke evidence | `D3M-Triage-C5` (optional/deferred unless required) |
 | Final localization/PDF smoke set incomplete | Gate 12, Gate 13, Gate 16 | High | PENDING | Final EN/AR/FR smoke evidence for PDF and fallback paths | Manual smoke pack phase |
@@ -592,16 +593,16 @@ Current: NO-GO
 2. `D2-A — Deployment/env inventory checklist.` (complete)
 3. `D2-BC — Presence-only env protocol + deployment dry-run checklist.` (complete)
 4. `D2-D — Deployment readiness execution packet.` (complete; see `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`)
-5. `D3 — No-secret deployment readiness evidence pass.`
-6. Payment provider external approval / response package.
-7. Manual smoke pack.
+5. `D3 — No-secret deployment readiness evidence pass.` (complete; see `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`)
+6. `D4 — Production smoke and launch evidence pack.`
+7. Payment provider external approval / response package.
 8. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D3 — No-secret deployment readiness evidence pass`
+- Primary: `D3M-Triage-D4 — Production smoke and launch evidence pack`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
 
 ## Notes For Next Chat

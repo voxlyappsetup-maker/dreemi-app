@@ -434,6 +434,13 @@
   - No env/secrets were read, printed, verified, or modified; no `.env` or `.env.example` was read.
   - Production launch remains No-Go; future Cursor reports must stay compact.
   - Next recommended phase is `D3M-Triage-D3` (no-secret deployment readiness evidence pass), with `D3M-Payments-Provider-Response` as an alternative.
+- Phase 4-D3M-Triage-D3 note:
+  - No-secret deployment readiness evidence pass is documented at `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`.
+  - D3 is docs-only and records evidence from clean git state, tracked config/source references, validation exit codes, and launch gate mapping without env/dashboard/deploy.
+  - No env/secrets were read, printed, verified, or modified; no `.env` or `.env.example` was read.
+  - No provider/payment/image/story runtime calls or deployment occurred in this phase.
+  - Production launch remains No-Go; no critical launch gate marked PASS.
+  - Next recommended phase is `D3M-Triage-D4` (production smoke and launch evidence pack), with `D3M-Payments-Provider-Response` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

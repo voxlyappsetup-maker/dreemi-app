@@ -333,16 +333,16 @@ Do not fill with invented results in this inventory phase.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D3 — No-secret deployment readiness evidence pass`
+- Primary: `D3M-Triage-D4 — Production smoke and launch evidence pack`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
 
+Evidence pass (complete): `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`
 Execution packet: `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`
 Follow-up protocol/checklist: `docs/D3M_PRESENCE_ONLY_ENV_AND_DEPLOYMENT_DRY_RUN_PROTOCOL.md`
 
 ## Notes For Next Chat
 
-- This checklist inventories **what to verify later**; it does not verify presence now.
-- D3 evidence pass uses this inventory with `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`.
+- D3 evidence pass recorded at `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`; use inventory for D4 execution prep.
 - Never paste secret values; record PASS/FAIL by category/name only.
 - Full production launch remains **NO-GO** until launch gates pass with explicit evidence.
 - Do not mark Gates 3 or 4 PASS from inventory completeness alone.
