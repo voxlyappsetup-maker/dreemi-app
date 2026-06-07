@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring preflight fill:** founder name + Privacy/Terms URLs filled in contact pack; manual send pending demo sharing verification. External response **pending**.
+**FastSpring manual send packet:** demo sharing **VERIFIED by user**; message ready for manual send; not sent. FastSpring eligibility **UNCONFIRMED**; application **NOT SUBMITTED**; provider approval **PENDING**; production billing **NO-GO**. External response **pending**.
 
 ## 3) Candidate provider categories
 

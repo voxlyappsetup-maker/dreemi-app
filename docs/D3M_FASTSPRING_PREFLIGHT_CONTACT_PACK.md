@@ -3,6 +3,8 @@
 ## Status
 
 This is a docs-only FastSpring preflight contact pack.
+**Ready for manual user review and manual sending.**
+Demo sharing status: **VERIFIED by user.** The Google Drive video was tested and opened without a permission request.
 No FastSpring account was created.
 No FastSpring application was submitted.
 No provider dashboard was accessed.
@@ -24,7 +26,7 @@ Production billing remains **NO-GO**.
 
 ## Current Baseline
 
-- Latest stable commit: `e50bdb7 Point entity payout doc to FastSpring send manual phase`
+- Latest stable commit: `917bfa4 Fill FastSpring preflight contact details`
 - Primary candidate: **FastSpring** (eligibility **UNCONFIRMED**)
 - Backup candidate: **Creem**
 - Lemon Squeezy: **REJECTED / NOT ACTIVE**
@@ -55,6 +57,7 @@ Production billing remains **NO-GO**.
 | Website | https://www.dreemi.app/ |
 | Support email | contact@dreemi.app |
 | Demo video | https://drive.google.com/file/d/1uNimZx4qD17pWrtSnYUMHSLqiRHFB2y-/view?usp=drive_link |
+| Demo sharing | **VERIFIED by user** — accessible without permission request |
 | Product category | AI-assisted children’s storytelling SaaS |
 | Languages | Arabic / English / French |
 | Adult buyers | Parents, guardians, families, educators/schools |
@@ -92,7 +95,7 @@ Production billing remains **NO-GO**.
 | Terms URL | **Filled** — https://www.dreemi.app/en/terms |
 | Final refund policy wording | **Draft / pending** — 7-day period confirmed; public wording not final |
 | Generated-content licensing wording | **Draft / pending final Terms/legal confirmation** |
-| Google Drive demo sharing | **USER_TO_VERIFY** before send |
+| Google Drive demo sharing | **VERIFIED by user** — accessible without permission request |
 | Tax/VAT posture | **LEGAL/TAX_CONFIRMATION_REQUIRED** |
 | Identity/KYC document list | **PROVIDER_CONFIRMATION_REQUIRED** + application onboarding |
 | FastSpring eligibility response | **PROVIDER_CONFIRMATION_REQUIRED** |
@@ -109,7 +112,7 @@ Generated-content licensing wording is not final and requires legal/Terms confir
 
 > Draft: Dreemi provides users with access to AI-assisted story generation for personal, family, and educational use. Users should not use the service to generate or commercialize content based on third-party copyrighted characters, brands, or protected works. Generated output remains subject to Dreemi’s final Terms and acceptable-use rules. **Requires final legal/Terms review before provider submission.**
 
-**Before manual sending, verify that the Google Drive demo video is accessible to anyone with the link.**
+**Demo sharing verified by user.** Remaining caveats before/after send: final refund wording draft; generated-content licensing draft; tax/VAT legal confirmation. See `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`.
 
 ## Contact Goal
 
@@ -226,7 +229,7 @@ contact@dreemi.app
 | Website | https://www.dreemi.app/ |
 | Privacy URL | https://www.dreemi.app/en/privacy |
 | Terms URL | https://www.dreemi.app/en/terms |
-| Demo video | Verify **anyone with link** before send |
+| Demo video | **VERIFIED** — https://drive.google.com/file/d/1uNimZx4qD17pWrtSnYUMHSLqiRHFB2y-/view?usp=drive_link |
 | Product summary | In message body |
 | Pricing summary | In message body |
 | Support email | contact@dreemi.app |
@@ -247,7 +250,7 @@ contact@dreemi.app
 See `docs/D3M_FASTSPRING_SEND_CHECKLIST.md` for operational checklist.
 
 - [x] Founder legal name filled — Hayssam Adel Dennaoui
-- [ ] Google Drive demo video sharing permissions verified (**USER_TO_VERIFY**)
+- [x] Google Drive demo video sharing verified — **VERIFIED by user**
 - [x] Privacy URL — https://www.dreemi.app/en/privacy
 - [x] Terms URL — https://www.dreemi.app/en/terms
 - [ ] Refund draft wording reviewed (not final legal text)
@@ -290,18 +293,20 @@ Record responses in post-send tracking (see send checklist).
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — verify demo sharing and send message manually after final human review.
+**Primary:** User manually sends message using `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`, then **`D3M-Payments-FastSpring-Response-Record`**.
 
-**Reference:** `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
+**Reference:** `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`, `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`
 
 ## Notes For Next Chat
 
-- Do not send until **Google Drive demo sharing** verified and draft refund/licensing reviewed.
+- Demo sharing **VERIFIED by user**; message ready for manual send via `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`.
+- Refund/licensing wording remains draft; tax/VAT legal confirmation still required.
 - Do not create FastSpring account until eligibility confirmed or FastSpring instructs to apply.
 - Production billing remains **NO-GO** until provider approval + controlled verification.
 
 ## Related Artifacts
 
 - Send checklist: `docs/D3M_FASTSPRING_SEND_CHECKLIST.md`
+- Manual send packet: `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`
 - Final review: `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
 - Eligibility preflight: `docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`

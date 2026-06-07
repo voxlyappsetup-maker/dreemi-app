@@ -1,49 +1,29 @@
-# D3M FastSpring Preflight Contact Draft
+# D3M FastSpring Manual Send Packet
 
 ## Status
 
-**Ready for manual user review and manual sending. Not sent.**
+**Ready for manual user review and manual sending.**
 
 Demo sharing status: **VERIFIED by user.** The Google Drive video was tested and opened without a permission request.
 
-Founder name and exact Privacy/Terms URLs filled in **D3M-Payments-FastSpring-Preflight-Fill**. Refund and generated-content licensing language remains **draft / pending final review**.
+Message **not sent** from this repository. No FastSpring account created. No application submitted. No provider dashboard accessed. No payment/checkout/webhook/API calls.
 
-FastSpring eligibility remains **UNCONFIRMED** until response. FastSpring application remains **not submitted**. Production billing **NO-GO**.
+FastSpring eligibility remains **UNCONFIRMED** until response. Production billing remains **NO-GO**.
 
-**Manual send packet:** `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md`
-
-Full pack: `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`
-Send checklist: `docs/D3M_FASTSPRING_SEND_CHECKLIST.md`
-Final review: `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
-
-## Remaining Caveats
+**Remaining caveats (not blockers for preflight send):**
 
 - Final refund wording remains draft/pending final public policy review.
 - Generated-content licensing wording remains draft/pending final Terms/legal review.
 - Tax/VAT posture remains legal/tax confirmation required.
 - No bank details, PayPal private details, identity document numbers, tax IDs, or secrets should be sent in the first message.
 
-## Send Preconditions
+**Reference docs:** `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`, `docs/D3M_FASTSPRING_SEND_CHECKLIST.md`, `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
 
-- [x] Founder legal name filled — Hayssam Adel Dennaoui
-- [x] Privacy URL — https://www.dreemi.app/en/privacy
-- [x] Terms URL — https://www.dreemi.app/en/terms
-- [x] Demo video sharing verified — **VERIFIED by user**
-- [ ] Refund/licensing draft wording reviewed (not final legal text)
-- [ ] No bank/PayPal/secrets in message
-- [ ] User manually sends
-
-## Message Draft
-
-### Subject
+## Final Subject
 
 Preflight eligibility question for AI-assisted children’s storytelling SaaS
 
-### To
-
-FastSpring sales / solutions consultant (https://fastspring.com/ contact or assigned representative)
-
----
+## Final Message
 
 Hello FastSpring team,
 
@@ -101,12 +81,54 @@ Dreemi
 https://www.dreemi.app/
 contact@dreemi.app
 
----
+## Links Included
 
-## What Not To Send
+| Link | Value |
+| --- | --- |
+| Website | https://www.dreemi.app/ |
+| Support | contact@dreemi.app |
+| Privacy | https://www.dreemi.app/en/privacy |
+| Terms | https://www.dreemi.app/en/terms |
+| Demo video | https://drive.google.com/file/d/1uNimZx4qD17pWrtSnYUMHSLqiRHFB2y-/view?usp=drive_link |
+| Demo sharing | **VERIFIED** — accessible without permission request |
 
-Bank details, PayPal credentials, tax IDs, identity document numbers, API keys, secrets, raw logs, or private user/child data.
+## Do Not Include
 
-## Post-Contact Tracking
+- Bank account details, IBAN/routing, or PayPal private account details
+- Identity document numbers or tax IDs
+- API keys, webhook secrets, database URLs, `.env` values
+- Tokens, cookies, request headers
+- Private user or child data, raw logs
+- Provider dashboard screenshots
+- Unverified legal/tax compliance claims
 
-See `docs/D3M_FASTSPRING_SEND_CHECKLIST.md` post-send table and `docs/D3M_FASTSPRING_MANUAL_SEND_PACKET.md` after-send tracker.
+## After Sending Tracker
+
+| Field | Value |
+| --- | --- |
+| Date sent | _(user fills after manual send)_ |
+| Channel | _(email / contact form / other)_ |
+| FastSpring contact | _(name or team if known)_ |
+| Response received | Pending |
+| Response date | Pending |
+
+Record answers in `docs/D3M_FASTSPRING_SEND_CHECKLIST.md` post-send table.
+
+| Question | FastSpring answer | Status |
+| --- | --- | --- |
+| Individual SA seller | | Pending |
+| SA bank payout | | Pending |
+| PayPal payout | | Pending |
+| Entity required? | | Pending |
+| AI children’s SaaS OK? | | Pending |
+| Apply vs call first? | | Pending |
+
+## Next Decision Logic
+
+| FastSpring response | Next phase |
+| --- | --- |
+| Eligibility confirmed | **`D3M-Payments-Provider-Application-Pack`** |
+| Legal entity required | Entity/Legal Path Review |
+| Rejected or unclear on product | **Creem Backup Preflight** |
+| More info requested | Update **`docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`** |
+| Any response received | **`D3M-Payments-FastSpring-Response-Record`** |

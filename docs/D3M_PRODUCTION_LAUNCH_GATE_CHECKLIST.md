@@ -161,7 +161,7 @@ Rules for usage:
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
-- Payment gates **BLOCKED**: preflight fields filled; message **not sent**; FastSpring response and provider approval pending. Do not mark PASS.
+- Payment gates **BLOCKED**: manual send packet ready; demo verified; message **not sent**; FastSpring eligibility **UNCONFIRMED**; application **NOT SUBMITTED**; provider approval **PENDING**. Do not mark PASS.
 - Use reusable KYB assets from `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; do not mark payment gates PASS.
 
 ### Forbidden Actions
@@ -611,16 +611,18 @@ Current: NO-GO
 17. `Payments-FastSpring-Eligibility-Preflight` — complete.
 18. `Payments-FastSpring-Preflight-Contact-Pack` — complete (message not sent).
 19. `Payments-FastSpring-Preflight-Fill` — complete (founder/Privacy/Terms filled).
-20. `Payments-FastSpring-Preflight-Send-Manual` — user sends preflight message.
-20. `Payments-Provider-Application-Pack` — after eligibility confirmed.
-21. Payment provider approval / runtime verification (post-selection).
-22. Final launch gate review.
+20. `Payments-FastSpring-Preflight-Send-Manual` — complete (manual send packet; demo verified; message not sent).
+21. User manually sends FastSpring preflight message.
+22. `Payments-FastSpring-Response-Record` — record FastSpring response.
+23. `Payments-Provider-Application-Pack` — after eligibility confirmed.
+24. Payment provider approval / runtime verification (post-selection).
+25. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Payments-FastSpring-Preflight-Send-Manual` → application pack after FastSpring response
+- Primary: user manually sends message → **`D3M-Payments-FastSpring-Response-Record`** → application pack after FastSpring response
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat
