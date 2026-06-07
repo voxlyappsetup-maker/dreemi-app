@@ -5,7 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update:** Provider KYB response package prepared at `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` (after D6-Fix `598151b`). Payment production remains **BLOCKED** until approval and runtime verification evidence exist.
+- **Update (Lemon rejection reconciliation):** Lemon Squeezy **final rejection** confirmed—store not accepted due to risk/supportability and Stripe/PayPal processor constraints. Payment strategy **redirects to alternative MoR selection**. KYB package retained as reusable. Production billing remains **BLOCKED**.
 
 ## Why This Checkpoint Exists
 
@@ -93,9 +93,10 @@ Read-only inspection confirms:
 
 ## Payment Provider / Lemon Squeezy Decision State
 
-- Lemon Squeezy is rejected/unavailable for this app and not an active production payment path.
-- Existing Lemon integration remains in code as paused/legacy implementation detail.
-- Alternative provider/legal/payout track is documentation-ready, not implementation-ready.
+- Lemon Squeezy: **REJECTED / NOT ACTIVE** (final rejection; not pending approval).
+- Lemon is not an active production payment path and must not be treated as the primary activation target.
+- Existing Lemon integration remains in code as paused/legacy implementation detail only.
+- **Alternate MoR/payment provider selection is required** before any new payment implementation claim.
 
 ## Production Readiness State
 
@@ -113,12 +114,12 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- `D3M-Payments-Provider-Response-Fill` — user fills placeholders (demo video, social URLs, pricing, legal links) and finalizes send-ready provider email.
+- `D3M-Payments-Alternative-Provider-Selection` — up-to-date research and decision for realistic MoR/payment path (see `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`).
 
 Alternative paths:
 
-- `D3M-Triage-D6-PDF` — safe local PDF smoke fixture plan if demo needs PDF evidence.
-- Post-approval controlled checkout/webhook verification phases (separate; not in docs-only track).
+- `D3M-Payments-Lemon-Appeal-Draft` — optional short appeal only if user explicitly chooses (not primary).
+- Post-selection controlled checkout/webhook verification (separate phases).
 - `D3M-Triage-C` image generation triage if payment track is intentionally paused.
 
 ## Explicit Non-Goals

@@ -2,7 +2,9 @@
 
 ## Status
 
-Pre-send checklist for Lemon Squeezy KYB response.
+**ARCHIVED for Lemon / REUSABLE for other providers** — Lemon Squeezy rejected the store. Do **not** send to Lemon by default. Checklist structure remains useful when applying to an alternative MoR provider. See `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`.
+
+Pre-send checklist (generic MoR KYB; originally Lemon).
 The email is **not sent** by this repository phase.
 Production billing remains **NO-GO** until provider approval and live verification evidence exist.
 
@@ -94,4 +96,6 @@ Optional only if Lemon requests or email allows:
 | Post-approval webhook smoke | Team | BLOCKED | Separate phase |
 | Production billing Go/No-Go | Team | NO-GO | Until gates close |
 
-Recommended next phase after send: **`D3M-Payments-Provider-Send`** (track reply) or controlled post-approval verification phases.
+Recommended next phase after send (if ever used for a **non-Lemon** provider): track reply in provider thread only.
+
+**Primary path now:** `D3M-Payments-Alternative-Provider-Selection` — not Lemon send.

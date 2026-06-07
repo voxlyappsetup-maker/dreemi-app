@@ -2,7 +2,7 @@
 
 ## Status
 
-Practical 2–4 minute demo outline for Lemon Squeezy KYB review.
+Practical 2–4 minute demo outline for MoR KYB review (originally Lemon; **reusable for alternative providers** after Lemon rejection—see `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`).
 Use fictional data only. Upload to `[Demo video link]` after recording.
 Do not record or send this phase from Cursor—user records manually.
 

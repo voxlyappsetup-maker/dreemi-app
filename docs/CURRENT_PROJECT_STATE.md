@@ -481,6 +481,13 @@
   - Docs-only; no provider/payment/webhook calls; no secrets read or modified; email not sent from repo.
   - Production billing and full production launch remain No-Go until provider approval and live verification.
   - Next recommended phase: `D3M-Payments-Provider-Send` (user fills placeholders and sends manually).
+- Phase 4-D3M-Payments-Lemon-Rejection-Reconciliation note:
+  - Lemon Squeezy **final rejection** reconciled at `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`.
+  - Lemon is **REJECTED / NOT ACTIVE** — not pending approval; Lemon send path is no longer the recommended next step.
+  - Prepared KYB/demo/product package retained as **reusable** for alternative MoR providers (`docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`).
+  - Alternatives framing: `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`.
+  - Docs-only; no provider/payment/webhook calls; no secrets; production billing remains No-Go.
+  - Next recommended phase: `D3M-Payments-Alternative-Provider-Selection`.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

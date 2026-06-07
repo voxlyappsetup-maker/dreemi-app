@@ -1,8 +1,10 @@
+> **WARNING — Lemon Squeezy has rejected the store.** This draft is retained for **archive/reuse only** and should **not** be sent as the default next step. Adapt for an alternative MoR provider or use only if the user explicitly chooses a Lemon appeal. See `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`.
+
 # Lemon Squeezy Response Draft
 
 ## Status
 
-This draft is send-ready **after** the placeholders below are filled.
+**ARCHIVED / REUSE ONLY** — Lemon Squeezy rejected the store; not the active send path.
 Do not send before replacing all required placeholders.
 Do not send secrets, env values, dashboard screenshots, or internal-only artifacts.
 Payments are **not live**; this email supports KYB review only—not a claim of approval or live billing.

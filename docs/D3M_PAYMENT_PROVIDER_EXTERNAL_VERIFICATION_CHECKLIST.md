@@ -2,7 +2,9 @@
 
 ## 1) Current payment posture
 
-- Lemon Squeezy is rejected/unavailable for this app.
+- **Lemon Squeezy: REJECTED / NOT ACTIVE** (final rejection after risk/supportability review; see `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`).
+- Lemon external verification is **closed** unless the user explicitly chooses a short appeal.
+- **Alternate MoR/payment provider required** before production billing can be considered.
 - Existing payment runtime remains fail-closed.
 - Paid checkout remains blocked.
 - No checkout/purchase/webhook/provider verification has been run.
@@ -16,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**Prepared response artifact (post D6-Fix):** `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` with refined email draft (`docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md`), demo script, and send checklist (`docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`). External submission remains **pending** until user fills placeholders and sends manually; verification not complete.
+**Prepared response artifact:** reusable KYB package (`docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`). **Lemon send path closed.** Alternative provider verification **required** before implementation.
 
 ## 3) Candidate provider categories
 

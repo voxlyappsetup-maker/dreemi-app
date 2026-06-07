@@ -2,7 +2,9 @@
 
 ## Status
 
-This is a docs-only provider response package (refined in **D3M-Payments-Provider-Response-Fill**).
+This is a docs-only provider response package (refined in **D3M-Payments-Provider-Response-Fill**; reconciled in **D3M-Payments-Lemon-Rejection-Reconciliation**).
+
+**Lemon status:** **REJECTED / NOT ACTIVE** — package is now a **reusable provider/KYB onboarding kit** for alternative MoR providers. Do **not** send to Lemon as the default next step unless the user explicitly chooses a short appeal.
 No provider dashboard was accessed.
 No payment checkout was executed.
 No payment purchase was executed.
@@ -284,8 +286,9 @@ Summary tone: professional, transparent, concise—includes demo link placeholde
 | Email draft | **Send-ready after placeholders filled** |
 | Demo script | **Prepared** |
 | Send checklist | **Prepared** (`docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`) |
-| Email actually sent | **No** — user sends manually |
-| Provider approval | **Pending** |
+| Email actually sent | **No** |
+| Lemon Squeezy status | **REJECTED / NOT ACTIVE** |
+| Provider approval | **None active — alternate provider required** |
 | Production billing | **NO-GO** |
 
 ## Required User Inputs Before Sending
@@ -392,8 +395,8 @@ Sending the KYB email does **not** unblock:
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-Provider-Send`** — user fills placeholders and sends Lemon response manually
-- Alternative: **`D3M-Triage-D6-PDF`** — safe local PDF smoke fixture plan (unblocks PDF demo evidence)
+- Primary: **`D3M-Payments-Alternative-Provider-Selection`** — select realistic payment/MoR path (up-to-date research)
+- Alternative: **`D3M-Payments-Lemon-Appeal-Draft`** — optional short appeal only if user explicitly chooses (not primary)
 
 ## Notes For Next Chat
 
@@ -406,6 +409,8 @@ Sending the KYB email does **not** unblock:
 
 - Email draft: `docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md`
 - Demo script: `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md`
-- Send checklist: `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`
+- Send checklist: `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md` (archived/reusable; not Lemon send-by-default)
+- Lemon rejection reconciliation: `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`
+- Alternatives next step: `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`
 - External verification checklist: `docs/D3M_PAYMENT_PROVIDER_EXTERNAL_VERIFICATION_CHECKLIST.md`
 - Payment track reconciliation: `docs/D3M_PAYMENT_TRACK_STATE_RECONCILIATION.md`

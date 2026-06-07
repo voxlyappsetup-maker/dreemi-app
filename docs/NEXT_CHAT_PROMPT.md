@@ -238,9 +238,9 @@ Constraints:
 - D3M-Triage-D6 local no-deploy manual smoke results are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - D6 executed local smoke only; final result PARTIAL; production launch remains No-Go.
 - D6-Fix committed at `598151b`; story detail SSR storage crash fixed.
-- D3M-Payments-Provider-Response package at `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`.
-- Fill phase refined email draft, demo script, and `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`; placeholders remain—user must fill before sending.
-- Provider approval pending; production billing remains No-Go; compact Cursor reports required.
+- D3M-Payments-Lemon-Rejection-Reconciliation at `docs/D3M_LEMON_REJECTION_RECONCILIATION.md` — Lemon **REJECTED / NOT ACTIVE**; do not treat as pending approval.
+- KYB package is reusable for alternative providers; Lemon send path closed unless user explicitly chooses appeal.
+- Next: `D3M-Payments-Alternative-Provider-Selection`; production billing remains No-Go; compact Cursor reports required.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -249,8 +249,9 @@ Constraints:
 - `-StrictScope` should not be used for phases that intentionally modify runtime files.
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
-- The next recommended phase should be either:
-  - `D3M-Payments-Provider-Send` user fills placeholders and sends Lemon response manually, or
+- The next recommended phase should be:
+  - `D3M-Payments-Alternative-Provider-Selection` select realistic payment/MoR path (up-to-date research), or
+  - `D3M-Payments-Lemon-Appeal-Draft` **only** if user explicitly requests a short Lemon appeal (not primary), or
   - `D3M-Triage-D6-PDF` safe local PDF smoke fixture plan, or
   - rerun `D3M-Triage-C5` execute safe local image runtime smoke once shell reliability is restored (explicit approval required), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.

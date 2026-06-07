@@ -161,7 +161,8 @@ Rules for usage:
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
-- Use `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` and `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md` for KYB prep; payment gates remain BLOCKED/PENDING.
+- Payment gates **BLOCKED**: Lemon **rejected**; no active approved provider; alternate provider required.
+- Use reusable KYB assets from `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; do not mark payment gates PASS.
 
 ### Forbidden Actions
 
@@ -602,16 +603,18 @@ Current: NO-GO
 9. `D6-Fix — Story detail SSR storage crash fix.` (complete at `598151b`)
 10. `Payments-Provider-Response — KYB/provider approval package.` (complete at `5561b7d`)
 11. `Payments-Provider-Response-Fill — finalize send-ready email and send checklist.` (complete)
-12. `Payments-Provider-Send — user fills placeholders and sends manually.`
-13. Payment provider external approval / runtime verification.
-14. Final launch gate review.
+12. `Payments-Provider-Send` — **closed for Lemon** (rejected; not default path).
+13. `Lemon-Rejection-Reconciliation` — complete (see `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`).
+14. `Payments-Alternative-Provider-Selection` — select realistic MoR path.
+15. Payment provider approval / runtime verification (post-selection).
+16. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Payments-Provider-Send — user fills placeholders and sends Lemon response manually`
-- Alternative: `D3M-Triage-D6-PDF — Safe local PDF smoke fixture plan`
+- Primary: `D3M-Payments-Alternative-Provider-Selection — select realistic payment/MoR path`
+- Alternative: `D3M-Payments-Lemon-Appeal-Draft — optional short appeal, not primary path`
 
 ## Notes For Next Chat
 

@@ -11,7 +11,8 @@ Related manual payment verification plan:
 - `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`
 - `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`
 - `docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md`
-- `docs/D3M_PAYMENT_PROVIDER_SEND_CHECKLIST.md`
+- `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`
+- `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`
 - `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`
 - `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
@@ -43,8 +44,8 @@ Launch gate reference:
 - Production smoke and launch evidence pack reference is `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`.
 - No-deploy manual smoke execution worksheet reference is `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`.
 - Local no-deploy manual smoke results (D6) are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
-- Payment provider KYB response package is prepared; fill phase refined send-ready draft and checklist.
-- Provider approval remains pending; user must fill placeholders and send manually; production payment remains No-Go.
+- Payment provider: **Lemon Squeezy REJECTED** — alternate MoR provider required (`docs/D3M_LEMON_REJECTION_RECONCILIATION.md`).
+- Reusable KYB package prepared; Lemon send path closed; production payment remains No-Go.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
 - Local manual smoke evidence is PARTIAL/local-only; D6-Fix improves story detail route only.
 
