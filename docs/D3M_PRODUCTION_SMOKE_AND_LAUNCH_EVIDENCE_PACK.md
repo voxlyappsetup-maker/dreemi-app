@@ -14,7 +14,7 @@ No `.env` or `.env.example` file was read or modified.
 ## Purpose
 
 - Consolidate future production smoke coverage, launch evidence requirements, Go/No-Go gate mapping, manual smoke templates, safe evidence rules, and blockers into one pack.
-- Bridge D3 no-secret evidence to future manual smoke execution (D5) and final launch gate review.
+- Bridge D3 no-secret evidence to future manual smoke execution (D5 worksheet, D6 run) and final launch gate review.
 - Keep production launch **NO-GO** until critical gates have direct execution evidence.
 
 ## Current Baseline
@@ -402,7 +402,7 @@ Required critical gates before GO (minimum): 1, 2, 3, 4, 5, 6, 7, 9, 10, 15, 16,
 
 ## Recommended Execution Order
 
-1. **D3M-Triage-D5 — No-deploy manual smoke execution worksheet** (local/staging, no checkout/webhook/deploy by default).
+1. **D3M-Triage-D6 — Local no-deploy manual smoke run** (execute `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`; no checkout/webhook/deploy by default).
 2. **D3M-Payments-Provider-Response — KYB/provider approval package** if payment is priority.
 3. **D3M-Triage-C5 — safe local image runtime smoke** only if image readiness required and shell/runtime stable.
 4. **D3M-Final-Launch-Gate-Review**
@@ -410,12 +410,14 @@ Required critical gates before GO (minimum): 1, 2, 3, 4, 5, 6, 7, 9, 10, 15, 16,
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D5 — No-deploy manual smoke execution worksheet`
+- Primary: `D3M-Triage-D6 — Local no-deploy manual smoke run`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
+
+Execution worksheet (complete, derived from this pack): `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`
 
 ## Notes For Next Chat
 
 - D4 is planning/templates only; no smoke executed.
-- Use D5 worksheet to execute manual smoke with redacted evidence into Launch Evidence Register.
+- D5 worksheet derived from this pack; use it as the D6 runbook with redacted evidence into Launch Evidence Register.
 - Full production launch remains **NO-GO** until gates close with direct evidence.
 - Keep Cursor reports compact per this pack.

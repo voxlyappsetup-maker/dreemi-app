@@ -299,10 +299,11 @@ Direct confirmed evidence from this pass:
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D5 — No-deploy manual smoke execution worksheet`
+- Primary: `D3M-Triage-D6 — Local no-deploy manual smoke run`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
 
 Smoke/launch evidence pack (complete): `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`
+Manual smoke execution worksheet (complete, follow-up to D3/D4): `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`
 
 ## Compact Report Policy
 

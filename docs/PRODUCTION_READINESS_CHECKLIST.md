@@ -8,6 +8,7 @@ Related manual payment verification plan:
 - `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`
 - `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`
 - `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`
+- `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`
 - `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
@@ -36,8 +37,9 @@ Launch gate reference:
 - Deployment readiness execution packet reference is `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md`.
 - No-secret deployment readiness evidence pass reference is `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`.
 - Production smoke and launch evidence pack reference is `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`.
+- No-deploy manual smoke execution worksheet reference is `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
-- Manual smoke and launch evidence remain planned/pending; D4 does not mark production PASS.
+- Manual smoke remains planned/pending; D5 worksheet does not mark production PASS.
 
 ## 1) Current Deployment Files
 

@@ -448,6 +448,13 @@
   - No env/secrets were read, printed, verified, or modified; no `.env` or `.env.example` was read.
   - Production launch remains No-Go; no critical launch gate marked PASS from planning alone.
   - Next recommended phase is `D3M-Triage-D5` (no-deploy manual smoke execution worksheet), with `D3M-Payments-Provider-Response` as an alternative.
+- Phase 4-D3M-Triage-D5 note:
+  - No-deploy manual smoke execution worksheet is documented at `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`.
+  - D5 is docs-only and provides per-area smoke steps, pass/fail rules, evidence register templates, gate mapping, and stop conditions for future D6 execution.
+  - No manual smoke, deploy, dashboard access, or runtime/provider/payment/image/story calls occurred in this phase.
+  - No env/secrets were read, printed, verified, or modified; no `.env` or `.env.example` was read.
+  - Production launch remains No-Go; no critical launch gate marked PASS from worksheet creation alone.
+  - Next recommended phase is `D3M-Triage-D6` (local no-deploy manual smoke run), with `D3M-Payments-Provider-Response` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
