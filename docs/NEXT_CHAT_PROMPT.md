@@ -222,6 +222,9 @@ Constraints:
 - D3M-Triage-D2 deployment/env verification plan is documented at `docs/D3M_DEPLOYMENT_ENV_VERIFICATION_PLAN.md`.
 - D2 is docs-only and defines presence-only env verification protocol, deployment target requirements, stop/rollback rules, and verification sequence without deploy or secret access.
 - D2 executed no deploy, no env/secrets read/modify, and no provider/payment/image/story calls.
+- D3M-Triage-D2-A deployment/env inventory checklist is documented at `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`.
+- D2-A is docs-only and inventories deployment targets and env variable names/categories only; no presence verification was executed.
+- D2-A did not read `.env`, `.env.example`, or any secret values; no deploy/provider/payment/image/story calls.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
 - Future phases can run `.\tooling\validate_phase.ps1` from repo root.
@@ -230,7 +233,7 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be either:
-  - `D3M-Triage-D2-A` deployment/env inventory checklist (docs-only, names/presence categories only), or
+  - `D3M-Triage-D2-B` presence-only environment verification protocol (no secret values), or
   - `D3M-Payments-External-Verification` provider/KYB response package (documentation-first), or
   - rerun `D3M-Triage-C5` execute safe local image runtime smoke once shell reliability is restored (explicit approval required), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.

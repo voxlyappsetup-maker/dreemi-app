@@ -332,7 +332,7 @@ Rules:
 
 ## Safe Presence-Only Verification Protocol
 
-Use this protocol in a future approved phase (for example `D3M-Triage-D2-A` inventory, then `D3M-Triage-D3` execution). Do not run value-printing commands.
+Use this protocol in a future approved phase (for example `D3M-Triage-D2-B` presence-only execution after `D3M-Triage-D2-A` inventory). Do not run value-printing commands.
 
 1. Confirm clean working tree (`git status --short --branch`).
 2. Confirm target environment name (`local`, `staging`, or `production`).
@@ -418,7 +418,7 @@ Reference: `docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md` for dry-run rollbac
 
 ## Recommended Verification Sequence
 
-1. **D2-A** — names-only deployment/env inventory checklist.
+1. **D2-A** — names-only deployment/env inventory checklist. (complete; see `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`)
 2. **D2-B** — presence-only environment verification protocol execution (no values).
 3. **D2-C** — deployment dry-run checklist (`docs/PRODUCTION_DEPLOYMENT_DRY_RUN_CHECKLIST.md`).
 4. **D2-D** — local/staging smoke pack (controlled, no secrets).
@@ -429,12 +429,15 @@ Actual production deploy remains separate, blocked, and requires explicit approv
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D2-A — Deployment/env inventory checklist`
+- Primary: `D3M-Triage-D2-B — Presence-only environment verification protocol`
 - Alternative: `D3M-Payments-External-Verification — provider/KYB response package`
+
+Inventory artifact (complete): `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`
 
 ## Notes For Next Chat
 
 - This plan is documentation-only; do not treat it as evidence that production env or deploy readiness is PASS.
-- Use variable categories and presence-only checks in D2-A/D3; never paste secret values.
+- Use variable categories and presence-only checks in D2-B; never paste secret values.
+- Inventory checklist: `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`.
 - Update launch gate statuses only when explicit redacted evidence exists.
 - Full production launch remains **NO-GO** until Gates 3, 4, 9, 10, 15, 16, and 18 (and other critical gates) are closed with evidence.

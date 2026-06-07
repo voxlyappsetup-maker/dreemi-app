@@ -411,6 +411,14 @@
   - No provider/payment/image/story runtime calls were executed in this phase.
   - Production launch remains No-Go until launch gates pass with explicit evidence.
   - Next recommended phase is `D3M-Triage-D2-A` (deployment/env inventory checklist), with `D3M-Payments-External-Verification` as an alternative.
+- Phase 4-D3M-Triage-D2-A note:
+  - Deployment/env inventory checklist is documented at `docs/D3M_DEPLOYMENT_ENV_INVENTORY_CHECKLIST.md`.
+  - D2-A is docs-only and inventories deployment targets and environment variable names/categories for future presence-only verification.
+  - No deployment was executed in this phase.
+  - No env/secrets were read, printed, or modified in this phase; no `.env` or `.env.example` was read.
+  - No provider/payment/image/story runtime calls were executed in this phase.
+  - Production launch remains No-Go until launch gates pass with explicit evidence.
+  - Next recommended phase is `D3M-Triage-D2-B` (presence-only environment verification protocol), with `D3M-Payments-External-Verification` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
