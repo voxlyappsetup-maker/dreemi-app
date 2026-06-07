@@ -455,6 +455,12 @@
   - No env/secrets were read, printed, verified, or modified; no `.env` or `.env.example` was read.
   - Production launch remains No-Go; no critical launch gate marked PASS from worksheet creation alone.
   - Next recommended phase is `D3M-Triage-D6` (local no-deploy manual smoke run), with `D3M-Payments-Provider-Response` as an alternative.
+- Phase 4-D3M-Triage-D6 note:
+  - Local no-deploy manual smoke results are documented at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
+  - D6 executed local dev smoke only (`localhost:3000` web, `localhost:3001` API); no deploy, dashboard access, env reads, checkout, webhook, provider, story, or image generation calls.
+  - Local evidence: public routes PASS; pricing unavailable UX PASS; API fail-closed status PASS; auth pages PASS; localization PASS; PDF BLOCKED (safe test data); story detail PARTIAL (invalid ID HTTP 500).
+  - Final D6 smoke result: PARTIAL; production launch remains No-Go; no production-critical gate marked fully PASS.
+  - Next recommended phase is `D3M-Payments-Provider-Response` (KYB/provider approval package).
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

@@ -160,8 +160,8 @@ Rules for usage:
 - Use `docs/D3M_DEPLOYMENT_READINESS_EXECUTION_PACKET.md` as the execution packet linked to relevant gates.
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
-- Use `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md` as D5 worksheet; next step is D6 manual smoke run.
-- Do not mark critical gates PASS without complete execution evidence; D5 is planning only.
+- Use `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md` as D5 worksheet; D6 results at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
+- Do not mark critical gates PASS without complete execution evidence; D6 provides LOCAL_PASS / PARTIAL_LOCAL_EVIDENCE only.
 
 ### Forbidden Actions
 
@@ -598,7 +598,7 @@ Current: NO-GO
 5. `D3 — No-secret deployment readiness evidence pass.` (complete; see `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md`)
 6. `D4 — Production smoke and launch evidence pack.` (complete; see `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`)
 7. `D5 — No-deploy manual smoke execution worksheet.` (complete; see `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`)
-8. `D6 — Local no-deploy manual smoke run.`
+8. `D6 — Local no-deploy manual smoke run.` (complete; PARTIAL — see `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`)
 9. Payment provider external approval / response package.
 10. Final launch gate review.
 
@@ -606,8 +606,8 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D6 — Local no-deploy manual smoke run`
-- Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
+- Primary: `D3M-Payments-Provider-Response — KYB/provider approval package`
+- Alternative: `D3M-Triage-D6-Fix — Local smoke findings fix batch`
 
 ## Notes For Next Chat
 

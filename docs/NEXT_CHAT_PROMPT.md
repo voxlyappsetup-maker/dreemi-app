@@ -235,6 +235,8 @@ Constraints:
 - D4 is docs-only smoke/launch planning; no smoke executed; production launch remains No-Go.
 - D3M-Triage-D5 no-deploy manual smoke execution worksheet is at `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`.
 - D5 is worksheet-only; no manual smoke executed; use as D6 runbook.
+- D3M-Triage-D6 local no-deploy manual smoke results are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
+- D6 executed local smoke only; final result PARTIAL; production launch remains No-Go.
 - Future Cursor reports must be concise: exit codes and blockers only when validation passes; never paste full passing logs, secrets, or env values.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -244,8 +246,8 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be either:
-  - `D3M-Triage-D6` local no-deploy manual smoke run (worksheet execution, no checkout/webhook/deploy by default), or
-  - `D3M-Payments-Provider-Response` KYB/provider approval package (documentation-first), or
+  - `D3M-Payments-Provider-Response` KYB/provider approval package (primary after D6 PARTIAL local PASS), or
+  - `D3M-Triage-D6-Fix` local smoke findings fix batch (if addressing story detail HTTP 500 or auth shell behavior), or
   - rerun `D3M-Triage-C5` execute safe local image runtime smoke once shell reliability is restored (explicit approval required), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.
 - No third runtime wiring surface should proceed by default.

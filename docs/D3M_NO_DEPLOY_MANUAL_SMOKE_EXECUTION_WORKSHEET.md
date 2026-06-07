@@ -2,13 +2,14 @@
 
 ## Status
 
-This is a docs-only manual smoke execution worksheet.
-No manual smoke was executed.
-No production smoke was executed.
+D5 worksheet prepared future manual smoke; **D6 local execution completed** — see `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
+No production smoke was executed in D5.
+D6 local smoke: PARTIAL; no production smoke.
 No deployment was executed.
 No dashboard was accessed.
 No real environment verification was executed.
-No runtime/provider/payment/image/story calls were executed.
+No runtime/provider/payment/image/story generation calls were executed in D5.
+D6 skipped checkout/webhook/provider/story/image generation by policy.
 No env/secrets were read, printed, verified, or modified.
 No `.env` or `.env.example` file was read or modified.
 
@@ -16,7 +17,7 @@ No `.env` or `.env.example` file was read or modified.
 
 - Prepare a structured no-deploy manual smoke execution worksheet for later safe execution.
 - Derive step-by-step checks, pass/fail rules, evidence capture format, and gate mapping from `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`.
-- Keep production launch **NO-GO** until manual smoke evidence is captured in a later approved phase (D6).
+- Keep production launch **NO-GO** until manual smoke evidence is captured in a later approved phase (D6 executed locally; see results doc).
 
 ## Current Baseline
 

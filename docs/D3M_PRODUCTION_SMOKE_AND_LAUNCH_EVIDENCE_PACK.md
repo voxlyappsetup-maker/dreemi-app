@@ -402,22 +402,23 @@ Required critical gates before GO (minimum): 1, 2, 3, 4, 5, 6, 7, 9, 10, 15, 16,
 
 ## Recommended Execution Order
 
-1. **D3M-Triage-D6 — Local no-deploy manual smoke run** (execute `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`; no checkout/webhook/deploy by default).
-2. **D3M-Payments-Provider-Response — KYB/provider approval package** if payment is priority.
+1. **D3M-Payments-Provider-Response — KYB/provider approval package** if payment is priority.
+2. **D3M-Triage-D6-Fix — Local smoke findings fix batch** if addressing D6 PARTIAL items (story detail 500, auth shell).
 3. **D3M-Triage-C5 — safe local image runtime smoke** only if image readiness required and shell/runtime stable.
 4. **D3M-Final-Launch-Gate-Review**
 5. Actual deploy only after explicit approval and launch gates ready.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D6 — Local no-deploy manual smoke run`
-- Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
+- Primary: `D3M-Payments-Provider-Response — KYB/provider approval package`
+- Alternative: `D3M-Triage-D6-Fix — Local smoke findings fix batch`
 
-Execution worksheet (complete, derived from this pack): `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`
+Execution worksheet (complete): `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`
+Local execution results (D6 PARTIAL): `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`
 
 ## Notes For Next Chat
 
-- D4 is planning/templates only; no smoke executed.
-- D5 worksheet derived from this pack; use it as the D6 runbook with redacted evidence into Launch Evidence Register.
+- D4 is planning/templates only; no production smoke executed.
+- D5 worksheet derived from this pack; D6 local execution results at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - Full production launch remains **NO-GO** until gates close with direct evidence.
 - Keep Cursor reports compact per this pack.
