@@ -19,12 +19,12 @@ Production billing remains **NO-GO**.
 - Convert eligibility preflight into a **concise send-ready** message for FastSpring sales/support.
 - Ask exact eligibility questions **before** full application.
 - Include Dreemi product summary, risk-safe positioning, and user-provided details.
-- Keep unresolved legal/policy values as placeholders.
+- Keep refund/licensing as **draft / pending final review** where not finalized.
 - Provide before-send checklist and post-response decision logic.
 
 ## Current Baseline
 
-- Latest stable commit: `c76197b Add FastSpring eligibility preflight`
+- Latest stable commit: `e50bdb7 Point entity payout doc to FastSpring send manual phase`
 - Primary candidate: **FastSpring** (eligibility **UNCONFIRMED**)
 - Backup candidate: **Creem**
 - Lemon Squeezy: **REJECTED / NOT ACTIVE**
@@ -71,28 +71,45 @@ Production billing remains **NO-GO**.
 | Individual plan | USD 4.99 monthly / USD 47.90 yearly |
 | Family plan | USD 9.99 monthly / USD 95.90 yearly |
 | School plan | Deferred / not launch-critical |
-| Refund period | 7 days |
+| Refund period | 7 days (final public wording **pending**) |
 | Support/disputes | Founder/user via contact@dreemi.app |
+| Founder legal name | Hayssam Adel Dennaoui |
+| Privacy URL | https://www.dreemi.app/en/privacy |
+| Terms URL | https://www.dreemi.app/en/terms |
 
-**Optional identity/social links (user-provided; not substitute for `[Founder legal name]`):**
+**Optional identity/social links (user-provided):**
 
 - LinkedIn: https://www.linkedin.com/in/hayssam-dennaoui/
 - X / Twitter: @hadenawi2 — https://x.com/hadenawi2
 - Instagram: @hadenawi — https://www.instagram.com/hadenawi
 
-## Remaining Placeholders
+## Remaining Items Before Manual Send
 
-Do **not** send until filled or explicitly kept as TBD with user approval:
-
-| Placeholder | Status |
+| Item | Status |
 | --- | --- |
-| `[Founder legal name]` | **USER_TO_CONFIRM** — do not infer from LinkedIn |
-| `[Exact Privacy URL]` | **USER_TO_CONFIRM** |
-| `[Exact Terms URL]` | **USER_TO_CONFIRM** |
-| `[Final refund policy wording]` | **USER_TO_CONFIRM** |
-| `[Generated-content licensing wording]` | **USER_TO_CONFIRM** / **LEGAL_CONFIRMATION_REQUIRED** |
-| `[Tax/VAT posture]` | **LEGAL/TAX_CONFIRMATION_REQUIRED** |
-| `[Identity/KYC document list]` | **PROVIDER_CONFIRMATION_REQUIRED** + **USER_TO_CONFIRM** |
+| Founder legal name | **Filled** — Hayssam Adel Dennaoui |
+| Privacy URL | **Filled** — https://www.dreemi.app/en/privacy |
+| Terms URL | **Filled** — https://www.dreemi.app/en/terms |
+| Final refund policy wording | **Draft / pending** — 7-day period confirmed; public wording not final |
+| Generated-content licensing wording | **Draft / pending final Terms/legal confirmation** |
+| Google Drive demo sharing | **USER_TO_VERIFY** before send |
+| Tax/VAT posture | **LEGAL/TAX_CONFIRMATION_REQUIRED** |
+| Identity/KYC document list | **PROVIDER_CONFIRMATION_REQUIRED** + application onboarding |
+| FastSpring eligibility response | **PROVIDER_CONFIRMATION_REQUIRED** |
+
+### Draft refund wording (internal docs only — not final legal text)
+
+Refund period: **7 days**. Final public refund policy wording is still pending. Before sending or application submission, refund wording should be finalized and aligned with FastSpring/provider requirements.
+
+> Draft: Customers may request a refund within 7 days of purchase or renewal by contacting contact@dreemi.app. Refunds should be reviewed according to the final Terms, provider rules, and abuse-prevention policy. **Requires final review before publication or provider submission.**
+
+### Draft generated-content licensing position (internal docs only — not legal advice)
+
+Generated-content licensing wording is not final and requires legal/Terms confirmation before provider application.
+
+> Draft: Dreemi provides users with access to AI-assisted story generation for personal, family, and educational use. Users should not use the service to generate or commercialize content based on third-party copyrighted characters, brands, or protected works. Generated output remains subject to Dreemi’s final Terms and acceptable-use rules. **Requires final legal/Terms review before provider submission.**
+
+**Before manual sending, verify that the Google Drive demo video is accessible to anyone with the link.**
 
 ## Contact Goal
 
@@ -162,7 +179,7 @@ Dreemi helps adult users create child-friendly personalized stories in Arabic, E
 
 **Support:** contact@dreemi.app
 
-**Policies (verify before send):** Privacy `[Exact Privacy URL]` | Terms `[Exact Terms URL]`
+**Policies:** Privacy https://www.dreemi.app/en/privacy | Terms https://www.dreemi.app/en/terms
 
 **Planned pricing (USD)**
 
@@ -170,7 +187,9 @@ Dreemi helps adult users create child-friendly personalized stories in Arabic, E
 - Family: USD 9.99 monthly / USD 95.90 yearly
 - School: deferred / not launch-critical at this stage
 
-**Refund period:** 7 days (`[Final refund policy wording]` to confirm)
+**Refund period:** 7 days. Final refund wording is being aligned with the public policy and provider requirements.
+
+**Content use (summary):** Generated stories are intended for personal, family, and educational use under Dreemi’s Terms. Dreemi does not position the service as a marketplace or a tool for selling third-party copyrighted characters or branded content. Final Terms wording is maintained at https://www.dreemi.app/en/terms.
 
 **Intended seller setup**
 
@@ -195,7 +214,7 @@ I can provide additional product, compliance, or support information if needed.
 
 Best regards,
 
-[Founder legal name]
+Hayssam Adel Dennaoui
 Dreemi
 https://www.dreemi.app/
 contact@dreemi.app
@@ -205,9 +224,9 @@ contact@dreemi.app
 | Link | Status |
 | --- | --- |
 | Website | https://www.dreemi.app/ |
-| Demo video | User-provided Google Drive link (verify sharing before send) |
-| Privacy URL | `[Exact Privacy URL]` — fill before send |
-| Terms URL | `[Exact Terms URL]` — fill before send |
+| Privacy URL | https://www.dreemi.app/en/privacy |
+| Terms URL | https://www.dreemi.app/en/terms |
+| Demo video | Verify **anyone with link** before send |
 | Product summary | In message body |
 | Pricing summary | In message body |
 | Support email | contact@dreemi.app |
@@ -227,12 +246,12 @@ contact@dreemi.app
 
 See `docs/D3M_FASTSPRING_SEND_CHECKLIST.md` for operational checklist.
 
-- [ ] `[Founder legal name]` filled
-- [ ] Google Drive demo video sharing permissions verified
-- [ ] `[Exact Privacy URL]` filled
-- [ ] `[Exact Terms URL]` filled
-- [ ] Refund wording checked
-- [ ] Generated-content licensing wording checked (if referenced)
+- [x] Founder legal name filled — Hayssam Adel Dennaoui
+- [ ] Google Drive demo video sharing permissions verified (**USER_TO_VERIFY**)
+- [x] Privacy URL — https://www.dreemi.app/en/privacy
+- [x] Terms URL — https://www.dreemi.app/en/terms
+- [ ] Refund draft wording reviewed (not final legal text)
+- [ ] Generated-content licensing draft reviewed (not final legal text)
 - [ ] No secrets included
 - [ ] No bank/private PayPal details included
 - [ ] User manually sends message
@@ -271,18 +290,18 @@ Record responses in post-send tracking (see send checklist).
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — user fills final placeholders and sends message manually.
+**Primary:** **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — verify demo sharing and send message manually after final human review.
 
-**Alternative:** **`D3M-Payments-FastSpring-Preflight-Fill`** — fill founder/privacy/terms/licensing placeholders before sending.
+**Reference:** `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
 
 ## Notes For Next Chat
 
-- Do not send until placeholders filled and demo link sharing verified.
+- Do not send until **Google Drive demo sharing** verified and draft refund/licensing reviewed.
 - Do not create FastSpring account until eligibility confirmed or FastSpring instructs to apply.
 - Production billing remains **NO-GO** until provider approval + controlled verification.
 
 ## Related Artifacts
 
 - Send checklist: `docs/D3M_FASTSPRING_SEND_CHECKLIST.md`
-- Contact draft (mirror): `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_DRAFT.md`
+- Final review: `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
 - Eligibility preflight: `docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`

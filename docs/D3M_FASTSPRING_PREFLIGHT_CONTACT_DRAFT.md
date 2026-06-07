@@ -4,23 +4,23 @@
 
 **Prepared for manual user review. Not sent.**
 
-Do not send until remaining placeholders are filled and demo sharing permissions are verified.
+Founder name and exact Privacy/Terms URLs filled in **D3M-Payments-FastSpring-Preflight-Fill**. Refund and generated-content licensing language remains **draft / pending final review**.
+
+Before manual sending, verify that the **Google Drive demo video is accessible to anyone with the link**.
 
 No FastSpring account created. No application submitted. Production billing **NO-GO**.
 
 Full pack: `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`
 Send checklist: `docs/D3M_FASTSPRING_SEND_CHECKLIST.md`
-
-## Purpose
-
-Send-ready English preflight message for FastSpring sales/support — confirm eligibility before full application.
+Final review: `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
 
 ## Send Preconditions
 
-- [ ] `[Founder legal name]` filled
-- [ ] `[Exact Privacy URL]` and `[Exact Terms URL]` verified
-- [ ] Demo video sharing verified: https://drive.google.com/file/d/1uNimZx4qD17pWrtSnYUMHSLqiRHFB2y-/view?usp=drive_link
-- [ ] Refund/licensing wording reviewed if referenced
+- [x] Founder legal name filled — Hayssam Adel Dennaoui
+- [x] Privacy URL — https://www.dreemi.app/en/privacy
+- [x] Terms URL — https://www.dreemi.app/en/terms
+- [ ] Demo video sharing verified (anyone with link)
+- [ ] Refund/licensing draft wording reviewed (not final legal text)
 - [ ] No bank/PayPal/secrets in message
 - [ ] User manually sends
 
@@ -52,7 +52,7 @@ Dreemi helps adult users create child-friendly personalized stories in Arabic, E
 
 **Support:** contact@dreemi.app
 
-**Policies (verify before send):** Privacy `[Exact Privacy URL]` | Terms `[Exact Terms URL]`
+**Policies:** Privacy https://www.dreemi.app/en/privacy | Terms https://www.dreemi.app/en/terms
 
 **Planned pricing (USD)**
 
@@ -60,7 +60,9 @@ Dreemi helps adult users create child-friendly personalized stories in Arabic, E
 - Family: USD 9.99 monthly / USD 95.90 yearly
 - School: deferred / not launch-critical at this stage
 
-**Refund period:** 7 days
+**Refund period:** 7 days. Final refund wording is being aligned with the public policy and provider requirements.
+
+**Content use (summary):** Generated stories are intended for personal, family, and educational use under Dreemi’s Terms. Dreemi does not position the service as a marketplace or a tool for selling third-party copyrighted characters or branded content. Final Terms wording is maintained at https://www.dreemi.app/en/terms.
 
 **Intended seller setup**
 
@@ -85,7 +87,7 @@ I can provide additional product, compliance, or support information if needed.
 
 Best regards,
 
-[Founder legal name]
+Hayssam Adel Dennaoui
 Dreemi
 https://www.dreemi.app/
 contact@dreemi.app

@@ -280,9 +280,9 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — user fills placeholders and sends message manually.
+**Primary:** **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — verify demo sharing; send preflight message manually.
 
-**Alternative if placeholders block send:** **`D3M-Payments-FastSpring-Preflight-Fill`** — founder legal name, exact Privacy/Terms URLs, refund/licensing wording.
+**Reference:** `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
 
 **If FastSpring declines path:** **`D3M-Payments-Creem-Backup-Preflight`** (future phase).
 

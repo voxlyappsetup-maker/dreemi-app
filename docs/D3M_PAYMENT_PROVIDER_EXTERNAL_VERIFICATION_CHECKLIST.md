@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring preflight contact pack (2026-06-07):** `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md` — message prepared for **manual send**; external response **pending**.
+**FastSpring preflight fill:** founder name + Privacy/Terms URLs filled in contact pack; manual send pending demo sharing verification. External response **pending**.
 
 ## 3) Candidate provider categories
 

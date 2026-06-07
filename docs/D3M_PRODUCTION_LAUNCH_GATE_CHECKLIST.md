@@ -161,7 +161,7 @@ Rules for usage:
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
-- Payment gates **BLOCKED**: preflight message prepared but **not sent**; FastSpring response and provider approval pending. Do not mark PASS.
+- Payment gates **BLOCKED**: preflight fields filled; message **not sent**; FastSpring response and provider approval pending. Do not mark PASS.
 - Use reusable KYB assets from `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; do not mark payment gates PASS.
 
 ### Forbidden Actions
@@ -610,7 +610,8 @@ Current: NO-GO
 16. `Payments-Entity-And-Payout-Fill` — complete (user answers recorded).
 17. `Payments-FastSpring-Eligibility-Preflight` — complete.
 18. `Payments-FastSpring-Preflight-Contact-Pack` — complete (message not sent).
-19. `Payments-FastSpring-Preflight-Send-Manual` — user sends preflight message.
+19. `Payments-FastSpring-Preflight-Fill` — complete (founder/Privacy/Terms filled).
+20. `Payments-FastSpring-Preflight-Send-Manual` — user sends preflight message.
 20. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 21. Payment provider approval / runtime verification (post-selection).
 22. Final launch gate review.

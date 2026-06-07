@@ -5,7 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update (FastSpring contact pack):** Send-ready preflight message in `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`; not sent; runtime payment unavailable/fail-closed; no application or integration.
+- **Update (FastSpring preflight fill):** Contact fields filled; message near send-ready; not sent; runtime payment unavailable/fail-closed.
 
 ## Why This Checkpoint Exists
 
@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- `D3M-Payments-FastSpring-Preflight-Send-Manual` (or Preflight-Fill), then `D3M-Payments-Provider-Application-Pack` after FastSpring response.
+- `D3M-Payments-FastSpring-Preflight-Send-Manual`, then `D3M-Payments-Provider-Application-Pack` after FastSpring response.
 
 Alternative paths:
 

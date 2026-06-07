@@ -9,16 +9,15 @@ No FastSpring account created. No application submitted. Production billing **NO
 
 ## Required Before Application
 
-- [x] Entity path selected — **Individual / natural person**
-- [ ] Founder legal name confirmed (**USER_TO_CONFIRM**)
-- [x] Country/jurisdiction — **Saudi Arabia** (application path)
-- [ ] Payout path **provider support** confirmed (**PROVIDER_CONFIRMATION_REQUIRED** — SA bank or PayPal)
+- [x] Founder legal name — **Hayssam Adel Dennaoui**
+- [x] Country/jurisdiction — **Saudi Arabia**
+- [ ] Payout path **provider support** confirmed (**PROVIDER_CONFIRMATION_REQUIRED**)
 - [ ] Tax/VAT posture reviewed (**LEGAL/TAX_CONFIRMATION_REQUIRED**)
 - [x] Launch plan prices confirmed — Individual/Family USD (**School deferred**)
-- [ ] Refund policy finalized — 7-day period set; full wording **USER_TO_CONFIRM**
-- [ ] Terms + Privacy — user says ready; exact URLs **USER_TO_CONFIRM**
-- [ ] Generated-content licensing wording (**USER_TO_CONFIRM** / **LEGAL_CONFIRMATION_REQUIRED**)
-- [ ] Demo video recorded (**USER_TO_CONFIRM**)
+- [ ] Refund policy finalized — 7-day period; **draft wording pending finalization**
+- [x] Terms + Privacy URLs — https://www.dreemi.app/en/terms | /en/privacy
+- [ ] Generated-content licensing — **draft / LEGAL/TERMS_CONFIRMATION_REQUIRED**
+- [x] Demo video link provided (sharing **USER_TO_VERIFY**)
 - [ ] FastSpring individual/SA/payout eligibility confirmed (**PROVIDER_CONFIRMATION_REQUIRED**)
 - [ ] FastSpring policies re-checked on application date
 
@@ -40,11 +39,10 @@ No FastSpring account created. No application submitted. Production billing **NO
 | Input | Status | Value / Placeholder |
 | --- | --- | --- |
 | Application type | **Answered** | Individual / natural person |
-| Legal name | **USER_TO_CONFIRM** | `[Founder legal name]` |
-| Company name (if applicable) | N/A | Individual path |
+| Legal name | **Answered** | Hayssam Adel Dennaoui |
 | Country / jurisdiction | **Answered** | Saudi Arabia |
-| Registration number (if company) | N/A | Individual path |
-| Authorized representative | **Partial** | Founder/user — legal name pending |
+| Company name (if applicable) | N/A | Individual path |
+| Authorized representative | **Answered** | Hayssam Adel Dennaoui |
 
 ## Payout Details
 
@@ -83,9 +81,9 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 
 | Input | Status | Value / Placeholder |
 | --- | --- | --- |
-| Terms URL | **USER_TO_CONFIRM** | User says ready on dreemi.app — verify exact URL before submission |
-| Privacy URL | **USER_TO_CONFIRM** | Same — verify exact URL before submission |
-| Refund policy | **Partial** | **7 days** — full wording **USER_TO_CONFIRM** |
+| Terms URL | **Answered** | https://www.dreemi.app/en/terms |
+| Privacy URL | **Answered** | https://www.dreemi.app/en/privacy |
+| Refund policy | **Partial** | 7 days — **draft wording pending finalization** |
 | Cancellation policy | **USER_TO_CONFIRM** | — |
 
 ## Support / Refund Details
@@ -101,7 +99,7 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 
 | Input | Status | Source |
 | --- | --- | --- |
-| Demo video | **USER_TO_CONFIRM** | Record from demo script |
+| Demo video | **Answered** | Google Drive link (verify sharing) |
 | AI safety explanation | Partial | KYB pack + safety docs |
 | Child-safety positioning | Partial | Adult buyers; supervised child use |
 | Content moderation summary | Partial | KYB pack |
@@ -121,7 +119,6 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 | Check | Result |
 | --- | --- |
 | Ready to submit FastSpring application? | **NO** |
-| Primary blockers | Preflight response pending; founder legal name; exact policy URLs |
-| Contact pack | `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md` — send manually after fill |
-| Next phase | **`D3M-Payments-FastSpring-Preflight-Send-Manual`** or **`D3M-Payments-FastSpring-Preflight-Fill`** |
+| Primary blockers | Preflight response pending; refund/licensing finalization; tax/VAT; payout confirmation |
+| Contact pack | Near send-ready — **`D3M-Payments-FastSpring-Preflight-Send-Manual`** after demo sharing verify |
 | Then | **`D3M-Payments-Provider-Application-Pack`** |

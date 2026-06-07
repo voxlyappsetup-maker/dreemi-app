@@ -38,7 +38,7 @@ Production billing remains **NO-GO**.
 | `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` | Available (reusable KYB kit) |
 | `docs/D3M_PAYMENT_LEGAL_PAYOUT_PATH_DECISION_PACK.md` | Available (B7 planning context) |
 | `docs/D3M_LEMON_REJECTION_RECONCILIATION.md` | Available |
-| Founder legal name | **USER_TO_CONFIRM** (fill phase partial) |
+| Founder legal name | **Answered** — Hayssam Adel Dennaoui (fill phase partial) |
 | `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md` | Available (fill phase) |
 
 ## User-Provided Entity / Payout Answers
@@ -121,7 +121,7 @@ Product/project facts confirmed for provider evaluation (no legal entity assumed
 
 | Item | Current Status | Why Needed | Required Before | Notes |
 | --- | --- | --- | --- | --- |
-| Founder legal name | **USER_TO_CONFIRM** | KYC/KYB identity | FastSpring application | Placeholder in KYB pack |
+| Founder legal name | **Answered** — Hayssam Adel Dennaoui | KYC/KYB identity | FastSpring preflight / application | Preflight fill 2026-06-07 |
 | Legal entity name or individual-application decision | **Answered** — Individual / natural person | Seller of record vs individual seller | Application | Entity path selected |
 | Country / jurisdiction (residence + seller context) | **Answered** — Saudi Arabia (application path) | Provider eligibility, payout rules | Application | **PROVIDER_CONFIRMATION_REQUIRED** for individual/SA eligibility |
 | Tax/VAT registration status | **LEGAL/TAX_CONFIRMATION_REQUIRED** | Application + local compliance | Application / launch | MoR does not eliminate all local obligations |
@@ -132,12 +132,11 @@ Product/project facts confirmed for provider evaluation (no legal entity assumed
 | Individual plan price + billing interval | **Answered** — USD 4.99/mo, USD 47.90/yr | Product catalog in MoR | Application | See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md` |
 | Family plan price + billing interval | **Answered** — USD 9.99/mo, USD 95.90/yr | Product catalog in MoR | Application | Same |
 | School plan launch status + price | **Answered** — deferred / not launch-critical | Scope of sold products | Application | Omit from initial application unless revised |
-| Refund policy | **Partial** — 7-day period confirmed | Dispute/support review | Application | Full wording **USER_TO_CONFIRM** |
-| Terms URL + final wording | **Partial** — user says ready; exact URL **USER_TO_CONFIRM** | Legal review + provider KYB | Application | Verify before submission |
-| Privacy URL + final wording | **Partial** — user says ready; exact URL **USER_TO_CONFIRM** | Data/privacy review | Application | Verify before submission |
-| Generated-content licensing wording | **USER_TO_CONFIRM** | IP/licensing clarity for AI stories | Application | See KYB pack conservative position |
-| Founder social profile URLs | **USER_TO_CONFIRM** | Identity verification (if requested) | Application | Placeholders in KYB pack |
-| Demo video | **USER_TO_CONFIRM** | Provider review | Application | Script at `docs/D3M_PAYMENT_PROVIDER_DEMO_VIDEO_SCRIPT.md` |
+| Refund policy | **Partial** — 7-day period; **draft wording pending finalization** | Dispute/support review | Application | See pricing/refund doc |
+| Terms URL + final wording | **Partial** — https://www.dreemi.app/en/terms; final legal text pending | Legal review + provider KYB | Application | URL filled; wording review pending |
+| Privacy URL + final wording | **Partial** — https://www.dreemi.app/en/privacy; final legal text pending | Data/privacy review | Application | URL filled; wording review pending |
+| Generated-content licensing wording | **Draft / LEGAL/TERMS_CONFIRMATION_REQUIRED** | IP/licensing clarity for AI stories | Application | Draft in pricing/refund doc |
+| Demo video | **Answered** | Provider review | Preflight send | Google Drive link; sharing **USER_TO_VERIFY** |
 
 ## Legal / Tax Disclaimer
 
@@ -354,25 +353,25 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 | # | Question | Status |
 | --- | --- | --- |
 | 1 | Entity path | **Answered** — Individual / natural person |
-| 2 | Founder legal name | **USER_TO_CONFIRM** |
+| 2 | Founder legal name | **Answered** — Hayssam Adel Dennaoui |
 | 3 | Country/jurisdiction | **Answered** — Saudi Arabia (application path) |
 | 4 | Payout path | **Answered** — SA bank or PayPal (**PROVIDER_CONFIRMATION_REQUIRED**) |
 | 5 | Pricing currency | **Answered** — USD |
 | 6 | Individual/Family prices | **Answered** — see pricing decision doc |
 | 7 | School plan | **Answered** — deferred / not launch-critical |
-| 8 | Refund period | **Answered** — 7 days (wording **USER_TO_CONFIRM**) |
-| 9 | Terms/Privacy URLs | **Partial** — user says ready; exact URLs **USER_TO_CONFIRM** |
-| 10 | Generated-content licensing | **USER_TO_CONFIRM** / **LEGAL_CONFIRMATION_REQUIRED** |
+| 8 | Refund period | **Partial** — 7 days; draft public wording **USER_TO_FINALIZE** |
+| 9 | Terms/Privacy URLs | **Partial** — https://www.dreemi.app/en/terms | /en/privacy; final wording pending |
+| 10 | Generated-content licensing | **Draft / LEGAL/TERMS_CONFIRMATION_REQUIRED** |
 | 11 | Support/disputes | **Answered** — founder/user via contact@dreemi.app |
 | 12 | Tax/VAT posture | **LEGAL/TAX_CONFIRMATION_REQUIRED** |
 | 13 | Identity/KYC documents | **USER_TO_CONFIRM** |
-| 14 | Demo video | **USER_TO_CONFIRM** |
+| 14 | Demo video | **Answered** — link provided; sharing **USER_TO_VERIFY** |
 | 15 | Social profile URLs | **USER_TO_CONFIRM** |
 | 16 | FastSpring individual/SA/payout eligibility | **PROVIDER_CONFIRMATION_REQUIRED** |
 
 ## Recommended Next Phase
 
-1. **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — send contact pack (`docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`) after placeholders filled
+1. **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — verify demo sharing; send contact pack manually
 2. **`D3M-Payments-Provider-Application-Pack`** — after FastSpring confirms eligibility
 
 ## Notes For Next Chat
