@@ -3,7 +3,7 @@
 ## Status
 
 Operational checklist derived from `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md` and fill phase **D3M-Payments-Entity-And-Payout-Fill**.
-**Not ready for submission.** Provider eligibility (**PROVIDER_CONFIRMATION_REQUIRED**) and remaining legal/KYC inputs must be resolved before application.
+**Not ready for submission.** Blocked pending FastSpring eligibility preflight (`docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`) and remaining user/legal/policy placeholders.
 No FastSpring account created. No application submitted. Production billing **NO-GO**.
 
 ## Required Before Application
@@ -120,6 +120,6 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 | Check | Result |
 | --- | --- |
 | Ready to submit FastSpring application? | **NO** |
-| Primary blockers | **PROVIDER_CONFIRMATION_REQUIRED** (individual/SA/payout); founder legal name; tax/VAT; exact policy URLs |
-| Next phase | **`D3M-Payments-FastSpring-Eligibility-Preflight`** |
+| Primary blockers | Eligibility **PROVIDER_CONFIRMATION_REQUIRED**; founder legal name; exact policy URLs; tax/VAT |
+| Next phase | **`D3M-Payments-FastSpring-Preflight-Contact-Pack`** or **`D3M-Payments-FastSpring-Preflight-Fill`** |
 | Then | **`D3M-Payments-Provider-Application-Pack`** |

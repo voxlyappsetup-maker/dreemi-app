@@ -5,7 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update (entity/payout fill):** User-provided entity/pricing/refund inputs recorded. Payment track has partial application readiness; **PROVIDER_CONFIRMATION_REQUIRED** for individual/SA/payout; runtime payment remains unavailable/fail-closed.
+- **Update (FastSpring preflight):** Eligibility preflight documented; official fit confirmed for SaaS/AI/MoR; individual/SA/payout **PROVIDER_CONFIRMATION_REQUIRED**; runtime payment unavailable/fail-closed; no application or integration.
 
 ## Why This Checkpoint Exists
 
@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- `D3M-Payments-FastSpring-Eligibility-Preflight` (individual/SA/payout), then `D3M-Payments-Provider-Application-Pack` for **FastSpring** (Creem backup).
+- `D3M-Payments-FastSpring-Preflight-Contact-Pack` (or Preflight-Fill), then `D3M-Payments-Provider-Application-Pack` after eligibility confirmed.
 
 Alternative paths:
 

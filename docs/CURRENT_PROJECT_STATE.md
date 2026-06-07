@@ -505,8 +505,11 @@
   - Docs: `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`; updated `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`, `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`.
   - Provider eligibility unconfirmed; no application submitted; production billing remains No-Go.
   - Next: FastSpring eligibility preflight, then application pack.
-- Phase 4-D3M-Tooling-A note:
-  - Local validation helper script is added at `tooling/validate_phase.ps1`.
+- Phase 4-D3M-Payments-FastSpring-Eligibility-Preflight note:
+  - Preflight at `docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`; contact draft at `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_DRAFT.md`.
+  - Official sources confirm broad FastSpring fit (SaaS/AI/subscriptions/MoR/tax/API/webhooks); individual/Saudi Arabia/payout support remains **PROVIDER_CONFIRMATION_REQUIRED**.
+  - Do not submit application yet; production billing remains No-Go.
+  - Next: preflight contact pack or fill remaining placeholders.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
   - No runtime/service/app/schema/payment/image-generation behavior changes were made in this phase.
   - No provider calls and no env/secrets changes were made in this phase.

@@ -58,7 +58,7 @@ Recorded in **D3M-Payments-Entity-And-Payout-Fill** (user-provided; not legal/ta
 | Privacy and Terms | User states ready on dreemi.app — **exact URLs must be verified before provider submission** |
 | Support / disputes | Founder/user via **contact@dreemi.app** |
 
-**Payout caveat:** Provider acceptance for **individual applicants from Saudi Arabia**, **Saudi bank payout**, and **PayPal payout** is **not confirmed**. These remain **PROVIDER_CONFIRMATION_REQUIRED** before submitting a FastSpring application. Do **not** treat either payout path as approved.
+**Payout caveat:** Provider acceptance for individual/Saudi Arabia/payout remains **PROVIDER_CONFIRMATION_REQUIRED** — see `docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`. Entity/payout path is **candidate only** until FastSpring confirms.
 
 ## Explicit Non-Goals
 
@@ -310,7 +310,7 @@ Apply to Creem only if FastSpring declines or entity constraints block FastSprin
 
 ## Recommended Decision Position
 
-**Recommended position:** Proceed toward FastSpring application preparation **only after confirming** whether FastSpring supports the chosen **individual / Saudi Arabia** application and **Saudi bank or PayPal** payout path.
+**Recommended position:** Proceed toward FastSpring application preparation **only after** FastSpring confirms individual/Saudi Arabia/payout eligibility (preflight contact). See `docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md`. FastSpring remains primary candidate; Creem backup. Production billing **NO-GO**.
 
 **FastSpring** remains the primary candidate; **Creem** remains backup. Production billing remains **NO-GO**.
 
@@ -372,8 +372,8 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 
 ## Recommended Next Phase
 
-1. **`D3M-Payments-FastSpring-Eligibility-Preflight`** — verify individual/Saudi Arabia/payout eligibility before application.
-2. **`D3M-Payments-Provider-Application-Pack`** — prepare FastSpring application packet (Creem backup) after preflight + remaining inputs.
+1. **`D3M-Payments-FastSpring-Preflight-Contact-Pack`** — contact FastSpring with eligibility questions (draft at `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_DRAFT.md`)
+2. **`D3M-Payments-Provider-Application-Pack`** — after eligibility confirmed
 
 ## Notes For Next Chat
 

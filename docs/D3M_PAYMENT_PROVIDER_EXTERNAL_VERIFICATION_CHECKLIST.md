@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**Fill phase (entity/payout/pricing):** Individual/SA path; SA bank or PayPal payout candidates; USD pricing; 7-day refund — see `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`. **Preflight required:** confirm FastSpring supports individual/Saudi Arabia application and payout path before submission. External verification **not started**.
+**FastSpring preflight (2026-06-07):** `docs/D3M_FASTSPRING_ELIGIBILITY_PREFLIGHT.md` — individual/Saudi Arabia/payout questions must be answered by provider before application. External verification **not started**.
 
 ## 3) Candidate provider categories
 
