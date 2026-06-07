@@ -372,8 +372,8 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 
 ## Recommended Next Phase
 
-1. **`D3M-Payments-FastSpring-Preflight-Contact-Pack`** — contact FastSpring with eligibility questions (draft at `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_DRAFT.md`)
-2. **`D3M-Payments-Provider-Application-Pack`** — after eligibility confirmed
+1. **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — send contact pack (`docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md`) after placeholders filled
+2. **`D3M-Payments-Provider-Application-Pack`** — after FastSpring confirms eligibility
 
 ## Notes For Next Chat
 
