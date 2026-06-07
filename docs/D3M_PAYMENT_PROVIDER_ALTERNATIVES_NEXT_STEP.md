@@ -2,7 +2,7 @@
 
 ## Status
 
-Docs-only framing for the **next** payment phase.
+Next-step research **completed** 2026-06-07. Selection document: `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`. Shortlist: `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`.
 **No provider is selected in this document.**
 No provider research, dashboard access, or API calls were performed in this phase.
 Production billing remains **NO-GO**.
@@ -86,8 +86,10 @@ Disqualifiers for others: [TBD]
 Next implementation phase: [TBD]
 ```
 
+Research completed in **`D3M-Payments-Alternative-Provider-Selection`** — see `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md` and `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`.
+
 ## Recommended Next Phase
 
-**`D3M-Payments-Alternative-Provider-Selection`** — execute up-to-date research and produce the decision output above.
+**`D3M-Payments-Entity-And-Payout-Decision`** — if `[Country]` / legal entity unresolved — then **`D3M-Payments-Provider-Application-Pack`** (FastSpring primary, Creem backup).
 
-Alternative (non-primary): **`D3M-Payments-Lemon-Appeal-Draft`** — only if user explicitly chooses a short appeal.
+Alternative (non-primary): **`D3M-Payments-Lemon-Appeal-Draft`** — only if user explicitly chooses appeal.

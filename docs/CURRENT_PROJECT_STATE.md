@@ -488,6 +488,12 @@
   - Alternatives framing: `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`.
   - Docs-only; no provider/payment/webhook calls; no secrets; production billing remains No-Go.
   - Next recommended phase: `D3M-Payments-Alternative-Provider-Selection`.
+- Phase 4-D3M-Payments-Alternative-Provider-Selection note:
+  - Official-source provider research documented at `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md` (research date 2026-06-07).
+  - Shortlist: FastSpring primary candidate, Creem backup, free beta/waitlist bridge; Lemon remains rejected/not active.
+  - Gumroad not recommended (child-targeting policy friction); Stripe direct not primary MoR path.
+  - No provider accounts, applications, checkout, webhook, or API calls; production billing remains No-Go.
+  - Next: entity/payout decision if needed, then provider application pack for FastSpring.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

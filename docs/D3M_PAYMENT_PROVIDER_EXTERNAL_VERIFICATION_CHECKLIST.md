@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**Prepared response artifact:** reusable KYB package (`docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`). **Lemon send path closed.** Alternative provider verification **required** before implementation.
+**Alternative provider selection (2026-06-07):** `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md` — FastSpring primary candidate, Creem backup; Lemon closed. Application/approval **pending**.
 
 ## 3) Candidate provider categories
 

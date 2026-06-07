@@ -5,7 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update (Lemon rejection reconciliation):** Lemon Squeezy **final rejection** confirmed—store not accepted due to risk/supportability and Stripe/PayPal processor constraints. Payment strategy **redirects to alternative MoR selection**. KYB package retained as reusable. Production billing remains **BLOCKED**.
+- **Update (alternative provider selection, 2026-06-07):** Official-source comparison in `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`. Recommended apply-first: **FastSpring**; backup: **Creem**. Runtime payment remains unavailable/fail-closed; no integration in selection phase.
 
 ## Why This Checkpoint Exists
 
@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- `D3M-Payments-Alternative-Provider-Selection` — up-to-date research and decision for realistic MoR/payment path (see `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`).
+- `D3M-Payments-Entity-And-Payout-Decision` (if `[Country]` / entity not confirmed), then `D3M-Payments-Provider-Application-Pack` for **FastSpring** (Creem backup).
 
 Alternative paths:
 

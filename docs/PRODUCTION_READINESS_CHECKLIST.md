@@ -13,6 +13,8 @@ Related manual payment verification plan:
 - `docs/D3M_LEMON_SQUEEZY_RESPONSE_DRAFT.md`
 - `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`
 - `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`
+- `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`
+- `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`
 - `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`
 - `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
@@ -45,7 +47,8 @@ Launch gate reference:
 - No-deploy manual smoke execution worksheet reference is `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`.
 - Local no-deploy manual smoke results (D6) are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - Payment provider: **Lemon Squeezy REJECTED** — alternate MoR provider required (`docs/D3M_LEMON_REJECTION_RECONCILIATION.md`).
-- Reusable KYB package prepared; Lemon send path closed; production payment remains No-Go.
+- Alternative provider selection documented (2026-06-07): primary candidate **FastSpring**, backup **Creem** (`docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`).
+- Provider approval still pending; checkout/webhook not verified; production billing **No-Go**.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
 - Local manual smoke evidence is PARTIAL/local-only; D6-Fix improves story detail route only.
 
@@ -111,9 +114,10 @@ Important notes:
 - Production payment verification must move to a replacement provider strategy before paid launch.
 - Alternative provider/legal payout recovery planning must be completed before any provider activation path:
   - `docs/D3M_PAYMENT_PROVIDER_REJECTION_RECOVERY_PLAN.md`
-- Alternative payment provider selection matrix must be completed and accepted before integration planning:
-  - `docs/D3M_ALTERNATIVE_PAYMENT_PROVIDER_SELECTION_MATRIX.md`
-- Blocker: replacement provider is not selected yet.
+- Alternative payment provider selection documented (2026-06-07):
+  - `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`
+  - `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`
+- Blocker: replacement provider **candidate** selected (FastSpring primary) but **not approved** yet.
 - Blocker: legal payout path/entity model is not confirmed yet.
 - Blocker: payout recipient identity/entity is not selected yet.
 - Blocker: provider KYC/KYB feasibility is not verified for the selected legal path.
