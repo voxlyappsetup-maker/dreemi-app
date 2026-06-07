@@ -47,6 +47,8 @@ Launch gate reference:
 - No-deploy manual smoke execution worksheet reference is `docs/D3M_NO_DEPLOY_MANUAL_SMOKE_EXECUTION_WORKSHEET.md`.
 - Local no-deploy manual smoke results (D6) are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - Payment provider: **Lemon Squeezy REJECTED** — alternate MoR provider required (`docs/D3M_LEMON_REJECTION_RECONCILIATION.md`).
+- `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`
+- `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`
 - Alternative provider selection documented (2026-06-07): primary candidate **FastSpring**, backup **Creem** (`docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`).
 - Provider approval still pending; checkout/webhook not verified; production billing **No-Go**.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
@@ -118,6 +120,7 @@ Important notes:
   - `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`
   - `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`
 - Blocker: replacement provider **candidate** selected (FastSpring primary) but **not approved** yet.
+- Blocker: entity/payout decision package created (`docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`); user inputs still **USER_TO_CONFIRM**.
 - Blocker: legal payout path/entity model is not confirmed yet.
 - Blocker: payout recipient identity/entity is not selected yet.
 - Blocker: provider KYC/KYB feasibility is not verified for the selected legal path.

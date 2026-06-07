@@ -238,9 +238,9 @@ Constraints:
 - D3M-Triage-D6 local no-deploy manual smoke results are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - D6 executed local smoke only; final result PARTIAL; production launch remains No-Go.
 - D6-Fix committed at `598151b`; story detail SSR storage crash fixed.
-- D3M-Payments-Alternative-Provider-Selection complete (2026-06-07): `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`, shortlist at `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`.
-- Primary candidate: FastSpring (pending entity confirmation + application); backup: Creem; Lemon rejected/not active; production billing No-Go.
-- Next: entity/payout decision if needed, then FastSpring application pack; compact Cursor reports required.
+- D3M-Payments-Entity-And-Payout-Decision complete: `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`, FastSpring checklist at `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`.
+- FastSpring primary candidate; Creem backup; application blocked until entity/payout/pricing/policy answers confirmed; production billing No-Go.
+- Next: `D3M-Payments-Entity-And-Payout-Fill` then `D3M-Payments-Provider-Application-Pack`; compact Cursor reports required.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -250,7 +250,7 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-Entity-And-Payout-Decision` if legal entity/country/payout path not confirmed, then
+  - `D3M-Payments-Entity-And-Payout-Fill` — user answers entity/payout/pricing/policy questions, then
   - `D3M-Payments-Provider-Application-Pack` for FastSpring (Creem backup), or
   - `D3M-Payments-Lemon-Appeal-Draft` **only** if user explicitly requests appeal (not primary), or
   - `D3M-Triage-D6-PDF` safe local PDF smoke fixture plan, or

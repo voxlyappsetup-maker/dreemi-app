@@ -161,7 +161,7 @@ Rules for usage:
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
-- Payment gates **BLOCKED**: Lemon **rejected**; primary candidate **FastSpring** (not approved); alternate path documented in `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`.
+- Payment gates **BLOCKED**: Lemon **rejected**; FastSpring **primary candidate** (application not submitted); entity/payout inputs pending (`docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`).
 - Use reusable KYB assets from `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; do not mark payment gates PASS.
 
 ### Forbidden Actions
@@ -606,16 +606,17 @@ Current: NO-GO
 12. `Payments-Provider-Send` — **closed for Lemon** (rejected; not default path).
 13. `Lemon-Rejection-Reconciliation` — complete (see `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`).
 14. `Payments-Alternative-Provider-Selection` — complete (2026-06-07; see `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`).
-15. `Payments-Entity-And-Payout-Decision` — if needed.
-16. `Payments-Provider-Application-Pack` — FastSpring (Creem backup).
-17. Payment provider approval / runtime verification (post-selection).
-18. Final launch gate review.
+15. `Payments-Entity-And-Payout-Decision` — complete (see `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`).
+16. `Payments-Entity-And-Payout-Fill` — user answers required.
+17. `Payments-Provider-Application-Pack` — FastSpring (Creem backup).
+18. Payment provider approval / runtime verification (post-selection).
+19. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Payments-Entity-And-Payout-Decision` (if needed) → `D3M-Payments-Provider-Application-Pack` (FastSpring)
+- Primary: `D3M-Payments-Entity-And-Payout-Fill` → `D3M-Payments-Provider-Application-Pack` (FastSpring)
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

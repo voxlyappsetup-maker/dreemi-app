@@ -5,7 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update (alternative provider selection, 2026-06-07):** Official-source comparison in `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`. Recommended apply-first: **FastSpring**; backup: **Creem**. Runtime payment remains unavailable/fail-closed; no integration in selection phase.
+- **Update (entity/payout decision, 2026-06-07):** `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md` defines blockers and USER_TO_CONFIRM inputs before FastSpring application. Runtime payment remains unavailable/fail-closed; no integration/application in this phase.
 
 ## Why This Checkpoint Exists
 
@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- `D3M-Payments-Entity-And-Payout-Decision` (if `[Country]` / entity not confirmed), then `D3M-Payments-Provider-Application-Pack` for **FastSpring** (Creem backup).
+- `D3M-Payments-Entity-And-Payout-Fill` (user answers), then `D3M-Payments-Provider-Application-Pack` for **FastSpring** (Creem backup).
 
 Alternative paths:
 

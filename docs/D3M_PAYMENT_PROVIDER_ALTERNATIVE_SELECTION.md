@@ -258,9 +258,10 @@ No provider is approved or integrated from this docs-only phase.
 
 ## Next Steps
 
-1. If `[Country]` / entity unresolved → **`D3M-Payments-Entity-And-Payout-Decision`**
-2. Else → **`D3M-Payments-Provider-Application-Pack`** (FastSpring first, Creem backup)
-3. Continue **free beta/waitlist** with checkout fail-closed
+1. ~~If `[Country]` / entity unresolved → **`D3M-Payments-Entity-And-Payout-Decision`**~~ **Complete** — see `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`
+2. **`D3M-Payments-Entity-And-Payout-Fill`** — user confirms entity/payout/pricing/policy inputs
+3. **`D3M-Payments-Provider-Application-Pack`** (FastSpring first, Creem backup)
+4. Continue **free beta/waitlist** with checkout fail-closed
 4. Optional: **`D3M-Payments-Lemon-Appeal-Draft`** only if user explicitly requests (non-primary)
 
 ## Notes For Next Chat
@@ -273,5 +274,6 @@ No provider is approved or integrated from this docs-only phase.
 ## Related Artifacts
 
 - Shortlist: `docs/D3M_PAYMENT_PROVIDER_SHORTLIST.md`
+- Entity/payout decision: `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md`
 - Lemon reconciliation: `docs/D3M_LEMON_REJECTION_RECONCILIATION.md`
 - Alternatives framing: `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVES_NEXT_STEP.md`

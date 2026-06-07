@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**Alternative provider selection (2026-06-07):** `docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md` — FastSpring primary candidate, Creem backup; Lemon closed. Application/approval **pending**.
+**Alternative provider selection (2026-06-07):** FastSpring primary candidate, Creem backup. **Entity/payout decision (2026-06-07):** `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md` — FastSpring application **blocked** until user inputs confirmed. External verification **not started**.
 
 ## 3) Candidate provider categories
 
