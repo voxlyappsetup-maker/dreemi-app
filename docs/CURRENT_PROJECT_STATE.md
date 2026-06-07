@@ -395,6 +395,14 @@
   - No provider/payment/image/story runtime calls were executed in this phase.
   - Production launch position remains No-Go pending required evidence gates.
   - Next recommended phase is `D3M-Triage-D1` (production launch gate checklist consolidation) or `D3M-Triage-D2` (deployment/env verification plan).
+- Phase 4-D3M-Triage-D1 note:
+  - Production launch gate checklist consolidation is documented at `docs/D3M_PRODUCTION_LAUNCH_GATE_CHECKLIST.md`.
+  - D1 is docs-only and defines 18 launch gates with evidence requirements, blocker register, closure order, and explicit go/no-go guardrails.
+  - No runtime changes were made in this phase.
+  - No provider/payment/image/story runtime calls were executed in this phase.
+  - No env/secrets were read or modified in this phase.
+  - Full production launch remains No-Go until critical gates have explicit PASS evidence.
+  - Next recommended phase is `D3M-Triage-D2` (deployment/env verification plan), with `D3M-Payments-External-Verification` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

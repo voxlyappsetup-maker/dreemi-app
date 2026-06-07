@@ -215,6 +215,10 @@ Constraints:
 - D3M-Triage-D non-image production readiness triage is documented at `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`.
 - D phase is docs-only and confirms production launch remains No-Go without additional evidence gates.
 - D phase adds consolidated blocker/deferred/risk register view across payment/deploy/env/security/localization/PDF/ops tracks.
+- D3M-Triage-D1 production launch gate checklist consolidation is documented at `docs/D3M_PRODUCTION_LAUNCH_GATE_CHECKLIST.md`.
+- D1 is docs-only and defines the central 18-gate go/no-go checklist, blocker register, evidence template, and closure order.
+- Full production launch remains No-Go until critical gates pass with explicit evidence.
+- D1 executed no runtime/provider/payment/image/story calls and no env/secrets changes.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
 - Future phases can run `.\tooling\validate_phase.ps1` from repo root.
 - For docs-only phases, `.\tooling\validate_phase.ps1 -StrictScope` can be used when runtime changes are not expected.
@@ -222,11 +226,9 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be either:
-  - `D3M-Triage-B9` payment provider application package draft (documentation-only unless an explicit runtime code phase is approved), or
-  - `D3M-Triage-D1` production launch gate checklist consolidation (docs-only), or
   - `D3M-Triage-D2` deployment/env verification plan (docs-only or read-only), or
+  - `D3M-Payments-External-Verification` provider/KYB response package (documentation-first), or
   - rerun `D3M-Triage-C5` execute safe local image runtime smoke once shell reliability is restored (explicit approval required), or
-  - `D3M-Triage-C3-followup` (only if a new image fallback gap appears), or
   - another narrowly scoped no-purchase smoke only if a new regression is suspected.
 - No third runtime wiring surface should proceed by default.
 - Do not add Prisma schema/migrations/provider adapters without explicit phase.

@@ -1,6 +1,7 @@
 # Production Readiness Checklist
 
 Related manual payment verification plan:
+- `docs/D3M_PRODUCTION_LAUNCH_GATE_CHECKLIST.md`
 - `docs/D3M_NON_IMAGE_PRODUCTION_READINESS_TRIAGE.md`
 - `docs/LEMONSQUEEZY_PRODUCTION_VERIFICATION_PLAN.md`
 - `docs/DEPLOYMENT_PROVIDER_DECISION.md`
@@ -19,6 +20,11 @@ Related manual payment verification plan:
 - `docs/PRIVACY_DATA_SAFETY_INVENTORY.md`
 - `docs/IOS_APP_STORE_PRODUCT_MAPPING_DESIGN.md`
 - `docs/ANDROID_PLAY_CONSOLE_PRODUCT_MAPPING_DESIGN.md`
+
+Launch gate reference:
+
+- Central Go/No-Go reference is `docs/D3M_PRODUCTION_LAUNCH_GATE_CHECKLIST.md`.
+- Full production remains No-Go until critical launch gates are PASS with explicit evidence.
 
 ## 1) Current Deployment Files
 
