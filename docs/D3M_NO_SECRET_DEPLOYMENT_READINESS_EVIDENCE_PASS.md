@@ -299,8 +299,10 @@ Direct confirmed evidence from this pass:
 
 ## Recommended Next Phase
 
-- Primary: `D3M-Triage-D4 — Production smoke and launch evidence pack`
+- Primary: `D3M-Triage-D5 — No-deploy manual smoke execution worksheet`
 - Alternative: `D3M-Payments-Provider-Response — KYB/provider approval package`
+
+Smoke/launch evidence pack (complete): `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`
 
 ## Compact Report Policy
 
@@ -315,4 +317,5 @@ Cursor must keep reports compact:
 - D3 collected no-secret evidence from tracked files and validation commands only; no env/dashboard/deploy.
 - Update launch gate statuses only when new direct evidence closes a gap.
 - Rerun `validate_phase.ps1 -StrictScope` with reliable exit before treating Gate 2 as improved.
+- Follow-up smoke/launch pack: `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`.
 - Full production launch remains **NO-GO**.

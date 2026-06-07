@@ -441,6 +441,13 @@
   - No provider/payment/image/story runtime calls or deployment occurred in this phase.
   - Production launch remains No-Go; no critical launch gate marked PASS.
   - Next recommended phase is `D3M-Triage-D4` (production smoke and launch evidence pack), with `D3M-Payments-Provider-Response` as an alternative.
+- Phase 4-D3M-Triage-D4 note:
+  - Production smoke and launch evidence pack is documented at `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md`.
+  - D4 is docs-only and consolidates smoke coverage matrix, launch evidence templates, gate alignment, blockers, Go/No-Go review template, and compact reporting rules.
+  - No production smoke, deploy, dashboard access, or runtime/provider/payment/image/story calls occurred in this phase.
+  - No env/secrets were read, printed, verified, or modified; no `.env` or `.env.example` was read.
+  - Production launch remains No-Go; no critical launch gate marked PASS from planning alone.
+  - Next recommended phase is `D3M-Triage-D5` (no-deploy manual smoke execution worksheet), with `D3M-Payments-Provider-Response` as an alternative.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
