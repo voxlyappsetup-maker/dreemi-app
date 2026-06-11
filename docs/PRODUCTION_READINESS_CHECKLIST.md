@@ -52,6 +52,7 @@ Launch gate reference:
 - `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`
 - Alternative provider selection documented (2026-06-07): primary candidate **FastSpring**, backup **Creem** (`docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`).
 - FastSpring preflight form **SUBMITTED** manually by user (2026-06-07); response **pending** (`docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`). FastSpring eligibility **UNCONFIRMED**; application **NOT SUBMITTED**; provider approval **PENDING**; production billing **NO-GO**.
+- Database uptime/free-tier auto-pause risk added as production blocker (`docs/D3M_SUPABASE_INACTIVITY_WARNING.md`). Supabase active at manual check time (2026-06-11); production DB uptime decision remains pending.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
 - Local manual smoke evidence is PARTIAL/local-only; D6-Fix improves story detail route only.
 

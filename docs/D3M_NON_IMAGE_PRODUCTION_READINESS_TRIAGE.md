@@ -86,6 +86,7 @@ This triage reviewed documentation status for:
 - Real checkout/purchase/webhook/provider verification for an approved production provider is not completed.
 - Production env/secrets presence verification is not proven from repository-only evidence.
 - Production deployment verification remains a separate blocked gate.
+- Supabase free-tier auto-pause risk is an additional production blocker (`docs/D3M_SUPABASE_INACTIVITY_WARNING.md`); manual read-only check passed 2026-06-11, but production DB uptime decision remains pending.
 - Image runtime smoke (`C5`) remains deferred/blocked by runtime environment reliability.
 - Operational monitoring/alerting readiness is not evidenced as complete for launch-level operations.
 - Legal/payment payout path requires final external/qualified decisioning before production monetization.
@@ -114,7 +115,8 @@ This triage reviewed documentation status for:
   - final CORS allowed origins verification,
   - strict environment separation verification,
   - rollback path rehearsal,
-  - deploy smoke plan evidence.
+  - deploy smoke plan evidence,
+  - production DB uptime decision (Supabase auto-pause risk — see `docs/D3M_SUPABASE_INACTIVITY_WARNING.md`).
 - No deployment execution occurred in this triage.
 
 ## Environment / Secrets Readiness

@@ -174,7 +174,7 @@ Future verification must identify and record (names/targets only, no secrets):
 | --- | --- | --- |
 | Frontend hosting | Vercel config present (`vercel.json`) | PENDING confirmation in target environment |
 | API hosting | Railway-named config present (`services/api/railway.json`) | PENDING confirmation; Render not configured |
-| Database target | PostgreSQL / Supabase per project docs | PENDING environment-specific confirmation |
+| Database target | PostgreSQL / Supabase per project docs | PENDING environment-specific confirmation; **auto-pause risk on Free tier** — see `docs/D3M_SUPABASE_INACTIVITY_WARNING.md` |
 | Domain | Final production domain(s) | PENDING |
 | SSL/TLS | HTTPS required for production | PENDING |
 | CORS origin list | `ALLOWED_ORIGINS` + documented defaults | PENDING final-domain confirmation |
@@ -226,8 +226,9 @@ Required future evidence:
 - no destructive migration without explicit approval
 - backup/rollback path documented before production schema changes
 - `DATABASE_URL` and `DIRECT_URL` presence confirmed without value exposure
+- production DB uptime posture decided (Supabase Pro, alternative paid Postgres, or explicit non-production posture) — see `docs/D3M_SUPABASE_INACTIVITY_WARNING.md`
 
-Status: **PENDING** — no production database verification executed in this phase.
+Status: **PENDING / BLOCKED for production launch** — manual read-only Supabase check passed 2026-06-11; free-tier auto-pause risk remains open.
 
 ## CORS / Domain / URL Verification
 

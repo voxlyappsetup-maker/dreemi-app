@@ -520,6 +520,11 @@
   - Record at `docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`; FastSpring response **pending**.
   - No account/application/dashboard/payment action; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Response-Record`** when FastSpring replies.
+- Phase 4-D3M-Infra-Supabase-Inactivity-Warning note:
+  - Supabase inactivity warning received and manually checked; `select now();` succeeded at **2026-06-11 14:51:50.211664+00**, confirming project active/reachable at check time.
+  - Record at `docs/D3M_SUPABASE_INACTIVITY_WARNING.md`; free-tier auto-pause remains a production readiness blocker.
+  - No migration/schema/write action; no secrets read; production launch No-Go.
+  - Next: **`D3M-Infra-Database-Uptime-Decision`**.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

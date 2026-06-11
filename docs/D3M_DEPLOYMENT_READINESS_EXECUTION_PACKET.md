@@ -150,8 +150,8 @@ Do not include commands that print environment values. Do not read `.env`, `.env
 | API | `FRONTEND_URL` | Presence by name | PASS/FAIL, no value | Gate 3, 4 | PENDING | Checkout redirect |
 | API | `PORT` / `API_PORT` | Presence by name | PASS/FAIL, no value | Gate 4, 5 | PENDING | Host port mapping |
 | API | `NODE_ENV` | Presence by name | PASS/FAIL, no value | Gate 3 | PENDING | Production mode |
-| Database | `DATABASE_URL` | Presence by name | PASS/FAIL, no value | Gate 3 | PENDING | Never view value |
-| Database | `DIRECT_URL` | Presence by name | PASS/FAIL, no value | Gate 3 | PENDING | Migration category |
+| Database | `DATABASE_URL` | Presence by name | PASS/FAIL, no value | Gate 3 | PENDING | Never view value; uptime decision pending — `docs/D3M_SUPABASE_INACTIVITY_WARNING.md` |
+| Database | `DIRECT_URL` | Presence by name | PASS/FAIL, no value | Gate 3 | PENDING | Migration category; uptime decision pending |
 | Auth | `JWT_SECRET` | Presence by name | PASS/FAIL, no value | Gate 3, 7 | PENDING | Never view value |
 | Auth | `JWT_REFRESH_SECRET` | Presence by name | PASS/FAIL, no value | Gate 3, 7 | PENDING | Never view value |
 | Story | `MISTRAL_API_KEY` | Presence by name | PASS/FAIL, no value | Gate 3, 5 | PENDING | If generation enabled |
@@ -219,10 +219,13 @@ Future manual smoke list (not executed in D2-D):
 | Future check | Mapped Gate | Status |
 | --- | --- | --- |
 | Target database name/environment confirmed (no values) | Gate 3 | PENDING |
+| Production DB uptime decision (no Free auto-pause for prod) | Gate 3 | BLOCKED |
 | Prisma generate/build passes | Gate 2 | PENDING |
 | Migration status understood | Gate 3 | PENDING |
 | Backup/rollback path documented | Gate 17 | PENDING |
 | No destructive migration without approval | Gate 3 | PENDING |
+
+Reference: `docs/D3M_SUPABASE_INACTIVITY_WARNING.md`, `docs/D3M_DATABASE_UPTIME_DECISION.md`
 
 ## Auth / Security Readiness Packet
 

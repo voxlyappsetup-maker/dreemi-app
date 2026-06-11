@@ -150,6 +150,7 @@ Rules for usage:
 ### Blockers
 
 - Production env presence is not yet verified with no-secret evidence protocol.
+- Database/production environment gates remain **BLOCKED** pending Supabase Pro/paid DB/alternative uptime decision (`docs/D3M_SUPABASE_INACTIVITY_WARNING.md`).
 
 ### Allowed Next Actions
 
@@ -162,6 +163,7 @@ Rules for usage:
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
 - Payment gates **BLOCKED**: FastSpring preflight form **SUBMITTED**; response **pending**; FastSpring eligibility **UNCONFIRMED**; application **NOT SUBMITTED**; provider approval **PENDING**. Do not mark PASS.
+- Database uptime gate **BLOCKED**: Supabase free-tier auto-pause risk; manual read-only check passed 2026-06-11; production DB uptime decision pending. See `docs/D3M_SUPABASE_INACTIVITY_WARNING.md`.
 - Use reusable KYB assets from `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; do not mark payment gates PASS.
 
 ### Forbidden Actions
@@ -575,6 +577,7 @@ Current: NO-GO
 
 | Blocker | Gate | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
+| Supabase Free auto-pause / production DB uptime unresolved | Gate 3, Gate 4 | Critical | BLOCKED | Supabase Pro vs dev-only vs alternative DB decision + ops evidence | `D3M-Infra-Database-Uptime-Decision` |
 | Payment provider external approval/readiness unresolved | Gate 9 | Critical | BLOCKED | Provider eligibility/KYB/KYC and legal payout closure evidence | `D3M-Payments-External-Verification` |
 | Real checkout/payment/webhook verification missing | Gate 9, Gate 10 | Critical | BLOCKED | Approved-provider checkout/purchase/webhook controlled smoke evidence | `D3M-Payments-External-Verification` |
 | Production env presence not verified safely | Gate 3 | Critical | BLOCKED | Presence-only env verification report (no values) | `D3M-Triage-D6` / approved env phase |
@@ -622,8 +625,8 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Response-Record`** → application pack after FastSpring response
-- Alternative: **`D3M-Payments-FastSpring-Follow-Up-Draft`** if no response after reasonable period
+- Primary: **`D3M-Infra-Database-Uptime-Decision`** → FastSpring response record or application pack as applicable
+- Alternative: **`D3M-Payments-FastSpring-Response-Record`** when FastSpring replies
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat
