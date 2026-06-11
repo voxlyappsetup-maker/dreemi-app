@@ -2,9 +2,7 @@
 
 ## Status
 
-**Checklist only — no dashboard actions in catalog plan phase.**
-
-Use in **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup`** after approving `docs/D3M_FASTSPRING_CATALOG_PLAN.md`.
+Setup record: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` — result **NOT_STARTED** / pending user safe confirmations.
 
 Store: **Testing / trial mode**. **Not Live.** Production billing **NO-GO**.
 

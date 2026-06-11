@@ -236,7 +236,7 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup`** — manually create planned products/subscriptions in FastSpring test/trial dashboard.
+**Primary:** **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`** — user confirms manual catalog creation safe facts.
 
 **Constraints:** Manual dashboard phase only — no code, no Live mode, no checkout/test order unless explicitly included in that phase.
 
@@ -251,6 +251,7 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Related Artifacts
 
+- Dashboard setup record: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` — manual setup **NOT_STARTED** / pending user confirmation
 - Dashboard setup checklist: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_CHECKLIST.md`
 - Activation checklist: `docs/D3M_FASTSPRING_ACTIVATION_CHECKLIST.md`
 - Trial store record: `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`

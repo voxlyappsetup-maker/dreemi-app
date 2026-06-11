@@ -162,7 +162,7 @@ Rules for usage:
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
-- Payment gates **BLOCKED**: FastSpring trial store + catalog **plan** only (**PARTIAL/PLANNED** evidence); **not Live**; catalog not in dashboard. Do not mark PASS.
+- Payment gates **BLOCKED**: catalog dashboard setup **NOT_STARTED** / unconfirmed; do not mark PASS.
 - Database uptime gate **BLOCKED**: Supabase free-tier auto-pause risk; manual read-only check passed 2026-06-11; production DB uptime decision pending. See `docs/D3M_SUPABASE_INACTIVITY_WARNING.md`.
 - Use reusable KYB assets from `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; do not mark payment gates PASS.
 
@@ -577,7 +577,7 @@ Current: NO-GO
 
 | Blocker | Gate | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| Catalog not created in dashboard | Gate 9 | Critical | **PLANNED** | Products in FastSpring Test mode | `D3M-Payments-FastSpring-Catalog-Dashboard-Setup` |
+| Catalog not created in dashboard | Gate 9 | Critical | **NOT_STARTED** | User-confirmed offerings in Test mode | `D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup` |
 | FastSpring store not Live / activation incomplete | Gate 9 | Critical | BLOCKED | Live approval + catalog + tax/KYC + test order evidence | `D3M-Payments-FastSpring-Activation-Checklist` |
 | Supabase Free auto-pause / production DB uptime unresolved | Gate 3, Gate 4 | Critical | BLOCKED | Supabase Pro vs dev-only vs alternative DB decision + ops evidence | `D3M-Infra-Database-Uptime-Decision` |
 | Payment provider external approval/readiness unresolved | Gate 9 | Critical | BLOCKED | Provider eligibility/KYB/KYC and legal payout closure evidence | `D3M-Payments-External-Verification` |
@@ -621,7 +621,7 @@ Current: NO-GO
 22. `Payments-FastSpring-Trial-Store-Setup-Record` — complete (trial store observed; not Live).
 23. `Payments-FastSpring-Activation-Checklist` — catalog, website, tax/KYC, test order readiness.
 24. `Payments-FastSpring-Catalog-Plan` — complete (Individual/Family planned; School deferred).
-25. `Payments-FastSpring-Catalog-Dashboard-Setup` — manual dashboard catalog creation.
+25. `Payments-FastSpring-Catalog-Dashboard-Setup` — record created; manual setup **NOT_STARTED** / pending user confirmation.
 26. `Payments-FastSpring-Response-Record` — record FastSpring response when received.
 27. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 28. Payment provider approval / runtime verification (post-selection).
@@ -631,7 +631,7 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup`**
+- Primary: **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`** (user confirms manual catalog creation)
 - Alternative: **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 

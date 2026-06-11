@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring catalog plan created** (`docs/D3M_FASTSPRING_CATALOG_PLAN.md`); dashboard setup and activation requirements remain pending. Trial store **not Live**. See `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`.
+**FastSpring catalog dashboard setup record:** manual setup **NOT_STARTED** / unconfirmed (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). External activation still pending. Trial store **not Live**.
 
 ## 3) Candidate provider categories
 
