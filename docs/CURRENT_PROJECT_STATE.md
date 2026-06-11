@@ -542,6 +542,10 @@
   - Individual/Family monthly/yearly prices match catalog; School deferred (contact-only); Lemon variant IDs removed from frontend pricing surfaces.
   - Payment unavailable/fail-closed preserved; no checkout/API/webhook/env changes; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Test-Order-Plan`**.
+- Phase 4-D3M-Payments-FastSpring-Test-Order-Plan note:
+  - FastSpring test order plan at `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`; evidence policy at `docs/D3M_FASTSPRING_TEST_ORDER_EVIDENCE_POLICY.md`.
+  - No checkout/test order executed; no API/webhook/runtime integration; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** (Individual Monthly only) or webhook integration planning.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

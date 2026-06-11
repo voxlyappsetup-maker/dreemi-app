@@ -240,8 +240,9 @@ Constraints:
 - D6-Fix committed at `598151b`; story detail SSR storage crash fixed.
 - D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Confirmations complete: catalog **COMPLETE** for Individual/Family monthly/yearly; School deferred; record at `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`.
 - D3M-Payments-FastSpring-Website-Pricing-Alignment complete: public pricing aligned with FastSpring catalog; record at `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`.
+- D3M-Payments-FastSpring-Test-Order-Plan complete: safe test-mode checkout plan at `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`; no checkout/test order executed.
 - No Live/checkout/API/webhook/payout/tax/KYC/runtime integration; production billing No-Go.
-- Next: **`D3M-Payments-FastSpring-Test-Order-Plan`**; compact Cursor reports required.
+- Next: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** (Individual Monthly only) or **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**; compact Cursor reports required.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -251,8 +252,8 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-FastSpring-Test-Order-Plan` — plan test-mode checkout after website alignment, or
-  - `D3M-Payments-FastSpring-Website-Pricing-Alignment-Followup` — refund/legal copy follow-up if needed, or
+  - `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — one safe FastSpring test-mode checkout for Individual Monthly only, or
+  - `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime integration, or
   - `D3M-Infra-Database-Uptime-Decision` — decide Supabase Pro vs dev-only vs alternative DB, or
   - `D3M-Payments-FastSpring-Response-Record` — record FastSpring response when received, or
   - `D3M-Payments-FastSpring-Follow-Up-Draft` — if no response after reasonable period, or

@@ -179,9 +179,13 @@ Production billing remains **NO-GO** until test checkout, webhook integration, e
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Plan` — plan a safe FastSpring test-mode checkout without live payment
+**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe FastSpring test-mode checkout for Dreemi Individual Monthly only
 
-**Alternative:** `D3M-Payments-FastSpring-Website-Pricing-Alignment-Followup` — only if follow-up copy/legal items block activation
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before any runtime integration
+
+## Follow-Up
+
+Follow-up test-order plan created after website pricing alignment: `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`
 
 ## Notes For Next Chat
 

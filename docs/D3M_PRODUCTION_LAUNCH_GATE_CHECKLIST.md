@@ -623,21 +623,23 @@ Current: NO-GO
 24. `Payments-FastSpring-Catalog-Plan` — complete (Individual/Family planned; School deferred).
 25. `Payments-FastSpring-Catalog-Dashboard-Setup` — **complete** (Individual/Family monthly/yearly in test/trial dashboard).
 26. `Payments-FastSpring-Website-Pricing-Alignment` — **complete** (public pricing aligned; see `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`).
-27. `Payments-FastSpring-Test-Order-Plan` — plan safe test-mode checkout.
-28. `Payments-Provider-Application-Pack` — after eligibility confirmed.
-29. Payment provider approval / runtime verification (post-selection).
-30. Final launch gate review.
+27. `Payments-FastSpring-Test-Order-Plan` — **complete** (safe test-mode plan; see `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`).
+28. `Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe test-mode checkout (Individual Monthly only).
+29. `Payments-Provider-Application-Pack` — after eligibility confirmed.
+30. Payment provider approval / runtime verification (post-selection).
+31. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Test-Order-Plan`**
-- Alternative: **`D3M-Payments-FastSpring-Website-Pricing-Alignment-Followup`**
+- Primary: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**
+- Alternative: **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat
 
+- Test order planning gate **PASS** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`); actual checkout and production payment gates remain **BLOCKED**.
 - Use this checklist as the central Go/No-Go reference and update gate statuses only with explicit evidence.
 - Keep docs-only safety boundaries unless a phase explicitly approves runtime/provider/deploy execution.
 - Do not convert any critical gate to PASS from assumptions or historical memory without fresh evidence linkage.

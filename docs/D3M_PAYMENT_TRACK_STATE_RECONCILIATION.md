@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Test-Order-Plan`**, after website pricing alignment **COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`).
+- **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**, after test-order plan **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`). Runtime payments remain unavailable/fail-closed.
 
 Alternative paths:
 

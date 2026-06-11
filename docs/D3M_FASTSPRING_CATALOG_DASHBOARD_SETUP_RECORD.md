@@ -127,7 +127,7 @@ Future activation requires **website pricing to match the FastSpring catalog**.
 
 Website pricing alignment remains a **separate phase** — not yet verified.
 
-**Next:** **`D3M-Payments-FastSpring-Test-Order-Plan`**
+**Next:** **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**
 
 ## Entitlement Mapping Review
 
@@ -175,9 +175,11 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Test-Order-Plan`** — plan test-mode checkout after website/pricing alignment (**COMPLETE**).
+**Primary:** **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** — execute one safe test-mode checkout (Individual Monthly only).
 
-**Alternative:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment-Followup`** — refund/legal copy if needed.
+**Alternative:** **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**.
+
+Follow-up test-order plan: `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 
 ## Notes For Next Chat
 

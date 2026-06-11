@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE** for Individual/Family monthly/yearly in test/trial dashboard. Website pricing alignment **COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). Activation remains blocked by test order, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE** for Individual/Family monthly/yearly in test/trial dashboard. Website pricing alignment **COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). Test-order planning **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`); actual test checkout **pending**. Activation remains blocked by test execution, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
