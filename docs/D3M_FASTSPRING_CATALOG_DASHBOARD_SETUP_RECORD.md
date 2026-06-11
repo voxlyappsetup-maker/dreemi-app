@@ -127,7 +127,7 @@ Future activation requires **website pricing to match the FastSpring catalog**.
 
 Website pricing alignment remains a **separate phase** — not yet verified.
 
-**Next:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**
+**Next:** **`D3M-Payments-FastSpring-Test-Order-Plan`**
 
 ## Entitlement Mapping Review
 
@@ -164,7 +164,7 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| Website pricing alignment pending | Website | High | **OPEN** | Public pricing matches catalog | Website pricing alignment |
+| Website pricing alignment pending | Website | High | **CLOSED** | Public pricing matches catalog | `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md` |
 | Refund wording finalization pending | Legal | High | **OPEN** | Final public refund text | Legal/Terms review |
 | Test checkout not executed | Test mode | High | **OPEN** | Test-mode checkout evidence | Test order plan |
 | Webhook/API integration not implemented | Integration | Critical | **OPEN** | Controlled integration | Integration phase |
@@ -175,16 +175,16 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment`** — align public pricing copy before activation.
+**Primary:** **`D3M-Payments-FastSpring-Test-Order-Plan`** — plan test-mode checkout after website/pricing alignment (**COMPLETE**).
 
-**Alternative:** **`D3M-Payments-FastSpring-Test-Order-Plan`** — plan test-mode checkout after website/pricing alignment.
+**Alternative:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment-Followup`** — refund/legal copy if needed.
 
 ## Notes For Next Chat
 
 - Catalog dashboard setup **COMPLETE** for four launch subscriptions in test/trial mode.
 - Store remains **not Live**; no checkout/webhook/integration in this phase.
 - Do not mark payment production gates PASS.
-- Next: website pricing alignment before activation/test checkout.
+- Next: test order plan before activation/test checkout.
 
 ## Related Artifacts
 

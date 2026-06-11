@@ -537,6 +537,11 @@
   - Catalog dashboard setup **COMPLETE** — four subscriptions in test/trial dashboard per `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`.
   - School not created; no Live/checkout/API/webhook/payout/tax/KYC; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**.
+- Phase 4-D3M-Payments-FastSpring-Website-Pricing-Alignment note:
+  - Public pricing aligned with FastSpring catalog at `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`.
+  - Individual/Family monthly/yearly prices match catalog; School deferred (contact-only); Lemon variant IDs removed from frontend pricing surfaces.
+  - Payment unavailable/fail-closed preserved; no checkout/API/webhook/env changes; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Test-Order-Plan`**.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

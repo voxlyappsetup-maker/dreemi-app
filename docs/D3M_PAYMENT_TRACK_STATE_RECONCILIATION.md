@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**, then test order plan and integration phases when approved.
+- **`D3M-Payments-FastSpring-Test-Order-Plan`**, after website pricing alignment **COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`).
 
 Alternative paths:
 

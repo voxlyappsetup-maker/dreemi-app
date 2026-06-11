@@ -622,17 +622,18 @@ Current: NO-GO
 23. `Payments-FastSpring-Activation-Checklist` — catalog, website, tax/KYC, test order readiness.
 24. `Payments-FastSpring-Catalog-Plan` — complete (Individual/Family planned; School deferred).
 25. `Payments-FastSpring-Catalog-Dashboard-Setup` — **complete** (Individual/Family monthly/yearly in test/trial dashboard).
-26. `Payments-FastSpring-Website-Pricing-Alignment` — align public pricing with catalog.
-27. `Payments-Provider-Application-Pack` — after eligibility confirmed.
-28. Payment provider approval / runtime verification (post-selection).
-29. Final launch gate review.
+26. `Payments-FastSpring-Website-Pricing-Alignment` — **complete** (public pricing aligned; see `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`).
+27. `Payments-FastSpring-Test-Order-Plan` — plan safe test-mode checkout.
+28. `Payments-Provider-Application-Pack` — after eligibility confirmed.
+29. Payment provider approval / runtime verification (post-selection).
+30. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**
-- Alternative: **`D3M-Payments-FastSpring-Test-Order-Plan`**
+- Primary: **`D3M-Payments-FastSpring-Test-Order-Plan`**
+- Alternative: **`D3M-Payments-FastSpring-Website-Pricing-Alignment-Followup`**
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

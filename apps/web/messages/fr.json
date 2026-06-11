@@ -217,6 +217,7 @@
     "planIndividual": "Individuel",
     "planFamily": "Famille",
     "planSchool": "École",
+    "planSchoolDeferred": "Contactez-nous — bientôt disponible",
     "planFreeFeatures": ["3 histoires par mois", "1 enfant", "Images standard", "Audio limité"],
     "planIndFeatures": ["30 histoires par mois", "1 enfant", "Images améliorées", "Narration vocale", "3 langues", "Export PDF"],
     "planFamilyFeatures": ["Histoires illimitées", "Jusqu'à 4 enfants", "Toutes les fonctionnalités", "Génération prioritaire"],

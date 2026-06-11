@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, useRouter } from "../i18n/routing";
 import { createCheckout, ApiError, getPaymentsStatus } from "../lib/api";
 import { isAuthenticated } from "../lib/storage";
+import { FASTSPRING_ALIGNED_PRICES, SCHOOL_PLAN_DEFERRED } from "../lib/pricing-catalog";
 
 const PENDING_PLAN_KEY = "pendingPlanVariantId";
 
@@ -18,15 +19,16 @@ interface Plan {
   yearlyPrice: string;
   highlighted: boolean;
   isFree: boolean;
+  isContact: boolean;
   variantMonthly?: number;
   variantYearly?: number;
 }
 
 const PLAN_DEFS: Plan[] = [
-  { key: "FREE", nameKey: "planFree", featuresKey: "planFreeFeatures", monthlyPrice: "$0", yearlyPrice: "$0", highlighted: false, isFree: true },
-  { key: "INDIVIDUAL", nameKey: "planIndividual", featuresKey: "planIndFeatures", monthlyPrice: "$4.99", yearlyPrice: "$47.90", highlighted: true, isFree: false, variantMonthly: 1712541, variantYearly: 1712569 },
-  { key: "FAMILY", nameKey: "planFamily", featuresKey: "planFamilyFeatures", monthlyPrice: "$9.99", yearlyPrice: "$95.90", highlighted: false, isFree: false, variantMonthly: 1712590, variantYearly: 1712596 },
-  { key: "SCHOOL", nameKey: "planSchool", featuresKey: "planSchoolFeatures", monthlyPrice: "$29.99", yearlyPrice: "$287.90", highlighted: false, isFree: false, variantMonthly: 1712619, variantYearly: 1712634 },
+  { key: "FREE", nameKey: "planFree", featuresKey: "planFreeFeatures", monthlyPrice: FASTSPRING_ALIGNED_PRICES.free.monthly, yearlyPrice: FASTSPRING_ALIGNED_PRICES.free.yearly, highlighted: false, isFree: true, isContact: false },
+  { key: "INDIVIDUAL", nameKey: "planIndividual", featuresKey: "planIndFeatures", monthlyPrice: FASTSPRING_ALIGNED_PRICES.individual.monthly, yearlyPrice: FASTSPRING_ALIGNED_PRICES.individual.yearly, highlighted: true, isFree: false, isContact: false },
+  { key: "FAMILY", nameKey: "planFamily", featuresKey: "planFamilyFeatures", monthlyPrice: FASTSPRING_ALIGNED_PRICES.family.monthly, yearlyPrice: FASTSPRING_ALIGNED_PRICES.family.yearly, highlighted: false, isFree: false, isContact: false },
+  { key: "SCHOOL", nameKey: "planSchool", featuresKey: "planSchoolFeatures", monthlyPrice: "", yearlyPrice: "", highlighted: false, isFree: false, isContact: SCHOOL_PLAN_DEFERRED },
 ];
 
 export function LandingPricing() {
@@ -82,6 +84,10 @@ export function LandingPricing() {
       router.push("/register");
       return;
     }
+    if (plan.isContact) {
+      window.location.href = "mailto:contact@dreemi.app?subject=School Plan";
+      return;
+    }
     const variantId = cycle === "yearly" ? plan.variantYearly : plan.variantMonthly;
     if (!variantId) {
       setError(tp("priceNotConfigured"));
@@ -105,6 +111,7 @@ export function LandingPricing() {
   }
 
   function buttonLabel(plan: Plan): string {
+    if (plan.isContact) return tp("contactUs");
     if (!plan.isFree && !paymentsAvailable) return tp("paymentsTemporarilyUnavailable");
     if (loadingPlan === plan.key || loadingPlan === "PENDING") return tp("redirecting");
     if (plan.isFree) return t("ctaFree");
@@ -154,10 +161,14 @@ export function LandingPricing() {
           {PLAN_DEFS.map((plan) => {
             const name = t(plan.nameKey as Parameters<typeof t>[0]);
             const features = t.raw(plan.featuresKey as string) as string[];
-            const price = cycle === "yearly" ? plan.yearlyPrice : plan.monthlyPrice;
-            const sub = plan.isFree ? "" : cycle === "yearly" ? t("perYear") : t("perMonth");
+            const price = plan.isContact
+              ? tp("planSchoolDeferred")
+              : cycle === "yearly"
+                ? plan.yearlyPrice
+                : plan.monthlyPrice;
+            const sub = plan.isContact ? "" : plan.isFree ? "" : cycle === "yearly" ? t("perYear") : t("perMonth");
             const isLoading = loadingPlan === plan.key || loadingPlan === "PENDING";
-            const paymentsBlocked = !plan.isFree && !paymentsAvailable;
+            const paymentsBlocked = !plan.isFree && !plan.isContact && !paymentsAvailable;
 
             return (
               <div
@@ -178,18 +189,18 @@ export function LandingPricing() {
                   {name}
                 </h3>
 
-                <p className="mt-4 flex items-baseline gap-1">
-                  <span className={`text-4xl font-extrabold tracking-tight ${plan.highlighted ? "text-white" : "text-violet-600"}`}>
+                <p className={`mt-4 flex items-baseline gap-1 ${plan.isContact ? "min-h-[3rem] items-center" : ""}`}>
+                  <span className={`${plan.isContact ? "text-lg font-semibold" : "text-4xl font-extrabold tracking-tight"} ${plan.highlighted ? "text-white" : "text-violet-600"}`}>
                     {price}
                   </span>
-                  {sub && (
+                  {!plan.isContact && sub && (
                     <span className={`text-sm ${plan.highlighted ? "text-violet-200" : "text-slate-500"}`}>
                       {sub}
                     </span>
                   )}
                 </p>
 
-                {cycle === "yearly" && !plan.isFree && (
+                {cycle === "yearly" && !plan.isFree && !plan.isContact && price.startsWith("$") && (
                   <p className={`mt-1 text-xs ${plan.highlighted ? "text-violet-200" : "text-slate-400"}`}>
                     ${(parseFloat(price.replace("$", "")) / 12).toFixed(2)}{t("perMonth")}
                   </p>
@@ -218,7 +229,7 @@ export function LandingPricing() {
                 ) : (
                   <button
                     type="button"
-                    disabled={isLoading || paymentsBlocked}
+                    disabled={isLoading || (paymentsBlocked && !plan.isContact)}
                     onClick={() => handlePlanClick(plan)}
                     className={`mt-8 w-full rounded-2xl py-3 text-center text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-60 ${
                       plan.highlighted

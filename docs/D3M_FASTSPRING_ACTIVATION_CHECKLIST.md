@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE** for Individual/Family monthly/yearly in test/trial dashboard. Activation remains blocked by website alignment, test order, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE** for Individual/Family monthly/yearly in test/trial dashboard. Website pricing alignment **COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). Activation remains blocked by test order, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -30,12 +30,12 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 - [x] Family yearly subscription (USD 95.90) — created in dashboard
 - [x] Family monthly subscription (USD 9.99) — created in dashboard
 - [x] Family yearly subscription (USD 95.90) — created in dashboard
-- [ ] School plan remains deferred
-- [ ] Product names match public website
+- [x] School plan remains deferred (contact-only on website)
+- [x] Product names match public website (Individual, Family, Free; School deferred)
 
 ## Pricing Setup
 
-- [ ] Unit prices match https://www.dreemi.app/ pricing page
+- [x] Unit prices match public pricing page (Individual/Family monthly/yearly)
 - [ ] Currency USD confirmed for launch plans
 - [ ] No undocumented plan SKUs
 

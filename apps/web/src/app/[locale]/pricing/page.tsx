@@ -6,6 +6,7 @@ import { Link, useRouter } from "../../../i18n/routing";
 import { createCheckout, ApiError, getPaymentsStatus } from "../../../lib/api";
 import { getStoredUser, isAuthenticated } from "../../../lib/storage";
 import { PublicHeader } from "../../../components/PublicHeader";
+import { FASTSPRING_ALIGNED_PRICES, SCHOOL_PLAN_DEFERRED } from "../../../lib/pricing-catalog";
 
 const PENDING_PLAN_KEY = "pendingPlanVariantId";
 
@@ -76,8 +77,8 @@ export default function PricingPage() {
     {
       key: "FREE",
       nameLocalized: t("planFree"),
-      monthlyPrice: "$0",
-      yearlyPrice: "$0",
+      monthlyPrice: FASTSPRING_ALIGNED_PRICES.free.monthly,
+      yearlyPrice: FASTSPRING_ALIGNED_PRICES.free.yearly,
       sub: "",
       features: t.raw("planFreeFeatures") as string[],
       highlighted: false,
@@ -87,41 +88,35 @@ export default function PricingPage() {
     {
       key: "INDIVIDUAL",
       nameLocalized: t("planIndividual"),
-      monthlyPrice: "$4.99",
-      yearlyPrice: "$47.90",
+      monthlyPrice: FASTSPRING_ALIGNED_PRICES.individual.monthly,
+      yearlyPrice: FASTSPRING_ALIGNED_PRICES.individual.yearly,
       sub: cycle === "yearly" ? t("perYear") : t("perMonth"),
       features: t.raw("planIndFeatures") as string[],
       highlighted: true,
-      variantMonthly: 1712541,
-      variantYearly: 1712569,
       isFree: false,
       isContact: false,
     },
     {
       key: "FAMILY",
       nameLocalized: t("planFamily"),
-      monthlyPrice: "$9.99",
-      yearlyPrice: "$95.90",
+      monthlyPrice: FASTSPRING_ALIGNED_PRICES.family.monthly,
+      yearlyPrice: FASTSPRING_ALIGNED_PRICES.family.yearly,
       sub: cycle === "yearly" ? t("perYear") : t("perMonth"),
       features: t.raw("planFamilyFeatures") as string[],
       highlighted: false,
-      variantMonthly: 1712590,
-      variantYearly: 1712596,
       isFree: false,
       isContact: false,
     },
     {
       key: "SCHOOL",
       nameLocalized: t("planSchool"),
-      monthlyPrice: "$29.99",
-      yearlyPrice: "$287.90",
-      sub: cycle === "yearly" ? t("perYear") : t("perMonth"),
+      monthlyPrice: "",
+      yearlyPrice: "",
+      sub: t("planSchoolDeferred"),
       features: t.raw("planSchoolFeatures") as string[],
       highlighted: false,
-      variantMonthly: 1712619,
-      variantYearly: 1712634,
       isFree: false,
-      isContact: false,
+      isContact: SCHOOL_PLAN_DEFERRED,
     },
   ];
 
@@ -221,12 +216,17 @@ export default function PricingPage() {
       <section className="mx-auto max-w-7xl px-6 pb-24 pt-12">
         <div className="grid gap-6 lg:grid-cols-4">
           {PLANS.map((plan) => {
-            const price = cycle === "yearly" ? plan.yearlyPrice : plan.monthlyPrice;
+            const price = plan.isContact
+              ? plan.sub
+              : cycle === "yearly"
+                ? plan.yearlyPrice
+                : plan.monthlyPrice;
             const isLoading = loadingPlan === plan.key || loadingPlan === "PENDING";
             const current = isCurrent(plan);
             const disableFreeDowngrade = loggedIn && plan.isFree && userPlan !== "FREE";
             const paymentsBlocked =
               !plan.isFree &&
+              !plan.isContact &&
               (!paymentsAvailable || isCheckoutConfigIncomplete);
             return (
               <div
@@ -249,18 +249,18 @@ export default function PricingPage() {
                   {plan.nameLocalized}
                 </h3>
 
-                <p className="mt-4 flex items-baseline gap-1">
-                  <span className={`text-4xl font-extrabold tracking-tight ${plan.highlighted ? "text-white" : "text-violet-600"}`}>
+                <p className={`mt-4 flex items-baseline gap-1 ${plan.isContact ? "min-h-[3rem] items-center" : ""}`}>
+                  <span className={`${plan.isContact ? "text-lg font-semibold" : "text-4xl font-extrabold tracking-tight"} ${plan.highlighted ? "text-white" : plan.isContact ? "text-violet-600" : "text-violet-600"}`}>
                     {price}
                   </span>
-                  {plan.sub && (
+                  {!plan.isContact && plan.sub && (
                     <span className={`text-sm ${plan.highlighted ? "text-violet-200" : "text-slate-500"}`}>
                       {plan.sub}
                     </span>
                   )}
                 </p>
 
-                {cycle === "yearly" && !plan.isFree && !plan.isContact && (
+                {cycle === "yearly" && !plan.isFree && !plan.isContact && price.startsWith("$") && (
                   <p className={`mt-1 text-xs ${plan.highlighted ? "text-violet-200" : "text-slate-400"}`}>
                     ${(parseFloat(price.replace("$", "")) / 12).toFixed(2)}{t("perMonth")}
                   </p>

@@ -236,11 +236,9 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment`** — align public pricing with FastSpring catalog.
+**Primary:** **`D3M-Payments-FastSpring-Test-Order-Plan`** — plan safe test-mode checkout.
 
-**Constraints:** Manual dashboard phase only — no code, no Live mode, no checkout/test order unless explicitly included in that phase.
-
-**Alternative:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment`** — align public pricing copy before activation.
+**Alternative:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment-Followup`** — refund/legal copy follow-up if needed.
 
 ## Notes For Next Chat
 
