@@ -30,7 +30,7 @@ No FastSpring account created. No application submitted. Production billing **NO
 | Product category | Confirmed | AI-assisted children’s storytelling SaaS |
 | Languages | Confirmed | Arabic, English, French |
 | Buyer profile | Confirmed | Parents, guardians, families, educators (adults) |
-| Subscription model | Confirmed | FREE + INDIVIDUAL + FAMILY at launch; SCHOOL deferred |
+| Subscription model | Confirmed | FREE + INDIVIDUAL + FAMILY at launch; SCHOOL deferred — catalog plan: `docs/D3M_FASTSPRING_CATALOG_PLAN.md` |
 | Product description | Partial | `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md` |
 | Demo video | **Answered** | https://drive.google.com/file/d/1uNimZx4qD17pWrtSnYUMHSLqiRHFB2y-/view?usp=drive_link (verify sharing before send) |
 
@@ -120,5 +120,5 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 | --- | --- |
 | Ready to submit FastSpring application? | **NO** |
 | Primary blockers | Preflight response pending; refund/licensing finalization; tax/VAT; payout confirmation |
-| Contact pack / store | Preflight submitted; trial store exists (**not Live**) — **`D3M-Payments-FastSpring-Activation-Checklist`** |
+| Contact pack / store / catalog | Preflight submitted; trial store (**not Live**); catalog **planned** — **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup`** |
 | Then | **`D3M-Payments-Provider-Application-Pack`** |

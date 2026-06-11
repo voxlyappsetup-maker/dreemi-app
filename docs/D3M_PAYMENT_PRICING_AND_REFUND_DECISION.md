@@ -2,7 +2,7 @@
 
 ## Status
 
-Pricing/refund/support inputs recorded; preflight fill (**D3M-Payments-FastSpring-Preflight-Fill**) added founder name and exact Privacy/Terms URLs.
+Pricing/refund/support inputs recorded; catalog plan (**D3M-Payments-FastSpring-Catalog-Plan**) reuses confirmed USD pricing for Individual/Family monthly/yearly.
 Refund/licensing wording remains **draft / pending final review**.
 No provider application submitted. Production billing **NO-GO**.
 

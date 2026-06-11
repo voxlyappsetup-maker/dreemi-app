@@ -4,6 +4,8 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
+Catalog planning completed — see `docs/D3M_FASTSPRING_CATALOG_PLAN.md`. Dashboard product creation remains a **later manual phase**.
+
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
 Reference: `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`

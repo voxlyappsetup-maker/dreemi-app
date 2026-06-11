@@ -529,6 +529,10 @@
   - FastSpring trial/test store state observed and recorded at `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`; store **not Live**; activation review pending minimum requirements.
   - No catalog/test order/checkout/webhook/payout/tax action in this phase; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Activation-Checklist`** or catalog plan.
+- Phase 4-D3M-Payments-FastSpring-Catalog-Plan note:
+  - Catalog plan at `docs/D3M_FASTSPRING_CATALOG_PLAN.md` for Individual/Family monthly/yearly; School deferred.
+  - No dashboard products created; no checkout/test order/API/webhook; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup`** or website pricing alignment.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
