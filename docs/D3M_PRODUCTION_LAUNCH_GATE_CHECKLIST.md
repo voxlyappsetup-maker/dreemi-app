@@ -162,7 +162,7 @@ Rules for usage:
 - Use `docs/D3M_NO_SECRET_DEPLOYMENT_READINESS_EVIDENCE_PASS.md` as D3 no-secret evidence pass.
 - Use `docs/D3M_PRODUCTION_SMOKE_AND_LAUNCH_EVIDENCE_PACK.md` for smoke/launch evidence planning.
 - Use `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md` for D6/D6-Fix local evidence.
-- Payment gates **BLOCKED**: FastSpring preflight form **SUBMITTED**; response **pending**; FastSpring eligibility **UNCONFIRMED**; application **NOT SUBMITTED**; provider approval **PENDING**. Do not mark PASS.
+- Payment gates **BLOCKED**: FastSpring trial/test store exists (**PARTIAL** evidence only); **not Live**; checkout/webhook/payout/integration pending. FastSpring eligibility/activation review still open. Do not mark PASS.
 - Database uptime gate **BLOCKED**: Supabase free-tier auto-pause risk; manual read-only check passed 2026-06-11; production DB uptime decision pending. See `docs/D3M_SUPABASE_INACTIVITY_WARNING.md`.
 - Use reusable KYB assets from `docs/D3M_PAYMENTS_PROVIDER_RESPONSE_PACKAGE.md`; do not mark payment gates PASS.
 
@@ -577,6 +577,7 @@ Current: NO-GO
 
 | Blocker | Gate | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
+| FastSpring store not Live / activation incomplete | Gate 9 | Critical | BLOCKED | Live approval + catalog + tax/KYC + test order evidence | `D3M-Payments-FastSpring-Activation-Checklist` |
 | Supabase Free auto-pause / production DB uptime unresolved | Gate 3, Gate 4 | Critical | BLOCKED | Supabase Pro vs dev-only vs alternative DB decision + ops evidence | `D3M-Infra-Database-Uptime-Decision` |
 | Payment provider external approval/readiness unresolved | Gate 9 | Critical | BLOCKED | Provider eligibility/KYB/KYC and legal payout closure evidence | `D3M-Payments-External-Verification` |
 | Real checkout/payment/webhook verification missing | Gate 9, Gate 10 | Critical | BLOCKED | Approved-provider checkout/purchase/webhook controlled smoke evidence | `D3M-Payments-External-Verification` |
@@ -616,17 +617,19 @@ Current: NO-GO
 19. `Payments-FastSpring-Preflight-Fill` — complete (founder/Privacy/Terms filled).
 20. `Payments-FastSpring-Preflight-Send-Manual` — complete (manual send packet; demo verified; message not sent).
 21. User manually submits FastSpring preflight message — **complete** (2026-06-07; Request Demo form).
-22. `Payments-FastSpring-Response-Record` — record FastSpring response.
-23. `Payments-Provider-Application-Pack` — after eligibility confirmed.
-24. Payment provider approval / runtime verification (post-selection).
-25. Final launch gate review.
+22. `Payments-FastSpring-Trial-Store-Setup-Record` — complete (trial store observed; not Live).
+23. `Payments-FastSpring-Activation-Checklist` — catalog, website, tax/KYC, test order readiness.
+24. `Payments-FastSpring-Response-Record` — record FastSpring response when received.
+25. `Payments-Provider-Application-Pack` — after eligibility confirmed.
+26. Payment provider approval / runtime verification (post-selection).
+27. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Infra-Database-Uptime-Decision`** → FastSpring response record or application pack as applicable
-- Alternative: **`D3M-Payments-FastSpring-Response-Record`** when FastSpring replies
+- Primary: **`D3M-Payments-FastSpring-Activation-Checklist`** or **`D3M-Payments-FastSpring-Catalog-Plan`**
+- Alternative: **`D3M-Infra-Database-Uptime-Decision`**
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

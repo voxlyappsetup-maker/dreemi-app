@@ -5,7 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update (FastSpring contact form submitted):** User submitted preflight via Request Demo form (2026-06-07); response pending; no account/application/integration; runtime payment unavailable/fail-closed.
+- **Update (FastSpring trial/test store):** Trial store observed; not Live; no integration/live billing; runtime payment unavailable/fail-closed.
 
 ## Why This Checkpoint Exists
 
@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Response-Record`** when FastSpring replies; optional **`D3M-Payments-FastSpring-Follow-Up-Draft`** if no response; then `D3M-Payments-Provider-Application-Pack` after eligibility confirmed.
+- **`D3M-Payments-FastSpring-Activation-Checklist`** or **`D3M-Payments-FastSpring-Catalog-Plan`** after trial store record; then integration/test/Live phases when approved.
 
 Alternative paths:
 

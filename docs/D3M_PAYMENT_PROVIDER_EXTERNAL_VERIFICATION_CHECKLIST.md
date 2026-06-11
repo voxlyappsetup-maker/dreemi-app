@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring preflight form submitted:** user submitted via Request Exemption / Request Demo form on **2026-06-07**; confirmation received; response **pending**. FastSpring eligibility **UNCONFIRMED**; application **NOT SUBMITTED**; provider approval **PENDING**; production billing **NO-GO**. See `docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`.
+**FastSpring trial/test store observed:** store in testing/trial mode; **not Live**; activation review pending minimum requirements. External verification/review **not complete**. Activation checklist required. See `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`.
 
 ## 3) Candidate provider categories
 

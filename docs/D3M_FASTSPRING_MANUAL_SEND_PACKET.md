@@ -14,6 +14,8 @@ FastSpring eligibility remains **UNCONFIRMED** until response. Production billin
 
 **Submission record:** `docs/D3M_FASTSPRING_CONTACT_FORM_SUBMISSION_RECORD.md`
 
+**Superseded for next work:** trial/test store observed — see `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md` and `docs/D3M_FASTSPRING_ACTIVATION_CHECKLIST.md`. Keep this packet for historical preflight record only.
+
 **Remaining caveats (not blockers for preflight send):**
 
 - Final refund wording remains draft/pending final public policy review.

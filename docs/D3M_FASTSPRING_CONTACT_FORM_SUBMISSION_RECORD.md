@@ -109,6 +109,7 @@ Production billing remains **NO-GO**.
 ## Notes For Next Chat
 
 - FastSpring preflight form submitted manually by user on **2026-06-07**; response **pending**.
+- **Follow-up:** FastSpring trial/test store was observed after contact path; store **not Live**; activation review pending minimum requirements. See `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`.
 - Do not create FastSpring account or submit application until FastSpring confirms eligibility path or instructs next steps.
 - Do not mark payment gates PASS; production billing remains No-Go.
 - Record response in **`D3M-Payments-FastSpring-Response-Record`** when received.

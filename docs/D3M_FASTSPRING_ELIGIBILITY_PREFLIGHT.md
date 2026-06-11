@@ -280,9 +280,9 @@ Payment gates remain **BLOCKED**. Do not mark payment gates PASS.
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Preflight-Send-Manual`** — verify demo sharing; send preflight message manually.
+**Primary:** **`D3M-Payments-FastSpring-Activation-Checklist`** — trial store observed; catalog, website, tax/KYC, test order readiness.
 
-**Reference:** `docs/D3M_FASTSPRING_PREFLIGHT_FINAL_REVIEW.md`
+**Reference:** `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`, `docs/D3M_FASTSPRING_ACTIVATION_CHECKLIST.md`
 
 **If FastSpring declines path:** **`D3M-Payments-Creem-Backup-Preflight`** (future phase).
 

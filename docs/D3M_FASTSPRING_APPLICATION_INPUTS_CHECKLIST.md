@@ -4,7 +4,7 @@
 
 Operational checklist derived from `docs/D3M_ENTITY_AND_PAYOUT_DECISION.md` and fill/preflight phases.
 **Not ready for submission.** Application pack **blocked** until preflight response confirms eligibility or defines required legal/entity setup.
-Contact pack: `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md` — **message not sent**.
+Contact pack: `docs/D3M_FASTSPRING_PREFLIGHT_CONTACT_PACK.md` — preflight **submitted**; trial store observed — `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`.
 No FastSpring account created. No application submitted. Production billing **NO-GO**.
 
 ## Required Before Application
@@ -120,5 +120,5 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 | --- | --- |
 | Ready to submit FastSpring application? | **NO** |
 | Primary blockers | Preflight response pending; refund/licensing finalization; tax/VAT; payout confirmation |
-| Contact pack | Near send-ready — **`D3M-Payments-FastSpring-Preflight-Send-Manual`** after demo sharing verify |
+| Contact pack / store | Preflight submitted; trial store exists (**not Live**) — **`D3M-Payments-FastSpring-Activation-Checklist`** |
 | Then | **`D3M-Payments-Provider-Application-Pack`** |
