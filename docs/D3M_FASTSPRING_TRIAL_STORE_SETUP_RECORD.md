@@ -249,7 +249,7 @@ Production billing remains **NO-GO** until store is Live, provider approval is c
 ## Notes For Next Chat
 
 - Trial/test store observed; **not Live**; activation review pending minimum requirements.
-- **Follow-up:** catalog plan at `docs/D3M_FASTSPRING_CATALOG_PLAN.md`; catalog dashboard setup record **NOT_STARTED** — `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`.
+- **Follow-up:** catalog dashboard setup **COMPLETE** — `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`.
 - Do not create catalog, run test orders, or request Live from repo phases without explicit phase approval.
 - Do not copy bank/tax/identity/API secrets into docs.
 - Production billing remains No-Go.

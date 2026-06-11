@@ -227,7 +227,7 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 | Gate | Status |
 | --- | --- |
 | Payment provider gate | **PARTIAL** — trial/test store exists; catalog plan created |
-| Catalog gate | **PLANNED** — not created in dashboard |
+| Catalog gate | **COMPLETE** for planned test/trial offerings (dashboard setup confirmed) |
 | Checkout gate | **BLOCKED** — no checkout/test order |
 | Webhook gate | **BLOCKED** — no integration |
 | Entitlement gate | **BLOCKED** — mapping planned only |
@@ -236,7 +236,7 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`** — user confirms manual catalog creation safe facts.
+**Primary:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment`** — align public pricing with FastSpring catalog.
 
 **Constraints:** Manual dashboard phase only — no code, no Live mode, no checkout/test order unless explicitly included in that phase.
 
@@ -251,7 +251,7 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Related Artifacts
 
-- Dashboard setup record: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` — manual setup **NOT_STARTED** / pending user confirmation
+- Dashboard setup record: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` — manual setup **COMPLETE** (test/trial catalog configured)
 - Dashboard setup checklist: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_CHECKLIST.md`
 - Activation checklist: `docs/D3M_FASTSPRING_ACTIVATION_CHECKLIST.md`
 - Trial store record: `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`

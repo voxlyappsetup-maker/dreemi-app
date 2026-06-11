@@ -5,7 +5,7 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update (FastSpring catalog dashboard setup record):** Manual setup NOT_STARTED / unconfirmed; runtime fail-closed; no integration.
+- **Update (FastSpring catalog dashboard setup COMPLETE):** Individual/Family monthly/yearly in test/trial dashboard; runtime fail-closed; no integration.
 
 ## Why This Checkpoint Exists
 
@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`** after user confirms manual catalog creation; then website alignment and test order plan.
+- **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**, then test order plan and integration phases when approved.
 
 Alternative paths:
 

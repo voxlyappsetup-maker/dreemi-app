@@ -2,7 +2,7 @@
 
 ## Status
 
-Setup record: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` — result **NOT_STARTED** / pending user safe confirmations.
+Setup record: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` — result **COMPLETE** (Individual/Family monthly/yearly in test/trial dashboard).
 
 Store: **Testing / trial mode**. **Not Live.** Production billing **NO-GO**.
 
@@ -19,14 +19,14 @@ Safe manual checklist for creating planned catalog entries in FastSpring dashboa
 - Do not run test checkout unless dedicated test-mode phase approves.
 - Record status/decisions only — no sensitive IDs unless user explicitly approves redacted summary.
 
-## Products To Create Later
+## Products Created (Confirmed)
 
-| Proposed ID | Public name | Interval | Price (USD) | Internal plan |
-| --- | --- | --- | --- | --- |
-| `dreemi-individual-monthly` | Individual | Monthly | 4.99 | INDIVIDUAL |
-| `dreemi-individual-yearly` | Individual | Yearly | 47.90 | INDIVIDUAL |
-| `dreemi-family-monthly` | Family | Monthly | 9.99 | FAMILY |
-| `dreemi-family-yearly` | Family | Yearly | 95.90 | FAMILY |
+| Proposed ID | Public name | Interval | Price (USD) | Internal plan | Status |
+| --- | --- | --- | --- | --- | --- |
+| `dreemi-individual-monthly` | Dreemi Individual — Monthly | Monthly | 4.99 | INDIVIDUAL | Created |
+| `dreemi-individual-yearly` | Dreemi Individual — Yearly | Yearly | 47.90 | INDIVIDUAL | Created |
+| `dreemi-family-monthly` | Dreemi Family — Monthly | Monthly | 9.99 | FAMILY | Created |
+| `dreemi-family-yearly` | Dreemi Family — Yearly | Yearly | 95.90 | FAMILY | Created |
 
 ## Products Not To Create Yet
 
@@ -54,11 +54,11 @@ Safe manual checklist for creating planned catalog entries in FastSpring dashboa
 
 Record in docs only (no secrets):
 
-- [ ] Product IDs confirmed match proposed IDs (or document any FastSpring-assigned variance)
-- [ ] Prices entered correctly
-- [ ] Product names match website intent
-- [ ] Store still in Test/trial mode
-- [ ] Live still disabled
+- [x] Product IDs confirmed match proposed IDs
+- [x] Prices entered correctly
+- [x] Product names match plan
+- [x] Store still in Test/trial mode
+- [x] Live still disabled
 
 ## Stop Conditions
 

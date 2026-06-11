@@ -120,5 +120,5 @@ See `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`.
 | --- | --- |
 | Ready to submit FastSpring application? | **NO** |
 | Primary blockers | Preflight response pending; refund/licensing finalization; tax/VAT; payout confirmation |
-| Contact pack / store / catalog | Preflight submitted; trial store (**not Live**); catalog dashboard setup **NOT_STARTED** — `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` |
+| Contact pack / store / catalog | Preflight submitted; trial store (**not Live**); catalog dashboard setup **COMPLETE** — `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md` |
 | Then | **`D3M-Payments-Provider-Application-Pack`** |

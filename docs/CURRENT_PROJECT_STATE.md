@@ -533,10 +533,10 @@
   - Catalog plan at `docs/D3M_FASTSPRING_CATALOG_PLAN.md` for Individual/Family monthly/yearly; School deferred.
   - No dashboard products created; no checkout/test order/API/webhook; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup`** or website pricing alignment.
-- Phase 4-D3M-Payments-FastSpring-Catalog-Dashboard-Setup note:
-  - Setup record at `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`; result **NOT_STARTED** (user confirmations pending).
-  - No Live mode, checkout/test order, API/webhook, payout, tax/KYC, or runtime integration; production billing No-Go.
-  - Next: user completes manual dashboard setup and confirms safe facts, or **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`**.
+- Phase 4-D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Confirmations note:
+  - Catalog dashboard setup **COMPLETE** — four subscriptions in test/trial dashboard per `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`.
+  - School not created; no Live/checkout/API/webhook/payout/tax/KYC; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

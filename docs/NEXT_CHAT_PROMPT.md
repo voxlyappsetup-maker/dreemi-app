@@ -238,9 +238,9 @@ Constraints:
 - D3M-Triage-D6 local no-deploy manual smoke results are at `docs/D3M_LOCAL_NO_DEPLOY_MANUAL_SMOKE_RESULTS.md`.
 - D6 executed local smoke only; final result PARTIAL; production launch remains No-Go.
 - D6-Fix committed at `598151b`; story detail SSR storage crash fixed.
-- D3M-Payments-FastSpring-Catalog-Dashboard-Setup: record at `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`; result **NOT_STARTED** until user confirms safe dashboard facts.
-- Production billing No-Go; Supabase auto-pause remains infra blocker.
-- Next: complete manual catalog setup + confirm safe facts, or **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`**; compact Cursor reports required.
+- D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Confirmations complete: catalog **COMPLETE** for Individual/Family monthly/yearly; School deferred; record at `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`.
+- No Live/checkout/API/webhook/payout/tax/KYC/runtime integration; production billing No-Go.
+- Next: **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**; compact Cursor reports required.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -250,7 +250,8 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup` — user confirms manual catalog creation safe facts, or
+  - `D3M-Payments-FastSpring-Website-Pricing-Alignment` — align public pricing with FastSpring catalog, or
+  - `D3M-Payments-FastSpring-Test-Order-Plan` — plan test-mode checkout after website alignment, or
   - `D3M-Payments-FastSpring-Website-Pricing-Alignment` — align public pricing copy before activation, or
   - `D3M-Infra-Database-Uptime-Decision` — decide Supabase Pro vs dev-only vs alternative DB, or
   - `D3M-Payments-FastSpring-Response-Record` — record FastSpring response when received, or

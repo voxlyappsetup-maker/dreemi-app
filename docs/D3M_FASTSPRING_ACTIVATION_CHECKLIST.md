@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup record created — manual creation **NOT_STARTED** / unconfirmed. Activation remains blocked by website alignment, test order, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE** for Individual/Family monthly/yearly in test/trial dashboard. Activation remains blocked by website alignment, test order, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -24,10 +24,12 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 
 ## Catalog Setup
 
-- [ ] Individual monthly subscription (USD 4.99)
-- [ ] Individual yearly subscription (USD 47.90)
-- [ ] Family monthly subscription (USD 9.99)
-- [ ] Family yearly subscription (USD 95.90)
+- [x] Individual monthly subscription (USD 4.99) — created in dashboard
+- [x] Individual yearly subscription (USD 47.90) — created in dashboard
+- [x] Family monthly subscription (USD 9.99) — created in dashboard
+- [x] Family yearly subscription (USD 95.90) — created in dashboard
+- [x] Family monthly subscription (USD 9.99) — created in dashboard
+- [x] Family yearly subscription (USD 95.90) — created in dashboard
 - [ ] School plan remains deferred
 - [ ] Product names match public website
 

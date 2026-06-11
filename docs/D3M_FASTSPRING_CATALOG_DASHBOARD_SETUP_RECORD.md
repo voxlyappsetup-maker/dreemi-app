@@ -6,7 +6,7 @@ This is a manual FastSpring test/trial catalog setup record.
 
 Repository changes are **docs-only**.
 
-**Manual setup result: NOT_STARTED** — user safe confirmations were not received in this phase session; dashboard catalog creation status is unconfirmed.
+**Manual setup result: COMPLETE** — user manually created all four planned FastSpring subscription offerings in the FastSpring testing/trial dashboard and provided safe confirmations.
 
 No runtime code was changed.
 No checkout/test order was executed.
@@ -24,7 +24,8 @@ Production billing remains **NO-GO**.
 
 ## Current Baseline
 
-- Latest stable commit: `1c992f7 Add FastSpring catalog plan`
+- Latest stable commit: `d8bd40d Record FastSpring catalog dashboard setup`
+- Confirmations phase: **D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Confirmations**
 - Catalog plan: `docs/D3M_FASTSPRING_CATALOG_PLAN.md`
 - Dashboard checklist: `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_CHECKLIST.md`
 
@@ -34,7 +35,7 @@ Production billing remains **NO-GO**.
 | --- | --- |
 | `docs/D3M_FASTSPRING_CATALOG_PLAN.md` | Available |
 | `docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_CHECKLIST.md` | Available |
-| User safe dashboard confirmations | **Not received** in this phase session |
+| User safe dashboard confirmations | **Received** (2026 confirmations phase) |
 | FastSpring dashboard (Cursor access) | **Not accessed** (forbidden) |
 
 ## Explicit Non-Goals
@@ -62,42 +63,48 @@ Production billing remains **NO-GO**.
 
 ## Manual Setup Result
 
-**NOT_STARTED**
+**COMPLETE**
 
-Do not mark **COMPLETE** until the user confirms all four offerings were created with correct name, price, currency, and interval, and all safety boundaries below are confirmed.
+The user manually created all four planned FastSpring subscription offerings in the FastSpring testing/trial dashboard.
+
+All eleven safe confirmations received: names, prices (4.99, 47.90, 9.99, 95.90 USD), currency USD, intervals monthly/yearly, School not created, no Live/checkout/API/webhooks/tax/KYC/payout/secrets.
 
 ## Offering Setup Results
 
 | Offering | Created? | Observed Public Name | Observed Product Path / ID | Observed Price | Observed Currency | Observed Billing Interval | Internal Plan | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Dreemi Individual — Monthly | Pending | — | `dreemi-individual-monthly` (planned) | USD 4.99 (planned) | USD | Monthly | INDIVIDUAL | Pending | Awaiting user confirmation |
-| Dreemi Individual — Yearly | Pending | — | `dreemi-individual-yearly` (planned) | USD 47.90 (planned) | USD | Yearly | INDIVIDUAL | Pending | Awaiting user confirmation |
-| Dreemi Family — Monthly | Pending | — | `dreemi-family-monthly` (planned) | USD 9.99 (planned) | USD | Monthly | FAMILY | Pending | Awaiting user confirmation |
-| Dreemi Family — Yearly | Pending | — | `dreemi-family-yearly` (planned) | USD 95.90 (planned) | USD | Yearly | FAMILY | Pending | Awaiting user confirmation |
+| Dreemi Individual — Monthly | Yes | Dreemi Individual — Monthly | `dreemi-individual-monthly` | 4.99 | USD | Monthly | INDIVIDUAL | PASS | Matches plan |
+| Dreemi Individual — Yearly | Yes | Dreemi Individual — Yearly | `dreemi-individual-yearly` | 47.90 | USD | Yearly | INDIVIDUAL | PASS | Matches plan |
+| Dreemi Family — Monthly | Yes | Dreemi Family — Monthly | `dreemi-family-monthly` | 9.99 | USD | Monthly | FAMILY | PASS | Matches plan |
+| Dreemi Family — Yearly | Yes | Dreemi Family — Yearly | `dreemi-family-yearly` | 95.90 | USD | Yearly | FAMILY | PASS | Matches plan |
 
 ## Deferred / Not Created Items
 
 | Item | Expected | Status |
 | --- | --- | --- |
-| School plan (`dreemi-school`) | **Do not create** | Assumed not created — confirm with user |
-| Free plan product | **Do not create** | Assumed not created — confirm with user |
-| One-time purchase products | **Do not create** | Assumed not created — confirm with user |
+| School plan (`dreemi-school`) | **Do not create** | **Confirmed not created** |
+| Free plan product | **Do not create** | **Confirmed not created** |
+| One-time purchase products | **Do not create** | **Confirmed not created** |
+
+School plan was intentionally not created.
+No free product was created.
+No one-time product was created.
 
 ## Safety Confirmations
 
-Pending user confirmation:
+User confirmed:
 
-- [ ] No Live mode enabled
-- [ ] No checkout/test order executed
-- [ ] No API keys created
-- [ ] No webhook secrets created
-- [ ] No payout activation
-- [ ] No tax profile submission
-- [ ] No KYC/identity details copied
-- [ ] No bank/PayPal private details copied
-- [ ] No secrets committed
-- [ ] No runtime code changed
-- [ ] School plan not created
+- [x] No Live mode enabled
+- [x] No checkout/test order executed
+- [x] No API keys created
+- [x] No webhook secrets created
+- [x] No payout activation
+- [x] No tax profile submission
+- [x] No KYC/identity details copied
+- [x] No bank/PayPal private details copied
+- [x] No secrets committed
+- [x] No runtime code changed
+- [x] School plan not created
 
 ## What Was Not Done
 
@@ -109,25 +116,22 @@ Pending user confirmation:
 - No activation request
 - No payout activation
 - No tax/KYC submission
-- No confirmed dashboard catalog creation (status unconfirmed)
 
 ## Dashboard Blockers / Deviations
 
-None recorded — user confirmations not received.
-
-If FastSpring requires different path formatting than planned IDs, record the **safe public path only** (no private internal IDs) in a follow-up update.
+None — all four offerings created with planned paths, names, prices, currency, and intervals.
 
 ## Catalog Consistency Review
 
 Future activation requires **website pricing to match the FastSpring catalog**.
 
-Website pricing alignment remains a **separate phase** unless already verified.
+Website pricing alignment remains a **separate phase** — not yet verified.
 
-Reference: `D3M-Payments-FastSpring-Website-Pricing-Alignment`
+**Next:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**
 
 ## Entitlement Mapping Review
 
-| FastSpring offering (when created) | Internal plan |
+| FastSpring offering | Internal plan |
 | --- | --- |
 | Individual monthly/yearly | INDIVIDUAL |
 | Family monthly/yearly | FAMILY |
@@ -138,15 +142,17 @@ No runtime implementation in this phase.
 
 ## Payment Readiness Impact
 
-Catalog dashboard setup **does not enable production billing** until completed and verified.
+FastSpring catalog dashboard setup is **complete** for the initial Individual and Family launch catalog.
 
-Production billing remains **NO-GO** until provider approval, website alignment, test checkout, webhook integration, entitlement mapping, and Live activation are complete.
+This improves provider activation readiness but **does not enable production billing**.
+
+Production billing remains **NO-GO** until website pricing alignment, refund wording, test checkout, webhook integration, entitlement mapping, provider Live approval, and payout readiness are complete.
 
 ## Launch Gate Impact
 
 | Gate | Status |
 | --- | --- |
-| Catalog gate | **NOT_STARTED** — no confirmed manual dashboard evidence |
+| Catalog gate | **COMPLETE** for planned test/trial offerings |
 | Checkout gate | **BLOCKED** |
 | Webhook gate | **BLOCKED** |
 | Entitlement runtime gate | **BLOCKED** |
@@ -158,7 +164,6 @@ Production billing remains **NO-GO** until provider approval, website alignment,
 
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| Catalog setup not confirmed | Catalog | Critical | **OPEN** | User safe confirmations + offering table filled | This phase follow-up or **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`** |
 | Website pricing alignment pending | Website | High | **OPEN** | Public pricing matches catalog | Website pricing alignment |
 | Refund wording finalization pending | Legal | High | **OPEN** | Final public refund text | Legal/Terms review |
 | Test checkout not executed | Test mode | High | **OPEN** | Test-mode checkout evidence | Test order plan |
@@ -170,42 +175,16 @@ Production billing remains **NO-GO** until provider approval, website alignment,
 
 ## Recommended Next Phase
 
-**If user completes dashboard setup:** update this record to COMPLETE/PARTIAL, then **`D3M-Payments-FastSpring-Website-Pricing-Alignment`**.
+**Primary:** **`D3M-Payments-FastSpring-Website-Pricing-Alignment`** — align public pricing copy before activation.
 
-**If setup incomplete or blocked:** **`D3M-Payments-FastSpring-Catalog-Dashboard-Setup-Followup`**.
-
-**Alternative after catalog complete:** **`D3M-Payments-FastSpring-Test-Order-Plan`**.
+**Alternative:** **`D3M-Payments-FastSpring-Test-Order-Plan`** — plan test-mode checkout after website/pricing alignment.
 
 ## Notes For Next Chat
 
-User must confirm (safe facts only):
-
-1. Were all four planned offerings created?
-2. Public names exact or near-exact?
-3. Prices exact (4.99, 47.90, 9.99, 95.90 USD)?
-4. Currency USD?
-5. Intervals monthly/yearly correct?
-6. School not created?
-7. Live mode not enabled?
-8. No checkout/test order?
-9. No API keys/webhooks created?
-10. No tax/KYC/payout touched?
-11. No secrets copied?
-
-Do **not** paste API keys, webhook secrets, payout/bank/tax/identity details, or checkout URLs.
-
-## Manual Dashboard Instructions (User)
-
-Create **only** these four subscriptions in FastSpring **test/trial** mode:
-
-1. **Dreemi Individual — Monthly** — path `dreemi-individual-monthly`, USD 4.99, monthly
-2. **Dreemi Individual — Yearly** — path `dreemi-individual-yearly`, USD 47.90, yearly
-3. **Dreemi Family — Monthly** — path `dreemi-family-monthly`, USD 9.99, monthly
-4. **Dreemi Family — Yearly** — path `dreemi-family-yearly`, USD 95.90, yearly
-
-**Do not create:** School, free products, one-time products, or run checkout/test orders.
-
-**Do not touch:** Live mode, payouts, tax, KYC, API credentials, webhooks, activation request.
+- Catalog dashboard setup **COMPLETE** for four launch subscriptions in test/trial mode.
+- Store remains **not Live**; no checkout/webhook/integration in this phase.
+- Do not mark payment production gates PASS.
+- Next: website pricing alignment before activation/test checkout.
 
 ## Related Artifacts
 
