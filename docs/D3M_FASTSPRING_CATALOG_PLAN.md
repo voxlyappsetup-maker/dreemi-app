@@ -212,7 +212,7 @@ Do not implement in this phase.
 | Website pricing may not match final catalog | Website | High | **OPEN** | Aligned pricing page | Website pricing alignment |
 | Refund wording not final | Legal | High | **OPEN** | Final public refund text | Legal/Terms review |
 | Tax/KYC not completed | Provider | High | **OPEN** | Dashboard verification | Manual dashboard |
-| Test order not executed | Test mode | High | **OPEN** | Test checkout evidence | Dedicated test-mode phase |
+| Test order not executed | Test mode | High | **OPEN — BLOCKED attempt** | Safe test-mode PASS | Test-order follow-up |
 | Webhooks/API not integrated | Integration | Critical | **OPEN** | Controlled integration | Integration phase |
 | Entitlement mapping not implemented | Runtime | Critical | **OPEN** | FastSpring webhook → plan mapping | Integration phase |
 | Payout not activated | Payout | Critical | **OPEN** | Post-Live payout | Post-Live phase |
@@ -238,9 +238,9 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**.
+**Primary:** **`D3M-Payments-FastSpring-Test-Order-Followup`**.
 
-**Alternative:** **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**.
+Catalog fulfillment position: SaaS entitlement/access (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Manual test attempt **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`).
 
 Catalog plan follow-up: activation gap audit `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; test-order plan `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 

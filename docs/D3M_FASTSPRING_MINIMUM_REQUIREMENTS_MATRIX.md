@@ -21,7 +21,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 | 7 | Refund Policy visible | Public `/refund` routes + footer links; 7-day policy | **Yes** |
 | 8 | SaaS fulfillment decision | Documented SaaS account entitlement | **Yes** |
 | 9 | Checkout style chosen | Web Checkout planned in docs | **Partial** |
-| 10 | Test order (test mode) | Plan only; not executed | **No** |
+| 10 | Test order (test mode) | Attempted — BLOCKED (checkout reached; USD mismatch) | **No** |
 | 11 | Business details complete | Not documented | **Unverified** |
 | 12 | User Agreement signed | Not documented | **Unverified** |
 | 13 | Tax profile complete | Not documented | **Unverified** |
@@ -32,7 +32,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 ## Not Ready Items
 
-- Test order execution
+- Test order execution — **BLOCKED attempt** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`)
 - Business details / User Agreement / tax / KYC (dashboard — manual)
 - Activation request after requirements met
 - Dreemi webhook + entitlement integration (production billing blocker)
@@ -50,7 +50,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Test-Order-Manual-Execution`
+1. `D3M-Payments-FastSpring-Test-Order-Followup`
 2. `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 3. `D3M-Payments-FastSpring-Activation-Request-Email`
 

@@ -6,7 +6,9 @@
 
 **Follow-up (Refund Policy alignment):** Refund Policy visibility gap addressed by `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` — public `/refund` routes and footer links added.
 
-**Follow-up (SaaS fulfillment decision):** Fulfillment gap addressed by `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md` — Dreemi fulfillment is SaaS account entitlement, not file/license delivery. Remaining gaps in this audit still open.
+**Follow-up (SaaS fulfillment decision):** Fulfillment gap addressed by `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md` — Dreemi fulfillment is SaaS account entitlement, not file/license delivery.
+
+**Follow-up (Test order manual execution):** Individual Monthly test attempted — **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). Checkout reached in test mode; SAR 22.99 displayed (not USD 4.99); order not completed. Remaining gaps still open.
 
 This is a docs-only activation gap audit.
 No checkout was opened.
@@ -110,7 +112,7 @@ Official guidance groups activation into three areas:
 | Website pricing | **Complete** — matches catalog |
 | Website legal | **Partial** — Terms/Privacy/Refund linked; SaaS fulfillment documented; business items remain |
 | Fulfillment | **Not resolved** for FastSpring activation review |
-| Test order | **Planned, not executed** |
+| Test order | **Attempted — BLOCKED** | Safe evidence at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md` |
 | Business/tax/KYC/User Agreement | **Not documented as complete** |
 | Activation request | **Not sent** after requirements completion |
 | Dreemi runtime integration | **Not implemented** (webhooks, entitlements) |
@@ -129,7 +131,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 | Refund Policy visibility | Clear Refund Policy link/section | **Complete** — public `/refund` (en/ar/fr); footer links | `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` | Addressed in follow-up phase | — | Re-verify public URLs at deploy |
 | Fulfillment decision for SaaS | Assign fulfillment where applicable | **Complete** — SaaS account entitlement documented | `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md` | Addressed in follow-up phase | — | Do not configure file/license fulfillment in dashboard |
 | Checkout style | Choose checkout approach | **Planned** — Web Checkout first (docs) | Catalog plan | Not confirmed in dashboard for activation | Medium | Confirm Web Checkout in dashboard when manually ready |
-| Test order | Test-mode order | **Not executed** | Test order plan | No test checkout evidence | **High** | Manual test-order execution phase |
+| Test order | Test-mode order | **BLOCKED** — checkout reached; price/currency mismatch; order not completed | `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md` | Catalog parity + test-mode payment path | **Critical** | Test-order follow-up |
 | Business details | Complete in dashboard | **Unverified / not documented complete** | Entity/payout docs (high level) | Cannot claim complete from repo | **Critical** | Manual dashboard completion outside repo |
 | User Agreement | Sign in FastSpring | **Not documented as signed** | — | Unknown completion | **Critical** | Sign manually when ready |
 | Tax profile | Complete tax profile | **Not documented as submitted** | Tax posture pending legal review | Unknown completion | **Critical** | Submit manually when legal/tax ready |
@@ -155,7 +157,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 
 ## Incomplete / Unverified Items
 
-- Actual test order has not been executed.
+- Individual Monthly test checkout attempted in test mode — **BLOCKED** (checkout reached; SAR 22.99 vs expected USD 4.99; order not completed).
 - Fulfillment action/decision for SaaS is documented for activation review (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`).
 - Business details are not documented as complete in FastSpring dashboard.
 - FastSpring User Agreement is not documented as signed.
@@ -172,7 +174,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 
 **Verdict: PARTIAL / NOT READY FOR ACTIVATION REQUEST YET.**
 
-**Reason:** Dreemi has completed catalog setup, website pricing alignment, Refund Policy visibility, and SaaS fulfillment decision documentation, but has not yet completed all FastSpring activation preparation items. The most important open items are business/User Agreement/tax/KYC readiness, actual test order execution, and activation request to the FastSpring representative.
+**Reason:** Dreemi has completed catalog setup, website pricing alignment, Refund Policy visibility, and SaaS fulfillment decision documentation, and attempted an Individual Monthly test checkout (BLOCKED). Open items include resolving test-checkout currency/price/test-mode block, business/User Agreement/tax/KYC readiness, and activation request to the FastSpring representative.
 
 **Answer to user question:** Dreemi has **not** fully met FastSpring's minimum requirements for activation review. Catalog and website pricing alignment are complete; remaining gaps explain why the store may still show testing/trial mode without automatic review completion.
 
@@ -198,8 +200,9 @@ Recommended sequence:
 
 1. ~~**`D3M-Payments-FastSpring-Refund-Policy-Alignment`**~~ — **complete**
 2. ~~**`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**~~ — **complete**
-3. **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** — one safe test-mode order (Individual Monthly only)
-4. **`D3M-Payments-FastSpring-Activation-Request-Email`** — contact representative after above (and manual tax/KYC/User Agreement when ready)
+3. ~~**`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**~~ — **attempted — BLOCKED** (see `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`)
+4. **`D3M-Payments-FastSpring-Test-Order-Followup`** — resolve blockers and retry safely
+5. **`D3M-Payments-FastSpring-Activation-Request-Email`** — contact representative after test PASS (and manual tax/KYC/User Agreement when ready)
 
 Do **not** request Live activation or enable payouts until FastSpring approves and Dreemi webhook/entitlement phases are scoped separately.
 
@@ -221,7 +224,7 @@ No Live activation requested.
 | --- | --- | --- | --- | --- | --- |
 | Refund Policy visibility not confirmed | Website/legal | High | **CLOSED** | Public refund routes/links | — |
 | SaaS fulfillment decision missing | Catalog/activation | High | **CLOSED** | Documented SaaS entitlement decision | Test order or webhook plan |
-| Actual test order not executed | Provider validation | High | **OPEN** | Safe P1 test PASS | Test-order manual execution |
+| Actual test order not executed | Provider validation | High | **OPEN — BLOCKED attempt** | Safe test-mode PASS with USD 4.99 / Monthly | Test-order follow-up |
 | User Agreement not documented as signed | Provider/legal | Critical | **OPEN** | Dashboard completion (manual) | Manual dashboard (outside repo) |
 | Tax profile not documented as completed | Provider/tax | Critical | **OPEN** | Tax profile submitted (manual) | Manual dashboard (outside repo) |
 | KYC readiness not documented | Provider/KYC | Critical | **OPEN** | KYC docs submitted (manual) | Manual dashboard (outside repo) |
@@ -252,7 +255,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe FastSpring test-mode checkout for Individual Monthly only
+**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup` — resolve checkout currency/price and test-mode payment block; retry Individual Monthly safely
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
 

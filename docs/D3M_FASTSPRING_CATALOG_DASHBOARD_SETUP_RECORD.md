@@ -127,7 +127,7 @@ Future activation requires **website pricing to match the FastSpring catalog**.
 
 Website pricing alignment remains a **separate phase** — not yet verified.
 
-**Next:** **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** (SaaS fulfillment decision documented at `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`).
+**Next:** **`D3M-Payments-FastSpring-Test-Order-Followup`** (manual execution **BLOCKED** — see `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`).
 
 ## Entitlement Mapping Review
 
@@ -166,7 +166,7 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 | --- | --- | --- | --- | --- | --- |
 | Website pricing alignment pending | Website | High | **CLOSED** | Public pricing matches catalog | `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md` |
 | Refund wording finalization pending | Legal | High | **OPEN** | Final public refund text | Legal/Terms review |
-| Test checkout not executed | Test mode | High | **OPEN** | Test-mode checkout evidence | Test order plan |
+| Test checkout not executed | Test mode | High | **OPEN — BLOCKED attempt** | Safe test-mode PASS | Test-order follow-up |
 | Webhook/API integration not implemented | Integration | Critical | **OPEN** | Controlled integration | Integration phase |
 | Entitlement runtime mapping not implemented | Runtime | Critical | **OPEN** | Webhook → plan mapping | Integration phase |
 | FastSpring Live activation not complete | Provider | Critical | **OPEN** | Live approval | Activation checklist |
@@ -175,11 +175,9 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**.
+**Primary:** **`D3M-Payments-FastSpring-Test-Order-Followup`**.
 
-**Alternative:** **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**.
-
-Dashboard catalog setup remains complete; fulfillment decision now documented separately at `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`.
+Dashboard catalog setup remains complete; fulfillment decision documented at `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`. Individual Monthly test attempt **BLOCKED** at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`.
 
 Follow-up: activation gap audit `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; test-order plan `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 

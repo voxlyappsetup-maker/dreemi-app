@@ -2,7 +2,7 @@
 
 ## Status
 
-**ACTIVE** — applies to future FastSpring test-mode checkout execution phases only. No test order has been executed under this policy yet.
+**ACTIVE** — applies to FastSpring test-mode checkout execution phases. First execution recorded at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md` (**BLOCKED**; safe evidence only).
 
 ## Purpose
 
@@ -57,5 +57,6 @@ Stop if evidence policy cannot be satisfied without violating forbidden evidence
 ## Notes
 
 - This policy complements `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md` and `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`.
+- First execution under this policy: `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md` (**BLOCKED**; SAR 22.99 vs expected USD 4.99 at checkout).
 - Production billing remains **NO-GO** regardless of test evidence quality.
 - Dreemi runtime entitlements must not change based on manual test-order evidence alone.

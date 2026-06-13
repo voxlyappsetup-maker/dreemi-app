@@ -216,7 +216,7 @@ The SaaS fulfillment decision improves FastSpring activation readiness by clarif
 
 - SaaS fulfillment decision gate: **PASS**
 - FastSpring minimum requirements: still **PARTIAL** until test order and business/tax/KYC/activation request are complete
-- Actual test checkout gate: **BLOCKED / NOT_EXECUTED**
+- Actual test checkout gate: **BLOCKED** — manual execution attempted; see `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`
 - Webhook gate: **BLOCKED**
 - Entitlement runtime gate: **BLOCKED**
 - Live billing gate: **BLOCKED**
@@ -225,9 +225,11 @@ The SaaS fulfillment decision improves FastSpring activation readiness by clarif
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe FastSpring test-mode checkout for Individual Monthly only
+**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup` — resolve checkout currency/price and test-mode block before retry
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
+
+Follow-up test execution completed after this decision — **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`).
 
 ## Notes For Next Chat
 

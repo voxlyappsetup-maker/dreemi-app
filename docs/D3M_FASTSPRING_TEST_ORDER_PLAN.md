@@ -272,9 +272,7 @@ Production billing remains **NO-GO** until a safe test checkout is executed, web
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe FastSpring test-mode checkout for Dreemi Individual Monthly only
-
-**Constraints:** Manual provider-side test only. No code. No live payment. No webhook/API setup. No secrets. Record safe evidence only.
+**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup` — resolve blockers from manual execution (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`)
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before any runtime integration
 
@@ -285,8 +283,8 @@ Production billing remains **NO-GO** until a safe test checkout is executed, web
 - Runtime checkout remains fail-closed; Plan screen / pricing buttons must not enable live purchase.
 - Follow `docs/D3M_FASTSPRING_TEST_ORDER_EVIDENCE_POLICY.md` for any future evidence recording.
 - Do not paste order IDs, checkout URLs, or buyer PII into repo or chat.
-- Activation gap audit (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`): minimum requirements **PARTIAL** — Refund Policy and SaaS fulfillment decision complete; actual test order and business/tax/KYC remain before activation request.
-- SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`); actual test order remains **pending**.
+- Manual execution **BLOCKED** — record at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md` (checkout reached; SAR 22.99 vs USD 4.99; order not completed).
+- SaaS fulfillment decision **COMPLETE**; actual test order follow-up required.
 
 ## Related Artifacts
 

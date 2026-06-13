@@ -560,6 +560,11 @@
   - Dreemi fulfillment is SaaS account access / subscription entitlement, not file download or license key delivery.
   - No dashboard fulfillment, checkout, webhook, API, or runtime entitlement change was performed; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** or webhook integration planning.
+- Phase 4-D3M-Payments-FastSpring-Test-Order-Manual-Execution note:
+  - Manual FastSpring test checkout attempted for Individual Monthly only; record at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`.
+  - Result **BLOCKED**: checkout reached in test mode; product path confirmed; displayed SAR 22.99 (not USD 4.99); Monthly not confirmed; payment form showed test-mode not supported; order not completed.
+  - No Dreemi runtime, webhook, API, entitlement, or env change; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Test-Order-Followup`**.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
