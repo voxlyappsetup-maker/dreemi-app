@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Activation-Request-Email`**, after retry **PASS** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`). First attempt BLOCKED; localized SAR at checkout accepted for test evidence. Runtime payment remains unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Activation-Request-Sent-Record`**, after activation email draft **COMPLETE** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`). Email not sent automatically. Runtime payment remains unavailable/fail-closed.
 
 Alternative paths:
 

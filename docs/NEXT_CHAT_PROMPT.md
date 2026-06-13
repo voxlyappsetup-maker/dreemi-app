@@ -246,10 +246,10 @@ Constraints:
 - D3M-Payments-FastSpring-SaaS-Fulfillment-Decision complete: SaaS entitlement fulfillment documented at `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`; mapping at `docs/D3M_FASTSPRING_FULFILLMENT_TO_ENTITLEMENT_MAPPING.md`.
 - D3M-Payments-FastSpring-Test-Order-Manual-Execution complete: **BLOCKED** — record at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`.
 - D3M-Payments-FastSpring-Test-Order-Followup complete: SAR likely localization; record at `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`.
-- D3M-Payments-FastSpring-Test-Order-Retry-Execution complete: **PASS** — test-mode order completed for Individual Monthly; localized SAR at checkout; record at `docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`.
-- No Dreemi runtime/webhook/entitlement change; production billing No-Go.
-- Latest phase: FastSpring test order retry execution (PASS).
-- Next recommended: **`D3M-Payments-FastSpring-Activation-Request-Email`** or webhook integration planning.
+- D3M-Payments-FastSpring-Test-Order-Retry-Execution complete: **PASS** — record at `docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`.
+- D3M-Payments-FastSpring-Activation-Request-Email complete: draft at `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`; not sent automatically; production billing No-Go.
+- Latest phase: FastSpring activation request email package.
+- Next recommended: **`D3M-Payments-FastSpring-Activation-Request-Sent-Record`** after manual send, or webhook integration planning.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -259,7 +259,7 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-FastSpring-Activation-Request-Email` — draft activation message to Louis/FastSpring with setup summary, or
+  - `D3M-Payments-FastSpring-Activation-Request-Sent-Record` — record manual sending of activation request email, or
   - `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation, or
   - `D3M-Infra-Database-Uptime-Decision` — decide Supabase Pro vs dev-only vs alternative DB, or
   - `D3M-Payments-FastSpring-Response-Record` — record FastSpring response when received, or

@@ -165,7 +165,9 @@ A successful provider-side test checkout improves FastSpring activation readines
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Request-Email` — draft message to Louis/FastSpring with completed setup summary and remaining review items
+**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record` — after user sends draft manually
+
+Activation email draft: `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md` — draft message to Louis/FastSpring with completed setup summary and remaining review items
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
 

@@ -162,14 +162,15 @@ Refund Policy visibility improves FastSpring activation readiness but does not e
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe FastSpring test-mode checkout for Individual Monthly only
+**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record` — after user sends activation email (draft: `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`)
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 
 ## Notes For Next Chat
 
 - Refund Policy is public at `/en/refund`, `/ar/refund`, `/fr/refund` with footer links on pricing, landing, Terms, Privacy, and settings
 - Follow-up SaaS fulfillment decision completed after Refund Policy alignment — see `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`
 - Do not claim production billing is live or FastSpring has approved the store
-- Next activation gaps: test order, business/tax/KYC/User Agreement, activation request, webhook/entitlement, Live approval, payout
+- Activation request email draft prepared — `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md` (not sent automatically)
+- Next activation gaps: FastSpring review response, business/tax/KYC/User Agreement, webhook/entitlement, Live approval, payout
 - See `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md` for remaining items

@@ -50,7 +50,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Activation-Request-Email`
+1. `D3M-Payments-FastSpring-Activation-Request-Sent-Record`
 2. `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 3. Business/tax/KYC/User Agreement (manual dashboard)
 

@@ -225,7 +225,9 @@ The SaaS fulfillment decision improves FastSpring activation readiness by clarif
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Request-Email`
+**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record` — after user sends activation email manually
+
+Activation email draft: `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`
 
 Retry test execution **PASS** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`). First attempt **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`).
 

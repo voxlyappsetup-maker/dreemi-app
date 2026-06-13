@@ -193,8 +193,8 @@ Ordered checklist (manual + docs phases):
 - [ ] Complete/sign User Agreement manually in FastSpring when ready
 - [ ] Complete Tax Profile manually in FastSpring when ready
 - [ ] Prepare KYC/identity/business verification documents manually outside repo
-- [ ] Draft activation request email to Louis/FastSpring representative
-- [ ] Send activation request only after the above items are complete or explicitly explain remaining items
+- [x] Draft activation request email to Louis/FastSpring representative — **draft ready** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`); not sent
+- [ ] Send activation request only after manual review; record in sent-record phase
 
 ## Safe Next Actions
 
@@ -205,7 +205,8 @@ Recommended sequence:
 3. ~~**`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**~~ — **attempted — BLOCKED** (see `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`)
 4. ~~**`D3M-Payments-FastSpring-Test-Order-Followup`**~~ — **complete** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`)
 5. ~~**`D3M-Payments-FastSpring-Test-Mode-Support-Question`**~~ — resolved by successful retry (optional support still available)
-6. **`D3M-Payments-FastSpring-Activation-Request-Email`** — contact representative (and manual tax/KYC/User Agreement when ready)
+6. ~~**`D3M-Payments-FastSpring-Activation-Request-Email`**~~ — **draft complete** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`)
+7. **`D3M-Payments-FastSpring-Activation-Request-Sent-Record`** — after user sends manually
 
 Do **not** request Live activation or enable payouts until FastSpring approves and Dreemi webhook/entitlement phases are scoped separately.
 
@@ -260,7 +261,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Request-Email` — draft activation message after test PASS
+**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record` — after user sends activation email manually
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
 
