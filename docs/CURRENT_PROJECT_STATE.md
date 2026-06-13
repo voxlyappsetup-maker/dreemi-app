@@ -569,6 +569,11 @@
   - Test-order follow-up at `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`; currency decision at `docs/D3M_FASTSPRING_CHECKOUT_CURRENCY_DECISION.md`; support draft at `docs/D3M_FASTSPRING_TEST_MODE_SUPPORT_QUESTION.md`.
   - Prior test remains **BLOCKED**; SAR 22.99 likely auto-localization; "Not supported while in testing mode" unresolved; no retry, dashboard save, checkout, webhook, API, or runtime change; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Test-Mode-Support-Question`** or checkout currency override decision.
+- Phase 4-D3M-Payments-FastSpring-Test-Order-Retry-Execution note:
+  - Successful Individual Monthly test-mode checkout retry recorded at `docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md` — **PASS**.
+  - Checkout completed in test mode; localized SAR pricing (not USD at checkout); Monthly confirmed; no Dreemi runtime/webhook/entitlement change; production billing No-Go.
+  - Prior attempt **BLOCKED** at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`.
+  - Next: **`D3M-Payments-FastSpring-Activation-Request-Email`** or webhook integration planning.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

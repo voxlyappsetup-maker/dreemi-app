@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Individual Monthly test checkout **attempted — BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). Follow-up **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`). Activation remains blocked by test-mode payment clarification, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Individual Monthly test checkout **PASS on retry** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`); first attempt BLOCKED. Activation remains blocked by business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -58,8 +58,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 ## Test Mode
 
 - [ ] Catalog configured in Test mode
-- [x] Test checkout/order attempted in test mode — **BLOCKED**; see `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`
-- [x] Test order evidence recorded (no payment secrets) — safe evidence only; order not completed
+- [x] Test checkout/order completed in test mode — **PASS on retry** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`); first attempt BLOCKED
 
 ## Integration / Webhooks
 
@@ -89,7 +88,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 | Refund wording not final / not public | **Closed** — public Refund Policy aligned (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`) |
 | SaaS fulfillment not decided | **Closed** — SaaS entitlement decision documented (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`) |
 | Tax/KYC/User Agreement incomplete | **Open / unverified** — manual dashboard |
-| Test order not done | **Open — BLOCKED** — checkout reached; SAR 22.99 vs USD 4.99; order not completed |
+| Test order not done | **Closed — PASS on retry** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`) |
 | Activation request not sent | **Open** |
 | Integration not implemented | Open |
 | Payout not activated | Open (expected pre/post-Live) |
@@ -98,8 +97,8 @@ Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Mode-Support-Question`
+**Primary:** `D3M-Payments-FastSpring-Activation-Request-Email`
 
-**Alternative:** `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision`
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 
 **Rule:** dashboard catalog/test/Live actions require explicit phase approval.

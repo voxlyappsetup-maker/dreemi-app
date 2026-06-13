@@ -166,7 +166,7 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 | --- | --- | --- | --- | --- | --- |
 | Website pricing alignment pending | Website | High | **CLOSED** | Public pricing matches catalog | `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md` |
 | Refund wording finalization pending | Legal | High | **OPEN** | Final public refund text | Legal/Terms review |
-| Test checkout not executed | Test mode | High | **OPEN — BLOCKED attempt** | Safe test-mode PASS | Test-order follow-up |
+| Test checkout not executed | Test mode | High | **CLOSED — PASS on retry** | Retry record | Activation request |
 | Webhook/API integration not implemented | Integration | Critical | **OPEN** | Controlled integration | Integration phase |
 | Entitlement runtime mapping not implemented | Runtime | Critical | **OPEN** | Webhook → plan mapping | Integration phase |
 | FastSpring Live activation not complete | Provider | Critical | **OPEN** | Live approval | Activation checklist |
@@ -175,9 +175,9 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Test-Mode-Support-Question`**.
+**Primary:** **`D3M-Payments-FastSpring-Activation-Request-Email`**.
 
-Dashboard catalog setup remains complete. Individual Monthly test **BLOCKED**; follow-up **COMPLETE** at `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`.
+Individual Monthly test **PASS on retry** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`).
 
 Follow-up: activation gap audit `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; test-order plan `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 

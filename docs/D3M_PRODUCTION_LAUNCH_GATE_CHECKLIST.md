@@ -629,7 +629,8 @@ Current: NO-GO
 31. `Payments-FastSpring-SaaS-Fulfillment-Decision` — **complete** (SaaS entitlement fulfillment; see `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`).
 32. `Payments-FastSpring-Test-Order-Manual-Execution` — **complete — BLOCKED** (see `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`).
 33. `Payments-FastSpring-Test-Order-Followup` — **complete** (see `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`).
-34. `Payments-FastSpring-Test-Mode-Support-Question` — send support draft; clarify test-mode payment.
+34. `Payments-FastSpring-Test-Order-Retry-Execution` — **complete — PASS** (see `docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`).
+35. `Payments-FastSpring-Activation-Request-Email` — draft activation message to Louis/FastSpring.
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
 34. Final launch gate review.
@@ -638,9 +639,9 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Test-Mode-Support-Question`**
-- Alternative: **`D3M-Payments-FastSpring-Checkout-Currency-Override-Decision`**
-- Test-order follow-up gate: **PASS**. FastSpring test checkout gate: **BLOCKED**. Currency/localization and test-mode payment gates: **OPEN**. Payment/launch gates remain blocked.
+- Primary: **`D3M-Payments-FastSpring-Activation-Request-Email`**
+- Alternative: **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**
+- FastSpring test checkout gate: **PASS** (Individual Monthly retry, test mode; localized SAR noted). Payment/launch gates remain blocked.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

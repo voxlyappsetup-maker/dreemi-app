@@ -210,14 +210,12 @@ The follow-up clarifies that the blocked test order likely involves both currenc
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Mode-Support-Question` — prepare/send a concise message to Louis or FastSpring support about SAR localization and "Not supported while in testing mode"
+**Primary:** `D3M-Payments-FastSpring-Activation-Request-Email` — after retry **PASS** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`)
 
-**Alternative:** `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision` — decide whether to override checkout country/currency to USD before retry
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 
 ## Notes For Next Chat
 
-- Prior test remains **BLOCKED**; follow-up does not change that verdict
-- SAR 22.99 is **likely localization**, not proof of wrong catalog USD price
-- **"Not supported while in testing mode"** is unresolved and must be clarified before retry
-- Do not save dashboard currency overrides without an explicit approved phase
+- First attempt **BLOCKED**; retry **PASS** — see `docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`
+- SAR at checkout accepted as likely localization per follow-up analysis
 - Production billing remains **NO-GO**

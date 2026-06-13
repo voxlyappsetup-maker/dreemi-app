@@ -229,7 +229,7 @@ Checkout reached test mode and confirmed the correct product path/name, but **ca
 
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| FastSpring test order not successfully completed | Activation / checkout | **Critical** | **OPEN** | Safe test-mode PASS after guidance | Test-mode support question; then retry |
+| FastSpring test order not successfully completed | Activation / checkout | **Critical** | **CLOSED — PASS on retry** | Retry execution record | Activation request |
 | Checkout price/currency mismatch (SAR 22.99 vs USD 4.99) | Catalog / checkout | **High** | **OPEN — likely localization** | Currency decision + FastSpring guidance | `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md` |
 | Test-mode payment not supported message | Provider / test mode | **High** | **OPEN** | FastSpring-supported test checkout path confirmed | Test-order follow-up |
 | Webhook integration not implemented | Runtime / payments | Critical | **OPEN** | Webhook route + signature verification | Webhook integration plan |
