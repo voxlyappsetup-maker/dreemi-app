@@ -8,7 +8,9 @@
 
 **Follow-up (SaaS fulfillment decision):** Fulfillment gap addressed by `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md` — Dreemi fulfillment is SaaS account entitlement, not file/license delivery.
 
-**Follow-up (Test order manual execution):** Individual Monthly test attempted — **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). Checkout reached in test mode; SAR 22.99 displayed (not USD 4.99); order not completed. Remaining gaps still open.
+**Follow-up (Test order manual execution):** Individual Monthly test attempted — **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). Checkout reached in test mode; SAR 22.99 displayed (not USD 4.99); order not completed.
+
+**Follow-up (Test order follow-up audit):** **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`) — SAR likely auto-localization; test-mode payment message unresolved. Remaining gaps still open.
 
 This is a docs-only activation gap audit.
 No checkout was opened.
@@ -201,8 +203,9 @@ Recommended sequence:
 1. ~~**`D3M-Payments-FastSpring-Refund-Policy-Alignment`**~~ — **complete**
 2. ~~**`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**~~ — **complete**
 3. ~~**`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**~~ — **attempted — BLOCKED** (see `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`)
-4. **`D3M-Payments-FastSpring-Test-Order-Followup`** — resolve blockers and retry safely
-5. **`D3M-Payments-FastSpring-Activation-Request-Email`** — contact representative after test PASS (and manual tax/KYC/User Agreement when ready)
+4. ~~**`D3M-Payments-FastSpring-Test-Order-Followup`**~~ — **complete** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`)
+5. **`D3M-Payments-FastSpring-Test-Mode-Support-Question`** — clarify test-mode payment and localization
+6. **`D3M-Payments-FastSpring-Activation-Request-Email`** — after test PASS (and manual tax/KYC/User Agreement when ready)
 
 Do **not** request Live activation or enable payouts until FastSpring approves and Dreemi webhook/entitlement phases are scoped separately.
 
@@ -255,7 +258,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup` — resolve checkout currency/price and test-mode payment block; retry Individual Monthly safely
+**Primary:** `D3M-Payments-FastSpring-Test-Mode-Support-Question` — clarify SAR localization and test-mode payment before retry
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
 

@@ -50,8 +50,8 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Test-Order-Followup`
-2. `D3M-Payments-FastSpring-Webhook-Integration-Plan`
-3. `D3M-Payments-FastSpring-Activation-Request-Email`
+1. `D3M-Payments-FastSpring-Test-Mode-Support-Question`
+2. `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision`
+3. Safe test-order retry (after guidance)
 
 **Verdict:** **PARTIAL — not ready for activation request yet.**

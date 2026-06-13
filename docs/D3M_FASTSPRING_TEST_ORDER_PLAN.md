@@ -272,9 +272,9 @@ Production billing remains **NO-GO** until a safe test checkout is executed, web
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup` — resolve blockers from manual execution (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`)
+**Primary:** `D3M-Payments-FastSpring-Test-Mode-Support-Question` — resolve blockers from follow-up (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`)
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before any runtime integration
+**Alternative:** `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision` — decide USD override before retry
 
 ## Notes For Next Chat
 
@@ -283,8 +283,8 @@ Production billing remains **NO-GO** until a safe test checkout is executed, web
 - Runtime checkout remains fail-closed; Plan screen / pricing buttons must not enable live purchase.
 - Follow `docs/D3M_FASTSPRING_TEST_ORDER_EVIDENCE_POLICY.md` for any future evidence recording.
 - Do not paste order IDs, checkout URLs, or buyer PII into repo or chat.
-- Manual execution **BLOCKED** — record at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md` (checkout reached; SAR 22.99 vs USD 4.99; order not completed).
-- SaaS fulfillment decision **COMPLETE**; actual test order follow-up required.
+- Manual execution **BLOCKED** — `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`.
+- Follow-up **COMPLETE** — `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md` (SAR likely localization; test-mode payment unresolved).
 
 ## Related Artifacts
 

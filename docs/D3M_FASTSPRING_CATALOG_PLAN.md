@@ -238,9 +238,9 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Test-Order-Followup`**.
+**Primary:** **`D3M-Payments-FastSpring-Test-Mode-Support-Question`**.
 
-Catalog fulfillment position: SaaS entitlement/access (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Manual test attempt **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`).
+Catalog fulfillment position: SaaS entitlement/access. Manual test **BLOCKED**; follow-up **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`).
 
 Catalog plan follow-up: activation gap audit `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; test-order plan `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 

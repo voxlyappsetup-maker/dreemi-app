@@ -244,10 +244,11 @@ Constraints:
 - D3M-Payments-FastSpring-Activation-Gap-Audit complete: verdict **PARTIAL / not ready for activation request yet** — see `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`.
 - D3M-Payments-FastSpring-Refund-Policy-Alignment complete: public Refund Policy at `/refund` (en/ar/fr); record at `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`.
 - D3M-Payments-FastSpring-SaaS-Fulfillment-Decision complete: SaaS entitlement fulfillment documented at `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`; mapping at `docs/D3M_FASTSPRING_FULFILLMENT_TO_ENTITLEMENT_MAPPING.md`.
-- D3M-Payments-FastSpring-Test-Order-Manual-Execution complete: **BLOCKED** — checkout reached in test mode for Individual Monthly; SAR 22.99 displayed (not USD 4.99); order not completed; record at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`.
+- D3M-Payments-FastSpring-Test-Order-Manual-Execution complete: **BLOCKED** — record at `docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`.
+- D3M-Payments-FastSpring-Test-Order-Followup complete: SAR likely localization; test-mode payment message unresolved; record at `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`.
 - No Live/checkout/API/webhook/payout/tax/KYC/runtime integration; production billing No-Go.
-- Latest phase: FastSpring test order manual execution (BLOCKED).
-- Next recommended: **`D3M-Payments-FastSpring-Test-Order-Followup`**; compact Cursor reports required.
+- Latest phase: FastSpring test order follow-up.
+- Next recommended: **`D3M-Payments-FastSpring-Test-Mode-Support-Question`**, then currency override decision or safe retry; compact Cursor reports required.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -257,8 +258,8 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-FastSpring-Test-Order-Followup` — resolve checkout currency/price and test-mode payment block; retry Individual Monthly safely, or
-  - `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation, or
+  - `D3M-Payments-FastSpring-Test-Mode-Support-Question` — send draft to Louis/FastSpring re SAR localization and test-mode payment message, or
+  - `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision` — decide USD override before retry, or
   - `D3M-Infra-Database-Uptime-Decision` — decide Supabase Pro vs dev-only vs alternative DB, or
   - `D3M-Payments-FastSpring-Response-Record` — record FastSpring response when received, or
   - `D3M-Payments-FastSpring-Follow-Up-Draft` — if no response after reasonable period, or

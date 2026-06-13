@@ -229,8 +229,8 @@ Checkout reached test mode and confirmed the correct product path/name, but **ca
 
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| FastSpring test order not successfully completed | Activation / checkout | **Critical** | **OPEN** | Safe test-mode PASS with USD 4.99 / Monthly at checkout | `D3M-Payments-FastSpring-Test-Order-Followup` |
-| Checkout price/currency mismatch (SAR 22.99 vs USD 4.99) | Catalog / checkout | **High** | **OPEN** | Checkout displays USD 4.99 as cataloged | Test-order follow-up |
+| FastSpring test order not successfully completed | Activation / checkout | **Critical** | **OPEN** | Safe test-mode PASS after guidance | Test-mode support question; then retry |
+| Checkout price/currency mismatch (SAR 22.99 vs USD 4.99) | Catalog / checkout | **High** | **OPEN — likely localization** | Currency decision + FastSpring guidance | `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md` |
 | Test-mode payment not supported message | Provider / test mode | **High** | **OPEN** | FastSpring-supported test checkout path confirmed | Test-order follow-up |
 | Webhook integration not implemented | Runtime / payments | Critical | **OPEN** | Webhook route + signature verification | Webhook integration plan |
 | Entitlement runtime mapping not implemented | Runtime / billing | Critical | **OPEN** | Product path → plan mapping in runtime | Future webhook phase |
@@ -244,14 +244,16 @@ Checkout reached test mode and confirmed the correct product path/name, but **ca
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup` — resolve checkout currency/price display, test-mode payment support, and Monthly interval confirmation; retry safe Individual Monthly test only
+**Primary:** `D3M-Payments-FastSpring-Test-Mode-Support-Question` — clarify test-mode payment and localized currency with Louis/FastSpring
 
-**Alternative:** Contact FastSpring support/representative to confirm expected test-mode checkout behavior for USD catalog in trial store before retry
+**Alternative:** `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision` — decide USD override before retry
+
+**Follow-up documented:** `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`
 
 ## Notes For Next Chat
 
 - Do not treat this attempt as activation-ready test evidence
-- Investigate why checkout showed SAR 22.99 instead of USD 4.99 (store currency, geo, tax display, or catalog setting — resolve in dashboard with user, not in repo secrets)
+- Follow-up documented at `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md` — SAR likely auto-localization; do not retry until test-mode payment clarified
 - Confirm FastSpring test-mode payment instructions before retry
 - Do not enable Dreemi runtime checkout or grant INDIVIDUAL entitlement from a manual test
 - Production billing remains **NO-GO**

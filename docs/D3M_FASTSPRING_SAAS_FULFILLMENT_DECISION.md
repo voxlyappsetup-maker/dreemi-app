@@ -225,11 +225,11 @@ The SaaS fulfillment decision improves FastSpring activation readiness by clarif
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup` — resolve checkout currency/price and test-mode block before retry
+**Primary:** `D3M-Payments-FastSpring-Test-Mode-Support-Question` — clarify test-mode payment before retry
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
+**Alternative:** `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision`
 
-Follow-up test execution completed after this decision — **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`).
+Follow-up test execution **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). Follow-up audit **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`).
 
 ## Notes For Next Chat
 

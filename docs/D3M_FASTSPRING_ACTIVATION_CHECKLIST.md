@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Individual Monthly test checkout **attempted — BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). **Activation gap audit COMPLETE** — minimum requirements **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Activation remains blocked by test-order follow-up, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Individual Monthly test checkout **attempted — BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). Follow-up **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`). Activation remains blocked by test-mode payment clarification, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -98,8 +98,8 @@ Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Followup`
+**Primary:** `D3M-Payments-FastSpring-Test-Mode-Support-Question`
 
-**Alternative:** Contact FastSpring re test-mode USD checkout / payment support message
+**Alternative:** `D3M-Payments-FastSpring-Checkout-Currency-Override-Decision`
 
 **Rule:** dashboard catalog/test/Live actions require explicit phase approval.

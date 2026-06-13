@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring catalog dashboard setup COMPLETE:** four launch subscriptions in test/trial dashboard (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). **Website pricing alignment COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). **Refund Policy public visibility COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). **SaaS fulfillment decision COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). **Individual Monthly test checkout attempted — BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). **Activation gap audit COMPLETE** — minimum requirements **PARTIAL**. Trial store **not Live**.
+**FastSpring catalog dashboard setup COMPLETE:** four launch subscriptions in test/trial dashboard (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). **Website pricing alignment COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). **Refund Policy public visibility COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). **SaaS fulfillment decision COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). **Individual Monthly test checkout attempted — BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). **Follow-up COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`) — SAR likely localization; test-mode payment unresolved. **Activation minimum requirements PARTIAL**. Trial store **not Live**.
 
 ## 3) Candidate provider categories
 

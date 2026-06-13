@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Test-Order-Followup`**, after manual execution **BLOCKED** (`docs/D3M_FASTSPRING_TEST_ORDER_MANUAL_EXECUTION.md`). Payment track records blocked test attempt (checkout reached; SAR 22.99 vs USD 4.99; order not completed). Runtime payment remains unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Test-Mode-Support-Question`**, after follow-up **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`). Prior test remains BLOCKED; SAR likely auto-localization; test-mode payment message unresolved. Runtime payment remains unavailable/fail-closed.
 
 Alternative paths:
 
