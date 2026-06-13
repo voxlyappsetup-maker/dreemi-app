@@ -179,13 +179,13 @@ Production billing remains **NO-GO** until test checkout, webhook integration, e
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe FastSpring test-mode checkout for Dreemi Individual Monthly only
+**Primary:** `D3M-Payments-FastSpring-Refund-Policy-Alignment` — address activation gap before test order or activation request.
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before any runtime integration
+**Alternative:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
 
 ## Follow-Up
 
-Follow-up test-order plan created after website pricing alignment: `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`
+Website pricing alignment is **complete** but FastSpring activation minimum requirements remain **PARTIAL** — see `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`. Test-order plan: `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 
 ## Notes For Next Chat
 

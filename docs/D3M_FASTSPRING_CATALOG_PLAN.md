@@ -236,11 +236,11 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** — execute safe test-mode checkout (Individual Monthly only).
+**Primary:** **`D3M-Payments-FastSpring-Refund-Policy-Alignment`**.
 
-**Alternative:** **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**.
+**Alternative:** **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**.
 
-Catalog plan follow-up: `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
+Catalog plan follow-up: activation gap audit `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; test-order plan `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 
 ## Notes For Next Chat
 

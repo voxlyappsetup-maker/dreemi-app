@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring catalog dashboard setup COMPLETE:** four launch subscriptions in test/trial dashboard (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). **Website pricing alignment COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). **Test-order plan COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`); execution planned with safe evidence rules per `docs/D3M_FASTSPRING_TEST_ORDER_EVIDENCE_POLICY.md`. **No test order has been executed yet.** External activation still pending. Trial store **not Live**.
+**FastSpring catalog dashboard setup COMPLETE:** four launch subscriptions in test/trial dashboard (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). **Website pricing alignment COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). **Test-order plan COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`). **Activation gap audit COMPLETE** — minimum requirements **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). **No test order executed yet.** External activation still pending. Trial store **not Live**.
 
 ## 3) Candidate provider categories
 

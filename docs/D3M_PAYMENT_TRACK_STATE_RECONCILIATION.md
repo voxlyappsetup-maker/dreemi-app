@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**, after test-order plan **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`). Runtime payments remain unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Refund-Policy-Alignment`**, after activation gap audit **COMPLETE** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Runtime payments remain unavailable/fail-closed.
 
 Alternative paths:
 

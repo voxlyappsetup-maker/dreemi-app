@@ -623,23 +623,26 @@ Current: NO-GO
 24. `Payments-FastSpring-Catalog-Plan` — complete (Individual/Family planned; School deferred).
 25. `Payments-FastSpring-Catalog-Dashboard-Setup` — **complete** (Individual/Family monthly/yearly in test/trial dashboard).
 26. `Payments-FastSpring-Website-Pricing-Alignment` — **complete** (public pricing aligned; see `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`).
-27. `Payments-FastSpring-Test-Order-Plan` — **complete** (safe test-mode plan; see `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`).
-28. `Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe test-mode checkout (Individual Monthly only).
-29. `Payments-Provider-Application-Pack` — after eligibility confirmed.
-30. Payment provider approval / runtime verification (post-selection).
-31. Final launch gate review.
+28. `Payments-FastSpring-Test-Order-Plan` — **complete** (safe test-mode plan; see `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`).
+29. `Payments-FastSpring-Activation-Gap-Audit` — **complete** (minimum requirements PARTIAL; see `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`).
+30. `Payments-FastSpring-Refund-Policy-Alignment` — public Refund Policy before activation review.
+31. `Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe test-mode checkout (Individual Monthly only).
+32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
+33. Payment provider approval / runtime verification (post-selection).
+34. Final launch gate review.
 
 Image `C5` runtime smoke remains optional/deferred unless image runtime proof is required for launch decision.
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**
-- Alternative: **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**
+- Primary: **`D3M-Payments-FastSpring-Refund-Policy-Alignment`**
+- Alternative: **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat
 
 - Test order planning gate **PASS** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`); actual checkout and production payment gates remain **BLOCKED**.
+- FastSpring activation readiness **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`); do not mark payment or launch gates PASS.
 - Use this checklist as the central Go/No-Go reference and update gate statuses only with explicit evidence.
 - Keep docs-only safety boundaries unless a phase explicitly approves runtime/provider/deploy execution.
 - Do not convert any critical gate to PASS from assumptions or historical memory without fresh evidence linkage.

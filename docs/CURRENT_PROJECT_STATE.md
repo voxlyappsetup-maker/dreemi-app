@@ -546,6 +546,10 @@
   - FastSpring test order plan at `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`; evidence policy at `docs/D3M_FASTSPRING_TEST_ORDER_EVIDENCE_POLICY.md`.
   - No checkout/test order executed; no API/webhook/runtime integration; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** (Individual Monthly only) or webhook integration planning.
+- Phase 4-D3M-Payments-FastSpring-Activation-Gap-Audit note:
+  - Activation gap audit at `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; minimum requirements **PARTIAL** — catalog and website pricing complete; Refund Policy, fulfillment, test order, business/tax/KYC/User Agreement, and activation request remain open.
+  - No dashboard/checkout/API/webhook/tax/KYC action; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Refund-Policy-Alignment`** or SaaS fulfillment decision.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

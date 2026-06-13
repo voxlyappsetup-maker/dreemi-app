@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE** for Individual/Family monthly/yearly in test/trial dashboard. Website pricing alignment **COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). Test-order planning **COMPLETE** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`); actual test checkout **pending**. Activation remains blocked by test execution, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Test-order planning **COMPLETE**; actual test checkout **pending**. **Activation gap audit COMPLETE** — minimum requirements **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Activation remains blocked by Refund Policy visibility, SaaS fulfillment decision, test execution, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -84,16 +84,22 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 
 | Blocker | Status |
 | --- | --- |
-| Store not Live | Open |
-| Catalog not configured | Open |
-| Refund wording not final | Open |
-| Tax/KYC incomplete | Open |
-| Test order not done | Open |
+| Store not Live | Open (expected) |
+| Catalog not configured | **Closed** — four subscriptions in test/trial dashboard |
+| Refund wording not final / not public | **Open** — see gap audit |
+| SaaS fulfillment not decided | **Open** — see gap audit |
+| Tax/KYC/User Agreement incomplete | **Open / unverified** — manual dashboard |
+| Test order not done | **Open** |
+| Activation request not sent | **Open** |
 | Integration not implemented | Open |
-| Payout not activated | Open |
+| Payout not activated | Open (expected pre/post-Live) |
+
+Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Checklist` execution planning (or `D3M-Payments-FastSpring-Catalog-Plan` first if catalog setup is next).
+**Primary:** `D3M-Payments-FastSpring-Refund-Policy-Alignment`
+
+**Alternative:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
 
 **Rule:** dashboard catalog/test/Live actions require explicit phase approval.

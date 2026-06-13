@@ -56,6 +56,6 @@ Stop if evidence policy cannot be satisfied without violating forbidden evidence
 
 ## Notes
 
-- This policy complements `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
+- This policy complements `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md` and `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`.
 - Production billing remains **NO-GO** regardless of test evidence quality.
 - Dreemi runtime entitlements must not change based on manual test-order evidence alone.
