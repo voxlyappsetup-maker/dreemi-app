@@ -625,7 +625,7 @@ Current: NO-GO
 26. `Payments-FastSpring-Website-Pricing-Alignment` — **complete** (public pricing aligned; see `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`).
 28. `Payments-FastSpring-Test-Order-Plan` — **complete** (safe test-mode plan; see `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`).
 29. `Payments-FastSpring-Activation-Gap-Audit` — **complete** (minimum requirements PARTIAL; see `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`).
-30. `Payments-FastSpring-Refund-Policy-Alignment` — public Refund Policy before activation review.
+30. `Payments-FastSpring-Refund-Policy-Alignment` — **complete** (public Refund Policy; see `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`).
 31. `Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe test-mode checkout (Individual Monthly only).
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
@@ -635,8 +635,9 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Refund-Policy-Alignment`**
-- Alternative: **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**
+- Primary: **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**
+- Alternative: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**
+- Refund Policy visibility gate: **PASS** (public routes/links visible). Payment/launch gates remain blocked.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

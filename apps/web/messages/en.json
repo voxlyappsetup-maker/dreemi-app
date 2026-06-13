@@ -9,6 +9,7 @@
     "upgradePlan": "Upgrade Plan",
     "privacy": "Privacy",
     "terms": "Terms",
+    "refund": "Refund Policy",
     "contact": "Contact Us",
     "copyright": "© 2026 Dreemi",
     "unexpectedError": "An unexpected error occurred"
@@ -210,6 +211,7 @@
     "checkoutError": "Failed to start payment, please try again",
     "paymentsTemporarilyUnavailable": "Payments are temporarily unavailable. Please try again later.",
     "paymentsUnavailableLabel": "Unavailable",
+    "policyAgreement": "By using Dreemi, you agree to our Terms, Privacy Policy, and Refund Policy.",
     "priceNotConfigured": "Price ID is not configured. Contact support.",
     "perMonth": "/month",
     "perYear": "/year",
@@ -572,6 +574,50 @@
         "title": "Contact",
         "body": [
           "For questions about these Terms, contact us at legal@dreemi.app."
+        ]
+      }
+    }
+  },
+  "refund": {
+    "title": "Refund Policy",
+    "lastUpdatedLabel": "Last updated:",
+    "lastUpdatedDate": "June 2026",
+    "intro": "This Refund Policy explains how Dreemi handles refund requests for paid subscriptions. Paid subscriptions are not publicly available yet; this policy applies when paid billing is enabled.",
+    "sections": {
+      "eligibility": {
+        "title": "Eligibility",
+        "body": [
+          "Dreemi is currently preparing its paid subscription experience. When paid subscriptions are available, eligible purchases or renewals may be refunded within 7 days of the transaction date, subject to the terms below."
+        ]
+      },
+      "request": {
+        "title": "How to request a refund",
+        "body": [
+          "To request a refund, contact us at contact@dreemi.app with the email address used for the purchase and a brief description of the issue."
+        ]
+      },
+      "review": {
+        "title": "Review of requests",
+        "body": [
+          "Refunds are reviewed case by case. We may decline refund requests related to misuse, abuse, repeated refund requests, or violations of our Terms."
+        ]
+      },
+      "cancellation": {
+        "title": "Subscription cancellation",
+        "body": [
+          "If a subscription is canceled, access may continue until the end of the paid billing period unless otherwise required by the payment provider or applicable law."
+        ]
+      },
+      "provider": {
+        "title": "Payment provider processing",
+        "body": [
+          "When payments are processed through a payment provider, refunds may also be subject to that provider's processing rules and timelines. Refunds are not guaranteed where prohibited by the provider or applicable law."
+        ]
+      },
+      "updates": {
+        "title": "Policy updates",
+        "body": [
+          "This policy may be updated before paid subscriptions become publicly available or before production billing is enabled."
         ]
       }
     }

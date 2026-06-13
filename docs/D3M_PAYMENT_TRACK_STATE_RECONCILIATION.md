@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Refund-Policy-Alignment`**, after activation gap audit **COMPLETE** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Runtime payments remain unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**, after Refund Policy alignment **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). Payment track records Refund Policy alignment. Runtime payment remains unavailable/fail-closed.
 
 Alternative paths:
 

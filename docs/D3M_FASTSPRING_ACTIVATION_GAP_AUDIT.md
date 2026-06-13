@@ -4,6 +4,8 @@
 
 **COMPLETE** — docs-only activation gap audit. No dashboard, checkout, or provider actions performed.
 
+**Follow-up (Refund Policy alignment):** Refund Policy visibility gap addressed by `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` — public `/refund` routes and footer links added. Remaining gaps in this audit still open.
+
 This is a docs-only activation gap audit.
 No checkout was opened.
 No test order was executed.
@@ -104,7 +106,7 @@ Official guidance groups activation into three areas:
 | Store mode | Testing/trial — not Live |
 | Catalog | **Complete** — four planned subscriptions |
 | Website pricing | **Complete** — matches catalog |
-| Website legal | **Partial** — Terms/Privacy linked; Refund Policy not activation-ready |
+| Website legal | **Partial** — Terms/Privacy/Refund linked; fulfillment and business items remain |
 | Fulfillment | **Not resolved** for FastSpring activation review |
 | Test order | **Planned, not executed** |
 | Business/tax/KYC/User Agreement | **Not documented as complete** |
@@ -122,7 +124,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 | Product names/prices match website | Names/prices match public site | **Complete** | Website pricing alignment doc | None for Individual/Family | — | Re-verify after any price change |
 | Website Terms page | Clear Terms link | **Likely met** — localized `/terms`; expected public URL documented | Pricing footer; decision pack URLs | Public production URL not re-verified in this audit | Low | Confirm live Terms link in Refund Policy phase |
 | Website Privacy page | Clear Privacy link | **Likely met** — localized `/privacy` | Pricing footer; decision pack URLs | Public production URL not re-verified in this audit | Low | Confirm live Privacy link in Refund Policy phase |
-| Refund Policy visibility | Clear Refund Policy link/section | **Incomplete** — 7-day refund in docs only; not finalized on site | Payment pricing/refund decision; website alignment | No dedicated/public refund policy activation-ready | **High** | Refund Policy alignment phase |
+| Refund Policy visibility | Clear Refund Policy link/section | **Complete** — public `/refund` (en/ar/fr); footer links | `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` | Addressed in follow-up phase | — | Re-verify public URLs at deploy |
 | Fulfillment decision for SaaS | Assign fulfillment where applicable | **Incomplete** — SaaS access; no dashboard fulfillment decision documented | Catalog plan (SaaS note) | Fulfillment action not chosen/documented for review | **High** | SaaS fulfillment decision phase |
 | Checkout style | Choose checkout approach | **Planned** — Web Checkout first (docs) | Catalog plan | Not confirmed in dashboard for activation | Medium | Confirm Web Checkout in dashboard when manually ready |
 | Test order | Test-mode order | **Not executed** | Test order plan | No test checkout evidence | **High** | Manual test-order execution phase |
@@ -145,14 +147,13 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 - Test order plan exists (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`).
 - Evidence policy exists (`docs/D3M_FASTSPRING_TEST_ORDER_EVIDENCE_POLICY.md`).
 - Runtime checkout remains fail-closed; Pro not purchasable from Dreemi app.
-- Terms and Privacy routes exist on pricing footer (localized internal routes; public URLs documented).
+- Terms, Privacy, and Refund Policy routes linked on pricing footer (localized internal routes; public URLs documented).
 - Support contact documented: contact@dreemi.app.
 - Preflight/demo contact submitted 2026-06-07 (not equivalent to activation request after requirements met).
 
 ## Incomplete / Unverified Items
 
 - Actual test order has not been executed.
-- Refund Policy visibility is not yet confirmed as activation-ready on the public website.
 - Fulfillment action/decision for SaaS is not yet resolved for activation review.
 - Business details are not documented as complete in FastSpring dashboard.
 - FastSpring User Agreement is not documented as signed.
@@ -169,7 +170,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 
 **Verdict: PARTIAL / NOT READY FOR ACTIVATION REQUEST YET.**
 
-**Reason:** Dreemi has completed catalog setup and website pricing alignment, but has not yet completed all FastSpring activation preparation items. The most important open items are Refund Policy visibility, SaaS fulfillment decision, business/User Agreement/tax/KYC readiness, actual test order execution, and activation request to the FastSpring representative.
+**Reason:** Dreemi has completed catalog setup, website pricing alignment, and Refund Policy visibility, but has not yet completed all FastSpring activation preparation items. The most important open items are SaaS fulfillment decision, business/User Agreement/tax/KYC readiness, actual test order execution, and activation request to the FastSpring representative.
 
 **Answer to user question:** Dreemi has **not** fully met FastSpring's minimum requirements for activation review. Catalog and website pricing alignment are complete; remaining gaps explain why the store may still show testing/trial mode without automatic review completion.
 

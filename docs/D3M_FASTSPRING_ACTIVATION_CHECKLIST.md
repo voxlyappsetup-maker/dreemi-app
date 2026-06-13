@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Test-order planning **COMPLETE**; actual test checkout **pending**. **Activation gap audit COMPLETE** — minimum requirements **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Activation remains blocked by Refund Policy visibility, SaaS fulfillment decision, test execution, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). Test-order planning **COMPLETE**; actual test checkout **pending**. **Activation gap audit COMPLETE** — minimum requirements **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Activation remains blocked by SaaS fulfillment decision, test execution, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -19,7 +19,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 - [ ] Trial/test store confirmed (observed)
 - [ ] FastSpring written eligibility or onboarding guidance received (if applicable)
 - [ ] Public website, Privacy, Terms URLs verified
-- [ ] Refund policy wording finalized on website
+- [x] Refund policy wording finalized on website — public `/refund` (en/ar/fr); see `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`
 - [ ] Safe dashboard rules understood (no secrets in repo)
 
 ## Catalog Setup
@@ -43,7 +43,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 
 - [ ] Terms: https://www.dreemi.app/en/terms
 - [ ] Privacy: https://www.dreemi.app/en/privacy
-- [ ] Refund policy visible and final
+- [x] Refund policy visible and final — `/en/refund`, `/ar/refund`, `/fr/refund`; footer links on pricing/landing/Terms/Privacy/settings
 - [ ] Support: contact@dreemi.app
 - [ ] Website describes SaaS subscription accurately (not marketplace)
 
@@ -86,7 +86,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 | --- | --- |
 | Store not Live | Open (expected) |
 | Catalog not configured | **Closed** — four subscriptions in test/trial dashboard |
-| Refund wording not final / not public | **Open** — see gap audit |
+| Refund wording not final / not public | **Closed** — public Refund Policy aligned (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`) |
 | SaaS fulfillment not decided | **Open** — see gap audit |
 | Tax/KYC/User Agreement incomplete | **Open / unverified** — manual dashboard |
 | Test order not done | **Open** |
@@ -98,8 +98,8 @@ Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Refund-Policy-Alignment`
+**Primary:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
 
-**Alternative:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
+**Alternative:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution`
 
 **Rule:** dashboard catalog/test/Live actions require explicit phase approval.

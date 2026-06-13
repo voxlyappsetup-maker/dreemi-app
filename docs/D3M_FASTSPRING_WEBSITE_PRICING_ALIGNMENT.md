@@ -131,10 +131,10 @@ All three locales updated consistently for School deferred messaging.
 | --- | --- |
 | Terms URL (expected public) | `https://www.dreemi.app/en/terms` — app uses localized `/terms` routes |
 | Privacy URL (expected public) | `https://www.dreemi.app/en/privacy` — app uses localized `/privacy` routes |
-| Refund policy on pricing page | **Not visible** — 7-day refund documented in `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`; final public policy review pending |
-| Pricing footer links | Terms + Privacy + contact email present |
+| Refund policy on pricing page | **Complete** — follow-up at `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`; public `/refund` + footer links |
+| Pricing footer links | Terms + Privacy + Refund Policy + contact email present |
 
-**Note:** Refund wording remains pending final public policy review if not visible on the site.
+**Note:** Follow-up Refund Policy alignment completed. 7-day refund position on public site; paid subscriptions not yet live.
 
 ## What Was Not Done
 
@@ -145,7 +145,7 @@ All three locales updated consistently for School deferred messaging.
 - Live mode activation
 - Backend `billing.ts` / Lemon service changes
 - School FastSpring product creation
-- Public 7-day refund policy page copy (pending legal review)
+- Public 7-day refund policy page at `/refund` (en/ar/fr) — see `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`
 
 ## Blocker Register
 
@@ -156,7 +156,7 @@ All three locales updated consistently for School deferred messaging.
 | Entitlement mapping pending | Critical | OPEN |
 | Live approval pending | Critical | OPEN |
 | Payout readiness pending | Critical | OPEN |
-| Final refund policy on site | Medium | OPEN |
+| Final refund policy on site | Medium | **CLOSED** — Refund Policy alignment complete |
 | FastSpring written eligibility response | Medium | OPEN |
 
 ## Payment Readiness Impact
@@ -179,9 +179,9 @@ Production billing remains **NO-GO** until test checkout, webhook integration, e
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Refund-Policy-Alignment` — address activation gap before test order or activation request.
+**Primary:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision` — document SaaS fulfillment for FastSpring review.
 
-**Alternative:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
+**Alternative:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution`
 
 ## Follow-Up
 

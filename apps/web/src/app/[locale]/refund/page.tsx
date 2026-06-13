@@ -3,30 +3,25 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "../../../i18n/routing";
 import { PublicHeader } from "../../../components/PublicHeader";
 
-export default function TermsPage({
+export default function RefundPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   setRequestLocale(locale);
-  const t = useTranslations("terms");
+  const t = useTranslations("refund");
   const tc = useTranslations("common");
 
   const sections: Array<{
     title: string;
     body: string[];
-    bullets?: string[];
   }> = [
-    { title: t("sections.acceptance.title"), body: t.raw("sections.acceptance.body") as string[] },
-    { title: t("sections.service.title"), body: t.raw("sections.service.body") as string[] },
-    { title: t("sections.accounts.title"), body: t.raw("sections.accounts.body") as string[] },
-    { title: t("sections.payments.title"), body: t.raw("sections.payments.body") as string[], bullets: t.raw("sections.payments.bullets") as string[] },
-    { title: t("sections.ip.title"), body: t.raw("sections.ip.body") as string[], bullets: t.raw("sections.ip.bullets") as string[] },
-    { title: t("sections.prohibited.title"), body: t.raw("sections.prohibited.body") as string[], bullets: t.raw("sections.prohibited.bullets") as string[] },
-    { title: t("sections.termination.title"), body: t.raw("sections.termination.body") as string[] },
-    { title: t("sections.liability.title"), body: t.raw("sections.liability.body") as string[] },
-    { title: t("sections.law.title"), body: t.raw("sections.law.body") as string[] },
-    { title: t("sections.contact.title"), body: t.raw("sections.contact.body") as string[] },
+    { title: t("sections.eligibility.title"), body: t.raw("sections.eligibility.body") as string[] },
+    { title: t("sections.request.title"), body: t.raw("sections.request.body") as string[] },
+    { title: t("sections.review.title"), body: t.raw("sections.review.body") as string[] },
+    { title: t("sections.cancellation.title"), body: t.raw("sections.cancellation.body") as string[] },
+    { title: t("sections.provider.title"), body: t.raw("sections.provider.body") as string[] },
+    { title: t("sections.updates.title"), body: t.raw("sections.updates.body") as string[] },
   ];
 
   return (
@@ -52,13 +47,6 @@ export default function TermsPage({
                     <p key={p}>{p}</p>
                   ))}
                 </div>
-                {s.bullets && s.bullets.length > 0 && (
-                  <ul className="mt-4 list-inside list-disc space-y-2 text-sm text-slate-700">
-                    {s.bullets.map((b) => (
-                      <li key={b}>{b}</li>
-                    ))}
-                  </ul>
-                )}
               </section>
             ))}
           </div>
@@ -78,8 +66,8 @@ export default function TermsPage({
               {tc("refund")}
             </Link>
             <span className="text-violet-200" aria-hidden>|</span>
-            <a className="font-semibold text-violet-700 hover:text-violet-800 hover:underline" href="mailto:legal@dreemi.app">
-              legal@dreemi.app
+            <a className="font-semibold text-violet-700 hover:text-violet-800 hover:underline" href="mailto:contact@dreemi.app">
+              contact@dreemi.app
             </a>
           </div>
           <p className="mt-3 text-xs text-slate-500">{tc("copyright")}</p>
@@ -88,4 +76,3 @@ export default function TermsPage({
     </div>
   );
 }
-

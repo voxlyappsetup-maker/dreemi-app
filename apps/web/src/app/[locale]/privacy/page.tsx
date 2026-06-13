@@ -98,6 +98,10 @@ export default function PrivacyPage({
               {tc("terms")}
             </Link>
             <span className="text-violet-200" aria-hidden>|</span>
+            <Link href="/refund" className="font-semibold text-violet-700 hover:text-violet-800 hover:underline">
+              {tc("refund")}
+            </Link>
+            <span className="text-violet-200" aria-hidden>|</span>
             <a className="font-semibold text-violet-700 hover:text-violet-800 hover:underline" href="mailto:privacy@dreemi.app">
               privacy@dreemi.app
             </a>

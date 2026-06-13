@@ -293,6 +293,9 @@ export default function PricingPage() {
             );
           })}
         </div>
+        <p className="mx-auto mt-10 max-w-3xl px-6 text-center text-xs text-slate-500">
+          {t("policyAgreement")}
+        </p>
       </section>
 
       <footer className="border-t border-violet-200 bg-white py-10">
@@ -302,6 +305,8 @@ export default function PricingPage() {
             <Link href="/privacy" className="hover:text-violet-600">{tc("privacy")}</Link>
             <span className="text-violet-200" aria-hidden>|</span>
             <Link href="/terms" className="hover:text-violet-600">{tc("terms")}</Link>
+            <span className="text-violet-200" aria-hidden>|</span>
+            <Link href="/refund" className="hover:text-violet-600">{tc("refund")}</Link>
             <span className="text-violet-200" aria-hidden>|</span>
             <a href="mailto:contact@dreemi.app" className="hover:text-violet-600">{tc("contact")}</a>
           </div>

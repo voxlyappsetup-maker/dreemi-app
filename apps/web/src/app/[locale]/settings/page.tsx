@@ -379,6 +379,10 @@ export default function SettingsPage() {
               {tc("terms")}
             </Link>
             <span className="text-violet-200" aria-hidden>|</span>
+            <Link href="/refund" className="font-semibold text-violet-700 hover:text-violet-800 hover:underline">
+              {tc("refund")}
+            </Link>
+            <span className="text-violet-200" aria-hidden>|</span>
             <a href="mailto:contact@dreemi.app" className="font-semibold text-violet-700 hover:text-violet-800 hover:underline">
               {tc("contact")}
             </a>

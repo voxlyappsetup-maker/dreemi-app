@@ -242,8 +242,10 @@ Constraints:
 - D3M-Payments-FastSpring-Website-Pricing-Alignment complete: public pricing aligned with FastSpring catalog; record at `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`.
 - D3M-Payments-FastSpring-Test-Order-Plan complete: safe test-mode checkout plan at `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`; no checkout/test order executed.
 - D3M-Payments-FastSpring-Activation-Gap-Audit complete: verdict **PARTIAL / not ready for activation request yet** — see `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`.
+- D3M-Payments-FastSpring-Refund-Policy-Alignment complete: public Refund Policy at `/refund` (en/ar/fr); record at `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`.
 - No Live/checkout/API/webhook/payout/tax/KYC/runtime integration; production billing No-Go.
-- Next: **`D3M-Payments-FastSpring-Refund-Policy-Alignment`**, then SaaS fulfillment decision, then safe test-order execution; compact Cursor reports required.
+- Latest phase: FastSpring Refund Policy alignment.
+- Next recommended: **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**, then safe FastSpring test-order manual execution; compact Cursor reports required.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -253,9 +255,8 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-FastSpring-Refund-Policy-Alignment` — public Refund Policy visibility before activation review, or
   - `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision` — document SaaS fulfillment for FastSpring review, or
-  - `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — after Refund Policy and fulfillment gaps addressed, or
+  - `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — after SaaS fulfillment gap addressed, or
   - `D3M-Infra-Database-Uptime-Decision` — decide Supabase Pro vs dev-only vs alternative DB, or
   - `D3M-Payments-FastSpring-Response-Record` — record FastSpring response when received, or
   - `D3M-Payments-FastSpring-Follow-Up-Draft` — if no response after reasonable period, or

@@ -18,7 +18,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 | 4 | Unit prices match website | USD 4.99 / 47.90 / 9.99 / 95.90 | **Yes** |
 | 5 | Terms page linked | Localized routes + documented URLs | **Partial** — confirm public |
 | 6 | Privacy page linked | Localized routes + documented URLs | **Partial** — confirm public |
-| 7 | Refund Policy visible | Docs only; 7-day draft pending | **No** |
+| 7 | Refund Policy visible | Public `/refund` routes + footer links; 7-day policy | **Yes** |
 | 8 | SaaS fulfillment decision | Not documented for dashboard | **No** |
 | 9 | Checkout style chosen | Web Checkout planned in docs | **Partial** |
 | 10 | Test order (test mode) | Plan only; not executed | **No** |
@@ -32,7 +32,6 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 ## Not Ready Items
 
-- Refund Policy public visibility
 - SaaS fulfillment decision for FastSpring review
 - Test order execution
 - Business details / User Agreement / tax / KYC (dashboard — manual)
@@ -44,15 +43,15 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 - Trial store exists
 - Catalog complete (four launch subscriptions)
 - Website pricing aligned with catalog
+- Refund Policy public visibility (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`)
 - School deferred
 - Test order plan + evidence policy
 - Runtime fail-closed (no accidental live checkout from app)
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Refund-Policy-Alignment`
-2. `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
-3. `D3M-Payments-FastSpring-Test-Order-Manual-Execution`
-4. `D3M-Payments-FastSpring-Activation-Request-Email`
+1. `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
+2. `D3M-Payments-FastSpring-Test-Order-Manual-Execution`
+3. `D3M-Payments-FastSpring-Activation-Request-Email`
 
 **Verdict:** **PARTIAL — not ready for activation request yet.**

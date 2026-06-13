@@ -550,6 +550,11 @@
   - Activation gap audit at `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; minimum requirements **PARTIAL** — catalog and website pricing complete; Refund Policy, fulfillment, test order, business/tax/KYC/User Agreement, and activation request remain open.
   - No dashboard/checkout/API/webhook/tax/KYC action; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Refund-Policy-Alignment`** or SaaS fulfillment decision.
+- Phase 4-D3M-Payments-FastSpring-Refund-Policy-Alignment note:
+  - Refund Policy visibility aligned for FastSpring activation readiness at `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`.
+  - Public Refund Policy route/link exists at `/en/refund`, `/ar/refund`, `/fr/refund` with footer links on pricing, landing, Terms, Privacy, and settings.
+  - Payment remains unavailable/fail-closed; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`** or safe test-order manual execution.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

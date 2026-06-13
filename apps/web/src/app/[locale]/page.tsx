@@ -276,6 +276,12 @@ export default function HomePage({
             <span className="text-violet-200" aria-hidden>
               |
             </span>
+            <Link href="/refund" className="transition hover:text-violet-600">
+              {tc("refund")}
+            </Link>
+            <span className="text-violet-200" aria-hidden>
+              |
+            </span>
             <a href="mailto:contact@dreemi.app" className="transition hover:text-violet-600">
               {tc("contact")}
             </a>

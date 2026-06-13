@@ -9,6 +9,7 @@
     "upgradePlan": "Mettre à niveau",
     "privacy": "Confidentialité",
     "terms": "Conditions",
+    "refund": "Politique de remboursement",
     "contact": "Contactez-nous",
     "copyright": "© 2026 Dreemi",
     "unexpectedError": "Une erreur inattendue s'est produite"
@@ -211,6 +212,7 @@
     "paymentsTemporarilyUnavailable": "Les paiements sont temporairement indisponibles. Veuillez réessayer plus tard.",
     "paymentsUnavailableLabel": "Indisponible",
     "priceNotConfigured": "L'identifiant de prix n'est pas configuré. Contactez le support.",
+    "policyAgreement": "En utilisant Dreemi, vous acceptez nos conditions, notre politique de confidentialité et notre politique de remboursement.",
     "perMonth": "/mois",
     "perYear": "/an",
     "planFree": "Gratuit",
@@ -572,6 +574,50 @@
         "title": "Contact",
         "body": [
           "Pour toute question concernant ces Conditions, contactez-nous à legal@dreemi.app."
+        ]
+      }
+    }
+  },
+  "refund": {
+    "title": "Politique de remboursement",
+    "lastUpdatedLabel": "Dernière mise à jour :",
+    "lastUpdatedDate": "juin 2026",
+    "intro": "Cette politique de remboursement explique comment Dreemi traite les demandes de remboursement pour les abonnements payants. Les abonnements payants ne sont pas encore disponibles publiquement ; cette politique s'appliquera lorsque la facturation payante sera activée.",
+    "sections": {
+      "eligibility": {
+        "title": "Éligibilité",
+        "body": [
+          "Dreemi prépare actuellement son expérience d'abonnement payant. Lorsque les abonnements payants seront disponibles, les achats ou renouvellements éligibles pourront faire l'objet d'un remboursement dans les 7 jours suivant la date de transaction, sous réserve des conditions ci-dessous."
+        ]
+      },
+      "request": {
+        "title": "Comment demander un remboursement",
+        "body": [
+          "Pour demander un remboursement, contactez-nous à contact@dreemi.app avec l'adresse e-mail utilisée pour l'achat et une brève description du problème."
+        ]
+      },
+      "review": {
+        "title": "Examen des demandes",
+        "body": [
+          "Les demandes de remboursement sont examinées au cas par cas. Nous pouvons refuser les demandes liées à une mauvaise utilisation, à des demandes répétées ou à une violation de nos conditions."
+        ]
+      },
+      "cancellation": {
+        "title": "Annulation d'abonnement",
+        "body": [
+          "Si un abonnement est annulé, l'accès peut rester disponible jusqu'à la fin de la période de facturation payée, sauf exigence contraire du prestataire de paiement ou de la loi applicable."
+        ]
+      },
+      "provider": {
+        "title": "Traitement par le prestataire de paiement",
+        "body": [
+          "Lorsque les paiements sont traités par un prestataire de paiement, les remboursements peuvent également être soumis aux règles et délais de traitement de ce prestataire. Aucun remboursement n'est garanti lorsque le prestataire ou la loi applicable l'interdit."
+        ]
+      },
+      "updates": {
+        "title": "Mises à jour de la politique",
+        "body": [
+          "Cette politique peut être mise à jour avant la disponibilité publique des abonnements payants ou avant l'activation de la facturation en production."
         ]
       }
     }
