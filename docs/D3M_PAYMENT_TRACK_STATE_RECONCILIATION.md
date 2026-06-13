@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**, after Refund Policy alignment **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). Payment track records Refund Policy alignment. Runtime payment remains unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**, after SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Payment track records SaaS fulfillment as account entitlement, not file/license delivery. Runtime payment remains unavailable/fail-closed.
 
 Alternative paths:
 

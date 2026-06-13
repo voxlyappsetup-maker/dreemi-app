@@ -285,7 +285,8 @@ Production billing remains **NO-GO** until a safe test checkout is executed, web
 - Runtime checkout remains fail-closed; Plan screen / pricing buttons must not enable live purchase.
 - Follow `docs/D3M_FASTSPRING_TEST_ORDER_EVIDENCE_POLICY.md` for any future evidence recording.
 - Do not paste order IDs, checkout URLs, or buyer PII into repo or chat.
-- Activation gap audit (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`): minimum requirements **PARTIAL** — complete Refund Policy and fulfillment gaps before activation request.
+- Activation gap audit (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`): minimum requirements **PARTIAL** — Refund Policy and SaaS fulfillment decision complete; actual test order and business/tax/KYC remain before activation request.
+- SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`); actual test order remains **pending**.
 
 ## Related Artifacts
 

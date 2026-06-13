@@ -555,6 +555,11 @@
   - Public Refund Policy route/link exists at `/en/refund`, `/ar/refund`, `/fr/refund` with footer links on pricing, landing, Terms, Privacy, and settings.
   - Payment remains unavailable/fail-closed; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`** or safe test-order manual execution.
+- Phase 4-D3M-Payments-FastSpring-SaaS-Fulfillment-Decision note:
+  - FastSpring SaaS fulfillment decision recorded at `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`.
+  - Dreemi fulfillment is SaaS account access / subscription entitlement, not file download or license key delivery.
+  - No dashboard fulfillment, checkout, webhook, API, or runtime entitlement change was performed; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** or webhook integration planning.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

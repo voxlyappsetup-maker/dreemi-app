@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). Test-order planning **COMPLETE**; actual test checkout **pending**. **Activation gap audit COMPLETE** — minimum requirements **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Activation remains blocked by SaaS fulfillment decision, test execution, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Test-order planning **COMPLETE**; actual test checkout **pending**. **Activation gap audit COMPLETE** — minimum requirements **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`). Activation remains blocked by test execution, business/tax/KYC/User Agreement, activation request, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -64,7 +64,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 ## Integration / Webhooks
 
 - [ ] Web Checkout approach confirmed (default: Web Checkout first)
-- [ ] Fulfillment/entitlement strategy documented
+- [x] Fulfillment/entitlement strategy documented — `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`, `docs/D3M_FASTSPRING_FULFILLMENT_TO_ENTITLEMENT_MAPPING.md`
 - [ ] Webhooks configured in **dedicated integration phase**
 - [ ] Entitlement mapping verified before Live
 
@@ -87,7 +87,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 | Store not Live | Open (expected) |
 | Catalog not configured | **Closed** — four subscriptions in test/trial dashboard |
 | Refund wording not final / not public | **Closed** — public Refund Policy aligned (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`) |
-| SaaS fulfillment not decided | **Open** — see gap audit |
+| SaaS fulfillment not decided | **Closed** — SaaS entitlement decision documented (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`) |
 | Tax/KYC/User Agreement incomplete | **Open / unverified** — manual dashboard |
 | Test order not done | **Open** |
 | Activation request not sent | **Open** |
@@ -98,8 +98,8 @@ Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`
+**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution`
 
-**Alternative:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution`
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 
 **Rule:** dashboard catalog/test/Live actions require explicit phase approval.

@@ -134,6 +134,8 @@ Dreemi is **SaaS access**, not downloadable fulfillment.
 
 FastSpring fulfillment should later trigger subscription lifecycle events that map to internal entitlements.
 
+**Decision record:** `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md` — catalog fulfillment position clarified as SaaS entitlement/account access, not file or license delivery.
+
 No fulfillment automation is implemented in this phase.
 
 Future implementation must verify webhook signatures and **fail closed**.
@@ -236,9 +238,9 @@ Production billing remains **unavailable/fail-closed** until catalog setup, prov
 
 ## Recommended Next Phase
 
-**Primary:** **`D3M-Payments-FastSpring-Refund-Policy-Alignment`**.
+**Primary:** **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`**.
 
-**Alternative:** **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**.
+**Alternative:** **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**.
 
 Catalog plan follow-up: activation gap audit `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`; test-order plan `docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`.
 

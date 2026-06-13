@@ -4,7 +4,9 @@
 
 **COMPLETE** — docs-only activation gap audit. No dashboard, checkout, or provider actions performed.
 
-**Follow-up (Refund Policy alignment):** Refund Policy visibility gap addressed by `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` — public `/refund` routes and footer links added. Remaining gaps in this audit still open.
+**Follow-up (Refund Policy alignment):** Refund Policy visibility gap addressed by `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` — public `/refund` routes and footer links added.
+
+**Follow-up (SaaS fulfillment decision):** Fulfillment gap addressed by `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md` — Dreemi fulfillment is SaaS account entitlement, not file/license delivery. Remaining gaps in this audit still open.
 
 This is a docs-only activation gap audit.
 No checkout was opened.
@@ -106,7 +108,7 @@ Official guidance groups activation into three areas:
 | Store mode | Testing/trial — not Live |
 | Catalog | **Complete** — four planned subscriptions |
 | Website pricing | **Complete** — matches catalog |
-| Website legal | **Partial** — Terms/Privacy/Refund linked; fulfillment and business items remain |
+| Website legal | **Partial** — Terms/Privacy/Refund linked; SaaS fulfillment documented; business items remain |
 | Fulfillment | **Not resolved** for FastSpring activation review |
 | Test order | **Planned, not executed** |
 | Business/tax/KYC/User Agreement | **Not documented as complete** |
@@ -125,7 +127,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 | Website Terms page | Clear Terms link | **Likely met** — localized `/terms`; expected public URL documented | Pricing footer; decision pack URLs | Public production URL not re-verified in this audit | Low | Confirm live Terms link in Refund Policy phase |
 | Website Privacy page | Clear Privacy link | **Likely met** — localized `/privacy` | Pricing footer; decision pack URLs | Public production URL not re-verified in this audit | Low | Confirm live Privacy link in Refund Policy phase |
 | Refund Policy visibility | Clear Refund Policy link/section | **Complete** — public `/refund` (en/ar/fr); footer links | `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` | Addressed in follow-up phase | — | Re-verify public URLs at deploy |
-| Fulfillment decision for SaaS | Assign fulfillment where applicable | **Incomplete** — SaaS access; no dashboard fulfillment decision documented | Catalog plan (SaaS note) | Fulfillment action not chosen/documented for review | **High** | SaaS fulfillment decision phase |
+| Fulfillment decision for SaaS | Assign fulfillment where applicable | **Complete** — SaaS account entitlement documented | `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md` | Addressed in follow-up phase | — | Do not configure file/license fulfillment in dashboard |
 | Checkout style | Choose checkout approach | **Planned** — Web Checkout first (docs) | Catalog plan | Not confirmed in dashboard for activation | Medium | Confirm Web Checkout in dashboard when manually ready |
 | Test order | Test-mode order | **Not executed** | Test order plan | No test checkout evidence | **High** | Manual test-order execution phase |
 | Business details | Complete in dashboard | **Unverified / not documented complete** | Entity/payout docs (high level) | Cannot claim complete from repo | **Critical** | Manual dashboard completion outside repo |
@@ -154,7 +156,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 ## Incomplete / Unverified Items
 
 - Actual test order has not been executed.
-- Fulfillment action/decision for SaaS is not yet resolved for activation review.
+- Fulfillment action/decision for SaaS is documented for activation review (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`).
 - Business details are not documented as complete in FastSpring dashboard.
 - FastSpring User Agreement is not documented as signed.
 - Tax profile is not documented as submitted.
@@ -170,7 +172,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 
 **Verdict: PARTIAL / NOT READY FOR ACTIVATION REQUEST YET.**
 
-**Reason:** Dreemi has completed catalog setup, website pricing alignment, and Refund Policy visibility, but has not yet completed all FastSpring activation preparation items. The most important open items are SaaS fulfillment decision, business/User Agreement/tax/KYC readiness, actual test order execution, and activation request to the FastSpring representative.
+**Reason:** Dreemi has completed catalog setup, website pricing alignment, Refund Policy visibility, and SaaS fulfillment decision documentation, but has not yet completed all FastSpring activation preparation items. The most important open items are business/User Agreement/tax/KYC readiness, actual test order execution, and activation request to the FastSpring representative.
 
 **Answer to user question:** Dreemi has **not** fully met FastSpring's minimum requirements for activation review. Catalog and website pricing alignment are complete; remaining gaps explain why the store may still show testing/trial mode without automatic review completion.
 
@@ -181,7 +183,7 @@ Ordered checklist (manual + docs phases):
 - [ ] Confirm Terms page is public and linked
 - [ ] Confirm Privacy page is public and linked
 - [ ] Add or confirm clear Refund Policy link/section
-- [ ] Decide SaaS fulfillment handling for FastSpring activation review
+- [x] Decide SaaS fulfillment handling for FastSpring activation review — `docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`
 - [ ] Confirm checkout style: Web Checkout first
 - [ ] Execute one safe test-mode order for Individual Monthly (`dreemi-individual-monthly`)
 - [ ] Complete/sign User Agreement manually in FastSpring when ready
@@ -194,8 +196,8 @@ Ordered checklist (manual + docs phases):
 
 Recommended sequence:
 
-1. **`D3M-Payments-FastSpring-Refund-Policy-Alignment`** — ensure public Refund Policy visibility before activation review
-2. **`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`** — decide and document SaaS fulfillment handling for FastSpring activation review
+1. ~~**`D3M-Payments-FastSpring-Refund-Policy-Alignment`**~~ — **complete**
+2. ~~**`D3M-Payments-FastSpring-SaaS-Fulfillment-Decision`**~~ — **complete**
 3. **`D3M-Payments-FastSpring-Test-Order-Manual-Execution`** — one safe test-mode order (Individual Monthly only)
 4. **`D3M-Payments-FastSpring-Activation-Request-Email`** — contact representative after above (and manual tax/KYC/User Agreement when ready)
 
@@ -217,8 +219,8 @@ No Live activation requested.
 
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
-| Refund Policy visibility not confirmed | Website/legal | High | **OPEN** | Public refund link/section | Refund Policy alignment |
-| SaaS fulfillment decision missing | Catalog/activation | High | **OPEN** | Documented fulfillment choice | SaaS fulfillment decision |
+| Refund Policy visibility not confirmed | Website/legal | High | **CLOSED** | Public refund routes/links | — |
+| SaaS fulfillment decision missing | Catalog/activation | High | **CLOSED** | Documented SaaS entitlement decision | Test order or webhook plan |
 | Actual test order not executed | Provider validation | High | **OPEN** | Safe P1 test PASS | Test-order manual execution |
 | User Agreement not documented as signed | Provider/legal | Critical | **OPEN** | Dashboard completion (manual) | Manual dashboard (outside repo) |
 | Tax profile not documented as completed | Provider/tax | Critical | **OPEN** | Tax profile submitted (manual) | Manual dashboard (outside repo) |
@@ -250,9 +252,9 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Refund-Policy-Alignment` — ensure public Refund Policy visibility before activation review
+**Primary:** `D3M-Payments-FastSpring-Test-Order-Manual-Execution` — execute one safe FastSpring test-mode checkout for Individual Monthly only
 
-**Alternative:** `D3M-Payments-FastSpring-SaaS-Fulfillment-Decision` — decide and document SaaS fulfillment handling for FastSpring activation review
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
 
 ## Notes For Next Chat
 
