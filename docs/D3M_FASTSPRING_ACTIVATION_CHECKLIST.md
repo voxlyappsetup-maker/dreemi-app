@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Individual Monthly test checkout **PASS on retry**. Activation request email draft **COMPLETE** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`); send manually. Activation remains blocked by FastSpring review, business/tax/KYC/User Agreement, webhooks, Live approval, and payout.
+Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). Individual Monthly test checkout **PASS on retry**. Activation request email **SENT 2026-06-13** to Louis / FastSpring support; awaiting response. Activation remains blocked by FastSpring approval, business/tax/KYC/User Agreement, webhooks, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -89,7 +89,7 @@ Concise activation readiness checklist derived from FastSpring setup guidance an
 | SaaS fulfillment not decided | **Closed** — SaaS entitlement decision documented (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`) |
 | Tax/KYC/User Agreement incomplete | **Open / unverified** — manual dashboard |
 | Test order not done | **Closed — PASS on retry** (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`) |
-| Activation request not sent | **Open — draft ready** | `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md` |
+| Activation request not sent | **Closed — SENT 2026-06-13** | `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md` |
 | Integration not implemented | Open |
 | Payout not activated | Open (expected pre/post-Live) |
 
@@ -97,7 +97,7 @@ Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record`
+**Primary:** `D3M-Payments-FastSpring-Response-Record`
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 

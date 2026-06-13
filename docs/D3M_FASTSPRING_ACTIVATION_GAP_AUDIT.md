@@ -116,7 +116,7 @@ Official guidance groups activation into three areas:
 | Fulfillment | **Not resolved** for FastSpring activation review |
 | Test order | **PASS on retry** (Individual Monthly, test mode) | `docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md` |
 | Business/tax/KYC/User Agreement | **Not documented as complete** |
-| Activation request | **Not sent** after requirements completion |
+| Activation request | **SENT 2026-06-13** to Louis / FastSpring support via email | `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md` |
 | Dreemi runtime integration | **Not implemented** (webhooks, entitlements) |
 | Payout | **Not activated** |
 
@@ -138,7 +138,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 | User Agreement | Sign in FastSpring | **Not documented as signed** | — | Unknown completion | **Critical** | Sign manually when ready |
 | Tax profile | Complete tax profile | **Not documented as submitted** | Tax posture pending legal review | Unknown completion | **Critical** | Submit manually when legal/tax ready |
 | KYC/identity/business verification | Prepare and complete verification | **Not documented as complete** | Preflight/entity docs | Unknown completion | **Critical** | Prepare docs manually outside repo |
-| Activation request/contact representative | Contact rep after requirements met | **Not sent** (preflight demo form submitted earlier; not activation request) | Contact form submission record | No post-requirements activation request | **High** | Activation request email phase |
+| Activation request/contact representative | Contact rep after requirements met | **SENT 2026-06-13** via email to Louis / FastSpring support | Sent record | Awaiting FastSpring response | **High** | Response record phase |
 | Live mode | Live only after approval | **Not enabled** | Trial store record | Expected — not a gap until prior steps done | — | Do not enable until approved |
 | Payout account | Activate after Live approval | **Not activated** | — | Expected pre-Live | — | Post-Live manual step |
 | Webhook/runtime integration | Not FastSpring minimum for store review, but Dreemi production blocker | **Not implemented** | Payment track reconciliation | Production billing blocked | **Critical** (Dreemi) | Webhook integration plan phase |
@@ -165,7 +165,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 - FastSpring User Agreement is not documented as signed.
 - Tax profile is not documented as submitted.
 - KYC/business/identity verification readiness is not documented as complete.
-- Activation request has not been sent after requirements completion.
+- Activation request **SENT 2026-06-13** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`); awaiting FastSpring response.
 - Live mode is not enabled (expected until approval).
 - Payout is not activated (expected until post-Live).
 - Webhook/runtime entitlement integration is not implemented (Dreemi production blocker).
@@ -174,9 +174,9 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 
 ## Activation Readiness Verdict
 
-**Verdict: PARTIAL / NOT READY FOR ACTIVATION REQUEST YET.**
+**Verdict: PARTIAL — activation request SENT; awaiting FastSpring response.**
 
-**Reason:** Dreemi has completed catalog setup, website pricing alignment, Refund Policy visibility, SaaS fulfillment decision, and a successful Individual Monthly test checkout retry (PASS). Open items include business/User Agreement/tax/KYC readiness and activation request to the FastSpring representative.
+**Reason:** Dreemi has completed catalog setup, website pricing alignment, Refund Policy visibility, SaaS fulfillment decision, successful Individual Monthly test checkout retry (PASS), and sent the activation request email (2026-06-13). Open items include business/User Agreement/tax/KYC readiness and FastSpring approval.
 
 **Answer to user question:** Dreemi has **not** fully met FastSpring's minimum requirements for activation review. Catalog and website pricing alignment are complete; remaining gaps explain why the store may still show testing/trial mode without automatic review completion.
 
@@ -193,8 +193,8 @@ Ordered checklist (manual + docs phases):
 - [ ] Complete/sign User Agreement manually in FastSpring when ready
 - [ ] Complete Tax Profile manually in FastSpring when ready
 - [ ] Prepare KYC/identity/business verification documents manually outside repo
-- [x] Draft activation request email to Louis/FastSpring representative — **draft ready** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`); not sent
-- [ ] Send activation request only after manual review; record in sent-record phase
+- [x] Draft activation request email to Louis/FastSpring representative — **draft ready** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`)
+- [x] Send activation request — **SENT 2026-06-13** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`)
 
 ## Safe Next Actions
 
@@ -206,7 +206,8 @@ Recommended sequence:
 4. ~~**`D3M-Payments-FastSpring-Test-Order-Followup`**~~ — **complete** (`docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`)
 5. ~~**`D3M-Payments-FastSpring-Test-Mode-Support-Question`**~~ — resolved by successful retry (optional support still available)
 6. ~~**`D3M-Payments-FastSpring-Activation-Request-Email`**~~ — **draft complete** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`)
-7. **`D3M-Payments-FastSpring-Activation-Request-Sent-Record`** — after user sends manually
+7. ~~**`D3M-Payments-FastSpring-Activation-Request-Sent-Record`**~~ — **complete** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`)
+8. **`D3M-Payments-FastSpring-Response-Record`** — when FastSpring replies
 
 Do **not** request Live activation or enable payouts until FastSpring approves and Dreemi webhook/entitlement phases are scoped separately.
 
@@ -234,7 +235,8 @@ No Live activation requested.
 | User Agreement not documented as signed | Provider/legal | Critical | **OPEN** | Dashboard completion (manual) | Manual dashboard (outside repo) |
 | Tax profile not documented as completed | Provider/tax | Critical | **OPEN** | Tax profile submitted (manual) | Manual dashboard (outside repo) |
 | KYC readiness not documented | Provider/KYC | Critical | **OPEN** | KYC docs submitted (manual) | Manual dashboard (outside repo) |
-| Activation request not sent | Provider comms | High | **OPEN** | Post-requirements email sent | Activation request email |
+| Activation request not sent | Provider comms | High | **CLOSED — SENT 2026-06-13** | Sent record | Response record |
+| FastSpring response pending | Provider comms | High | **PENDING** | Non-sensitive reply summary | Response record |
 | Webhook integration not implemented | Dreemi runtime | Critical | **OPEN** | Webhook plan + tests | Webhook integration plan |
 | Entitlement mapping not implemented | Dreemi runtime | Critical | **OPEN** | Event → plan mapping | Webhook + entitlement phase |
 | Payout not activated | Payout | Critical | **OPEN** | Post-Live payout active | Post-Live manual step |
@@ -261,7 +263,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record` — after user sends activation email manually
+**Primary:** `D3M-Payments-FastSpring-Response-Record` — record and analyze FastSpring reply when received
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
 
@@ -271,7 +273,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 - Preflight Request Demo (2026-06-07) ≠ post-requirements activation request.
 - Do not paste dashboard secrets, tax IDs, or KYC details into repo/chat.
 - Even after FastSpring store activation, Dreemi production billing stays NO-GO until webhook/entitlement/runtime gates pass.
-- User-reported no FastSpring response after 3+ days: follow up only after closing documented gaps or sending a structured activation request.
+- Activation request **SENT 2026-06-13**; status: awaiting FastSpring response.
 
 ## Related Artifacts
 

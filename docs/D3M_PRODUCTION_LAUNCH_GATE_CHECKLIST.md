@@ -631,7 +631,8 @@ Current: NO-GO
 33. `Payments-FastSpring-Test-Order-Followup` — **complete** (see `docs/D3M_FASTSPRING_TEST_ORDER_FOLLOWUP.md`).
 34. `Payments-FastSpring-Test-Order-Retry-Execution` — **complete — PASS** (see `docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`).
 35. `Payments-FastSpring-Activation-Request-Email` — **complete — draft ready** (see `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`).
-36. `Payments-FastSpring-Activation-Request-Sent-Record` — record manual send after user sends email.
+36. `Payments-FastSpring-Activation-Request-Sent-Record` — **complete** (sent 2026-06-13; see `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`).
+37. `Payments-FastSpring-Response-Record` — record FastSpring reply when received.
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
 34. Final launch gate review.
@@ -640,9 +641,9 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Activation-Request-Sent-Record`**
+- Primary: **`D3M-Payments-FastSpring-Response-Record`** (when reply received)
 - Alternative: **`D3M-Payments-FastSpring-Webhook-Integration-Plan`**
-- Activation request email draft gate: **PASS**. Email sent gate: **PENDING**. Payment/launch gates remain blocked.
+- Activation request email sent gate: **PASS** (2026-06-13). FastSpring response gate: **PENDING**. Payment/launch gates remain blocked.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

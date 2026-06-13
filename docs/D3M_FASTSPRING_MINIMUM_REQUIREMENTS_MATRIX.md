@@ -26,14 +26,14 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 | 12 | User Agreement signed | Not documented | **Unverified** |
 | 13 | Tax profile complete | Not documented | **Unverified** |
 | 14 | KYC/identity ready | Not documented | **Unverified** |
-| 15 | Contact rep / activation request | Not sent post-requirements | **No** |
+| 15 | Contact rep / activation request | **SENT 2026-06-13** to Louis / FastSpring support | **Yes** |
 | 16 | Live mode | Not enabled | N/A (post-approval) |
 | 17 | Payout activated | Not activated | N/A (post-Live) |
 
 ## Not Ready Items
 
 - Business details / User Agreement / tax / KYC (dashboard — manual)
-- Activation request after requirements met
+- Await FastSpring response to activation request (sent 2026-06-13)
 - Dreemi webhook + entitlement integration (production billing blocker)
 
 ## Ready Items
@@ -44,14 +44,15 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 - Refund Policy public visibility (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`)
 - SaaS fulfillment decision (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`)
 - Test order PASS on retry (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`)
+- Activation request sent (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`)
 - School deferred
 - Test order plan + evidence policy
 - Runtime fail-closed (no accidental live checkout from app)
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Activation-Request-Sent-Record`
+1. `D3M-Payments-FastSpring-Response-Record`
 2. `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 3. Business/tax/KYC/User Agreement (manual dashboard)
 
-**Verdict:** **PARTIAL — not ready for activation request yet.**
+**Verdict:** **PARTIAL — activation request sent; awaiting FastSpring response. Production billing NO-GO.**

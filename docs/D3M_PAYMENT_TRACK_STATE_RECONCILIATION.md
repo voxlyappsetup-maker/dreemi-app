@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Activation-Request-Sent-Record`**, after activation email draft **COMPLETE** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`). Email not sent automatically. Runtime payment remains unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Response-Record`**, after activation request **SENT 2026-06-13** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`). Awaiting FastSpring response. Runtime payment remains unavailable/fail-closed.
 
 Alternative paths:
 

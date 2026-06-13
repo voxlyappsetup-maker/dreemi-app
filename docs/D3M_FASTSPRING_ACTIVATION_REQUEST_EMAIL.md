@@ -4,7 +4,9 @@
 
 This is a docs-only activation request email package.
 
-No email was sent automatically.
+**Email SENT manually 2026-06-13** to Louis / FastSpring support via email. Sent record: `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`. Awaiting FastSpring response.
+
+No email was sent automatically by this phase or the sent-record phase.
 
 No FastSpring dashboard change was made.
 
@@ -198,7 +200,8 @@ The activation request email package prepares the next external review step with
 ## Launch Gate Impact
 
 - Activation request email draft gate: **PASS**
-- Email sent gate: **PENDING**
+- Email sent gate: **PASS** (2026-06-13)
+- FastSpring response gate: **PENDING**
 - FastSpring activation approval gate: **BLOCKED**
 - Webhook gate: **BLOCKED**
 - Entitlement runtime gate: **BLOCKED**
@@ -208,13 +211,14 @@ The activation request email package prepares the next external review step with
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record` — record manual sending of the activation request email
+**Primary:** `D3M-Payments-FastSpring-Response-Record` — record and analyze FastSpring's reply when received
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping while awaiting FastSpring response
 
 ## Notes For Next Chat
 
-- Draft is ready; user sends manually—do not auto-send from Cursor
-- Do not add order IDs or checkout URLs when sending
-- After send, use sent-record phase only (date/channel; no secrets)
+- Activation email sent **2026-06-13** to Louis / FastSpring support via email
+- Awaiting FastSpring response; do not auto-send from Cursor
+- Do not add order IDs or checkout URLs when recording replies
+- Use response-record phase only (non-sensitive summary; no secrets)
 - Production billing remains **NO-GO**

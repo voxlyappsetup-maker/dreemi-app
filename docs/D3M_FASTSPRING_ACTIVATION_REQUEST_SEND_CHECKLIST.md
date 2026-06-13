@@ -2,7 +2,7 @@
 
 ## Status
 
-**DRAFT READY — NOT SENT** — manual send checklist for activation request email.
+**SENT 2026-06-13** — manual send recorded at `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`. Awaiting FastSpring response.
 
 Parent package: `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`
 
@@ -34,16 +34,16 @@ Order reference, order ID, transaction ID, customer ID, subscription ID, checkou
 
 ## After Sending
 
-Record in a follow-up docs-only phase (`D3M-Payments-FastSpring-Activation-Request-Sent-Record`):
+Recorded in `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`:
 
-- Sent date (YYYY-MM-DD)
-- Channel used (e.g. email to Louis / FastSpring support)
-- High-level outcome: sent / bounced / no reply yet
+- Sent date: **2026-06-13**
+- Channel: **email** to Louis / FastSpring support
+- Outcome: **sent** — awaiting response
 
 Do **not** record full email thread, private headers, or sensitive attachments in the repo.
 
 ## Next
 
-**Primary:** `D3M-Payments-FastSpring-Activation-Request-Sent-Record`
+**Primary:** `D3M-Payments-FastSpring-Response-Record`
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan`

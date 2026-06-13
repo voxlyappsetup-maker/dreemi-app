@@ -578,6 +578,10 @@
   - Activation request email package at `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md`; send checklist at `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SEND_CHECKLIST.md`.
   - Draft ready; not sent automatically; summarizes catalog, website/policy readiness, SaaS fulfillment, test-mode checkout PASS without sensitive IDs; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Activation-Request-Sent-Record`** or webhook integration planning.
+- Phase 4-D3M-Payments-FastSpring-Activation-Request-Sent-Record note:
+  - Activation request email sent manually **2026-06-13** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`.
+  - Awaiting FastSpring response; no dashboard/API/webhook/payout/tax/KYC/Live/runtime change; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Response-Record`** when reply received, or webhook integration planning.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.
