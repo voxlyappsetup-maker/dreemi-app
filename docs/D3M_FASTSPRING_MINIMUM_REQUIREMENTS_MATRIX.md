@@ -34,7 +34,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 - Business details / User Agreement / tax / KYC (dashboard — manual)
 - Await FastSpring team review / further reply (response received; under review)
-- Dreemi webhook + entitlement integration (production billing blocker)
+- Dreemi webhook + entitlement integration (production billing blocker) — **planned (docs-only)**; runtime not implemented
 
 ## Ready Items
 
@@ -45,7 +45,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 - SaaS fulfillment decision (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`)
 - Test order PASS on retry (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`)
 - Activation request sent (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`)
-- FastSpring response received — under team review (`docs/D3M_FASTSPRING_RESPONSE_RECORD.md`)
+- Webhook/entitlement planning complete (`docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`)
 - School deferred
 - Test order plan + evidence policy
 - Runtime fail-closed (no accidental live checkout from app)
@@ -53,7 +53,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 ## Next
 
 1. `D3M-Payments-FastSpring-Followup-Email-Sent-Record` (if user sends follow-up after waiting window)
-2. `D3M-Payments-FastSpring-Webhook-Integration-Plan`
-3. Business/tax/KYC/User Agreement (manual dashboard)
+2. `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`
+3. Runtime webhook/entitlement implementation (after gates pass)
 
 **Verdict:** **PARTIAL — FastSpring response received; under team review via email continuation. No approval or rejection yet. Production billing NO-GO.**

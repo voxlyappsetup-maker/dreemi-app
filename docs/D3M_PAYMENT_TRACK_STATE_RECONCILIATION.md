@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Response-Record`** complete — FastSpring response **RECEIVED**; under team review via email continuation (`docs/D3M_FASTSPRING_RESPONSE_RECORD.md`). Next: follow-up sent record if user sends after waiting window, or webhook integration plan. Runtime payment remains unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Webhook-Integration-Plan`** complete — docs-only webhook and entitlement planning (`docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`, entitlement mapping plan, webhook test plan). Runtime payment remains unavailable/fail-closed. Next: follow-up sent record or official webhook docs verification.
 
 Alternative paths:
 

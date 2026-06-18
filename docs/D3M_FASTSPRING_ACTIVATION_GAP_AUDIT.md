@@ -209,6 +209,8 @@ Recommended sequence:
 7. ~~**`D3M-Payments-FastSpring-Activation-Request-Sent-Record`**~~ — **complete** (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`)
 8. ~~**`D3M-Payments-FastSpring-Response-Record`**~~ — **complete** (`docs/D3M_FASTSPRING_RESPONSE_RECORD.md`)
 9. **`D3M-Payments-FastSpring-Followup-Email-Sent-Record`** — if user sends follow-up after waiting window
+10. ~~**`D3M-Payments-FastSpring-Webhook-Integration-Plan`**~~ — **complete (docs-only)** (`docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`)
+11. **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`** — before runtime implementation
 
 Do **not** request Live activation or enable payouts until FastSpring approves and Dreemi webhook/entitlement phases are scoped separately.
 
@@ -239,8 +241,8 @@ No Live activation requested.
 | Activation request not sent | Provider comms | High | **CLOSED — SENT 2026-06-13** | Sent record | Response record |
 | FastSpring response pending | Provider comms | High | **CLOSED — RECEIVED** | Response record | Follow-up sent record if needed |
 | FastSpring team review pending | Provider review | High | **PENDING** | Further FastSpring reply | Follow-up sent record / response review |
-| Webhook integration not implemented | Dreemi runtime | Critical | **OPEN** | Webhook plan + tests | Webhook integration plan |
-| Entitlement mapping not implemented | Dreemi runtime | Critical | **OPEN** | Event → plan mapping | Webhook + entitlement phase |
+| Webhook integration not implemented | Dreemi runtime | Critical | **PLANNED (docs-only)** | Webhook plan + tests | Official docs verification then runtime implementation |
+| Entitlement mapping not implemented | Dreemi runtime | Critical | **PLANNED (docs-only)** | Event → plan mapping | Official docs verification then runtime implementation |
 | Payout not activated | Payout | Critical | **OPEN** | Post-Live payout active | Post-Live manual step |
 | Production DB uptime decision pending | Infra | High | **OPEN** | Uptime decision | Database uptime decision |
 | Production billing NO-GO | Billing | Critical | **BLOCKED** | Full payment path | Multiple phases |
@@ -267,7 +269,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 
 **Primary:** `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — record a manual follow-up email if the user sends one after the waiting window
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation
 
 ## Notes For Next Chat
 
@@ -275,7 +277,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 - Preflight Request Demo (2026-06-07) ≠ post-requirements activation request.
 - Do not paste dashboard secrets, tax IDs, or KYC details into repo/chat.
 - Even after FastSpring store activation, Dreemi production billing stays NO-GO until webhook/entitlement/runtime gates pass.
-- FastSpring response **RECEIVED**; status: **UNDER TEAM REVIEW** via **EMAIL CONTINUATION** (`docs/D3M_FASTSPRING_RESPONSE_RECORD.md`).
+- FastSpring response **RECEIVED**; webhook/entitlement runtime **planned (docs-only)** — see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`.
 
 ## Related Artifacts
 

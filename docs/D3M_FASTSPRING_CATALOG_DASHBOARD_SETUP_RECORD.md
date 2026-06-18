@@ -167,8 +167,8 @@ Production billing remains **NO-GO** until website pricing alignment, refund wor
 | Website pricing alignment pending | Website | High | **CLOSED** | Public pricing matches catalog | `docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md` |
 | Refund wording finalization pending | Legal | High | **OPEN** | Final public refund text | Legal/Terms review |
 | Test checkout not executed | Test mode | High | **CLOSED — PASS on retry** | Retry record | Activation request |
-| Webhook/API integration not implemented | Integration | Critical | **OPEN** | Controlled integration | Integration phase |
-| Entitlement runtime mapping not implemented | Runtime | Critical | **OPEN** | Webhook → plan mapping | Integration phase |
+| Webhook/API integration not implemented | Integration | Critical | **PLANNED (docs-only)** | Controlled integration | Official docs verification then runtime implementation |
+| Entitlement runtime mapping not implemented | Runtime | Critical | **PLANNED (docs-only)** | Webhook → plan mapping | Official docs verification then runtime implementation |
 | FastSpring Live activation not complete | Provider | Critical | **OPEN** | Live approval | Activation checklist |
 | Payout not activated | Payout | Critical | **OPEN** | Post-Live payout | Post-Live phase |
 | Production billing NO-GO | Billing | Critical | **BLOCKED** | Full payment path | Multiple phases |

@@ -173,7 +173,7 @@ Preferred direction: treat products as **subscription SaaS access** with entitle
 
 - [ ] Confirm FastSpring fulfillment expectations for SaaS access
 - [ ] Execute safe FastSpring test-mode checkout
-- [ ] Plan webhook integration
+- [x] Plan webhook integration — **docs-only plan complete** (`docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`, entitlement mapping plan, webhook test plan)
 - [ ] Implement webhook signature verification
 - [ ] Map FastSpring product paths to internal plan entitlements
 - [ ] Add tests for activation, cancellation, unknown product, and failure paths
@@ -198,7 +198,7 @@ Preferred direction: treat products as **subscription SaaS access** with entitle
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
 | Actual test order not executed | Activation / checkout | High | **OPEN** | Safe test-mode Individual Monthly order evidence | `D3M-Payments-FastSpring-Test-Order-Manual-Execution` |
-| Webhook integration not implemented | Runtime / payments | Critical | **OPEN** | Webhook route + signature verification | `D3M-Payments-FastSpring-Webhook-Integration-Plan` |
+| Webhook integration not implemented | Runtime / payments | Critical | **PLANNED (docs-only)** | Webhook route + signature verification | Official docs verification then runtime implementation |
 | Entitlement runtime mapping not implemented | Runtime / billing | Critical | **OPEN** | Product path → plan mapping in runtime | Future webhook implementation phase |
 | User Agreement not documented as signed | Business / legal | High | **OPEN** | Signed User Agreement record | Activation checklist follow-up |
 | Tax profile not documented as completed | Business / tax | High | **OPEN** | Tax profile completion evidence | Activation checklist follow-up |

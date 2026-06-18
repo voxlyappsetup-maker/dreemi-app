@@ -586,6 +586,10 @@
   - FastSpring response received; Louis confirmed detail was helpful and will review with team before moving forward; thread moved to email continuation; record at `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`.
   - Follow-up draft at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_DRAFT.md` (not sent); awaiting team review; no approval or rejection; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Followup-Email-Sent-Record`** if user sends follow-up after waiting window, or webhook integration planning.
+- Phase 4-D3M-Payments-FastSpring-Webhook-Integration-Plan note:
+  - FastSpring webhook and entitlement runtime planning completed as docs-only (`docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`, entitlement mapping plan, webhook test plan, security model, implementation gates).
+  - No webhook route, provider API, dashboard setting, env secret, schema migration, runtime checkout, or entitlement runtime change; production billing No-Go while FastSpring review pending.
+  - Next: **`D3M-Payments-FastSpring-Followup-Email-Sent-Record`** or official FastSpring webhook docs verification.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

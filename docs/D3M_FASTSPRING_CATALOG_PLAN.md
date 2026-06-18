@@ -190,7 +190,7 @@ A future test-mode phase should run **only after** catalog setup is complete and
 
 ## Webhook / API Integration Impact
 
-Future required mapping (implementation deferred):
+Future required mapping (implementation deferred; **docs-only plan complete** — see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md` and `docs/D3M_FASTSPRING_ENTITLEMENT_RUNTIME_MAPPING_PLAN.md`):
 
 | Event / condition | Expected behavior |
 | --- | --- |
@@ -213,7 +213,7 @@ Do not implement in this phase.
 | Refund wording not final | Legal | High | **OPEN** | Final public refund text | Legal/Terms review |
 | Tax/KYC not completed | Provider | High | **OPEN** | Dashboard verification | Manual dashboard |
 | Test order not executed | Test mode | High | **CLOSED — PASS on retry** | Retry record | Activation request |
-| Webhooks/API not integrated | Integration | Critical | **OPEN** | Controlled integration | Integration phase |
+| Webhooks/API not integrated | Integration | Critical | **PLANNED (docs-only)** | Controlled integration | Official docs verification then runtime implementation |
 | Entitlement mapping not implemented | Runtime | Critical | **OPEN** | FastSpring webhook → plan mapping | Integration phase |
 | Payout not activated | Payout | Critical | **OPEN** | Post-Live payout | Post-Live phase |
 | Production billing NO-GO | Billing | Critical | **BLOCKED** | Full payment path evidence | Multiple phases |

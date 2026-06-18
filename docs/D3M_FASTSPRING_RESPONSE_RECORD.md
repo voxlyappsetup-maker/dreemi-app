@@ -164,13 +164,12 @@ FastSpring has replied and the review remains active, but the response does not 
 
 **Primary:** `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — record a manual follow-up email if the user sends one after the waiting window
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — docs-only plan for webhook and entitlement mapping while awaiting FastSpring approval
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation
 
 ## Notes For Next Chat
 
 - FastSpring response **RECEIVED**; status: **UNDER TEAM REVIEW** via **EMAIL CONTINUATION**
+- Webhook/entitlement runtime **planned (docs-only)** — see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`
 - No approval or rejection yet
-- User already confirmed readiness to respond by email
-- Do not enable Live billing or runtime checkout based on this reply alone
 - Production billing remains **NO-GO**
 - Light follow-up draft ready at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_DRAFT.md` — not sent

@@ -169,11 +169,11 @@ A successful provider-side test checkout improves FastSpring activation readines
 
 Activation email draft: `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_EMAIL.md` — draft message to Louis/FastSpring with completed setup summary and remaining review items
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping before runtime implementation
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before runtime implementation
 
 ## Notes For Next Chat
 
 - First attempt **BLOCKED**; retry **PASS** — both records preserved
 - Do not treat provider-side test order as Dreemi entitlement grant
 - Localized SAR at checkout is documented; catalog base remains USD 4.99
-- Production billing remains **NO-GO**
+- Webhook/entitlement runtime planning **COMPLETE (docs-only)** — see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`

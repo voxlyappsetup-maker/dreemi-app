@@ -163,12 +163,13 @@ Response recorded: `docs/D3M_FASTSPRING_RESPONSE_RECORD.md` — FastSpring respo
 
 **Primary:** `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — record a manual follow-up email if the user sends one after the waiting window
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping while awaiting FastSpring approval
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation
 
 ## Notes For Next Chat
 
 - Activation email sent **2026-06-13** to Louis / FastSpring support via email
 - FastSpring response **RECEIVED** — see `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`
+- Webhook/entitlement planning **COMPLETE (docs-only)** — see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`
 - Status: **UNDER TEAM REVIEW** via **EMAIL CONTINUATION**
 - Do not enable Live billing or runtime checkout based on reply alone
 - Production billing remains **NO-GO**
