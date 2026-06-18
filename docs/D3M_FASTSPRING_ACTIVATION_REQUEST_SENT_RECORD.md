@@ -157,17 +157,18 @@ When FastSpring replies, record the response in a docs-only phase before taking 
 
 Do not change dashboard settings, tax/KYC, payout, Live mode, webhook/API, or runtime payment behavior until the response is reviewed.
 
-Recommended: `D3M-Payments-FastSpring-Response-Record` — non-sensitive summary of FastSpring reply only.
+Response recorded: `docs/D3M_FASTSPRING_RESPONSE_RECORD.md` — FastSpring response **RECEIVED**; under team review via email continuation; no approval or rejection yet.
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Response-Record` — record and analyze FastSpring's reply when received
+**Primary:** `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — record a manual follow-up email if the user sends one after the waiting window
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping while awaiting FastSpring response
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping while awaiting FastSpring approval
 
 ## Notes For Next Chat
 
 - Activation email sent **2026-06-13** to Louis / FastSpring support via email
-- Status: **awaiting FastSpring response**
-- Do not enable Live billing or runtime checkout based on send alone
+- FastSpring response **RECEIVED** — see `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`
+- Status: **UNDER TEAM REVIEW** via **EMAIL CONTINUATION**
+- Do not enable Live billing or runtime checkout based on reply alone
 - Production billing remains **NO-GO**

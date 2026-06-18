@@ -33,7 +33,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 ## Not Ready Items
 
 - Business details / User Agreement / tax / KYC (dashboard — manual)
-- Await FastSpring response to activation request (sent 2026-06-13)
+- Await FastSpring team review / further reply (response received; under review)
 - Dreemi webhook + entitlement integration (production billing blocker)
 
 ## Ready Items
@@ -45,14 +45,15 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 - SaaS fulfillment decision (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`)
 - Test order PASS on retry (`docs/D3M_FASTSPRING_TEST_ORDER_RETRY_EXECUTION.md`)
 - Activation request sent (`docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`)
+- FastSpring response received — under team review (`docs/D3M_FASTSPRING_RESPONSE_RECORD.md`)
 - School deferred
 - Test order plan + evidence policy
 - Runtime fail-closed (no accidental live checkout from app)
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Response-Record`
+1. `D3M-Payments-FastSpring-Followup-Email-Sent-Record` (if user sends follow-up after waiting window)
 2. `D3M-Payments-FastSpring-Webhook-Integration-Plan`
 3. Business/tax/KYC/User Agreement (manual dashboard)
 
-**Verdict:** **PARTIAL — activation request sent; awaiting FastSpring response. Production billing NO-GO.**
+**Verdict:** **PARTIAL — FastSpring response received; under team review via email continuation. No approval or rejection yet. Production billing NO-GO.**
