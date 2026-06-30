@@ -251,9 +251,10 @@ Constraints:
 - D3M-Payments-FastSpring-Activation-Request-Sent-Record complete: sent **2026-06-13** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`.
 - D3M-Payments-FastSpring-Response-Record complete: FastSpring response received; under team review via email continuation; record at `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`.
 - D3M-Payments-FastSpring-Webhook-Integration-Plan complete: webhook and entitlement runtime planning docs-only; see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`.
-- FastSpring webhook and entitlement runtime planning completed as docs-only. No webhook route, provider API, dashboard setting, env secret, schema migration, runtime checkout, or entitlement runtime change was implemented. Production billing remains No-Go while FastSpring review is pending.
-- Latest phase: FastSpring webhook integration plan.
-- Next recommended: **`D3M-Payments-FastSpring-Followup-Email-Sent-Record`** if user sends follow-up after waiting window, or **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`**.
+- D3M-Payments-FastSpring-Followup-Email-Sent-Record complete: follow-up sent **2026-06-30** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
+- FastSpring follow-up email was sent manually on 2026-06-30 to Louis / FastSpring support via email after no activation review response was received for approximately one week. Awaiting reply. Production billing remains No-Go.
+- Latest phase: FastSpring follow-up email sent record.
+- Next recommended: **`D3M-Payments-FastSpring-Post-Followup-Response-Record`** when reply received, or **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`**.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.
@@ -263,10 +264,9 @@ Constraints:
 - Do not run runtime image/provider calls before explicit safe runtime smoke planning/approval phases (`D3M-Triage-C4` then `D3M-Triage-C5`).
 - Latest commit placeholder after D triage commit: `<LATEST_COMMIT_AFTER_D_TRIAGE>`.
 - The next recommended phase should be:
-  - `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — record a manual follow-up email if the user sends one after the waiting window, or
-  - `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation, or
+  - `D3M-Payments-FastSpring-Post-Followup-Response-Record` — record and analyze FastSpring reply after the follow-up, or
+  - `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation, without runtime changes, or
   - `D3M-Infra-Database-Uptime-Decision` — decide Supabase Pro vs dev-only vs alternative DB, or
-  - `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — if user sends follow-up after waiting window, or
   - `D3M-Payments-Provider-Application-Pack` after FastSpring confirms eligibility, or
   - `D3M-Payments-Lemon-Appeal-Draft` **only** if user explicitly requests appeal (not primary), or
   - `D3M-Triage-D6-PDF` safe local PDF smoke fixture plan, or

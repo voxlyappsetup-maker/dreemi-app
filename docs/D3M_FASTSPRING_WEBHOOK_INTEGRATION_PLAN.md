@@ -301,13 +301,14 @@ This plan advances technical readiness for FastSpring webhooks but does not enab
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — record a manual follow-up email if sent after the waiting window
+**Primary:** `D3M-Payments-FastSpring-Post-Followup-Response-Record` — record and analyze FastSpring's reply after the follow-up
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation, without runtime changes
 
 ## Notes For Next Chat
 
 - Webhook integration is **planned only** — no runtime implementation in this phase
+- Follow-up email **SENT 2026-06-30** — see `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`
 - Do not create FastSpring webhooks or API keys until approval and gates pass
 - Verify official FastSpring event names and signature method before coding
 - Production billing remains **NO-GO**

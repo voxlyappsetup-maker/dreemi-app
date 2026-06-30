@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring catalog dashboard setup COMPLETE:** four launch subscriptions in test/trial dashboard (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). **Website pricing alignment COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). **Refund Policy public visibility COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). **SaaS fulfillment decision COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). **Individual Monthly test checkout PASS on retry**. **FastSpring response RECEIVED** — under team review. **Webhook/entitlement planning COMPLETE (docs-only)** (`docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`); runtime not implemented. Trial store **not Live**.
+**FastSpring catalog dashboard setup COMPLETE:** four launch subscriptions in test/trial dashboard (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). **Website pricing alignment COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). **Refund Policy public visibility COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). **SaaS fulfillment decision COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). **Individual Monthly test checkout PASS on retry**. **Follow-up email SENT 2026-06-30** to Louis / FastSpring support; awaiting reply after follow-up. Webhook/entitlement planning complete (docs-only); runtime not implemented. Trial store **not Live**.
 
 ## 3) Candidate provider categories
 

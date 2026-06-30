@@ -51,7 +51,7 @@ Launch gate reference:
 - `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`
 - `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`
 - Alternative provider selection documented (2026-06-07): primary candidate **FastSpring**, backup **Creem** (`docs/D3M_PAYMENT_PROVIDER_ALTERNATIVE_SELECTION.md`).
-- FastSpring Individual Monthly test checkout **PASS on retry**. **Activation request email SENT 2026-06-13**. **FastSpring response RECEIVED** — under team review via email continuation. **Webhook/entitlement runtime planning COMPLETE (docs-only)** (`docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`); implementation not started. **Activation minimum requirements PARTIAL**. Checkout/webhook/entitlement/Live/payout gates remain blocked. Production billing **NO-GO**.
+- FastSpring Individual Monthly test checkout **PASS on retry**. **Activation request SENT 2026-06-13**. **Follow-up email SENT 2026-06-30** to Louis / FastSpring support; awaiting reply after follow-up. **Webhook/entitlement planning COMPLETE (docs-only)**; runtime not implemented. Production billing **NO-GO**.
 - Database uptime/free-tier auto-pause risk added as production blocker (`docs/D3M_SUPABASE_INACTIVITY_WARNING.md`). Supabase active at manual check time (2026-06-11); production DB uptime decision remains pending.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
 - Local manual smoke evidence is PARTIAL/local-only; D6-Fix improves story detail route only.

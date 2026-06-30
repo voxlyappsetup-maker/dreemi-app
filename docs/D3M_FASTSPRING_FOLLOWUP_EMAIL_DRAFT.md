@@ -2,9 +2,7 @@
 
 ## Status
 
-**DRAFT ONLY — NOT SENT**
-
-This is a docs-only light follow-up email draft for use if no FastSpring reply arrives after a reasonable delay.
+**SENT 2026-06-30** — manual follow-up recorded at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`. Awaiting FastSpring reply after follow-up.
 
 Parent response record: `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`
 
@@ -44,6 +42,6 @@ Do not claim Live billing is enabled or that webhook/entitlement runtime integra
 
 ## Next
 
-**Primary:** `D3M-Payments-FastSpring-Followup-Email-Sent-Record` — after user sends follow-up manually
+**Primary:** `D3M-Payments-FastSpring-Post-Followup-Response-Record` — when FastSpring replies after follow-up
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Integration-Plan` — plan webhook and entitlement mapping while awaiting FastSpring approval
+**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`

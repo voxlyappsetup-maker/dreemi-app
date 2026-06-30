@@ -4,7 +4,7 @@
 
 **Checklist only — no dashboard actions executed in this phase.**
 
-Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). FastSpring response **RECEIVED** — under team review via email continuation. Webhook/entitlement runtime **planned (docs-only)**; not implemented. Activation remains blocked by FastSpring approval, business/tax/KYC/User Agreement, webhook implementation, Live approval, and payout.
+Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). FastSpring response **RECEIVED**; follow-up **SENT 2026-06-30** — awaiting reply after follow-up. Webhook/entitlement runtime **planned (docs-only)**; not implemented. Activation remains blocked by FastSpring approval, business/tax/KYC/User Agreement, webhook implementation, Live approval, and payout.
 
 FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
 
@@ -97,7 +97,7 @@ Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Followup-Email-Sent-Record`
+**Primary:** `D3M-Payments-FastSpring-Post-Followup-Response-Record`
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`
 
