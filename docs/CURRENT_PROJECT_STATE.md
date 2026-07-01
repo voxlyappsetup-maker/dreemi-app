@@ -594,6 +594,10 @@
   - Follow-up email sent manually **2026-06-30** to Louis / FastSpring support via email after ~one week without activation review response; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
   - Awaiting FastSpring reply after follow-up; no dashboard/API/webhook/payout/tax/KYC/Live/runtime change; production billing No-Go.
   - Next: **`D3M-Payments-FastSpring-Post-Followup-Response-Record`** when reply received, or official webhook docs verification.
+- Phase 4-D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record note:
+  - FastSpring asked whether the company is registered and where. User replied manually **2026-07-01** via email to Louis / FastSpring support that Dreemi is not currently operated through a registered company entity and requested individual/natural-person onboarding if supported, with KYC/tax/onboarding to be completed only through FastSpring's official process; record at `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`.
+  - Awaiting FastSpring reply after company registration response; no dashboard/API/webhook/payout/tax/KYC/Live/runtime change; production billing No-Go.
+  - Next: **`D3M-Payments-FastSpring-Company-Registration-Response-Record`** when reply received, or official webhook docs verification.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

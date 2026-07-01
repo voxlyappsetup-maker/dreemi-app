@@ -168,7 +168,8 @@ Recommended: `D3M-Payments-FastSpring-Post-Followup-Response-Record` — non-sen
 ## Notes For Next Chat
 
 - Follow-up email sent **2026-06-30** to Louis / FastSpring support via email
-- Status: **awaiting FastSpring reply after follow-up**
+- Company registration response sent **2026-07-01** — see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`
+- Status: **awaiting FastSpring reply after company registration response**
 - No approval or rejection yet
 - Do not enable Live billing or runtime checkout based on follow-up send alone
 - Production billing remains **NO-GO**

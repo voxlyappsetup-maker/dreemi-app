@@ -114,7 +114,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Followup-Email-Sent-Record`** complete — follow-up sent **2026-06-30** to Louis / FastSpring support (`docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`). Awaiting reply after follow-up. Runtime payment remains unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record`** complete — company registration response sent **2026-07-01** to Louis / FastSpring support (`docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`). Awaiting reply after company registration response. Runtime payment remains unavailable/fail-closed.
 
 Alternative paths:
 

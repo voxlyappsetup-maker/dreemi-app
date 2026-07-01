@@ -162,14 +162,15 @@ FastSpring has replied and the review remains active, but the response does not 
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Post-Followup-Response-Record` — record and analyze FastSpring's reply after the follow-up
+**Primary:** `D3M-Payments-FastSpring-Company-Registration-Response-Record` — record and analyze FastSpring's reply about individual onboarding or company requirement
 
 **Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation, without runtime changes
 
 ## Notes For Next Chat
 
 - FastSpring response **RECEIVED**; follow-up **SENT 2026-06-30** — see `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`
-- Status: **awaiting FastSpring reply after follow-up**
+- Company registration response **SENT 2026-07-01** — see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`
+- Status: **awaiting FastSpring reply after company registration response**
 - Webhook/entitlement runtime **planned (docs-only)** — see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`
 - No approval or rejection yet
 - Production billing remains **NO-GO**

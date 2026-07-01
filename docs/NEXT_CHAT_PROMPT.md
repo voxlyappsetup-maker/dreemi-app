@@ -252,9 +252,10 @@ Constraints:
 - D3M-Payments-FastSpring-Response-Record complete: FastSpring response received; under team review via email continuation; record at `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`.
 - D3M-Payments-FastSpring-Webhook-Integration-Plan complete: webhook and entitlement runtime planning docs-only; see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`.
 - D3M-Payments-FastSpring-Followup-Email-Sent-Record complete: follow-up sent **2026-06-30** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
-- FastSpring follow-up email was sent manually on 2026-06-30 to Louis / FastSpring support via email after no activation review response was received for approximately one week. Awaiting reply. Production billing remains No-Go.
-- Latest phase: FastSpring follow-up email sent record.
-- Next recommended: **`D3M-Payments-FastSpring-Post-Followup-Response-Record`** when reply received, or **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`**.
+- D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record complete: FastSpring asked whether the company is registered and where; user replied manually **2026-07-01** that Dreemi is not currently operated through a registered company entity and requested individual/natural-person onboarding if supported; record at `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`.
+- FastSpring asked whether the company is registered and where. The user replied manually on 2026-07-01 that Dreemi is not currently operated through a registered company entity and requested individual/natural-person onboarding if supported, with KYC/tax/onboarding to be completed only through FastSpring's official process. Awaiting reply. Production billing remains No-Go.
+- Latest phase: FastSpring company registration response sent record.
+- Next recommended: **`D3M-Payments-FastSpring-Company-Registration-Response-Record`** when reply received, or **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`**.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.

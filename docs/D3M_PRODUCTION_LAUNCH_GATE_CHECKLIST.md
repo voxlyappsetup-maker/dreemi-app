@@ -634,7 +634,8 @@ Current: NO-GO
 36. `Payments-FastSpring-Activation-Request-Sent-Record` — **complete** (sent 2026-06-13; see `docs/D3M_FASTSPRING_ACTIVATION_REQUEST_SENT_RECORD.md`).
 37. `Payments-FastSpring-Response-Record` — **complete** (response received; under team review; see `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`).
 38. `Payments-FastSpring-Followup-Email-Sent-Record` — **complete** (sent 2026-06-30; see `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`).
-39. `Payments-FastSpring-Post-Followup-Response-Record` — record FastSpring reply after follow-up when received.
+39. `Payments-FastSpring-Company-Registration-Response-Sent-Record` — **complete** (sent 2026-07-01; see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`).
+40. `Payments-FastSpring-Company-Registration-Response-Record` — record FastSpring reply about individual onboarding or company requirement when received.
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
 34. Final launch gate review.
@@ -643,9 +644,9 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Post-Followup-Response-Record`** (when reply received after follow-up)
+- Primary: **`D3M-Payments-FastSpring-Company-Registration-Response-Record`** (when reply received after company registration response)
 - Alternative: **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`**
-- Follow-up sent gate: **PASS** (2026-06-30). FastSpring response after follow-up gate: **PENDING**. Payment/launch gates remain blocked.
+- Company registration response sent gate: **PASS** (2026-07-01). FastSpring reply after company registration response gate: **PENDING**. Payment/launch gates remain blocked.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

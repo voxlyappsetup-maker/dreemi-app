@@ -27,14 +27,17 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 | 13 | Tax profile complete | Not documented | **Unverified** |
 | 14 | KYC/identity ready | Not documented | **Unverified** |
 | 15 | Contact rep / activation request | **SENT 2026-06-13** to Louis / FastSpring support | **Yes** |
-| 16 | Live mode | Not enabled | N/A (post-approval) |
-| 17 | Payout activated | Not activated | N/A (post-Live) |
+| 16 | Company registration response | **SENT 2026-07-01** to Louis / FastSpring support | **Yes** |
+| 17 | Individual/natural-person onboarding support | Pending FastSpring confirmation | **Pending** |
+| 18 | Live mode | Not enabled | N/A (post-approval) |
+| 19 | Payout activated | Not activated | N/A (post-Live) |
 
 ## Not Ready Items
 
 - Business details / User Agreement / tax / KYC (dashboard — manual)
 - Follow-up sent (`docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`)
-- Await FastSpring reply after follow-up (sent 2026-06-30)
+- Company registration response sent (`docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`)
+- Await FastSpring reply after company registration response (sent 2026-07-01)
 - Dreemi webhook + entitlement integration (production billing blocker) — **planned (docs-only)**; runtime not implemented
 
 ## Ready Items
@@ -53,8 +56,8 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Post-Followup-Response-Record` (when reply received)
+1. `D3M-Payments-FastSpring-Company-Registration-Response-Record` (when reply received)
 2. `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`
 3. Runtime webhook/entitlement implementation (after gates pass)
 
-**Verdict:** **PARTIAL — follow-up sent 2026-06-30; awaiting FastSpring reply after follow-up. No approval or rejection yet. Production billing NO-GO.**
+**Verdict:** **PARTIAL — company registration response sent 2026-07-01; awaiting FastSpring reply. Individual/natural-person onboarding pending confirmation. No approval or rejection yet. Production billing NO-GO.**
