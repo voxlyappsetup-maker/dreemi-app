@@ -2,7 +2,7 @@
 
 ## Status
 
-Docs-only preflight outreach package. **No email was sent in this phase.** No provider application or dashboard setup was performed.
+Docs-only preflight outreach package. **Outreach package prepared in follow-on phase** — see `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`. **No email was sent in this phase.** No provider application or dashboard setup was performed.
 
 Production billing remains **NO-GO**.
 
@@ -89,8 +89,8 @@ Hayssam
 
 ## Next
 
-**Primary:** `D3M-Payments-Provider-Preflight-Outreach` — user sends preflight to PayPro Global, Paddle, and Creem (manual)
+**Primary:** `D3M-Payments-Provider-Preflight-Sent-Record` — after manual send
 
-**Note:** FastSpring category clarification **SENT 2026-07-11** — may refine messaging if reply received; proceed with preflight without long wait.
+**Drafts:** `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md` — prepared, **NOT SENT**
 
 **Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`

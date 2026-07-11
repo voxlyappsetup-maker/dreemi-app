@@ -214,7 +214,7 @@ Do not wait multiple weeks for the clarification response before contacting back
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-Provider-Preflight-Outreach` — send category-acceptance preflight messages to selected providers before any onboarding
+**Primary:** `D3M-Payments-Provider-Preflight-Sent-Record` — record manual sending of selected provider preflight messages
 
 **Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan` — plan story-first paid launch packaging before provider outreach
 

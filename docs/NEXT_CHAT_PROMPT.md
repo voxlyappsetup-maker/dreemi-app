@@ -254,10 +254,10 @@ Constraints:
 - D3M-Payments-FastSpring-Followup-Email-Sent-Record complete: follow-up sent **2026-06-30** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
 - D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record complete (historical): sent **2026-07-01** — superseded by final decline.
 - D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute complete: FastSpring final onboarding **DECLINED** — gateway product-category restriction. FastSpring runtime **FROZEN**. Lemon **rejected/unavailable**. Reroute + preflight package created. Production billing **NO-GO**.
-- D3M-Payments-FastSpring-Category-Clarification-Sent-Record complete: clarification email sent **2026-07-11** to Kevin / FastSpring onboarding and Louis / FastSpring after final decline; record at `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`. Not an appeal. Clarification response **PENDING**.
-- FastSpring category clarification email was sent manually after final decline. The purpose is to determine which product category or feature triggered the gateway restriction before approaching backup providers. FastSpring remains declined/closed/blocked unless it explicitly reopens the path. Provider reroute remains required with preflight category acceptance before any new onboarding. Production billing remains No-Go.
-- Latest phase: FastSpring category clarification sent record.
-- Next recommended: **`D3M-Payments-Provider-Preflight-Outreach`** or **`D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`**.
+- D3M-Payments-Provider-Preflight-Outreach complete: preflight package prepared for PayPro Global, Paddle, Creem — drafts ready, **NOT SENT**; see `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`.
+- Provider preflight outreach package prepared. Draft messages for PayPro Global, Paddle, and Creem are ready but not sent automatically. No provider application, dashboard setup, checkout, API, webhook, tax/KYC, payout, or runtime change occurred. Production billing remains No-Go. Next step is manual preflight sending through official provider channels and then a sent-record phase.
+- Latest phase: Provider preflight outreach package prepared.
+- Next recommended: **`D3M-Payments-Provider-Preflight-Sent-Record`** after manual send.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.

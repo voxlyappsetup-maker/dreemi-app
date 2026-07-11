@@ -200,4 +200,4 @@ Payment reroute must require provider preflight category acceptance before any n
 - Lemon Squeezy: **unavailable/rejected**
 - No active production payment provider
 - Production billing: **NO-GO**
-- Next: **`D3M-Payments-Provider-Preflight-Outreach`** — do not wait weeks for clarification reply
+- Next: **`D3M-Payments-Provider-Preflight-Sent-Record`** after manual send — do not wait weeks for clarification reply

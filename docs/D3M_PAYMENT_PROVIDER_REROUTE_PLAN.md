@@ -106,8 +106,8 @@ Dreemi is not currently operated through a registered company entity. Prior Fast
 
 ## Next
 
-**Primary:** `D3M-Payments-Provider-Preflight-Outreach`
+**Primary:** `D3M-Payments-Provider-Preflight-Sent-Record` — after manual send via official channels
 
-**Note:** FastSpring category clarification **SENT 2026-07-11** — response may refine outreach; do not wait weeks before preflight.
+**Package:** `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md` — **prepared, NOT SENT**
 
 **Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`
