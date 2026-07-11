@@ -2,7 +2,7 @@
 
 ## Status
 
-Docs-only tracking log. All providers **NOT SENT** as of package preparation phase.
+Docs-only tracking log. PayPro Global **SENT 2026-07-11**; Paddle and Creem **NOT SENT**.
 
 Production billing remains **NO-GO**.
 
@@ -14,9 +14,9 @@ Track manual preflight outreach status and response classification for backup pa
 
 | Provider | Message Status | Sent Date | Channel | Response Status | Classification | Key Requirements / Blockers | Next Action |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| PayPro Global | NOT SENT | — | — | PENDING | — | — | prepare manual send |
-| Paddle | NOT SENT | — | — | PENDING | — | — | prepare manual send |
-| Creem | NOT SENT | — | — | PENDING | — | — | prepare manual send |
+| PayPro Global | SENT | 2026-07-11 | Talk to Sales / contact form | PENDING | PENDING | category and founder-profile fit not confirmed | wait for response |
+| Paddle | NOT SENT | — | — | PENDING | — | not contacted | prepare/manual send if needed |
+| Creem | NOT SENT | — | — | PENDING | — | not contacted | prepare/manual send if needed |
 
 ## Response Classification
 
@@ -32,4 +32,4 @@ See `docs/D3M_PROVIDER_PREFLIGHT_DECISION_RULES.md`
 
 ## Next
 
-Manual send via `docs/D3M_PROVIDER_PREFLIGHT_SEND_CHECKLIST.md`, then `D3M-Payments-Provider-Preflight-Sent-Record`
+Wait for PayPro Global response — `D3M-Payments-PayPro-Preflight-Response-Record`. Sent record: `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`

@@ -2,9 +2,9 @@
 
 ## Status
 
-**Draft only. Not sent in this phase.**
+**Sent manually 2026-07-11** via Talk to Sales / contact form. Demo-booking confirmation received — **not** category acceptance. Response **PENDING**.
 
-No provider application, dashboard, checkout, API, webhook, or runtime action was performed.
+No provider account, dashboard, checkout, API, webhook, or runtime action was performed in this record phase.
 
 ## Purpose
 
@@ -47,6 +47,6 @@ See `docs/D3M_PROVIDER_PREFLIGHT_SEND_CHECKLIST.md`
 
 ## Next
 
-After manual send: `D3M-Payments-Provider-Preflight-Sent-Record`
+Sent **2026-07-11** — see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`
 
-After reply: record response classification in tracking log
+After reply: `D3M-Payments-PayPro-Preflight-Response-Record`. If call pushed first: `docs/D3M_PAYPRO_GLOBAL_FIRST_REPLY_HANDLING_DRAFT.md`

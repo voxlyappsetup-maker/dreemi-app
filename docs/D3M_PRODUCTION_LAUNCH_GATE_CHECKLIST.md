@@ -637,8 +637,9 @@ Current: NO-GO
 39. `Payments-FastSpring-Company-Registration-Response-Sent-Record` — **complete** (sent 2026-07-01; see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`).
 40. `Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute` — **complete** (FastSpring **DECLINED**; reroute + preflight; see `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`).
 41. `Payments-FastSpring-Category-Clarification-Sent-Record` — **complete** (sent 2026-07-11; see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`).
-42. `Payments-Provider-Preflight-Outreach` — **complete** (drafts ready, not sent; see `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`).
-43. `Payments-Provider-Preflight-Sent-Record` — record manual preflight sends after user sends via official channels.
+42. `Payments-Provider-Preflight-Outreach` — **complete** (drafts ready; see `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`).
+43. `Payments-Provider-Preflight-Sent-Record` — **complete** (PayPro Global **SENT 2026-07-11**; see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`).
+44. `Payments-PayPro-Preflight-Response-Record` — record and classify PayPro Global response when received.
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
 34. Final launch gate review.
@@ -647,7 +648,7 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Provider preflight package gate: **PASS**. Provider outreach sent gate: **PENDING**. Payment reroute gate: **OPEN**. Production billing **NO-GO**.
+- PayPro Global preflight sent gate: **PASS** (2026-07-11). PayPro Global response gate: **PENDING**. Provider category acceptance gate: **REQUIRED / BLOCKED**. Payment reroute gate: **OPEN**. Production billing **NO-GO**.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

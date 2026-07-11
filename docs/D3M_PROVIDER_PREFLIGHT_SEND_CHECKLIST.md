@@ -2,7 +2,7 @@
 
 ## Status
 
-Docs-only send checklist. **No messages were sent in this phase.**
+Docs-only send checklist. PayPro Global **SENT 2026-07-11** via Talk to Sales / contact form. Paddle and Creem **NOT SENT**.
 
 Production billing remains **NO-GO**.
 
@@ -20,7 +20,7 @@ Operator checklist for manual provider preflight outreach via official channels 
 
 ## Provider List
 
-- [ ] PayPro Global — draft: `docs/D3M_PAYPRO_GLOBAL_PREFLIGHT_EMAIL_DRAFT.md`
+- [x] PayPro Global — **SENT 2026-07-11** — Talk to Sales / contact form — see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`
 - [ ] Paddle — draft: `docs/D3M_PADDLE_PREFLIGHT_EMAIL_DRAFT.md`
 - [ ] Creem — draft: `docs/D3M_CREEM_PREFLIGHT_EMAIL_DRAFT.md`
 
@@ -55,6 +55,6 @@ Do not include in preflight email:
 
 ## Next
 
-`D3M-Payments-Provider-Preflight-Sent-Record`
+PayPro sent — `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`. Await response: `D3M-Payments-PayPro-Preflight-Response-Record`
 
-After responses: `D3M-Payments-Provider-Preflight-Response-Record` (when created)
+If PayPro pushes call before category answer: `docs/D3M_PAYPRO_GLOBAL_FIRST_REPLY_HANDLING_DRAFT.md`

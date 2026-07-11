@@ -254,10 +254,10 @@ Constraints:
 - D3M-Payments-FastSpring-Followup-Email-Sent-Record complete: follow-up sent **2026-06-30** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
 - D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record complete (historical): sent **2026-07-01** — superseded by final decline.
 - D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute complete: FastSpring final onboarding **DECLINED** — gateway product-category restriction. FastSpring runtime **FROZEN**. Lemon **rejected/unavailable**. Reroute + preflight package created. Production billing **NO-GO**.
-- D3M-Payments-Provider-Preflight-Outreach complete: preflight package prepared for PayPro Global, Paddle, Creem — drafts ready, **NOT SENT**; see `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`.
-- Provider preflight outreach package prepared. Draft messages for PayPro Global, Paddle, and Creem are ready but not sent automatically. No provider application, dashboard setup, checkout, API, webhook, tax/KYC, payout, or runtime change occurred. Production billing remains No-Go. Next step is manual preflight sending through official provider channels and then a sent-record phase.
-- Latest phase: Provider preflight outreach package prepared.
-- Next recommended: **`D3M-Payments-Provider-Preflight-Sent-Record`** after manual send.
+- D3M-Payments-Provider-Preflight-Sent-Record complete: PayPro Global preflight **SENT 2026-07-11** via Talk to Sales / contact form — demo-booking confirmation only, **not** category acceptance; see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`.
+- PayPro Global preflight was submitted manually on 2026-07-11 through Talk to Sales / contact form and showed a “Thanks for booking” confirmation. This is not category acceptance or onboarding approval. PayPro response is pending. Paddle and Creem remain not sent. No provider dashboard, checkout, catalog, API, webhook, tax/KYC, payout, or runtime changes occurred. Production billing remains No-Go.
+- Latest phase: PayPro Global preflight sent record.
+- Next recommended: **`D3M-Payments-PayPro-Preflight-Response-Record`** when PayPro replies.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.

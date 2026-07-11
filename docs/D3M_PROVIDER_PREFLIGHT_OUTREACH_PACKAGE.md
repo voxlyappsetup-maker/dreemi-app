@@ -76,9 +76,9 @@ FastSpring and Lemon Squeezy both consumed significant time before the product-c
 
 | Provider | Role | Current Status | Preflight Required | Notes |
 | --- | --- | --- | --- | --- |
-| PayPro Global | backup MoR/subscription candidate | not contacted in this phase | yes | category and founder-profile fit must be confirmed |
-| Paddle | cautious backup MoR/subscription candidate | not contacted in this phase | yes | category and founder-profile fit must be confirmed |
-| Creem | backup candidate | not contacted in this phase | yes | category and founder-profile fit must be confirmed |
+| PayPro Global | backup MoR/subscription candidate | **SENT 2026-07-11** | yes | Talk to Sales / contact form — response **PENDING** |
+| Paddle | cautious backup MoR/subscription candidate | not sent | yes | category and founder-profile fit must be confirmed |
+| Creem | backup candidate | not sent | yes | category and founder-profile fit must be confirmed |
 
 ## Product Positioning For Preflight
 
@@ -198,7 +198,9 @@ This package prepares faster, safer provider screening, but does not enable prod
 
 Provider preflight package gate: **PASS**.
 
-Provider outreach sent gate: **PENDING**.
+Provider outreach sent gate: **PASS** (PayPro Global **2026-07-11**).
+
+PayPro Global response gate: **PENDING**.
 
 Provider category acceptance gate: **REQUIRED / BLOCKED**.
 
@@ -218,14 +220,14 @@ Production billing: **NO-GO**.
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-Provider-Preflight-Sent-Record` — record manual sending of selected provider preflight messages
+**Primary:** `D3M-Payments-PayPro-Preflight-Response-Record` — record and classify PayPro Global's response when received
 
-**Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan` — plan story-first product packaging before any provider onboarding
+**Alternative:** `D3M-Payments-Provider-Preflight-Sent-Record-2` — record manual sending to Paddle and/or Creem if sent
 
 ## Notes For Next Chat
 
-- Preflight outreach package **prepared** — drafts ready for PayPro Global, Paddle, Creem
-- **NOT SENT** in this phase — manual send required
+- PayPro Global preflight **SENT 2026-07-11** via Talk to Sales / contact form — demo-booking confirmation only, **not** category acceptance
+- PayPro response **PENDING**; Paddle and Creem **NOT SENT**
 - FastSpring: **DECLINED**; Lemon: **rejected**; no active provider
 - Production billing: **NO-GO**
-- Next: manual preflight send via official channels, then sent-record phase
+- Next: wait for PayPro reply; use `docs/D3M_PAYPRO_GLOBAL_FIRST_REPLY_HANDLING_DRAFT.md` if call pushed before category answer

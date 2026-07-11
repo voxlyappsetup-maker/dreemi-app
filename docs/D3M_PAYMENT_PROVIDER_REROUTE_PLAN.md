@@ -106,8 +106,8 @@ Dreemi is not currently operated through a registered company entity. Prior Fast
 
 ## Next
 
-**Primary:** `D3M-Payments-Provider-Preflight-Sent-Record` — after manual send via official channels
+**Primary:** `D3M-Payments-PayPro-Preflight-Response-Record` — when PayPro Global replies
 
-**Package:** `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md` — **prepared, NOT SENT**
+**Sent record:** `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md` — PayPro **SENT 2026-07-11**; Paddle/Creem **NOT SENT**
 
-**Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`
+**Alternative:** `D3M-Payments-Provider-Preflight-Sent-Record-2` — Paddle and/or Creem if sent

@@ -608,6 +608,10 @@
   - Provider preflight outreach package prepared for PayPro Global, Paddle, and Creem; drafts ready but **NOT SENT** automatically; records at `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md` and provider draft docs.
   - No provider application, dashboard, checkout, API, webhook, tax/KYC, payout, or runtime change. Production billing No-Go.
   - Next: **`D3M-Payments-Provider-Preflight-Sent-Record`** after manual send via official channels.
+- Phase 4-D3M-Payments-Provider-Preflight-Sent-Record note:
+  - PayPro Global preflight submitted manually **2026-07-11** via Talk to Sales / contact form; visible confirmation: demo-booking / “Thanks for booking” — **not** category acceptance; record at `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`.
+  - PayPro response **PENDING**. Paddle and Creem **NOT SENT**. No provider dashboard, checkout, catalog, API, webhook, tax/KYC, payout, or runtime change. Production billing No-Go.
+  - Next: **`D3M-Payments-PayPro-Preflight-Response-Record`** when reply received.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

@@ -51,7 +51,7 @@ Launch gate reference:
 - `docs/D3M_FASTSPRING_APPLICATION_INPUTS_CHECKLIST.md`
 - `docs/D3M_PAYMENT_PRICING_AND_REFUND_DECISION.md`
 - Alternative provider selection documented (2026-06-07): FastSpring was primary candidate — **now DECLINED** (gateway product-category restriction); reroute to PayPro Global / Paddle / Creem with preflight (`docs/D3M_PAYMENT_PROVIDER_REROUTE_PLAN.md`).
-- FastSpring historical: Individual Monthly test checkout **PASS on retry**; activation/onboarding progressed then **final decline received**. Category clarification email **SENT 2026-07-11** after decline (not an appeal). FastSpring runtime **FROZEN**. Lemon Squeezy **unavailable/rejected**. Payment reroute: preflight outreach package **prepared** for PayPro Global, Paddle, Creem — **NOT SENT** yet. Category acceptance required before onboarding. Production billing **NO-GO**.
+- FastSpring historical: Individual Monthly test checkout **PASS on retry**; activation/onboarding progressed then **final decline received**. Category clarification email **SENT 2026-07-11** after decline (not an appeal). FastSpring runtime **FROZEN**. Lemon Squeezy **unavailable/rejected**. PayPro Global preflight **SENT 2026-07-11** (Talk to Sales / contact form) — response **PENDING**; Paddle/Creem **NOT SENT**. Category acceptance required before onboarding. Production billing **NO-GO**.
 - Database uptime/free-tier auto-pause risk added as production blocker (`docs/D3M_SUPABASE_INACTIVITY_WARNING.md`). Supabase active at manual check time (2026-06-11); production DB uptime decision remains pending.
 - Full production remains No-Go until critical launch gates are PASS with explicit evidence.
 - Local manual smoke evidence is PARTIAL/local-only; D6-Fix improves story detail route only.

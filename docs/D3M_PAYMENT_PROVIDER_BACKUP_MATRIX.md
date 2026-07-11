@@ -16,7 +16,7 @@ Quick reference for post-FastSpring provider candidates and preflight gating.
 | --- | --- | --- | --- | --- |
 | FastSpring | Former primary candidate | **DECLINED / CLOSED** | N/A | Clarification **SENT 2026-07-11**; response pending; runtime **FROZEN** |
 | Lemon Squeezy | Former integration | **Rejected / unavailable** | N/A | Not production path |
-| PayPro Global | Backup candidate | **NOT SENT** | **Yes** | Draft: `docs/D3M_PAYPRO_GLOBAL_PREFLIGHT_EMAIL_DRAFT.md` |
+| PayPro Global | Backup candidate | **SENT 2026-07-11** | **Yes** | Talk to Sales / contact form — response **PENDING** — see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md` |
 | Paddle | Cautious backup | **NOT SENT** | **Yes** | Draft: `docs/D3M_PADDLE_PREFLIGHT_EMAIL_DRAFT.md` |
 | Creem | Backup candidate | **NOT SENT** | **Yes** | Draft: `docs/D3M_CREEM_PREFLIGHT_EMAIL_DRAFT.md` |
 | Manual invoice / bank transfer | B2B/school bridge | **Not consumer checkout** | Separate | Not web self-serve paid launch |
@@ -29,4 +29,4 @@ See: `docs/D3M_PAYMENT_PROVIDER_PREFLIGHT_PACKAGE.md`, `docs/D3M_PAYMENT_PROVIDE
 
 ## Next
 
-`D3M-Payments-Provider-Preflight-Sent-Record` — after manual send via official channels. Drafts: `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`
+`D3M-Payments-PayPro-Preflight-Response-Record` — when PayPro replies. Optional: `D3M-Payments-Provider-Preflight-Sent-Record-2` for Paddle/Creem.

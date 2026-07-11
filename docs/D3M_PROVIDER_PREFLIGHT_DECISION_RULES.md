@@ -60,4 +60,4 @@ After one provider receives **ACCEPTABLE** or workable **CONDITIONAL**, pause ou
 
 ## Next
 
-Apply after manual send and provider replies — update `docs/D3M_PROVIDER_PREFLIGHT_TRACKING_LOG.md`
+PayPro Global **SENT 2026-07-11** — await response. Apply classification when reply received — update `docs/D3M_PROVIDER_PREFLIGHT_TRACKING_LOG.md`
