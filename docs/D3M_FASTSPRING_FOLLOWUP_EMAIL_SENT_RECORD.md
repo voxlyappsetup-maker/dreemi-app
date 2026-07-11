@@ -2,6 +2,8 @@
 
 ## Status
 
+**HISTORICAL — superseded by final FastSpring decline.** See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+
 This is a docs-only record that a FastSpring follow-up email was sent manually.
 
 No email was sent automatically by this phase.
@@ -167,9 +169,7 @@ Recommended: `D3M-Payments-FastSpring-Post-Followup-Response-Record` — non-sen
 
 ## Notes For Next Chat
 
-- Follow-up email sent **2026-06-30** to Louis / FastSpring support via email
-- Company registration response sent **2026-07-01** — see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`
-- Status: **awaiting FastSpring reply after company registration response**
-- No approval or rejection yet
-- Do not enable Live billing or runtime checkout based on follow-up send alone
+- Follow-up email sent **2026-06-30** (historical)
+- **Superseded:** FastSpring final decline — see `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`
+- FastSpring runtime: **FROZEN**
 - Production billing remains **NO-GO**

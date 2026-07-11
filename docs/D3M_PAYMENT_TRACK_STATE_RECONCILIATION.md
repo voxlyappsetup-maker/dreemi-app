@@ -5,7 +5,8 @@
 - Phase: `Phase 4-D3M-Checkpoint — Payment track state reconciliation`.
 - Type: documentation-only reconciliation.
 - Runtime/config/env/provider behavior changes: none in this checkpoint.
-- **Update (FastSpring catalog dashboard setup COMPLETE):** Individual/Family monthly/yearly in test/trial dashboard; runtime fail-closed; no integration.
+- **Update (FastSpring final decline):** FastSpring onboarding **DECLINED** — gateway product-category restriction. Supersedes prior pending/onboarding status. FastSpring runtime **FROZEN**. Lemon **rejected/unavailable**. Payment reroute with preflight required. See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+- **Update (FastSpring catalog dashboard setup COMPLETE — historical):** Individual/Family monthly/yearly in test/trial dashboard; runtime fail-closed; no integration.
 
 ## Why This Checkpoint Exists
 
@@ -114,7 +115,7 @@ Read-only inspection confirms:
 
 Primary recommended next phase:
 
-- **`D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record`** complete — company registration response sent **2026-07-01** to Louis / FastSpring support (`docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`). Awaiting reply after company registration response. Runtime payment remains unavailable/fail-closed.
+- **`D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute`** complete — FastSpring **DECLINED**; reroute plan + preflight package (`docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`, `docs/D3M_PAYMENT_PROVIDER_REROUTE_PLAN.md`).
 
 Alternative paths:
 

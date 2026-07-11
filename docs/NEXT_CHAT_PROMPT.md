@@ -252,10 +252,11 @@ Constraints:
 - D3M-Payments-FastSpring-Response-Record complete: FastSpring response received; under team review via email continuation; record at `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`.
 - D3M-Payments-FastSpring-Webhook-Integration-Plan complete: webhook and entitlement runtime planning docs-only; see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`.
 - D3M-Payments-FastSpring-Followup-Email-Sent-Record complete: follow-up sent **2026-06-30** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
-- D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record complete: FastSpring asked whether the company is registered and where; user replied manually **2026-07-01** that Dreemi is not currently operated through a registered company entity and requested individual/natural-person onboarding if supported; record at `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`.
-- FastSpring asked whether the company is registered and where. The user replied manually on 2026-07-01 that Dreemi is not currently operated through a registered company entity and requested individual/natural-person onboarding if supported, with KYC/tax/onboarding to be completed only through FastSpring's official process. Awaiting reply. Production billing remains No-Go.
-- Latest phase: FastSpring company registration response sent record.
-- Next recommended: **`D3M-Payments-FastSpring-Company-Registration-Response-Record`** when reply received, or **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`**.
+- D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record complete (historical): sent **2026-07-01** — superseded by final decline.
+- D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute complete: FastSpring final onboarding **DECLINED** — gateway product-category restriction. FastSpring runtime **FROZEN**. Lemon **rejected/unavailable**. Reroute + preflight package created. Production billing **NO-GO**.
+- FastSpring final onboarding decision received: declined due to gateway product-category restriction. This supersedes previous risk-cleared/onboarding-pending status. FastSpring is no longer the current primary payment provider path. FastSpring runtime work is frozen. Lemon Squeezy remains unavailable/rejected. Payment reroute is required with preflight category acceptance before any new provider setup. Production billing remains No-Go.
+- Latest phase: FastSpring final decline reconciliation and provider reroute.
+- Next recommended: **`D3M-Payments-Provider-Preflight-Outreach`** or **`D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`**.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.

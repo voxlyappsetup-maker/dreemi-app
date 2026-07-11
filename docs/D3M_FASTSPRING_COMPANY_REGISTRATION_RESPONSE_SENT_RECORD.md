@@ -2,6 +2,8 @@
 
 ## Status
 
+**HISTORICAL — superseded by final FastSpring decline.** See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`. Company registration thread did not cause final decline per stated reason.
+
 This is a docs-only record that the user manually replied to FastSpring's company registration question.
 
 No email was sent automatically by this phase.
@@ -224,9 +226,7 @@ If FastSpring requires a registered company before activation, record the requir
 
 ## Notes For Next Chat
 
-- Company registration response sent **2026-07-01** to Louis / FastSpring support via email
-- Status: **awaiting FastSpring reply after company registration response**
-- Application posture: **individual founder / natural-person onboarding requested**; registered company entity not currently available
-- No approval or rejection yet
-- Do not enable Live billing or runtime checkout based on this reply alone
+- Company registration response sent **2026-07-01** (historical)
+- **Superseded:** FastSpring final decline — gateway product-category restriction — see `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`
+- Final decline reason was **not** stated as company registration
 - Production billing remains **NO-GO**

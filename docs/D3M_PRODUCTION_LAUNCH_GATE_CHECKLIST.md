@@ -578,7 +578,7 @@ Current: NO-GO
 | Blocker | Gate | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
 | Catalog configured in test/trial dashboard | Gate 9 | Critical | **COMPLETE** | Four launch subscriptions created | Website pricing alignment |
-| FastSpring store not Live / activation incomplete | Gate 9 | Critical | BLOCKED | Live approval + catalog + tax/KYC + test order evidence | `D3M-Payments-FastSpring-Activation-Checklist` |
+| FastSpring store / onboarding | Gate 9 | Critical | **CLOSED — DECLINED** | Gateway product-category restriction | Reroute — `D3M_PAYMENT_PROVIDER_REROUTE_PLAN` |
 | Supabase Free auto-pause / production DB uptime unresolved | Gate 3, Gate 4 | Critical | BLOCKED | Supabase Pro vs dev-only vs alternative DB decision + ops evidence | `D3M-Infra-Database-Uptime-Decision` |
 | Payment provider external approval/readiness unresolved | Gate 9 | Critical | BLOCKED | Provider eligibility/KYB/KYC and legal payout closure evidence | `D3M-Payments-External-Verification` |
 | Real checkout/payment/webhook verification missing | Gate 9, Gate 10 | Critical | BLOCKED | Approved-provider checkout/purchase/webhook controlled smoke evidence | `D3M-Payments-External-Verification` |
@@ -635,7 +635,8 @@ Current: NO-GO
 37. `Payments-FastSpring-Response-Record` — **complete** (response received; under team review; see `docs/D3M_FASTSPRING_RESPONSE_RECORD.md`).
 38. `Payments-FastSpring-Followup-Email-Sent-Record` — **complete** (sent 2026-06-30; see `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`).
 39. `Payments-FastSpring-Company-Registration-Response-Sent-Record` — **complete** (sent 2026-07-01; see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`).
-40. `Payments-FastSpring-Company-Registration-Response-Record` — record FastSpring reply about individual onboarding or company requirement when received.
+40. `Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute` — **complete** (FastSpring **DECLINED**; reroute + preflight; see `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`).
+41. `Payments-Provider-Preflight-Outreach` — send category preflight to PayPro Global, Paddle, Creem before any onboarding.
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
 34. Final launch gate review.
@@ -644,15 +645,15 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- Primary: **`D3M-Payments-FastSpring-Company-Registration-Response-Record`** (when reply received after company registration response)
-- Alternative: **`D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`**
-- Company registration response sent gate: **PASS** (2026-07-01). FastSpring reply after company registration response gate: **PENDING**. Payment/launch gates remain blocked.
+- Primary: **`D3M-Payments-Provider-Preflight-Outreach`**
+- Alternative: **`D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`**
+- FastSpring final decline reconciliation gate: **PASS**. FastSpring provider gate: **CLOSED**. Payment reroute gate: **OPEN**. Production billing **NO-GO**.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat
 
 - Test order planning gate **PASS** (`docs/D3M_FASTSPRING_TEST_ORDER_PLAN.md`); actual checkout and production payment gates remain **BLOCKED**.
-- FastSpring activation readiness **PARTIAL** (`docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`); do not mark payment or launch gates PASS.
+- FastSpring track **CLOSED — DECLINED** (`docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`); payment reroute required; do not mark payment or launch gates PASS.
 - Use this checklist as the central Go/No-Go reference and update gate statuses only with explicit evidence.
 - Keep docs-only safety boundaries unless a phase explicitly approves runtime/provider/deploy execution.
 - Do not convert any critical gate to PASS from assumptions or historical memory without fresh evidence linkage.

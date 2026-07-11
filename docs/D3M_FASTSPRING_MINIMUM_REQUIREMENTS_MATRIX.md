@@ -2,7 +2,7 @@
 
 ## Status
 
-**ACTIVE** — derived from `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`. Docs-only; no provider actions performed.
+**HISTORICAL — FastSpring DECLINED; superseded by `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.** Derived from gap audit. Docs-only; no provider actions performed.
 
 ## Purpose
 
@@ -28,17 +28,17 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 | 14 | KYC/identity ready | Not documented | **Unverified** |
 | 15 | Contact rep / activation request | **SENT 2026-06-13** to Louis / FastSpring support | **Yes** |
 | 16 | Company registration response | **SENT 2026-07-01** to Louis / FastSpring support | **Yes** |
-| 17 | Individual/natural-person onboarding support | Pending FastSpring confirmation | **Pending** |
-| 18 | Live mode | Not enabled | N/A (post-approval) |
-| 19 | Payout activated | Not activated | N/A (post-Live) |
+| 17 | Individual/natural-person onboarding support | Superseded by final decline | **Closed** |
+| 18 | Live mode | Not enabled | N/A — path closed |
+| 19 | Payout activated | Not activated | N/A — path closed |
+| 20 | Final onboarding outcome | **DECLINED** — gateway product-category restriction | **Closed** |
 
 ## Not Ready Items
 
-- Business details / User Agreement / tax / KYC (dashboard — manual)
-- Follow-up sent (`docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`)
-- Company registration response sent (`docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`)
-- Await FastSpring reply after company registration response (sent 2026-07-01)
-- Dreemi webhook + entitlement integration (production billing blocker) — **planned (docs-only)**; runtime not implemented
+- FastSpring path **CLOSED** — payment reroute required
+- No active production payment provider
+- Provider category preflight not completed
+- Dreemi webhook + entitlement integration — **FROZEN** for FastSpring; blocked until new provider acceptance
 
 ## Ready Items
 
@@ -56,8 +56,7 @@ Concise matrix view of FastSpring minimum activation requirements vs Dreemi curr
 
 ## Next
 
-1. `D3M-Payments-FastSpring-Company-Registration-Response-Record` (when reply received)
-2. `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`
-3. Runtime webhook/entitlement implementation (after gates pass)
+1. `D3M-Payments-Provider-Preflight-Outreach`
+2. `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`
 
-**Verdict:** **PARTIAL — company registration response sent 2026-07-01; awaiting FastSpring reply. Individual/natural-person onboarding pending confirmation. No approval or rejection yet. Production billing NO-GO.**
+**Verdict:** **CLOSED — FastSpring DECLINED; payment reroute with preflight required. Production billing NO-GO.**

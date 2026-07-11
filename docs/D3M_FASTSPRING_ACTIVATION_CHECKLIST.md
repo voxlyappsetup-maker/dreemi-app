@@ -2,11 +2,11 @@
 
 ## Status
 
-**Checklist only — no dashboard actions executed in this phase.**
+**Checklist only — historical FastSpring due diligence; FastSpring DECLINED — runtime FROZEN.**
 
-Catalog dashboard setup **COMPLETE**. Website pricing alignment **COMPLETE**. Refund Policy visibility **COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). SaaS fulfillment decision **COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). FastSpring response **RECEIVED**; follow-up **SENT 2026-06-30**; company registration response **SENT 2026-07-01** — awaiting reply after company registration response. Webhook/entitlement runtime **planned (docs-only)**; not implemented. Activation remains blocked by FastSpring approval, business/tax/KYC/User Agreement, webhook implementation, Live approval, and payout.
+**Reconciliation:** FastSpring final onboarding decision received: declined due to gateway product-category restriction. This supersedes previous risk-cleared/onboarding-pending status. FastSpring is no longer the current primary payment provider path. FastSpring runtime work is frozen. Lemon Squeezy remains unavailable/rejected. Payment reroute is required with preflight category acceptance before any new provider setup. Production billing remains No-Go. See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
 
-FastSpring store exists in **testing/trial mode**. Store is **not Live**. Production billing **NO-GO**.
+Catalog dashboard setup **COMPLETE** (historical). Website pricing alignment **COMPLETE** (historical). Refund Policy **COMPLETE** (historical). SaaS fulfillment decision **COMPLETE** (historical). FastSpring final result: **DECLINED**. Webhook/entitlement runtime **FROZEN**. FastSpring store was testing/trial mode only — never Live. Production billing **NO-GO**.
 
 Reference: `docs/D3M_FASTSPRING_TRIAL_STORE_SETUP_RECORD.md`
 
@@ -97,8 +97,8 @@ Gap audit: `docs/D3M_FASTSPRING_ACTIVATION_GAP_AUDIT.md`
 
 ## Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Company-Registration-Response-Record`
+**Primary:** `D3M-Payments-Provider-Preflight-Outreach`
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification`
+**Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`
 
 **Rule:** dashboard catalog/test/Live actions require explicit phase approval.

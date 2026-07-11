@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring catalog dashboard setup COMPLETE:** four launch subscriptions in test/trial dashboard (`docs/D3M_FASTSPRING_CATALOG_DASHBOARD_SETUP_RECORD.md`). **Website pricing alignment COMPLETE** (`docs/D3M_FASTSPRING_WEBSITE_PRICING_ALIGNMENT.md`). **Refund Policy public visibility COMPLETE** (`docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md`). **SaaS fulfillment decision COMPLETE** (`docs/D3M_FASTSPRING_SAAS_FULFILLMENT_DECISION.md`). **Individual Monthly test checkout PASS on retry**. **Follow-up email SENT 2026-06-30**. **Company registration response SENT 2026-07-01** to Louis / FastSpring support; awaiting reply after company registration response. Webhook/entitlement planning complete (docs-only); runtime not implemented. Trial store **not Live**.
+**FastSpring catalog dashboard setup COMPLETE (historical).** **Website pricing alignment COMPLETE (historical).** **Refund Policy COMPLETE (historical).** **SaaS fulfillment COMPLETE (historical).** **Individual Monthly test checkout PASS on retry (historical).** **FastSpring final onboarding: DECLINED** — gateway product-category restriction; runtime **FROZEN**. Payment reroute with preflight required (PayPro Global, Paddle, Creem). Trial store **not Live**. Production billing **NO-GO**.
 
 ## 3) Candidate provider categories
 

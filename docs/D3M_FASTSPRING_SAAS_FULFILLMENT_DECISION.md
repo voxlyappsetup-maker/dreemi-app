@@ -2,6 +2,8 @@
 
 ## Status
 
+**HISTORICAL — FastSpring DECLINED; fulfillment decision preserved for reroute reference.** See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+
 This is a docs-only SaaS fulfillment decision record.
 
 No FastSpring dashboard change was made.

@@ -2,6 +2,8 @@
 
 ## Status
 
+**HISTORICAL — superseded by final FastSpring decline.** See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+
 This is a docs-only record of FastSpring's response after the activation request email.
 
 No email was sent automatically by this phase.
@@ -162,15 +164,14 @@ FastSpring has replied and the review remains active, but the response does not 
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Company-Registration-Response-Record` — record and analyze FastSpring's reply about individual onboarding or company requirement
+**Primary:** `D3M-Payments-Provider-Preflight-Outreach` — send category-acceptance preflight messages to selected providers before any onboarding
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation, without runtime changes
+**Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan` — plan story-first paid launch packaging before provider outreach
 
 ## Notes For Next Chat
 
-- FastSpring response **RECEIVED**; follow-up **SENT 2026-06-30** — see `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`
-- Company registration response **SENT 2026-07-01** — see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`
-- Status: **awaiting FastSpring reply after company registration response**
-- Webhook/entitlement runtime **planned (docs-only)** — see `docs/D3M_FASTSPRING_WEBHOOK_INTEGRATION_PLAN.md`
-- No approval or rejection yet
+- FastSpring final onboarding: **DECLINED** — gateway product-category restriction — see `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`
+- Prior response/follow-up/company-registration thread: **historical — superseded**
+- FastSpring runtime: **FROZEN**
+- Payment reroute: **required** — preflight before new provider onboarding
 - Production billing remains **NO-GO**

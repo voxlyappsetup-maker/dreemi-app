@@ -2,6 +2,8 @@
 
 ## Status
 
+**HISTORICAL — superseded by final FastSpring decline.** See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`. FastSpring runtime **FROZEN**. Production billing **NO-GO**.
+
 **COMPLETE** — docs-only activation gap audit. No dashboard, checkout, or provider actions performed.
 
 **Follow-up (Refund Policy alignment):** Refund Policy visibility gap addressed by `docs/D3M_FASTSPRING_REFUND_POLICY_ALIGNMENT.md` — public `/refund` routes and footer links added.
@@ -174,7 +176,7 @@ See also `docs/D3M_FASTSPRING_MINIMUM_REQUIREMENTS_MATRIX.md`.
 
 ## Activation Readiness Verdict
 
-**Verdict: PARTIAL — FastSpring response RECEIVED; under team review via email continuation. No approval or rejection yet.**
+**Verdict: CLOSED — FastSpring final onboarding DECLINED (gateway product-category restriction). Historical audit preserved; reroute required.** See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
 
 **Reason:** Dreemi has completed catalog setup, website pricing alignment, Refund Policy visibility, SaaS fulfillment decision, successful Individual Monthly test checkout retry (PASS), sent the activation request email (2026-06-13), and received a FastSpring reply indicating team review before moving forward. Open items include business/User Agreement/tax/KYC readiness and FastSpring approval.
 
@@ -272,9 +274,9 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-FastSpring-Company-Registration-Response-Record` — record and analyze FastSpring reply after company registration response
+**Primary:** `D3M-Payments-Provider-Preflight-Outreach`
 
-**Alternative:** `D3M-Payments-FastSpring-Webhook-Official-Docs-Verification` — verify official FastSpring webhook docs before implementation
+**Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`
 
 ## Notes For Next Chat
 
@@ -282,7 +284,7 @@ The audit clarifies that Dreemi is not yet fully activation-ready despite comple
 - Preflight Request Demo (2026-06-07) ≠ post-requirements activation request.
 - Do not paste dashboard secrets, tax IDs, or KYC details into repo/chat.
 - Even after FastSpring store activation, Dreemi production billing stays NO-GO until webhook/entitlement/runtime gates pass.
-- Follow-up **SENT 2026-06-30**; company registration response **SENT 2026-07-01**; awaiting FastSpring reply after company registration response (`docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`).
+- Follow-up **SENT 2026-06-30**; company registration response **SENT 2026-07-01**; **superseded by final decline** — see `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
 
 ## Related Artifacts
 

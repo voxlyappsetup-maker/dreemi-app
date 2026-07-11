@@ -2,6 +2,8 @@
 
 ## Status
 
+**FROZEN — historical only.** FastSpring final onboarding **DECLINED**. Do not implement. See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+
 **PLANNING ONLY** — docs-only gate checklist. No runtime implementation was performed.
 
 Production billing remains **NO-GO**.

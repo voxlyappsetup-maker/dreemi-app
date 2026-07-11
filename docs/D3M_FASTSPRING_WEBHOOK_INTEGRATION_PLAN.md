@@ -2,6 +2,8 @@
 
 ## Status
 
+**FROZEN — historical only.** FastSpring final onboarding **DECLINED**. Do not implement. See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+
 This is a docs-only FastSpring webhook integration plan.
 
 No webhook route was implemented.

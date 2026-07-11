@@ -2,6 +2,8 @@
 
 ## Status
 
+**FROZEN — historical only.** FastSpring final onboarding **DECLINED**. Do not implement. See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+
 **PLANNING ONLY** — docs-only test plan. No webhook tests were executed in this phase.
 
 No webhook route was implemented.

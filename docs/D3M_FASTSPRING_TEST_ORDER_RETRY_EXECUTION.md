@@ -2,6 +2,8 @@
 
 ## Status
 
+**HISTORICAL — successful FastSpring test-mode checkout before final decline.** See `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`.
+
 This phase documents a successful manual FastSpring test-mode checkout retry for Dreemi Individual Monthly.
 
 Repository changes are docs-only.
