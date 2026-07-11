@@ -91,4 +91,6 @@ Hayssam
 
 **Primary:** `D3M-Payments-Provider-Preflight-Outreach` — user sends preflight to PayPro Global, Paddle, and Creem (manual)
 
+**Note:** FastSpring category clarification **SENT 2026-07-11** — may refine messaging if reply received; proceed with preflight without long wait.
+
 **Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`

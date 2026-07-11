@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring catalog dashboard setup COMPLETE (historical).** **Website pricing alignment COMPLETE (historical).** **Refund Policy COMPLETE (historical).** **SaaS fulfillment COMPLETE (historical).** **Individual Monthly test checkout PASS on retry (historical).** **FastSpring final onboarding: DECLINED** — gateway product-category restriction; runtime **FROZEN**. Payment reroute with preflight required (PayPro Global, Paddle, Creem). Trial store **not Live**. Production billing **NO-GO**.
+**FastSpring catalog dashboard setup COMPLETE (historical).** **Website pricing alignment COMPLETE (historical).** **Refund Policy COMPLETE (historical).** **SaaS fulfillment COMPLETE (historical).** **Individual Monthly test checkout PASS on retry (historical).** **FastSpring final onboarding: DECLINED** — gateway product-category restriction; runtime **FROZEN**. **Category clarification SENT 2026-07-11** (not an appeal; response pending). Payment reroute with preflight required (PayPro Global, Paddle, Creem). Trial store **not Live**. Production billing **NO-GO**.
 
 ## 3) Candidate provider categories
 

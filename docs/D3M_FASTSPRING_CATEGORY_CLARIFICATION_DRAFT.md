@@ -2,9 +2,9 @@
 
 ## Status
 
-**Draft only — NOT SENT.** No email was sent automatically by this phase.
+**SENT 2026-07-11** — see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`. Draft basis preserved below for reference.
 
-Optional clarification request to Kevin / FastSpring and Louis / FastSpring for understanding only — not an appeal.
+Optional clarification request to Kevin / FastSpring onboarding and Louis / FastSpring for understanding only — not an appeal.
 
 ## Purpose
 

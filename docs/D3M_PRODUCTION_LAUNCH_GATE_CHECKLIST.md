@@ -636,7 +636,8 @@ Current: NO-GO
 38. `Payments-FastSpring-Followup-Email-Sent-Record` — **complete** (sent 2026-06-30; see `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`).
 39. `Payments-FastSpring-Company-Registration-Response-Sent-Record` — **complete** (sent 2026-07-01; see `docs/D3M_FASTSPRING_COMPANY_REGISTRATION_RESPONSE_SENT_RECORD.md`).
 40. `Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute` — **complete** (FastSpring **DECLINED**; reroute + preflight; see `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`).
-41. `Payments-Provider-Preflight-Outreach` — send category preflight to PayPro Global, Paddle, Creem before any onboarding.
+41. `Payments-FastSpring-Category-Clarification-Sent-Record` — **complete** (sent 2026-07-11; see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`).
+42. `Payments-Provider-Preflight-Outreach` — send category preflight to PayPro Global, Paddle, Creem before any onboarding.
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
 34. Final launch gate review.
@@ -647,7 +648,7 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 - Primary: **`D3M-Payments-Provider-Preflight-Outreach`**
 - Alternative: **`D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`**
-- FastSpring final decline reconciliation gate: **PASS**. FastSpring provider gate: **CLOSED**. Payment reroute gate: **OPEN**. Production billing **NO-GO**.
+- FastSpring final decline reconciliation gate: **PASS**. FastSpring category clarification sent gate: **PASS** (2026-07-11). FastSpring clarification response gate: **PENDING**. FastSpring provider gate: **CLOSED**. Payment reroute gate: **OPEN**. Production billing **NO-GO**.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

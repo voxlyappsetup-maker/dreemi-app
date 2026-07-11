@@ -14,7 +14,7 @@ Quick reference for post-FastSpring provider candidates and preflight gating.
 
 | Provider | Role | Current Status | Preflight Required | Notes |
 | --- | --- | --- | --- | --- |
-| FastSpring | Former primary candidate | **DECLINED / CLOSED** | N/A | Gateway product-category restriction; runtime **FROZEN** |
+| FastSpring | Former primary candidate | **DECLINED / CLOSED** | N/A | Clarification **SENT 2026-07-11**; response pending; runtime **FROZEN** |
 | Lemon Squeezy | Former integration | **Rejected / unavailable** | N/A | Not production path |
 | PayPro Global | Backup candidate | **Not started** | **Yes** | Category acceptance before setup |
 | Paddle | Cautious backup | **Not started** | **Yes** | Category acceptance before setup |

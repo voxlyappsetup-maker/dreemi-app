@@ -600,6 +600,10 @@
   - FastSpring final onboarding **DECLINED** — gateway product-category restriction (Kevin / FastSpring onboarding). Supersedes prior risk-cleared/onboarding-pending status. Records at `docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`, `docs/D3M_PAYMENT_PROVIDER_REROUTE_PLAN.md`, `docs/D3M_PAYMENT_PROVIDER_PREFLIGHT_PACKAGE.md`, `docs/D3M_PAID_LAUNCH_RISK_REDUCTION_DECISION.md`.
   - FastSpring runtime **FROZEN**. Lemon **rejected/unavailable**. Payment reroute with preflight category acceptance required. Production billing No-Go.
   - Next: **`D3M-Payments-Provider-Preflight-Outreach`** or **`D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`**.
+- Phase 4-D3M-Payments-FastSpring-Category-Clarification-Sent-Record note:
+  - Category clarification email sent manually **2026-07-11** to Kevin / FastSpring onboarding and Louis / FastSpring via email after final decline; record at `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`.
+  - Purpose: clarify which product category or feature triggered gateway restriction; not an appeal. FastSpring remains **DECLINED/CLOSED/BLOCKED** unless explicitly reopened. Clarification response **PENDING**.
+  - Next: **`D3M-Payments-Provider-Preflight-Outreach`** (do not wait weeks for clarification reply).
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

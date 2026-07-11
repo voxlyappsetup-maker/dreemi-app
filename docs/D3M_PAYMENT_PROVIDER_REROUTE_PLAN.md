@@ -108,4 +108,6 @@ Dreemi is not currently operated through a registered company entity. Prior Fast
 
 **Primary:** `D3M-Payments-Provider-Preflight-Outreach`
 
+**Note:** FastSpring category clarification **SENT 2026-07-11** — response may refine outreach; do not wait weeks before preflight.
+
 **Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`

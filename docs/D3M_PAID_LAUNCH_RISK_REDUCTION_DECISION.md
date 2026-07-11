@@ -56,4 +56,6 @@ Owner should confirm story-first Paid Launch v1 scope before provider preflight 
 
 **Primary:** `D3M-Payments-Provider-Preflight-Outreach`
 
+**Note:** FastSpring category clarification **SENT 2026-07-11** — may inform story-first packaging emphasis if reply indicates image-generation sensitivity.
+
 **Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`

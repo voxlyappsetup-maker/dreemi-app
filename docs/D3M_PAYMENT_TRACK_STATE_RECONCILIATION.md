@@ -116,6 +116,7 @@ Read-only inspection confirms:
 Primary recommended next phase:
 
 - **`D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute`** complete — FastSpring **DECLINED**; reroute plan + preflight package (`docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`, `docs/D3M_PAYMENT_PROVIDER_REROUTE_PLAN.md`).
+- **`D3M-Payments-FastSpring-Category-Clarification-Sent-Record`** complete — clarification sent **2026-07-11** to Kevin / FastSpring onboarding and Louis / FastSpring (`docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`). Not an appeal. Response pending. Proceed with provider preflight without long wait.
 
 Alternative paths:
 

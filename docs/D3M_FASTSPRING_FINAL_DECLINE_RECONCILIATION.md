@@ -194,8 +194,10 @@ Payment reroute must require provider preflight category acceptance before any n
 ## Notes For Next Chat
 
 - FastSpring final onboarding decision: **DECLINED** — gateway product-category restriction
+- Category clarification email **SENT 2026-07-11** — see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`
+- Clarification response: **PENDING** — not an appeal
 - FastSpring runtime work: **FROZEN** — historical docs only
 - Lemon Squeezy: **unavailable/rejected**
 - No active production payment provider
 - Production billing: **NO-GO**
-- Next: provider preflight category acceptance before any new onboarding
+- Next: **`D3M-Payments-Provider-Preflight-Outreach`** — do not wait weeks for clarification reply
