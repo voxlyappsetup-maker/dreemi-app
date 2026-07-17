@@ -1,0 +1,35 @@
+project: "Dreemi"
+repository_path: "C:\Projects\qisas-app"
+portfolio_state: "frozen"
+priority: 5
+
+current_gate: "frozen"
+next_external_outcome: >
+  None until a portfolio reactivation decision is issued.
+
+success_metric: >
+  No unapproved scope expansion while the project is frozen.
+
+deadline: null
+
+current_blockers:
+  - Portfolio capacity is intentionally reserved for higher-priority projects
+
+owner_decisions_required: []
+
+last_meaningful_progress:
+  date: 2026-07-12
+  evidence: "Corrected portfolio status initialized from the approved central plan."
+
+next_action: >
+  Record only critical security, data-loss, or state issues.
+
+allowed_work:
+  - critical security fixes
+  - critical data-loss fixes
+  - state documentation
+
+prohibited_work:
+  - new features
+  - new launch phase
+  - major refactoring
