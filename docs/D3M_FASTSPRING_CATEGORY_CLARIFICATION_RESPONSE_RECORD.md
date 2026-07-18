@@ -135,9 +135,9 @@ Disabling images alone would **not** solve FastSpring's generative-AI blocker.
 
 | Provider | Status |
 | --- | --- |
-| PayPro Global | **SENT / PENDING** (2026-07-11, Talk to Sales / contact form) |
-| Paddle | **NOT SENT** |
-| Creem | **NOT SENT** |
+| PayPro Global | **SENT / NO RESPONSE** (2026-07-11; no response as of **2026-07-18**) |
+| Paddle | **NOT SENT** (portfolio **frozen**) |
+| Creem | **NOT SENT** (portfolio **frozen**) |
 
 Future responses must be classified based on explicit **generative-AI category acceptance**, children-focused use case acceptance, founder profile support, and subscription/MoR support.
 
@@ -200,7 +200,7 @@ No Paddle or Creem preflight was sent in this phase.
 | Children-focused AI use case risk unresolved | Payments | High | **OPEN** | Provider category reply | PayPro response record |
 | Story illustration / image-generation risk unresolved | Payments | High | **OPEN** | Provider category reply | PayPro response record |
 | Founder profile / individual seller support not confirmed | Payments | High | **OPEN** | Provider reply on SA individual founder | PayPro response record |
-| PayPro Global response pending | Payments | High | **OPEN** | Written provider reply | PayPro response record |
+| PayPro Global response pending | Payments | High | **NO RESPONSE** (2026-07-18) | Written provider reply | Response record or portfolio exception |
 | Paddle not contacted | Payments | Medium | **OPEN** | Manual send if needed | Preflight sent record 2 |
 | Creem not contacted | Payments | Medium | **OPEN** | Manual send if needed | Preflight sent record 2 |
 | Runtime checkout fail-closed | Runtime | Critical | **OPEN** | Provider + integration | Post-acceptance phases |
@@ -223,7 +223,7 @@ FastSpring provider gate: **BLOCKED / CLOSED**.
 
 Generative AI provider acceptance gate: **REQUIRED**.
 
-PayPro response gate: **PENDING**.
+PayPro response gate: **PENDING / NO RESPONSE** (as of **2026-07-18**).
 
 Paddle/Creem outreach gate: **OPTIONAL / NOT SENT**.
 
@@ -269,6 +269,6 @@ Docs may state:
 - FastSpring clarified blocker: **generative AI** — subscription model **not** the issue
 - FastSpring remains **DECLINED/CLOSED/BLOCKED**; runtime **FROZEN**
 - User acknowledgment reply **SENT 2026-07-15** to Kevin / FastSpring onboarding
-- PayPro Global: **SENT/PENDING**; Paddle/Creem: **NOT SENT**
+- PayPro Global: **SENT / NO RESPONSE** as of **2026-07-18**; Paddle/Creem: **NOT SENT** (portfolio **frozen**)
 - Future preflight must test **generative-AI SaaS acceptance** explicitly
 - Production billing: **NO-GO**

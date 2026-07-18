@@ -16,7 +16,7 @@ Define the post-FastSpring-decline payment provider reroute strategy, candidate 
 | --- | --- |
 | FastSpring | **DECLINED** — gateway product-category restriction, **clarified as generative AI**; runtime **FROZEN** |
 | Lemon Squeezy | **Rejected / unavailable** for this product category |
-| PayPro Global | Backup candidate — **SENT 2026-07-11**; response **PENDING**; preflight required |
+| PayPro Global | Backup candidate — **SENT 2026-07-11**; **NO RESPONSE** as of **2026-07-18**; preflight required |
 | Paddle | Cautious backup candidate — **not started**; preflight required |
 | Creem | Backup candidate — **not started**; preflight required |
 | Manual invoice / bank transfer | Possible later B2B/school bridge only — not consumer checkout |
@@ -107,8 +107,8 @@ Dreemi is not currently operated through a registered company entity. Prior Fast
 
 ## Next
 
-**Primary:** `D3M-Payments-PayPro-Preflight-Response-Record` — when PayPro Global replies
+**Primary:** `D3M-Payments-PayPro-Preflight-Response-Record` — if PayPro Global replies
 
-**Sent record:** `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md` — PayPro **SENT 2026-07-11**; Paddle/Creem **NOT SENT**
+**No-response record:** `docs/D3M_PAYPRO_PREFLIGHT_NO_RESPONSE_RECORD.md` — **NO RESPONSE** as of **2026-07-18**
 
-**Alternative:** `D3M-Payments-Provider-Preflight-Sent-Record-2` — Paddle and/or Creem if sent
+**Alternative (portfolio decision):** `D3M-Portfolio-Dreemi-Reactivation-Or-Exception-Decision` — before additional outreach

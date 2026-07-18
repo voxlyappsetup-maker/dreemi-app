@@ -641,6 +641,7 @@ Current: NO-GO
 43. `Payments-Provider-Preflight-Outreach` — **complete** (drafts ready; see `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`).
 44. `Payments-Provider-Preflight-Sent-Record` — **complete** (PayPro Global **SENT 2026-07-11**; see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`).
 45. `Payments-PayPro-Preflight-Response-Record` — record and classify PayPro Global response when received.
+46. `Payments-PayPro-Preflight-No-Response-Record` — **complete** (NO RESPONSE as of 2026-07-18; see `docs/D3M_PAYPRO_PREFLIGHT_NO_RESPONSE_RECORD.md`).
 32. `Payments-Provider-Application-Pack` — after eligibility confirmed.
 33. Payment provider approval / runtime verification (post-selection).
 34. Final launch gate review.
@@ -649,7 +650,7 @@ Image `C5` runtime smoke remains optional/deferred unless image runtime proof is
 
 ## Recommended Next Phase
 
-- FastSpring clarification response gate: **PASS** (generative AI clarified). Generative AI provider acceptance gate: **REQUIRED**. PayPro Global response gate: **PENDING**. Production billing **NO-GO**.
+- PayPro no-response record gate: **PASS** (2026-07-18). PayPro category acceptance gate: **PENDING / NO RESPONSE**. Portfolio reactivation gate: **REQUIRED** before additional outreach. Production billing **NO-GO**.
 - Alternative: `D3M-Payments-Lemon-Appeal-Draft` — optional appeal only
 
 ## Notes For Next Chat

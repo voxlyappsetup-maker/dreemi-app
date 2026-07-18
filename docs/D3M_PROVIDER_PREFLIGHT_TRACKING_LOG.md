@@ -2,7 +2,7 @@
 
 ## Status
 
-Docs-only tracking log. PayPro Global **SENT 2026-07-11** (response **PENDING**); Paddle and Creem **NOT SENT**. Classify PayPro response on explicit **generative-AI SaaS acceptance** (FastSpring clarified generative AI as blocker).
+Docs-only tracking log. PayPro Global **SENT 2026-07-11** — **NO RESPONSE** as of **2026-07-18**; Paddle and Creem **NOT SENT** (portfolio **frozen**).
 
 Production billing remains **NO-GO**.
 
@@ -14,9 +14,9 @@ Track manual preflight outreach status and response classification for backup pa
 
 | Provider | Message Status | Sent Date | Channel | Response Status | Classification | Key Requirements / Blockers | Next Action |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| PayPro Global | SENT | 2026-07-11 | Talk to Sales / contact form | PENDING | PENDING | category and founder-profile fit not confirmed | wait for response |
-| Paddle | NOT SENT | — | — | PENDING | — | not contacted | prepare/manual send if needed |
-| Creem | NOT SENT | — | — | PENDING | — | not contacted | prepare/manual send if needed |
+| PayPro Global | SENT | 2026-07-11 | Talk to Sales / contact form | **NO RESPONSE** (as of 2026-07-18) | **NO_RESPONSE** | category and founder-profile fit not confirmed | wait or portfolio exception decision |
+| Paddle | NOT SENT | — | — | — | **NOT_STARTED** | not contacted; portfolio **frozen** | blocked unless exception approved |
+| Creem | NOT SENT | — | — | — | **NOT_STARTED** | not contacted; portfolio **frozen** | blocked unless exception approved |
 
 ## Response Classification
 
@@ -32,4 +32,4 @@ See `docs/D3M_PROVIDER_PREFLIGHT_DECISION_RULES.md`
 
 ## Next
 
-Wait for PayPro Global response — `D3M-Payments-PayPro-Preflight-Response-Record`. Sent record: `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`
+PayPro **NO RESPONSE** recorded — `docs/D3M_PAYPRO_PREFLIGHT_NO_RESPONSE_RECORD.md`. If reply received: `D3M-Payments-PayPro-Preflight-Response-Record`. Additional outreach requires portfolio exception.

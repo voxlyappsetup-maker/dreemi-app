@@ -61,4 +61,4 @@ After one provider receives **ACCEPTABLE** or workable **CONDITIONAL**, pause ou
 
 ## Next
 
-PayPro Global **SENT 2026-07-11** — await response. Classify on explicit **generative-AI SaaS acceptance**. FastSpring clarified generative AI as blocker. Apply classification when reply received — update `docs/D3M_PROVIDER_PREFLIGHT_TRACKING_LOG.md`
+PayPro Global **NO RESPONSE** as of **2026-07-18** — see `docs/D3M_PAYPRO_PREFLIGHT_NO_RESPONSE_RECORD.md`. If reply received, classify on generative-AI SaaS acceptance. Additional outreach requires portfolio exception (Dreemi **frozen**).

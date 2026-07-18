@@ -613,8 +613,11 @@
   - Next: **`D3M-Payments-Provider-Preflight-Sent-Record`** after manual send via official channels.
 - Phase 4-D3M-Payments-Provider-Preflight-Sent-Record note:
   - PayPro Global preflight submitted manually **2026-07-11** via Talk to Sales / contact form; visible confirmation: demo-booking / “Thanks for booking” — **not** category acceptance; record at `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`.
-  - PayPro response **PENDING**. Paddle and Creem **NOT SENT**. No provider dashboard, checkout, catalog, API, webhook, tax/KYC, payout, or runtime change. Production billing No-Go.
-  - Next: **`D3M-Payments-PayPro-Preflight-Response-Record`** when reply received.
+  - **Superseded for response status** by no-response record below.
+- Phase 4-D3M-Payments-PayPro-Preflight-No-Response-Record note:
+  - PayPro Global **NO RESPONSE** as of **2026-07-18** — not rejection or category acceptance; record at `docs/D3M_PAYPRO_PREFLIGHT_NO_RESPONSE_RECORD.md`.
+  - FastSpring **DECLINED** (generative AI); Lemon **rejected/unavailable**. Paddle/Creem **NOT SENT** — portfolio **frozen**. Production billing No-Go.
+  - Next: **`D3M-Payments-PayPro-Preflight-Response-Record`** if reply received, or **`D3M-Portfolio-Dreemi-Reactivation-Or-Exception-Decision`** for additional outreach.
 - Phase 4-D3M-Tooling-A note:
   - Local validation helper script is added at `tooling/validate_phase.ps1`.
   - Script consolidates common git/test/lint/build validation steps with summary and exit code handling, plus optional `-StrictScope` and `-SkipBuild`.

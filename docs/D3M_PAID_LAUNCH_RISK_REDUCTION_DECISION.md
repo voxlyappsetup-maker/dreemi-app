@@ -54,8 +54,8 @@ Owner should confirm story-first Paid Launch v1 scope before provider preflight 
 
 ## Next
 
-**Primary:** `D3M-Payments-PayPro-Preflight-Response-Record` — when PayPro replies
+**Primary:** `D3M-Payments-PayPro-Preflight-Response-Record` — if PayPro replies
 
-**Packaging note:** Use story-first positioning in all preflight drafts — see `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md`
+**No-response:** `docs/D3M_PAYPRO_PREFLIGHT_NO_RESPONSE_RECORD.md` — **NO RESPONSE** as of **2026-07-18**
 
-**Alternative:** `D3M-Payments-Provider-Preflight-Sent-Record-2` — Paddle and/or Creem if sent
+**Alternative (portfolio decision):** `D3M-Portfolio-Dreemi-Reactivation-Or-Exception-Decision`

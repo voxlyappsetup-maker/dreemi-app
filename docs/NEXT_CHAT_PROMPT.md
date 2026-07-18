@@ -254,10 +254,10 @@ Constraints:
 - D3M-Payments-FastSpring-Followup-Email-Sent-Record complete: follow-up sent **2026-06-30** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
 - D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record complete (historical): sent **2026-07-01** — superseded by final decline.
 - D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute complete: FastSpring final onboarding **DECLINED** — gateway product-category restriction. FastSpring runtime **FROZEN**. Lemon **rejected/unavailable**. Reroute + preflight package created. Production billing **NO-GO**.
-- D3M-Payments-FastSpring-Category-Clarification-Response-Record complete: FastSpring clarified **generative AI** blocker; subscription model **not** the issue; user acknowledgment **SENT 2026-07-15**; see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`.
-- FastSpring clarified that it cannot process anything involving generative AI, and that the subscription model was not the issue. This refines the prior gateway product-category restriction. FastSpring remains declined/closed/blocked. Future provider preflight must explicitly test generative-AI SaaS acceptance, children-focused use case acceptance, founder profile support, and subscription/MoR support. PayPro Global remains SENT/PENDING; Paddle and Creem remain NOT SENT. Production billing remains No-Go.
-- Latest phase: FastSpring generative AI clarification response record.
-- Next recommended: **`D3M-Payments-PayPro-Preflight-Response-Record`** when PayPro replies.
+- D3M-Payments-PayPro-Preflight-No-Response-Record complete: PayPro Global **NO RESPONSE** as of **2026-07-18** — not rejection or acceptance; see `docs/D3M_PAYPRO_PREFLIGHT_NO_RESPONSE_RECORD.md`.
+- PayPro Global preflight **SENT 2026-07-11** — **NO RESPONSE** as of **2026-07-18**. FastSpring declined (generative AI); Lemon rejected/unavailable. Paddle/Creem **NOT SENT**. Dreemi portfolio **frozen**. Production billing remains No-Go.
+- Latest phase: PayPro preflight no-response record.
+- Next recommended: **`D3M-Payments-PayPro-Preflight-Response-Record`** if PayPro replies; portfolio exception required for additional outreach.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - D3M-Tooling-A adds local helper `tooling/validate_phase.ps1` for consolidated local validation output and summary.

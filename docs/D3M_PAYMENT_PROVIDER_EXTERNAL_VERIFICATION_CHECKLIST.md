@@ -18,7 +18,7 @@
 - Define required questions and documents before applying or integrating.
 - Keep payments disabled until provider/legal/payout verification is completed.
 
-**FastSpring catalog dashboard setup COMPLETE (historical).** **Website pricing alignment COMPLETE (historical).** **Refund Policy COMPLETE (historical).** **SaaS fulfillment COMPLETE (historical).** **Individual Monthly test checkout PASS on retry (historical).** **FastSpring final onboarding: DECLINED** — clarified blocker: **generative AI** (subscription model **not** the issue); runtime **FROZEN**. Clarification response **RECORDED**; user acknowledgment **SENT 2026-07-15**. **PayPro Global preflight SENT 2026-07-11** — response **PENDING**. Paddle/Creem **NOT SENT**. Production billing **NO-GO**.
+**FastSpring catalog dashboard setup COMPLETE (historical).** **Website pricing alignment COMPLETE (historical).** **Refund Policy COMPLETE (historical).** **SaaS fulfillment COMPLETE (historical).** **Individual Monthly test checkout PASS on retry (historical).** **FastSpring final onboarding: DECLINED** — clarified blocker: **generative AI**. **PayPro Global preflight SENT 2026-07-11 — NO RESPONSE as of 2026-07-18**. Paddle/Creem **NOT SENT**. Dreemi portfolio **frozen**. Production billing **NO-GO**.
 
 ## 3) Candidate provider categories
 
