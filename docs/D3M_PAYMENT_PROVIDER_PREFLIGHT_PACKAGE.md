@@ -8,7 +8,7 @@ Production billing remains **NO-GO**.
 
 ## Purpose
 
-Provide a reusable, safe preflight outreach package for new payment providers after FastSpring final decline — category acceptance must be confirmed in writing before any long onboarding process.
+Provide a reusable, safe preflight outreach package for new payment providers after FastSpring final decline — category acceptance must be confirmed in writing before any long onboarding process. FastSpring clarified **generative AI** as the blocker; subscription model **not** the issue.
 
 ## Product Summary
 

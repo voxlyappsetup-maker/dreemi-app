@@ -40,7 +40,7 @@ Dreemi is positioned as a parent/guardian-managed children's storytelling SaaS w
 
 ## Payment Provider Impact
 
-Story-first packaging may improve category acceptance with PayPro Global, Paddle, Creem, and future providers. Preflight outreach should disclose controlled illustration policy honestly and ask whether illustrations change category classification.
+Story-first packaging may improve category acceptance with PayPro Global, Paddle, Creem, and future providers. Preflight outreach must disclose generative-AI story creation honestly and ask whether **generative AI SaaS** is acceptable — not just SaaS subscriptions. FastSpring clarified generative AI as the blocker; subscription model was **not** the issue. Story-first packaging may reduce image-generation-specific risk but does **not** remove generative-AI risk.
 
 ## Product Impact
 

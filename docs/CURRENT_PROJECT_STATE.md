@@ -602,8 +602,11 @@
   - Next: **`D3M-Payments-Provider-Preflight-Outreach`** or **`D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan`**.
 - Phase 4-D3M-Payments-FastSpring-Category-Clarification-Sent-Record note:
   - Category clarification email sent manually **2026-07-11** to Kevin / FastSpring onboarding and Louis / FastSpring via email after final decline; record at `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`.
-  - Purpose: clarify which product category or feature triggered gateway restriction; not an appeal. FastSpring remains **DECLINED/CLOSED/BLOCKED** unless explicitly reopened. Clarification response **PENDING**.
-  - Next: **`D3M-Payments-Provider-Preflight-Outreach`** (do not wait weeks for clarification reply).
+  - Purpose: clarify which product category or feature triggered gateway restriction; not an appeal. **Superseded by clarification response record.**
+- Phase 4-D3M-Payments-FastSpring-Category-Clarification-Response-Record note:
+  - Kevin / FastSpring onboarding clarified **generative AI** as the blocker; subscription model **not** the issue. User acknowledgment reply **SENT 2026-07-15**; record at `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`.
+  - FastSpring remains **DECLINED/CLOSED/BLOCKED**; runtime **FROZEN**. Future preflight must test generative-AI SaaS acceptance explicitly. PayPro **SENT/PENDING**; Paddle/Creem **NOT SENT**. Production billing No-Go.
+  - Next: **`D3M-Payments-PayPro-Preflight-Response-Record`** when PayPro replies.
 - Phase 4-D3M-Payments-Provider-Preflight-Outreach note:
   - Provider preflight outreach package prepared for PayPro Global, Paddle, and Creem; drafts ready but **NOT SENT** automatically; records at `docs/D3M_PROVIDER_PREFLIGHT_OUTREACH_PACKAGE.md` and provider draft docs.
   - No provider application, dashboard, checkout, API, webhook, tax/KYC, payout, or runtime change. Production billing No-Go.

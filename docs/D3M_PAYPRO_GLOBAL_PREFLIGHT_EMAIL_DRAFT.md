@@ -10,6 +10,10 @@ No provider account, dashboard, checkout, API, webhook, or runtime action was pe
 
 Short category-acceptance preflight message for PayPro Global before any onboarding effort.
 
+## FastSpring Clarification Context
+
+FastSpring declined Dreemi because they cannot process anything involving **generative AI**. Subscription model was **not** the issue. PayPro response classification must explicitly confirm **generative-AI SaaS acceptance** — not just SaaS subscriptions or story-first packaging alone.
+
 ## Draft Email
 
 Subject: Preflight question — AI-assisted children's storytelling SaaS

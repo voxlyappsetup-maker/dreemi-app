@@ -116,7 +116,8 @@ Read-only inspection confirms:
 Primary recommended next phase:
 
 - **`D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute`** complete — FastSpring **DECLINED**; reroute plan + preflight package (`docs/D3M_FASTSPRING_FINAL_DECLINE_RECONCILIATION.md`, `docs/D3M_PAYMENT_PROVIDER_REROUTE_PLAN.md`).
-- **`D3M-Payments-Provider-Preflight-Sent-Record`** complete — PayPro Global **SENT 2026-07-11** via Talk to Sales / contact form; demo-booking confirmation only — **not** category acceptance (`docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`). Paddle/Creem **NOT SENT**.
+- **`D3M-Payments-Provider-Preflight-Sent-Record`** complete — PayPro Global **SENT 2026-07-11** (`docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`).
+- **`D3M-Payments-FastSpring-Category-Clarification-Response-Record`** complete — FastSpring clarified **generative AI** blocker; subscription model **not** the issue; user acknowledgment **SENT 2026-07-15** (`docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`). Paddle/Creem **NOT SENT**.
 
 Alternative paths:
 

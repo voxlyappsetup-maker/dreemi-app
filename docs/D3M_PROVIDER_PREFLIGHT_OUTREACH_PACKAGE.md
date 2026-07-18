@@ -70,7 +70,7 @@ Production billing: **NO-GO**.
 
 ## Why Preflight Is Required
 
-FastSpring and Lemon Squeezy both consumed significant time before the product-category issue became final. Future providers must be screened through written category preflight before any long onboarding, dashboard setup, catalog setup, checkout setup, webhook planning, or runtime implementation.
+FastSpring and Lemon Squeezy both consumed significant time before the product-category issue became final. FastSpring later clarified the blocker as **generative AI** (subscription model **not** the issue). Future providers must be screened through written category preflight before any long onboarding, dashboard setup, catalog setup, checkout setup, webhook planning, or runtime implementation. Preflight must explicitly test **generative-AI SaaS acceptance**.
 
 ## Candidate Providers
 
@@ -99,13 +99,15 @@ Dreemi is an AI-assisted children's storytelling SaaS for adult account owners s
 
 ## Mandatory Questions
 
-1. Can you support onboarding an AI-assisted children's storytelling SaaS?
+1. Can you support onboarding a **generative AI** / AI-assisted children's storytelling SaaS?
 2. Can you support parent/guardian-managed child profile use cases?
 3. Does controlled story illustration / image generation create a prohibited or restricted category issue?
-4. Would a story-first paid launch without standalone image generation be acceptable?
+4. Would a story-first paid launch without standalone image generation be acceptable? (Note: story-first may reduce image risk but does **not** remove generative-AI risk.)
 5. Can you support a Saudi Arabia-based individual founder / natural-person seller, or is a registered company required?
 6. Can you support subscription SaaS / MoR billing for this product type?
 7. What is required before activation?
+
+**FastSpring context:** FastSpring declined because they cannot process anything involving generative AI; subscription billing was **not** the issue.
 
 ## Provider-Specific Drafts
 
@@ -202,7 +204,7 @@ Provider outreach sent gate: **PASS** (PayPro Global **2026-07-11**).
 
 PayPro Global response gate: **PENDING**.
 
-Provider category acceptance gate: **REQUIRED / BLOCKED**.
+Generative AI provider acceptance gate: **REQUIRED** (FastSpring clarified generative AI as blocker).
 
 Provider onboarding gate: **BLOCKED**.
 
@@ -226,8 +228,9 @@ Production billing: **NO-GO**.
 
 ## Notes For Next Chat
 
-- PayPro Global preflight **SENT 2026-07-11** via Talk to Sales / contact form — demo-booking confirmation only, **not** category acceptance
-- PayPro response **PENDING**; Paddle and Creem **NOT SENT**
+- FastSpring clarified blocker: **generative AI** — subscription model **not** the issue — see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`
+- PayPro Global preflight **SENT 2026-07-11** — response **PENDING**; classify on explicit generative-AI acceptance
+- Paddle and Creem **NOT SENT** — future sends must test generative-AI SaaS acceptance explicitly
 - FastSpring: **DECLINED**; Lemon: **rejected**; no active provider
 - Production billing: **NO-GO**
-- Next: wait for PayPro reply; use `docs/D3M_PAYPRO_GLOBAL_FIRST_REPLY_HANDLING_DRAFT.md` if call pushed before category answer
+- Next: **`D3M-Payments-PayPro-Preflight-Response-Record`** when PayPro replies

@@ -10,6 +10,10 @@ No provider application, dashboard, checkout, API, webhook, or runtime action wa
 
 Short category-acceptance preflight message for Creem before any onboarding effort.
 
+## FastSpring Clarification Context
+
+FastSpring declined Dreemi because they cannot process anything involving **generative AI**. Subscription model was **not** the issue. Future sends must ask explicitly about generative-AI SaaS acceptance.
+
 ## Draft Email
 
 Subject: Preflight question — AI-assisted children's storytelling SaaS
@@ -23,10 +27,11 @@ Dreemi is an AI-assisted children's storytelling SaaS for adult account owners s
 
 Could you please confirm:
 1. Whether this product category can be considered for onboarding.
-2. Whether AI-assisted children's storytelling is acceptable under your risk policies.
-3. Whether controlled story illustrations / image generation create a restricted category issue.
-4. Whether a Saudi Arabia-based individual founder / natural-person seller can onboard, or whether a registered company is required.
-5. Whether you support subscription SaaS / MoR billing for this product type.
+2. Whether generative AI / AI-generated story content is acceptable (FastSpring declined for generative AI generally; subscription billing was not the issue).
+3. Whether AI-assisted children's storytelling is acceptable under your risk policies.
+4. Whether controlled story illustrations / image generation create a restricted category issue.
+5. Whether a Saudi Arabia-based individual founder / natural-person seller can onboard, or whether a registered company is required.
+6. Whether you support subscription SaaS / MoR billing for this product type.
 
 I can provide the website, demo, safety controls, privacy policy, and product details if the category is potentially acceptable.
 

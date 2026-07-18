@@ -2,7 +2,7 @@
 
 ## Status
 
-Docs-only tracking log. PayPro Global **SENT 2026-07-11**; Paddle and Creem **NOT SENT**.
+Docs-only tracking log. PayPro Global **SENT 2026-07-11** (response **PENDING**); Paddle and Creem **NOT SENT**. Classify PayPro response on explicit **generative-AI SaaS acceptance** (FastSpring clarified generative AI as blocker).
 
 Production billing remains **NO-GO**.
 

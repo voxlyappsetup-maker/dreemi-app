@@ -2,7 +2,7 @@
 
 ## Status
 
-**SENT 2026-07-11** — see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`. Draft basis preserved below for reference.
+**SENT 2026-07-11** — **RESPONSE RECEIVED** — see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`. Clarified blocker: **generative AI**. User acknowledgment **SENT 2026-07-15**.
 
 Optional clarification request to Kevin / FastSpring onboarding and Louis / FastSpring for understanding only — not an appeal.
 
@@ -45,6 +45,4 @@ https://www.dreemi.app/
 
 ## Next
 
-Optional manual send by user, then record reply in docs-only phase if received.
-
-Primary payment track remains provider preflight outreach: `D3M-Payments-Provider-Preflight-Outreach`
+Response **RECORDED** — `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`. Future preflight must test generative-AI SaaS acceptance explicitly.

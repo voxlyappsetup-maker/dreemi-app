@@ -14,9 +14,9 @@ Define the post-FastSpring-decline payment provider reroute strategy, candidate 
 
 | Provider | Status |
 | --- | --- |
-| FastSpring | **DECLINED** — gateway product-category restriction; runtime **FROZEN** |
+| FastSpring | **DECLINED** — gateway product-category restriction, **clarified as generative AI**; runtime **FROZEN** |
 | Lemon Squeezy | **Rejected / unavailable** for this product category |
-| PayPro Global | Backup candidate — **not started**; preflight required |
+| PayPro Global | Backup candidate — **SENT 2026-07-11**; response **PENDING**; preflight required |
 | Paddle | Cautious backup candidate — **not started**; preflight required |
 | Creem | Backup candidate — **not started**; preflight required |
 | Manual invoice / bank transfer | Possible later B2B/school bridge only — not consumer checkout |
@@ -25,7 +25,7 @@ No active production payment provider is currently approved.
 
 ## Why Reroute Is Required
 
-FastSpring is blocked due to gateway product-category restriction. Lemon Squeezy is unavailable/rejected. Prior FastSpring onboarding progress and risk-cleared signals are superseded by the final decline. Dreemi cannot proceed to production billing on either prior primary path.
+FastSpring is blocked due to gateway product-category restriction, **clarified as generative AI** (subscription model **not** the issue). Lemon Squeezy is unavailable/rejected. Prior FastSpring onboarding progress and risk-cleared signals are superseded by the final decline. Dreemi cannot proceed to production billing on either prior primary path.
 
 ## Reroute Principles
 
@@ -49,6 +49,7 @@ FastSpring is blocked due to gateway product-category restriction. Lemon Squeezy
 
 - Can you support onboarding an AI-assisted children's storytelling SaaS?
 - Can you support parent/guardian-managed child profile use cases?
+- Does the provider support **generative AI SaaS** (not just SaaS subscriptions)?
 - Does controlled story illustration / image generation create a prohibited category issue?
 - Can you support a Saudi Arabia-based individual founder / natural-person seller, or is a registered company required?
 - Can you support subscription billing / MoR handling for this product type?

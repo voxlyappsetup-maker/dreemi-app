@@ -254,9 +254,9 @@ Constraints:
 - D3M-Payments-FastSpring-Followup-Email-Sent-Record complete: follow-up sent **2026-06-30** to Louis / FastSpring support via email; record at `docs/D3M_FASTSPRING_FOLLOWUP_EMAIL_SENT_RECORD.md`.
 - D3M-Payments-FastSpring-Company-Registration-Response-Sent-Record complete (historical): sent **2026-07-01** — superseded by final decline.
 - D3M-Payments-FastSpring-Final-Decline-Reconciliation-And-Provider-Reroute complete: FastSpring final onboarding **DECLINED** — gateway product-category restriction. FastSpring runtime **FROZEN**. Lemon **rejected/unavailable**. Reroute + preflight package created. Production billing **NO-GO**.
-- D3M-Payments-Provider-Preflight-Sent-Record complete: PayPro Global preflight **SENT 2026-07-11** via Talk to Sales / contact form — demo-booking confirmation only, **not** category acceptance; see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md`.
-- PayPro Global preflight was submitted manually on 2026-07-11 through Talk to Sales / contact form and showed a “Thanks for booking” confirmation. This is not category acceptance or onboarding approval. PayPro response is pending. Paddle and Creem remain not sent. No provider dashboard, checkout, catalog, API, webhook, tax/KYC, payout, or runtime changes occurred. Production billing remains No-Go.
-- Latest phase: PayPro Global preflight sent record.
+- D3M-Payments-FastSpring-Category-Clarification-Response-Record complete: FastSpring clarified **generative AI** blocker; subscription model **not** the issue; user acknowledgment **SENT 2026-07-15**; see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`.
+- FastSpring clarified that it cannot process anything involving generative AI, and that the subscription model was not the issue. This refines the prior gateway product-category restriction. FastSpring remains declined/closed/blocked. Future provider preflight must explicitly test generative-AI SaaS acceptance, children-focused use case acceptance, founder profile support, and subscription/MoR support. PayPro Global remains SENT/PENDING; Paddle and Creem remain NOT SENT. Production billing remains No-Go.
+- Latest phase: FastSpring generative AI clarification response record.
 - Next recommended: **`D3M-Payments-PayPro-Preflight-Response-Record`** when PayPro replies.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.
 - Never paste secrets, `.env` values, dashboard secret panels, database URLs, JWT secrets, webhook secrets, or tokens into chat/docs.

@@ -14,7 +14,7 @@ Quick reference for post-FastSpring provider candidates and preflight gating.
 
 | Provider | Role | Current Status | Preflight Required | Notes |
 | --- | --- | --- | --- | --- |
-| FastSpring | Former primary candidate | **DECLINED / CLOSED** | N/A | Clarification **SENT 2026-07-11**; response pending; runtime **FROZEN** |
+| FastSpring | Former primary candidate | **DECLINED / CLOSED** | N/A | Clarified blocker: **generative AI**; clarification response **RECORDED**; runtime **FROZEN** |
 | Lemon Squeezy | Former integration | **Rejected / unavailable** | N/A | Not production path |
 | PayPro Global | Backup candidate | **SENT 2026-07-11** | **Yes** | Talk to Sales / contact form — response **PENDING** — see `docs/D3M_PROVIDER_PREFLIGHT_SENT_RECORD.md` |
 | Paddle | Cautious backup | **NOT SENT** | **Yes** | Draft: `docs/D3M_PADDLE_PREFLIGHT_EMAIL_DRAFT.md` |

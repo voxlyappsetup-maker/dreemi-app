@@ -14,7 +14,7 @@ Standardize accept / conditional / blocked / unclear / no-response decisions bef
 
 ### ACCEPTABLE
 
-Provider confirms the product category can be considered for onboarding and the founder profile (individual or company path stated) is potentially supported. Subscription SaaS / MoR appears feasible. Proceed to **single-provider** setup planning only — not parallel onboarding.
+Provider confirms **generative AI SaaS** and the product category can be considered for onboarding and the founder profile (individual or company path stated) is potentially supported. Subscription SaaS / MoR appears feasible. Proceed to **single-provider** setup planning only — not parallel onboarding.
 
 ### CONDITIONAL
 
@@ -31,6 +31,7 @@ Record conditions explicitly. Evaluate against `docs/D3M_PAID_LAUNCH_RISK_REDUCT
 
 Provider declines category fit. Examples:
 
+- Provider refuses **generative AI** / AI-generated content categorically
 - AI-assisted children's storytelling not supported
 - Children-related SaaS categorically refused
 - Saudi Arabia / individual founder path not supported with no viable alternative
@@ -48,7 +49,7 @@ No reply within agreed waiting window (suggest 7–14 business days). One follow
 
 ## Disqualification Rules
 
-- Disqualify if provider cannot support AI-assisted children's storytelling.
+- Disqualify if provider cannot support **generative AI SaaS** / AI-assisted children's storytelling.
 - Disqualify if provider cannot support founder profile / country path and no viable entity path exists.
 - Disqualify if provider refuses children-related SaaS categorically.
 - Image generation refusal alone → **CONDITIONAL** if story-first without images may be acceptable.
@@ -60,4 +61,4 @@ After one provider receives **ACCEPTABLE** or workable **CONDITIONAL**, pause ou
 
 ## Next
 
-PayPro Global **SENT 2026-07-11** — await response. Apply classification when reply received — update `docs/D3M_PROVIDER_PREFLIGHT_TRACKING_LOG.md`
+PayPro Global **SENT 2026-07-11** — await response. Classify on explicit **generative-AI SaaS acceptance**. FastSpring clarified generative AI as blocker. Apply classification when reply received — update `docs/D3M_PROVIDER_PREFLIGHT_TRACKING_LOG.md`

@@ -209,7 +209,8 @@ Do not begin dashboard setup, catalog setup, checkout setup, API, webhook, tax/K
 ## Notes For Next Chat
 
 - PayPro Global preflight **SENT 2026-07-11** via Talk to Sales / contact form — demo-booking confirmation only, **not** category acceptance.
+- FastSpring clarified **generative AI** as blocker; subscription model **not** the issue — classify PayPro response on generative-AI acceptance explicitly.
 - Wait for PayPro reply; if they push for a call, use email-first category preflight per first-reply handling draft.
-- Paddle and Creem remain **NOT SENT**.
+- Paddle and Creem remain **NOT SENT** — future sends must test generative-AI SaaS acceptance.
 - Production billing remains **NO-GO**.
 - FastSpring **DECLINED/CLOSED/BLOCKED**; Lemon **rejected/unavailable**; no active primary provider.

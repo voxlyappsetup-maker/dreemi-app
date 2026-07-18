@@ -87,6 +87,8 @@ Safe message substance (paraphrased): Kevin / FastSpring onboarding informed Dre
 
 The documented reason is a **gateway-level product-category restriction**. The decline should not be reframed as a missing KYC document, missing company registration, missing webhook implementation, failed test order, pricing issue, or website policy issue unless FastSpring later states that explicitly.
 
+**Update (clarification response):** Kevin / FastSpring onboarding later clarified the restriction as **anything involving generative AI**. Subscription model was **not** the issue. See `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`.
+
 ## What The Decline Does Not Prove
 
 - The decline does not prove that Dreemi is illegal.
@@ -193,11 +195,14 @@ Payment reroute must require provider preflight category acceptance before any n
 
 ## Notes For Next Chat
 
-- FastSpring final onboarding decision: **DECLINED** — gateway product-category restriction
-- Category clarification email **SENT 2026-07-11** — see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_SENT_RECORD.md`
-- Clarification response: **PENDING** — not an appeal
+- FastSpring final onboarding decision: **DECLINED** — gateway product-category restriction, **clarified as generative AI**
+- Subscription model: **not** the issue (Kevin / FastSpring onboarding clarification)
+- Clarification response **RECORDED** — see `docs/D3M_FASTSPRING_CATEGORY_CLARIFICATION_RESPONSE_RECORD.md`
+- User acknowledgment **SENT 2026-07-15** to Kevin / FastSpring onboarding
 - FastSpring runtime work: **FROZEN** — historical docs only
 - Lemon Squeezy: **unavailable/rejected**
+- PayPro Global: **SENT/PENDING**; Paddle/Creem: **NOT SENT**
+- Future preflight must test **generative-AI SaaS acceptance** explicitly
 - No active production payment provider
 - Production billing: **NO-GO**
-- Next: **`D3M-Payments-Provider-Preflight-Sent-Record`** after manual send — do not wait weeks for clarification reply
+- Next: **`D3M-Payments-PayPro-Preflight-Response-Record`** when PayPro replies

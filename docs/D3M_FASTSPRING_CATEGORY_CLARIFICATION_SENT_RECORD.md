@@ -163,7 +163,7 @@ No new provider outreach was sent in this phase.
 | Blocker | Area | Severity | Current Status | Required Evidence | Recommended Phase |
 | --- | --- | --- | --- | --- | --- |
 | FastSpring final decline | Provider | Critical | **CLOSED / BLOCKED** | Decline reconciliation | Reroute plan |
-| FastSpring category clarification response pending | Provider comms | Medium | **PENDING** | Non-sensitive reply summary | Clarification response record |
+| FastSpring category clarification response pending | Provider comms | Medium | **CLOSED** | Generative AI clarified | Response record complete |
 | Lemon Squeezy rejection | Provider | Critical | **BLOCKED** | Prior rejection record | Reroute plan |
 | No active production payment provider | Payment | Critical | **BLOCKED** | Provider acceptance | Preflight outreach |
 | Product category risk unresolved | Product/risk | High | **OPEN** | Provider or FastSpring clarification | Preflight + packaging |
@@ -182,9 +182,7 @@ The clarification email may help improve future provider positioning, but it doe
 
 ## Launch Gate Impact
 
-FastSpring category clarification sent gate: **PASS**.
-
-FastSpring clarification response gate: **PENDING**.
+FastSpring clarification response gate: **PASS** (generative AI clarified).
 
 FastSpring provider gate: **BLOCKED / CLOSED**.
 
@@ -214,7 +212,7 @@ Do not wait multiple weeks for the clarification response before contacting back
 
 ## Recommended Next Phase
 
-**Primary:** `D3M-Payments-Provider-Preflight-Sent-Record` — record manual sending of selected provider preflight messages
+**Primary:** `D3M-Payments-PayPro-Preflight-Response-Record` — when PayPro Global replies
 
 **Alternative:** `D3M-Product-Paid-Launch-Risk-Reduction-Implementation-Plan` — plan story-first paid launch packaging before provider outreach
 
